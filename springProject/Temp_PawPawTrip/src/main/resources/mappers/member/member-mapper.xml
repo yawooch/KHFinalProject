@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Mapper 설정 파일임을 선언 -->
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!-- namespace는 외부에서 mapper에 접근할 수 있는 이름 -->
+<mapper namespace="com.kh.mvc.member.model.mapper.MemberMapper">
+	<!-- 
+		중복되는 쿼리를 재사용하기 위한 SQL 조각으로 사용하려는 요소보다
+		항상 위에 있어야한다.
+	-->
+	<sql id="selectMemberSql">
+		SELECT NO,
+			   ID,
+			   PASSWORD,
+			   ROLE,
+			   NAME,
+			   EMAIL,
+			   PHONE,
+			   ADDRESS,
+			   HOBBY,
+			   STATUS,
+			   ENROLL_DATE,
+			   MODIFY_DATE
+		FROM MEMBER
+	</sql>	
+
+
+	<!--  
+		resultMap은 DB의 조회 결과와 자바 객체를 명시적으로 
+		매핑할 때 사용한다.
+	-->
+	<resultMap id="memberResultMap" type="Member" >
+		<!-- id 태그는 조회 결과의 기본 키 컬럼을 매핑한다. -->
+		<!-- property : 필드명, column : 컬럼명 -->
+		<id property="no" column="NO"/>
+		
+		<!-- result 태그는 조회 결과의 일반 컬럼을 매핑한다. -->
+		<result property="id" column="ID" />
+		<result property="password" column="PASSWORD"/>
+		<result property="role" column="ROLE"/>
+		<result property="name" column="NAME"/>
+		<result property="phone" column="PHONE"/>
+		<result property="email" column="EMAIL"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="hobby" column="HOBBY"/>
+		<result property="status" column="STATUS"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="modifyDate" column="MODIFY_DATE"/>
+	</resultMap>
+
+	<select id="selectCount" resultType="_int">
+		SELECT COUNT(*) FROM MEMBER
+	</select>
+	
+	<!--  
+		쿼리문의 수행 결과가 담긴 ResultSet은 resultType의 객체에
+		조회 결과를 자동으로 매핑해서 리턴한다.
+		단, 조회 결과의 컬럼명과 자바 클래스의 필드명이 동일해야 자동으로
+		매핑된다. (대소문자는 구분하지 않는다.)
+		
+	<select id="selectAll" resultType="Member">
+	-->
+	<select id="selectAll" resultMap="memberResultMap">
+		<!--  
+		방법 1) 쿼리문에 "AS 별칭"으로 조회되는 컬럼명을 변경한다.	
+		SELECT NO,
+			   ID,
+			   PASSWORD,
+			   ROLE,
+			   NAME,
+			   EMAIL,
+			   PHONE,
+			   ADDRESS,
+			   HOBBY,
+			   STATUS,
+			   ENROLL_DATE AS "enrollDate",
+			   MODIFY_DATE AS "modifyDate"
+		FROM MEMBER
+		WHERE STATUS = 'Y'
+		-->
+		
+		<!--  
+		방법 2) resultMap을 이용해서 명시적으로 컬럼과 필드를 매핑한다.
+		-->
+		<include refid="selectMemberSql" />
+		WHERE STATUS = 'Y'
+	</select>
+	
+	<select id="selectMemberById" parameterType="string" 
+			resultMap="memberResultMap">
+		<include refid="selectMemberSql" />
+		WHERE STATUS = 'Y' AND ID = #{id}
+	</select>
+	
+	<!--  
+		useGeneratedKeys : PK 값을 받아올 수 있도록 허용하는 속성
+		keyColumn : PK에 해당하는 컬럼을 지정하는 속성
+		keyProperty : PK 값이 담길 파라미터의 객체의 필드명을 지정하는 속성
+	-->
+	<insert id="insertMember" parameterType="Member"
+		useGeneratedKeys="true" keyColumn="NO" keyProperty="no">
+		INSERT INTO MEMBER (
+		  	NO,
+		   	ID,
+		   	PASSWORD,
+		   	NAME,
+		   	EMAIL,
+		   	PHONE,
+		   	ADDRESS,
+		   	HOBBY
+	    ) VALUES (
+	    	SEQ_UNO.NEXTVAL,
+	    	#{id},
+	    	#{password},
+	    	#{name},
+	    	#{email},
+	    	#{phone},
+	    	#{address},
+	    	#{hobby}
+	    )
+	</insert>
+	
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		SET
+			NAME = #{name},
+			PASSWORD = #{password},
+			PHONE = #{phone},
+			EMAIL = #{email},
+			ADDRESS = #{address},
+			HOBBY = #{hobby},
+			MODIFY_DATE = SYSDATE
+		WHERE NO = #{no}	
+	</update>
+	
+	<delete id="deleteMember" parameterType="_int">
+		DELETE
+		FROM MEMBER
+		WHERE NO = #{no}
+	</delete>
+	
+</mapper>
