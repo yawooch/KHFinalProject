@@ -124,6 +124,12 @@ h1.favoriteTitle{
   filter: grayscale(0%);
   opacity: 1;
 }
+
+@media (min-width: 1200px) {
+	#template-mo-zay-hero-carousel{
+		width:1200px;
+	}
+}
 /* Carousel Hero */
 #template-mo-zay-hero-carousel .carousel-indicators li {
   margin-top: -50px;
