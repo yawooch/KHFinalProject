@@ -1,0 +1,116 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="notice-wrap">
+		<div class="notice-content">
+			<div class="notice-title">
+				<p>공지사항</p>
+			</div>
+			<div class="notice-container">
+				<div class="notice-sideMenu">
+					<ul>
+						<li class="community-text">커뮤니티</li>
+						<li class="notice-text"><a href="#">공지사항</a></li>
+						<li class="board-text"><a href="#">자유 게시판</a>
+
+							<ul class="notice-detail-sideMenu">
+								<li><a href="#">수다</a></li>
+								<li><a href="#">마이펫 자랑</a></li>
+							</ul></li>
+					</ul>
+				</div>
+				<div class="notice-list">
+					<div class="notice-search">
+						<div>
+							TOTAL <span>26</span>건
+						</div>
+						<div>
+							<select name="noticeSelect" id="noticeSelect">
+								<option value="title" selected>제목</option>
+								<option value="name">작성자</option>
+								<option value="content">내용</option>
+							</select>
+						</div>
+						<div>
+							<img src="../resources/img/search.png"> <input type="text"
+								name="noticeSearch" id="noticeSearch" placeholder="검색어를 입력해주세요.">
+						</div>
+						<div>
+							<button>검색</button>
+						</div>
+					</div>
+					<div class="notice-detail-list">
+						<table border="1">
+							<tr>
+								<td>번호</td>
+								<td style="text-align: center; cursor: default;">제목</td>
+								<td>작성자</td>
+								<td style="text-align: center;">조회수</td>
+								<td>등록일</td>
+							</tr>
+							<tr>
+								<td><img src="../resources/img/ant-design_sound-filled.png"
+									alt=""></td>
+								<td
+									style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
+									href="#">[공지사항] 2023 영월 댕댕트레인 안내!</a></td>
+								<td>관리자</td>
+								<td>139</td>
+								<td>2023-10-13</td>
+							</tr>
+							<tr>
+								<td><img src="../resources/img/ant-design_sound-filled.png"
+									alt=""></td>
+								<td
+									style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
+									href="#">[공지사항] 댕댕트레킹, 프라이빗 반려견 트레킹 코스</a></td>
+								<td>관리자</td>
+								<td>247</td>
+								<td>2023-05-09</td>
+							</tr>
+							<tr>
+								<td><img src="../resources/img/ant-design_sound-filled.png"
+									alt=""></td>
+								<td
+									style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
+									href="#">[공지사항] 2023 춘천 반려동물 페스티벌</a></td>
+								<td>관리자</td>
+								<td>350</td>
+								<td>2023-05-04</td>
+							</tr>
+							<tr>
+								<td><img src="../resources/img/ant-design_sound-filled.png"
+									alt=""></td>
+								<td
+									style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
+									href="#">[공지사항] '전국댕댕자랑' 수상작 발표~!!!!</a></td>
+								<td>관리자</td>
+								<td>1236</td>
+								<td>2022-12-12</td>
+							</tr>
+						</table>
+					</div>
+					<div class="notice-page-number">
+						<ul>
+							<li><a href="#"><</a></li>
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
+</html>
