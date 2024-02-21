@@ -31,8 +31,8 @@ Table of contents
 /* Typography */
 body, ul, li, p, a, label, input, div {
   font-family: 'Noto Sans KR', sans-serif;
-  font-size: 18px !important;
-  font-weight: 400 !important;
+  font-size: 18px ;
+  font-weight: 400 ;
 }
 .h1 {
   font-family: 'Noto Sans KR', sans-serif;
