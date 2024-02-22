@@ -28,7 +28,27 @@
 <!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet"> -->
 <!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> -->
 	<script>
-		$(document).ready(()=>{
+		$(document).ready(()=>
+		{
+			//현재 URL 패턴에 맞게 메뉴에 on 클래스 추가
+			let urlPatternSplit = window.location.pathname.split('/');
+			let urlPattern = '';
+			for(let idx = 2; idx < urlPatternSplit.length; idx++){
+				urlPattern += '/' + urlPatternSplit[idx];				
+			}
+			$('li.nav-item ul a').each((idx, ele)=>{
+				let menuUrlPatternSplit = $(ele).attr('href').split('/');
+				let menuUrlPattern = '';
+				for(let idx = 2; idx < menuUrlPatternSplit.length; idx++){
+					menuUrlPattern += '/' + menuUrlPatternSplit[idx];				
+				}
+				$(ele).parent().removeClass('on');
+				//현재URL 이 해당 메뉴와 같을때 on 클래스 추가
+				if(urlPattern === menuUrlPattern)
+				{
+					$(ele).parent().addClass('on');
+				}
+			});
 			
 			let menuSubId = false;//서브메뉴가 있는 ul의 id저장되어 hide()가 되지 않게 한다.
 			
@@ -87,7 +107,6 @@
 				$('#menuUlthird').hide();
 				$('#submenu_bg').hide();
 			});
-			
 		})
 	
 	</script>

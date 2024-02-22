@@ -13,8 +13,12 @@
                     <div class="col-12">
                     <span class="footer-span-left">
 	                    <span class="footer-span-left">
-	                    	<img src="${path}/img/common/footerLogoImg.png"/>
-	                    	<img src="${path}/img/common/footerLogoText.png"/>
+	                    	<a href="${path}/template/main">
+	                    		<img src="${path}/img/common/footerLogoImg.png"/>
+	                    	</a>
+	                    	<a href="${path}/common/template">
+	                    		<img src="${path}/img/common/footerLogoText.png"/>
+	                    	</a>
 	                    </span>
 	                    <span class="footer-span-left">
 	                        <span class="text-left text-white">서울 중구 남대문로 120 대일빌딩 2층, 3층</span><br>
