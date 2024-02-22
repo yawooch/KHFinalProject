@@ -137,7 +137,7 @@
         <div class="container d-flex justify-content-between align-items-center">
 
             <a class="navbar-brand text-success logo h1 align-self-center" href="${path}/">
-                <img src="${path}/img/common/favicon.png" style="width:30.1px;"/>
+                <img src="${path}/img/common/pawpawLogo.png" style="width:30.1px;"/>
                 <span style="color:#B29254;font-family: 'Noto Sans KR';font-weight:700;font-size:25px">포포</span><span style="color:#FFDE69;font-family: 'Noto Sans KR';font-weight:700;font-size:25px">트립</span>
             </a>
 
