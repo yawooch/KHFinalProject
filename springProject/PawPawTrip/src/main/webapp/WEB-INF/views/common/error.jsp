@@ -14,7 +14,7 @@
 			<p>Error 페이지 입니다만? 호오</p>
 		</div>
 		<div class="community-title">
-			<p>*ฅ^•ﻌ•^ฅ*</p>
+			<p style="font-size:200px;opacity:0.3;">*ฅ^•ﻌ•^ฅ*</p>
 		</div>
 	</div>
 </div>

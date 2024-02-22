@@ -7,13 +7,24 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<div class="container-fluid">
-	<div class="container">
-		<div class="community-title">
+
+
+<!-- ******************* 기본템플릿 시작 ******************* -->
+<div class="container-fluid"         style="position:relative;background-color:lime;  "><span style="position:absolute;top:0px;left:0px;">container-fluid</span>
+	<div class="container"           style="position:relative;background-color:orange;height:100%;"> <span style="position:absolute;top:0px;left:0px;">container</span>
+		<div class="community-title" style="position:relative;background-color:red;   ">             <span style="position:absolute;top:0px;left:0px;">community-title</span>
 			<p>기본 템플릿</p>
+		</div>
+		
+		<div class="community-sideMenu" style="position:relative;background-color:deeppink;height:100px;float:left;"><span style="position:absolute;top:0px;left:0px;">community-sideMenu</span>
+		</div>
+		
+		<div class="community-list" style="position:relative;background-color:skyblue;height:100px;float:left;width:846px;"><span style="position:absolute;top:0px;left:0px;">community-list</span>
 		</div>
 	</div>
 </div>
+
+<!-- ******************* 기본템플릿 종료 ******************* -->
 <div class="container-fluid">
 	<div class="container">
 	
