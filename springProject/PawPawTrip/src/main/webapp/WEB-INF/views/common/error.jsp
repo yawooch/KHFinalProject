@@ -7,6 +7,15 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<h2>Error 다 이녀석아</h2>
 
+<div class="container-fluid">
+	<div class="container">
+		<div class="community-title">
+			<p>Error 페이지 입니다만? 호오</p>
+		</div>
+		<div class="community-title">
+			<p>*ฅ^•ﻌ•^ฅ*</p>
+		</div>
+	</div>
+</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

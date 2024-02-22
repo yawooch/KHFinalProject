@@ -7,8 +7,6 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
-<script src="${path}/js/common/pawpawCommon.js"></script>
 <div class="container-fluid">
 	<div class="container">
 		<div class="community-title">

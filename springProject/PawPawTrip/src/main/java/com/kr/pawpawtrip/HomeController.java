@@ -62,5 +62,9 @@ public class HomeController {
 	public String template() {
 		return "common/template" ;
 	}
+	@GetMapping("/common/error")
+	public String error() {
+		return "common/error" ;
+	}
 	
 }

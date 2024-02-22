@@ -15,7 +15,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${path}/css/common/bootstrap.css" >
     <link rel="stylesheet" href="${path}/css/common/templatemo.css"> 
-    <link rel="stylesheet" href="${path}/css/common/pawpawHeader.css"    >
+    <link rel="stylesheet" href="${path}/css/common/pawpawHeader.css">
+	<link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
 
     <script src="https://kit.fontawesome.com/36aedea311.js" crossorigin="anonymous"></script>
 
@@ -23,6 +24,7 @@
     <script src="${path}/js/common/jquery-migrate-1.2.1.min.js"></script>
     <script src="${path}/js/common/bootstrap.bundle.min.js"></script>
     <script src="${path}/js/common/templatemo.js"></script>
+	<script src="${path}/js/common/pawpawCommon.js"></script>
  	 	  
 	<!-- summernote cdn -->
 <!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet"> -->
