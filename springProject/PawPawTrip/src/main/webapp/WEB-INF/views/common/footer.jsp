@@ -6,24 +6,24 @@
 
 <c:set var="path" value="${ pageContext.request.contextPath }"/>
     <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer">
-        <div class="w-100 bg-black py-3">
+    <footer class="bg-pawpaw-dark" id="tempaltemo_footer">
+        <div class="w-100 bg-pawpaw-dark">
             <div class="container">
                 <div class="row pt-2">
                     <div class="col-12">
                     <span class="footer-span-left">
-	                    <span style="float: left;">
+	                    <span class="footer-span-left">
 	                    	<img src="${path}/img/common/footerLogoImg.png"/>
 	                    	<img src="${path}/img/common/footerLogoText.png"/>
 	                    </span>
 	                    <span class="footer-span-left">
 	                        <span class="text-left text-white">서울 중구 남대문로 120 대일빌딩 2층, 3층</span><br>
-	                        <span class="text-left text-white">사업자 등록번호 :  185-82-00643</span><br>
+	                        <span class="text-left text-white">사업자 등록번호 :  205-82-12345</span><br>
 	                        <span class="text-left text-white">대표자명 : 양우찬 , 김정아, 이영우, 송은정</span><br>
 	                    </span>
                     </span>
                     <span class="footer-span-right">
-                        <p class="text-left text-white" >
+                        <p class="text-right text-white" >
                             Copyright &copy; PAWPAWTRIP JONGRO-GO, Inc.<br>
                             All Right Reserved
                         </p>

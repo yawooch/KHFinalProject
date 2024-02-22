@@ -53,28 +53,29 @@ body, ul, li, p, a, label, input, div {
 .logo { font-weight: 500 !important;}
 .text-warning {  color: #ede861 !important;}
 .text-muted { color: #bcbcbc !important;}
-.text-success { color: #59ab6e !important;}
+/* .text-success { color: #59ab6e !important;} */
 .text-light { color: #cfd6e1 !important;}
 .text-white { color: #FFFFFF !important;}
+.bg-pawpaw-dark { background-color: #4B4242  !important;}
 .bg-dark { background-color: #212934 !important;}
 .bg-light { background-color: #e9eef5 !important;}
 .bg-pawpaw { background-color: #FDFAEF !important;}
 .bg-black { background-color: #4B4242 !important;}
 .bg-success { background-color: #59ab6e !important;}
-.btn-success {
+.btn-letssee {
   background-color: #B29254 !important;
   border-color: #B29254 !important;
+  color: #fff;
+}
+.btn-letssee:hover {
+  background-color: #B29254 !important;
+  border-color: #B29254 !important;
+  color: #DEDEDE;
 }
 .pagination .page-link:hover {color: #000;}
 .pagination .page-link:hover, .pagination .page-link.active {
   background-color: #69bb7e;
   color: #fff;
-}
-
-h1.favoriteTitle{
-	font-size:28px;
-	color:#B29254;
-	font-weight:700;
 }
 /* Nav */
 #templatemo_nav_top { min-height: 40px;}

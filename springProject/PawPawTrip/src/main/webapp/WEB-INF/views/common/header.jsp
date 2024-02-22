@@ -15,7 +15,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${path}/css/common/bootstrap.css" >
     <link rel="stylesheet" href="${path}/css/common/templatemo.css"> 
-    <link rel="stylesheet" href="${path}/css/common/custom.css"    >
+    <link rel="stylesheet" href="${path}/css/common/pawpawHeader.css"    >
 
     <script src="https://kit.fontawesome.com/36aedea311.js" crossorigin="anonymous"></script>
 
@@ -28,117 +28,75 @@
 	<!-- summernote cdn -->
 <!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet"> -->
 <!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> -->
-    
-	<style>
+	<script>
 	
-	@media (min-width: 576px) 
-	{
-		.nav-item ul.menu-sub li
-		{
-			padding-top:10px;
-			margin-right:20px;
-	        float:left;
-		}
-		.nav-item ul.menu-sub li a{
-	        text-decoration:none;
-	        color:#222222;
-		}
-		.nav-item ul.menu-sub li
-		{
-			padding-top:10px;
-			margin-right:20px;
-	        float:left;
-		}
-		.nav-item ul.menu-sub li a{
-	        text-decoration:none;
-	        color:#222222;
-		}
-		#templatemo_main_nav .nav-item ul.menu-sub li.on a{
-			color:#B29254;
-	        font-weight:700;
-		}
-		.nav-item ul.menu-sub{
-	        list-style-type: none;
-	        float:left;
-	        margin:0;
-	        padding:0;
-	        position: absolute;
-	        z-index: 3; 
-	        top: 193px;
-	        width: 200px;
-	        display:none;
-		}
-		.nav-item:nth-child(3) ul.menu-sub{
-	        top: 152px;
-		}
-	}
-
-	@media (min-width: 992px) 
-	{
-		.nav-item ul.menu-sub li a{
-	        text-decoration:none;
-	        color:#222222;
-		}
-		.nav-item ul.menu-sub li
-		{
-			padding-top:10px;
-			margin-right:20px;
-	        float:left;
-		}
-		.nav-item ul.menu-sub li a{
-	        text-decoration:none;
-	        color:#222222;
-		}
-		.nav-item ul.menu-sub li
-		{
-			padding-top:10px;
-			margin-right:20px;
-	        float:left;
-		}
-		#templatemo_main_nav .nav-item ul.menu-sub li.on a{
-			color:#B29254;
-	        font-weight:700;
-		}
-		.nav-item ul.menu-sub{
-	        list-style-type: none;
-	        float:left;
-	        margin:0;
-	        padding:0;
-	        position: absolute;
-	        z-index: 3; 
-	        top: 68px;
-	        left: -18px;
-	        width: 200px;
-	        display:none;
-		}
-		.nav-item:nth-child(3) ul.menu-sub{
-   	        top: 68px; 
-	        left: -32px;
-		}
-	}
+		$(document).ready(()=>{
+			$('.nav-item').on('mouseenter', (event)=>
+			{
+				let idDiv = $(event.target).parent().children('ul.menu-sub').attr('id');
+				$('#submenu_bg').show();
+				if(idDiv == 'menuUlsecond'){
+					$('#menuUlsecond').show();
+					$('#menuUlthird').hide();
+				}
+				else if(idDiv == 'menuUlthird'){
+					$('#menuUlsecond').hide();
+					$('#menuUlthird').show();
+				}
+				else{
+					$('#menuUlsecond').hide();
+					$('#menuUlthird').hide();
+					$('#submenu_bg').hide();
+				}
+			});
+			$('.nav-item').on('mouseleave', (event)=>
+			{
+// 				event.preventDefault();
+// 				event.stopPropagation();
+				console.log('이거야?');
+				let idDiv = $(event.target).parent().children('ul.menu-sub').attr('id');
+				if(idDiv == 'menuUlsecond'){
+					$('#menuUlsecond').show();
+					$('#menuUlthird').hide();
+					$('#submenu_bg').show();
+				}
+				else if(idDiv == 'menuUlthird'){
+					$('#menuUlsecond').hide();
+					$('#menuUlthird').show();
+					$('#submenu_bg').show();
+				}
+			});
+			$('#menuUlthird,#menuUlsecond').on('mouseenter', (event)=>
+			{
+				
+				$('#submenu_bg').show();
+			});
+			$('#submenu_bg').on('mouseenter', (event)=>
+			{
+				$('#submenu_bg').show();
+			});
+			$('#submenu_bg').on('mouseleave', (event)=>
+			{
+// 				console.log(event);
+				event.preventDefault();
+// 				event.stopPropagation();
+// 				$('#menuUlsecond').hide();
+// 				$('#menuUlthird').hide();
+// 				$('#submenu_bg').hide();
+			});
+			
+		})
 	
-	#tempaltemo_footer .footer-span-left{
-		float: left;
-	}
-	#tempaltemo_footer .text-white{
-		font-size:12px;
-	}
-	#tempaltemo_footer .footer-span-right{
-		float: right;
-	}
-	
-	/* #templatemo_main_nav a:hover+ul.menu-sub{display:block;} */
-	</style>
+	</script>
 </head>
 <body>
 
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">
-
-            <a class="navbar-brand text-success logo h1 align-self-center" href="${path}/">
-                <img src="${path}/img/common/pawpawLogo.png" style="width:30.1px;"/>
-                <span style="color:#B29254;font-family: 'Noto Sans KR';font-weight:700;font-size:25px">포포</span><span style="color:#FFDE69;font-family: 'Noto Sans KR';font-weight:700;font-size:25px">트립</span>
+            <a class="navbar-brand logo h1 align-self-center" href="${path}/">
+                <img src="${path}/img/common/pawpawLogo.png"/>
+                <span>포포</span><span>트립</span>
             </a>
 
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -149,32 +107,32 @@
                 <div class="flex-fill">
                     <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="${path}/">댕댕여행지</a>
+                            <a class="nav-link" href="${path}/map">포포맵</a>
                         </li>
-                        <li class="nav-item" style="position:relative;">
-                            <a class="nav-link" href="${path}/about">여행</a>
-                            <ul class="menu-sub">
-                                <li class="on"><a href="#">여행</a></li>
-                                <li class=""><a href="#">숙박</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item" style="position:relative;">
-                            <a class="nav-link" href="${path}/shop">커뮤니티</a>
-                            <ul class="menu-sub">
-                                <li class=""><a href="#">공지사항</a></li>
-                                <li class=""><a href="#">자유게시판</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${path}/trip/trip">포포트립</a>
+                            <ul class="menu-sub" id="menuUlsecond">
+                                <li class="on"><a href="${path}/trip/trip">여행</a></li>
+                                <li class=""><a href="${path}/trip/stay">숙박</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${path}/contact">소개</a>
+                            <a class="nav-link" href="${path}/community/notice">커뮤니티</a>
+                            <ul class="menu-sub" id="menuUlthird">
+                                <li class=""><a href="${path}/community/notice">공지사항</a></li>
+                                <li class=""><a href="${path}/community/board">자유게시판</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="${path}/about">소개</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
                     <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
                     </div>
-                    <a class="nav-icon d-lg-inline text-decoration-none common" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">로그인</a>
-                    <a class="nav-icon position-relative text-decoration-none common" href="#">회원가입</a>
+                    <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/login">로그인</a>
+                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/enroll">회원가입</a>
                 </div>
             </div>
 
