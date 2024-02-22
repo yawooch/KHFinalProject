@@ -23,66 +23,69 @@
     <script src="${path}/js/common/jquery-migrate-1.2.1.min.js"></script>
     <script src="${path}/js/common/bootstrap.bundle.min.js"></script>
     <script src="${path}/js/common/templatemo.js"></script>
-    <script src="${path}/js/common/custom.js"></script>
  	 	  
 	<!-- summernote cdn -->
 <!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet"> -->
 <!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> -->
 	<script>
-	
 		$(document).ready(()=>{
-			$('.nav-item').on('mouseenter', (event)=>
+			
+			let menuSubId = false;//서브메뉴가 있는 ul의 id저장되어 hide()가 되지 않게 한다.
+			
+			$('.nav-item').on('mouseover', (event)=>
 			{
-				let idDiv = $(event.target).parent().children('ul.menu-sub').attr('id');
-				$('#submenu_bg').show();
-				if(idDiv == 'menuUlsecond'){
-					$('#menuUlsecond').show();
-					$('#menuUlthird').hide();
+				menuSubId = $(event.target).parent().children('ul.menu-sub').attr('id');
+				
+				//원인 불명, event.target이 되는 a태그 주변의 ul.menu-sub 의 id를 넣는다  
+				if(menuSubId == undefined){
+					menuSubId = $(event.target).parents('ul.menu-sub').attr('id');
 				}
-				else if(idDiv == 'menuUlthird'){
-					$('#menuUlsecond').hide();
-					$('#menuUlthird').show();
-				}
-				else{
-					$('#menuUlsecond').hide();
-					$('#menuUlthird').hide();
-					$('#submenu_bg').hide();
+				
+				let windowsWidth = $(window).width();
+
+				//모바일형태(992px 미만)로 메뉴가 보일때는 서브메뉴 보이지 않게
+				if(windowsWidth>=992)
+				{
+					$('#submenu_bg').show();
+					if(menuSubId == 'menuUlsecond'){
+						$('#menuUlsecond').show();
+						$('#menuUlthird').hide();
+					}
+					else if(menuSubId == 'menuUlthird'){
+						$('#menuUlsecond').hide();
+						$('#menuUlthird').show();
+					}
+					else{
+						$('#menuUlsecond').hide();
+						$('#menuUlthird').hide();
+						$('#submenu_bg').hide();
+					}
 				}
 			});
 			$('.nav-item').on('mouseleave', (event)=>
 			{
-// 				event.preventDefault();
-// 				event.stopPropagation();
-				console.log('이거야?');
-				let idDiv = $(event.target).parent().children('ul.menu-sub').attr('id');
-				if(idDiv == 'menuUlsecond'){
-					$('#menuUlsecond').show();
-					$('#menuUlthird').hide();
-					$('#submenu_bg').show();
+ 				//event.preventDefault();
+ 				//event.stopPropagation();
+				let windowsWidth = $(window).width();
+
+				//모바일형태(992px 미만)로 메뉴가 보일때는 서브메뉴 보이지 않게
+				if(windowsWidth>=992)
+				{
+					if(menuSubId == 'menuUlsecond'){
+						$('#menuUlsecond').show();
+						$('#menuUlthird').hide();
+					}
+					else if(menuSubId == 'menuUlthird'){
+						$('#menuUlsecond').hide();
+						$('#menuUlthird').show();
+					}
 				}
-				else if(idDiv == 'menuUlthird'){
-					$('#menuUlsecond').hide();
-					$('#menuUlthird').show();
-					$('#submenu_bg').show();
-				}
-			});
-			$('#menuUlthird,#menuUlsecond').on('mouseenter', (event)=>
-			{
-				
-				$('#submenu_bg').show();
-			});
-			$('#submenu_bg').on('mouseenter', (event)=>
-			{
-				$('#submenu_bg').show();
 			});
 			$('#submenu_bg').on('mouseleave', (event)=>
 			{
-// 				console.log(event);
-				event.preventDefault();
-// 				event.stopPropagation();
-// 				$('#menuUlsecond').hide();
-// 				$('#menuUlthird').hide();
-// 				$('#submenu_bg').hide();
+				$('#menuUlsecond').hide();
+				$('#menuUlthird').hide();
+				$('#submenu_bg').hide();
 			});
 			
 		})

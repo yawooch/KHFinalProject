@@ -77,6 +77,12 @@ body, ul, li, p, a, label, input, div {
   background-color: #69bb7e;
   color: #fff;
 }
+h1.favoriteTitle{
+    font-size:28px;
+    color:#B29254;
+    font-weight:700;
+}
+
 /* Nav */
 #templatemo_nav_top { min-height: 40px;}
 #templatemo_main_nav .navbar .nav-icon { margin-right: 20px;}
