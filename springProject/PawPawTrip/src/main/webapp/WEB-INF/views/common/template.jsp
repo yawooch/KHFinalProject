@@ -12,14 +12,14 @@
 <!-- ******************* 기본템플릿 시작 ******************* -->
 <div class="container-fluid"         style="position:relative;background-color:lime;  "><span style="position:absolute;top:0px;left:0px;">container-fluid</span>
 	<div class="container"           style="position:relative;background-color:orange;height:100%;"> <span style="position:absolute;top:0px;left:0px;">container</span>
-		<div class="community-title" style="position:relative;background-color:red;   ">             <span style="position:absolute;top:0px;left:0px;">community-title</span>
+		<div class="common-title" style="position:relative;background-color:red;   ">             <span style="position:absolute;top:0px;left:0px;">community-title</span>
 			<p>기본 템플릿</p>
 		</div>
 		
-		<div class="community-sideMenu" style="position:relative;background-color:deeppink;height:100px;float:left;"><span style="position:absolute;top:0px;left:0px;">community-sideMenu</span>
+		<div class="common-sideMenu" style="position:relative;background-color:deeppink;height:100px;float:left;"><span style="position:absolute;top:0px;left:0px;">community-sideMenu</span>
 		</div>
 		
-		<div class="community-list" style="position:relative;background-color:skyblue;height:100px;float:left;width:846px;"><span style="position:absolute;top:0px;left:0px;">community-list</span>
+		<div class="common-list" style="position:relative;background-color:skyblue;height:100px;float:left;width:846px;"><span style="position:absolute;top:0px;left:0px;">community-list</span>
 		</div>
 	</div>
 </div>
@@ -29,14 +29,14 @@
 	<div class="container">
 	
 		<!-- ******************* 사이드메뉴 시작 ******************* -->
-		<div class="community-title">
+		<div class="common-title">
 			<p>사이드메뉴</p>
 		</div>
-		<div class="community-sideMenu">
+		<div class="common-sideMenu">
 			<ul>
 				<li class="community-text">커뮤니티</li>
 				<li class="notice-text"><a href="#">공지사항</a></li>
-				<li class="board-text"><a href="#" id="test1" onclick="move()">자유 게시판</a>
+				<li class="board-text"><a href="#">자유 게시판</a>
 
 					<ul class="community-detail-sideMenu">
 						<li><a href="#">수다</a></li>
@@ -48,10 +48,10 @@
 		<!-- ******************* 사이드메뉴 종료 ******************* -->
 		
 		<!-- ******************* 검색바 시작 ******************* -->
-		<div class="community-title">
+		<div class="common-title">
 			<p>검색바</p>
 		</div>
-		<div class="community-search">
+		<div class="common-search">
 			<div>
 				TOTAL <span>26</span>건
 			</div>
@@ -73,10 +73,10 @@
 		</div>
 		<!-- ******************* 검색바 종료 ******************* -->
 		<!-- ******************* 테이블 시작 ******************* -->
-		<div class="community-title">
+		<div class="common-title">
 			<p>테이블</p>
 		</div>
-		<div class="community-detail-list">
+		<div class="common-detail-list">
 			<table border="1">
 				<tr style="background-color: #FDFAEF;">
 					<td>번호</td>
@@ -130,10 +130,10 @@
 		<!-- ******************* 테이블 종료 ******************* -->
 		
 		<!-- ******************* 페이징 시작 ******************* -->
-		<div class="community-title">
+		<div class="common-title">
 			<p>페이징 </p>
 		</div>
-		<div class="community-page-number">
+		<div class="common-page-number">
 			<ul>
 				<li><a href="#"><</a></li>
 				<li><a href="#">1</a></li>

@@ -10,18 +10,19 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
-<link rel="stylesheet" href="${path}/css/community/notice.css">
+<link rel="stylesheet" href="${path}/css/community/board.css">
+
 <div class="community-wrap">
 	<div class="community-content">
 		<div class="common-title">
-			<p>공지사항</p>
+			<p>자유 게시판</p>
 		</div>
 		<div class="community-container">
 			<div class="common-sideMenu">
 				<ul>
 					<li class="community-text">커뮤니티</li>
 					<li class="notice-text"><a href="#">공지사항</a></li>
-					<li class="board-text"><a href="#" id="test1">자유 게시판</a>
+					<li class="board-text"><a href="#">자유 게시판</a>
 
 						<ul class="community-detail-sideMenu">
 							<li><a href="${ path }/community/board/talk">수다</a></li>
@@ -101,6 +102,9 @@
 						</tr>
 					</table>
 				</div>
+				<div class="btn-wrap">
+					<button class="community-btn">글쓰기</button>
+				</div>
 				<div class="common-page-number">
 					<ul>
 						<li><a href="#"><</a></li>
@@ -115,18 +119,7 @@
 			</div>
 		</div>
 	</div>
+
 </div>
-<!--  
-<script>
-	const move = function() {
-		const boardText = document.querySelector('#test1');
-		
-		boardText.style.color = "#B29254";
-		
-		location.href='${ path }/community/board'
-		
-	}
-</script>
--->
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
