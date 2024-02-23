@@ -14,7 +14,7 @@
 -->
 <link rel="stylesheet" href="${path}/css/community/talk.css">
 
-<div class="community-wrap">
+<div class="community-wrap content">
 	<div class="community-content">
 		<div class="common-title">
 			<p>자유 게시판</p>
@@ -23,11 +23,11 @@
 			<div class="common-sideMenu">
 				<ul>
 					<li class="community-text">커뮤니티</li>
-					<li class="notice-text"><a href="#">공지사항</a></li>
-					<li class="board-text"><a href="#">자유 게시판</a>
+					<li class="notice-text"><a href="${path}/community/notice">공지사항</a></li>
+					<li class="board-text"><a href="${path}/community/board">자유 게시판</a>
 
 						<ul class="community-detail-sideMenu">
-							<li><a href="#">수다</a></li>
+							<li><a href="${ path }/community/board/talk">수다</a></li>
 							<li><a href="#">마이펫 자랑</a></li>
 						</ul></li>
 				</ul>
