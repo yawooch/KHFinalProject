@@ -26,4 +26,11 @@ public class CommunityController {
 		
 		return "community/board/talk";
 	}
+	
+//	자유 게시판 > 마이펫 자랑
+	@GetMapping("community/board/mypet")
+	public String mypet() {
+		
+		return "community/board/mypet";
+	}
 }

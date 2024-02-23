@@ -27,8 +27,8 @@
 					<li class="board-text"><a href="${path}/community/board">자유 게시판</a>
 
 						<ul class="community-detail-sideMenu">
-							<li><a href="${ path }/community/board/talk">수다</a></li>
-							<li><a href="#">마이펫 자랑</a></li>
+							<li><a href="${ path }/community/board/talk" style="font-weight: bold; color: #B29254;">수다</a></li>
+							<li><a href="${ path }/community/board/mypet">마이펫 자랑</a></li>
 						</ul></li>
 				</ul>
 			</div>

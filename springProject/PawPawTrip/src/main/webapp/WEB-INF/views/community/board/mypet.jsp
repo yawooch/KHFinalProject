@@ -9,10 +9,8 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<!--  
-<link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
--->
-<link rel="stylesheet" href="${path}/css/community/board.css">
+
+<link rel="stylesheet" href="${path}/css/community/mypet.css">
 
 <div class="community-wrap content">
 	<div class="community-content">
@@ -28,7 +26,7 @@
 
 						<ul class="community-detail-sideMenu">
 							<li><a href="${ path }/community/board/talk">수다</a></li>
-							<li><a href="${ path }/community/board/mypet">마이펫 자랑</a></li>
+							<li><a href="${ path }/community/board/mypet" style="font-weight: bold; color: #B29254;">마이펫 자랑</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -45,8 +43,8 @@
 						</select>
 					</div>
 					<div>
-						<img src="${ path }/img/community/search.png"> <input type="text"
-							name="communitySearch" id="communitySearch"
+						<img src="${ path }/img/community/search.png"> <input
+							type="text" name="communitySearch" id="communitySearch"
 							placeholder="검색어를 입력해주세요.">
 					</div>
 					<div>
@@ -63,8 +61,8 @@
 							<td>등록일</td>
 						</tr>
 						<tr>
-							<td><img src="${ path }/img/community/ant-design_sound-filled.png"
-								alt=""></td>
+							<td><img
+								src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
 							<td
 								style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
 								href="#" style="font-size: 16px;">[공지사항] 2023 영월 댕댕트레인 안내!</a></td>
@@ -73,8 +71,8 @@
 							<td>2023-10-13</td>
 						</tr>
 						<tr>
-							<td><img src="${ path }/img/community/ant-design_sound-filled.png"
-								alt=""></td>
+							<td><img
+								src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
 							<td
 								style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
 								href="#" style="font-size: 16px;">[공지사항] 댕댕트레킹, 프라이빗 반려견 트레킹 코스</a></td>
@@ -83,8 +81,8 @@
 							<td>2023-05-09</td>
 						</tr>
 						<tr>
-							<td><img src="${ path }/img/community/ant-design_sound-filled.png"
-								alt=""></td>
+							<td><img
+								src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
 							<td
 								style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
 								href="#" style="font-size: 16px;">[공지사항] 2023 춘천 반려동물 페스티벌</a></td>
@@ -93,14 +91,32 @@
 							<td>2023-05-04</td>
 						</tr>
 						<tr>
-							<td><img src="${ path }/img/community/ant-design_sound-filled.png"
-								alt=""></td>
+							<td><img
+								src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
 							<td
 								style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
 								href="#" style="font-size: 16px;">[공지사항] '전국댕댕자랑' 수상작 발표~!!!!</a></td>
 							<td>관리자</td>
 							<td>1236</td>
 							<td>2022-12-12</td>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td
+								style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
+								href="#" style="font-size: 16px;">[마이펫 자랑] 우리집 춘식이를 소개합니다.</a></td>
+							<td>jeong7a71</td>
+							<td>24</td>
+							<td>2024-01-03</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td
+								style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
+								href="#" style="font-size: 16px;">[마이펫 자랑] 리드줄 어디꺼가 좋은간가요?</a></td>
+							<td>ismoney</td>
+							<td>28</td>
+							<td>2023-11-03</td>
 						</tr>
 					</table>
 				</div>

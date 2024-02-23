@@ -27,7 +27,7 @@
 
 						<ul class="community-detail-sideMenu">
 							<li><a href="${ path }/community/board/talk">수다</a></li>
-							<li><a href="#">마이펫 자랑</a></li>
+							<li><a href="${ path }/community/board/mypet">마이펫 자랑</a></li>
 						</ul></li>
 				</ul>
 			</div>
