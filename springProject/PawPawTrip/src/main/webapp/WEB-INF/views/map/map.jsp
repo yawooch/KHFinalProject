@@ -7,6 +7,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<h2>Map 이다 이녀석아</h2>
-
+<div class="content container">
+	<h2>Map 이다 이녀석아</h2>
+</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

@@ -8,6 +8,7 @@
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+<div class="content">
     <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel" style="margin:auto;">
         <ol class="carousel-indicators">
             <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
@@ -122,5 +123,5 @@
             </div>
         </div>
     </section>
-
+</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />

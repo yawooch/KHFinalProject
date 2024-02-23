@@ -8,14 +8,12 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
-<div class="container-fluid">
-	<div class="container">
-		<div class="community-title">
-			<p>Error 페이지 입니다만? 호오</p>
-		</div>
-		<div class="community-title">
-			<p style="font-size:200px;opacity:0.3;">*ฅ^•ﻌ•^ฅ*</p>
-		</div>
+<div class="container content">
+	<div class="community-title">
+		<p>Error 페이지 입니다만? 호오</p>
+	</div>
+	<div class="community-title">
+		<p style="font-size:200px;opacity:0.3;">*ฅ^•ﻌ•^ฅ*</p>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

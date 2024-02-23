@@ -97,9 +97,9 @@ section.bg-pawpaw .card-body .stayAddressSize>img
 #tempaltemo_footer{
 	height:133px;
 	padding:34px 0px;
-	position: sticky;
-    width: 100%;
-    bottom: 0px;
+/* 	position: sticky; */
+/*     width: 100%; */
+/*     bottom: 0px; */
 }
 #tempaltemo_footer .text-right{
 	text-align:right;
