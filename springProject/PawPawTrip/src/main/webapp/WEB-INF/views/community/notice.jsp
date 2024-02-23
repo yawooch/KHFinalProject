@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
 -->
 <link rel="stylesheet" href="${path}/css/community/notice.css">
-<div class="community-wrap">
+<div class="community-wrap content">
 	<div class="community-content">
 		<div class="common-title">
 			<p>공지사항</p>

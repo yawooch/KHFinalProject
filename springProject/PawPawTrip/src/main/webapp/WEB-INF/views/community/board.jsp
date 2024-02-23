@@ -14,7 +14,7 @@
 -->
 <link rel="stylesheet" href="${path}/css/community/board.css">
 
-<div class="community-wrap">
+<div class="community-wrap content">
 	<div class="community-content">
 		<div class="common-title">
 			<p>자유 게시판</p>
