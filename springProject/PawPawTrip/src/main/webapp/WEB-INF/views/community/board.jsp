@@ -9,7 +9,9 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
+<!--  
 <link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
+-->
 <link rel="stylesheet" href="${path}/css/community/board.css">
 
 <div class="community-wrap">
