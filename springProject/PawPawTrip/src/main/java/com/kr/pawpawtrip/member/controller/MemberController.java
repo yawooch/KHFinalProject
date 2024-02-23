@@ -8,8 +8,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
 	
 	@GetMapping("/login")
-	public String loging() {
+	public String login() {
 		
-		return("/member/login");
+		return "member/login";
 	}
+	
+	@PostMapping("/login")
+	public String loginComplete() {
+		
+		return "member/login";
+	}
+	
+	@GetMapping("/member/find-id")
+	public String findId() {
+		
+		return "member/findId";
+	}
+	
+	@GetMapping("/member/find-pw")
+	public String findPw() {
+		
+		return "member/findPw";
+	}
+	
 }
