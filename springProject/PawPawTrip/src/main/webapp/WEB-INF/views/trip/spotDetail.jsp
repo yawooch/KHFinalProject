@@ -8,7 +8,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <!-- css 파일 연결 -->
-<link rel="stylesheet" href="${path}/css/trip/spot.css">
+<link rel="stylesheet" href="${path}/css/trip/spotDetail.css">
 
 <!-- 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
