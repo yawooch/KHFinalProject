@@ -8,7 +8,7 @@
 .tripDetail-wrap {
     display: block;
     width: 1200px;
-    height: 100%;
+    /* height: 100%; */
     margin: 0 auto;
     padding: 0;
 }
@@ -39,7 +39,7 @@
     display: block;
     /* position: relative; */
     width: 1200px;
-    height: 100%;
+    /* height: 100%; */
     margin: 35px auto 50px auto;
 }
 
@@ -101,7 +101,8 @@
     display: inline-block;
     /* position: absolute; */
     width: 900px;
-    height: 350px;
+    /* height: 350px; */
+    height: inherit;
     right: 0;
     margin-bottom: 50px;
 }
@@ -119,8 +120,10 @@
     display: block;
     position: absolute;
     background-color: #FDFAEF;
-    width: 350px;
-    height: 330px;
+    width: 370px;
+    /* width: 370px; */
+    height: 350px;
+    /* height: 350px; */
     margin-left: 10px;
     border-radius: 10px;
     padding: 10px 15px;
@@ -141,7 +144,7 @@
     font-weight: bold;
     font-size: 20px;
     height: 36px;
-    width: 290px;
+    width: 289px;
     margin: 10px auto;
 }
 
