@@ -33,4 +33,31 @@ public class CommunityController {
 		
 		return "community/board/mypet";
 	}
+	
+//	게시글 작성
+	@GetMapping("community/boardwrite")
+	public String boardWrite() {
+		
+		return "community/boardwrite";
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

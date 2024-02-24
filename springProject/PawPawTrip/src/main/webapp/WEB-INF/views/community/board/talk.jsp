@@ -123,7 +123,7 @@
 					</table>
 				</div>
 				<div class="btn-wrap">
-					<button class="community-btn">글쓰기</button>
+					<button class="community-btn" onclick="location.href='${ path }/community/boardwrite'">글쓰기</button>
 				</div>
 				<div class="common-page-number">
 					<ul>
