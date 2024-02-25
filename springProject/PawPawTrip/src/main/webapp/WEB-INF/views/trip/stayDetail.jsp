@@ -8,6 +8,8 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <!-- css 파일 연결 -->
+<link rel="stylesheet" href="${path}/css/common/bootstrap.css">
+<link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
 <link rel="stylesheet" href="${path}/css/trip/stayDetail.css">
 
 <!-- 아이콘 -->
@@ -87,19 +89,19 @@ color: #FDFAEF;
                 <div class="swiper Swiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="https://dangdangmap.net/upload/mapdata/C0517/thumb/content/C0517_F20221201111723001.jpg" alt="안반데기 예시">
+                            <img src="https://dangdangmap.net/upload/mapdata/C0472/thumb/content/C0472_F20211210134433001.jpg" alt="숙소 예시">
                         </div>
                         <div class="swiper-slide">
-                            <img src="https://dangdangmap.net/upload/mapdata/C0517/thumb/content/C0517_F20221201111723002.jpg" alt="안반데기 예시">
+                            <img src="https://dangdangmap.net/upload/mapdata/C0472/thumb/content/C0472_F20211210134434003.jpg" alt="숙소 예시">
                         </div>
                         <div class="swiper-slide">
-                            <img src="https://dangdangmap.net/upload/mapdata/C0517/thumb/content/C0517_F20221201111723003.jpg" alt="안반데기 예시">
+                            <img src="https://dangdangmap.net/upload/mapdata/C0472/thumb/content/C0472_F20211210134434005.jpg" alt="숙소 예시">
                         </div>
                         <div class="swiper-slide">
-                            <img src="https://dangdangmap.net/upload/mapdata/C0517/thumb/content/C0517_F20221201112429006.jpg" alt="안반데기 예시">
+                            <img src="https://dangdangmap.net/upload/mapdata/C0472/thumb/content/C0472_F20211210134434007.jpg" alt="숙소 예시">
                         </div>
                         <div class="swiper-slide">
-                            <img src="https://dangdangmap.net/upload/mapdata/C0517/thumb/content/C0517_F20221201111724005.jpg" alt="안반데기 예시">
+                            <img src="https://dangdangmap.net/upload/mapdata/C0472/thumb/content/C0472_F20211210134435008.jpg" alt="숙소 예시">
                         </div>
                     </div>
                     <div class="swiper-pagination"></div>
