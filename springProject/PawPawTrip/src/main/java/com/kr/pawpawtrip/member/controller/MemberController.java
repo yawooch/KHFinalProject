@@ -28,11 +28,32 @@ public class MemberController {
 		return "member/findId";
 	}
 	
+	// 아이디 찾기 완료
+	@PostMapping("/member/find-id")
+	public String findIdComplete() {
+		
+		return "member/findIdComplete";
+	}
+	
 	// 비밀번호 찾기
 	@GetMapping("/member/find-pw")
 	public String findPw() {
 		
 		return "member/findPw";
+	}
+	
+	// 비밀번호 변경
+	@PostMapping("member/find-pw")
+	public String changePw() {
+		
+		return "member/changePw";
+	}
+	
+	// 비밀번호 찾기 완료
+	@PostMapping("/member/change-pw")
+	public String findPwComplete() {
+		
+		return "member/findPwComplete";
 	}
 	
 	// 마이페이지 회원정보수정
