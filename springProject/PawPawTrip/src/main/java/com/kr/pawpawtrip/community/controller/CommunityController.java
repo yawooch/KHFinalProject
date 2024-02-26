@@ -47,6 +47,13 @@ public class CommunityController {
 		
 		return "community/noticedetail";
 	}
+	
+//	자유 게시판(수다) 상세
+	@GetMapping("community/board/talkdetail")
+	public String talkDetail() {
+		
+		return "community/board/talkdetail";
+	}
 }
 
 

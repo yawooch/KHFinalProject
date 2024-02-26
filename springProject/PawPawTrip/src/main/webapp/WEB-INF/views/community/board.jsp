@@ -36,7 +36,6 @@
 					TOTAL <span>26</span>건
 				</div>
 				<div>
-
 					<div>
 						<select name="communitySelect" id="communitySelect">
 							<option value="title" selected>제목</option>
@@ -78,7 +77,7 @@
 							src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
 						<td
 							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[공지사항] 댕댕트레킹, 프라이빗 반려견 트레킹
+							href="${ path }/community/noticedetail" style="font-size: 16px;">[공지사항] 댕댕트레킹, 프라이빗 반려견 트레킹
 								코스</a></td>
 						<td>관리자</td>
 						<td>247</td>
