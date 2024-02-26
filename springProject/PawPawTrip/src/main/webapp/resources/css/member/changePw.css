@@ -13,19 +13,23 @@ body {
     background-color: #FFF9E5;
 }
 
-a {
-    text-decoration: none;
-    font-size: 16px;
+.navi > div > a {
+	text-decoration: none;
+	font-size: 16px;
 }
 
 td {
 	border: none;
 }
 
+.main-box {
+    padding-top: 100px;
+    height: 728px;
+}
+
 section {
     margin: 0 auto;
     width: 750px;
-    padding-top: 100px;
 }
 
 /* 네비 */
