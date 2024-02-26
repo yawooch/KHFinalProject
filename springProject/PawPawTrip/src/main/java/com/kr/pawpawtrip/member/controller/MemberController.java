@@ -7,66 +7,81 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MemberController {
 	
-	// ·Î±×ÀÎ
+	// ï¿½Î±ï¿½ï¿½ï¿½
 	@GetMapping("/login")
 	public String login() {
 		
 		return "member/login";
 	}
 	
-	// ·Î±×ÀÎ ¿Ï·á
+	// ï¿½Î±ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½
 	@PostMapping("/login")
 	public String loginComplete() {
 		
 		return "member/login";
 	}
 	
-	// ¾ÆÀÌµğ Ã£±â
+	// ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½
 	@GetMapping("/member/find-id")
 	public String findId() {
 		
 		return "member/findId";
 	}
 	
-	// ¾ÆÀÌµğ Ã£±â ¿Ï·á
+	// ï¿½ï¿½ï¿½Ìµï¿½ Ã£ï¿½ï¿½ ï¿½Ï·ï¿½
 	@PostMapping("/member/find-id")
 	public String findIdComplete() {
 		
 		return "member/findIdComplete";
 	}
 	
-	// ºñ¹Ğ¹øÈ£ Ã£±â
+	// ï¿½ï¿½Ğ¹ï¿½È£ Ã£ï¿½ï¿½
 	@GetMapping("/member/find-pw")
 	public String findPw() {
 		
 		return "member/findPw";
 	}
 	
-	// ºñ¹Ğ¹øÈ£ º¯°æ
+	// ï¿½ï¿½Ğ¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 	@PostMapping("member/find-pw")
 	public String changePw() {
 		
 		return "member/changePw";
 	}
 	
-	// ºñ¹Ğ¹øÈ£ Ã£±â ¿Ï·á
+	// ï¿½ï¿½Ğ¹ï¿½È£ Ã£ï¿½ï¿½ ï¿½Ï·ï¿½
 	@PostMapping("/member/change-pw")
 	public String findPwComplete() {
 		
 		return "member/findPwComplete";
 	}
 	
-	// ¸¶ÀÌÆäÀÌÁö È¸¿øÁ¤º¸¼öÁ¤
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	@GetMapping("/member/mypage/my-info")
 	public String myInfo() {
 		
 		return "member/mypage/myInfo";
 	}
 	
-	// ¸¶ÀÌÆäÀÌÁö ³»°¡¾´°Ô½Ã±Û
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô½Ã±ï¿½
 	@GetMapping("/member/mypage/my-board")
 	public String myBoard() {
 		
 		return "member/mypage/myBoard";
 	}
+	
+	// íšŒì›ê°€ì…
+	@GetMapping("/enroll")
+	public String enroll() {
+		
+		return "member/enroll";
+	}
+	
+	// íšŒì›ê°€ì… ì™„ë£Œ(ìˆ˜ì •ì˜ˆì •)
+	@GetMapping("/enroll/complete")
+	public String enrollComplete() {
+		
+		return "member/enrollComplete";
+	}
+	
 }
