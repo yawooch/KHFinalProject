@@ -40,6 +40,13 @@ public class CommunityController {
 		
 		return "community/boardwrite";
 	}
+	
+//	공지사항 상세
+	@GetMapping("community/noticedetail")
+	public String noticeDetail() {
+		
+		return "community/noticedetail";
+	}
 }
 
 

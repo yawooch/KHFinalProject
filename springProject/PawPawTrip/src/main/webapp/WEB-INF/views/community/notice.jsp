@@ -37,19 +37,21 @@
 						TOTAL <span>26</span>건
 					</div>
 					<div>
-						<select name="communitySelect" id="communitySelect">
-							<option value="title" selected>제목</option>
-							<option value="name">작성자</option>
-							<option value="content">내용</option>
-						</select>
-					</div>
-					<div>
-						<img src="${ path }/img/community/search.png"> <input type="text"
-							name="communitySearch" id="communitySearch"
-							placeholder="검색어를 입력해주세요.">
-					</div>
-					<div>
-						<button>검색</button>
+						<div>
+							<select name="communitySelect" id="communitySelect">
+								<option value="title" selected>제목</option>
+								<option value="name">작성자</option>
+								<option value="content">내용</option>
+							</select>
+						</div>
+						<div>
+							<img src="${ path }/img/community/search.png"> <input type="text"
+								name="communitySearch" id="communitySearch"
+								placeholder="검색어를 입력해주세요.">
+						</div>
+						<div>
+							<button>검색</button>
+						</div>
 					</div>
 				</div>
 				<div class="common-detail-list">

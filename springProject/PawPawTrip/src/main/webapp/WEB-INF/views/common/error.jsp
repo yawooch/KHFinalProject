@@ -10,17 +10,14 @@
 <link rel="stylesheet" href="${path}/css/common/error.css">
 
 <div class="container content">
-	<!--  
-	<div class="community-title">
-		<p>Error 페이지 입니다만? 호오</p>
-	</div>
-	-->
-	<div class="community-title">
+	<div class="error-title">
 		<p id="errMsg" style="font-size:200px;opacity:0.3;"></p>
 		<p>요청하신 페이지를 찾을 수 없습니다.</p>
-		
-		<button id="mainBtn">메인페이지</button>
-		<button id="prevBtn">이전페이지</button>
+	</div>
+	
+	<div class="btn-wrap">
+		<button id="mainBtn" onclick="location.href='${ path }/'">메인페이지</button>
+		<button id="prevBtn" onclick="history.back()">이전페이지</button>
 	</div>
 </div>
 
