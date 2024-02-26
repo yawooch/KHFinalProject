@@ -22,16 +22,16 @@ footerHeight    : ${footerHeight}
 containerHeight : ${containerHeight}
 contentHeight   : ${contentHeight}`);
 	
-	if(containerHeight > contentHeight)
-	{
-		$('#tempaltemo_footer').css('position', 'absolute');
-		console.log('absolute');
-	}
-	else
-	{
-		$('#tempaltemo_footer').css('position', 'relative');
-		console.log('relative');
-	}
+//	if(containerHeight > contentHeight)
+//	{
+//		$('#tempaltemo_footer').css('position', 'absolute');
+//		console.log('absolute');
+//	}
+//	else
+//	{
+//		$('#tempaltemo_footer').css('position', 'relative');
+//		console.log('relative');
+//	}
 }
 
 $(document).ready(()=>

@@ -18,7 +18,7 @@
 		<div class="common-title">
 			<p>공지사항</p>
 		</div>
-		<div class="community-container">
+<!-- 		<div class="community-container container"> -->
 			<div class="common-sideMenu">
 				<ul>
 					<li class="community-text">커뮤니티</li>
@@ -31,25 +31,27 @@
 						</ul></li>
 				</ul>
 			</div>
-			<div class="community-list">
+			<div class="common-list">
 				<div class="common-search">
 					<div>
 						TOTAL <span>26</span>건
 					</div>
 					<div>
-						<select name="communitySelect" id="communitySelect">
-							<option value="title" selected>제목</option>
-							<option value="name">작성자</option>
-							<option value="content">내용</option>
-						</select>
-					</div>
-					<div>
-						<img src="${ path }/img/community/search.png"> <input type="text"
-							name="communitySearch" id="communitySearch"
-							placeholder="검색어를 입력해주세요.">
-					</div>
-					<div>
-						<button>검색</button>
+						<div>
+							<select name="communitySelect" id="communitySelect">
+								<option value="title" selected>제목</option>
+								<option value="name">작성자</option>
+								<option value="content">내용</option>
+							</select>
+						</div>
+						<div>
+							<img src="${ path }/img/community/search.png"> <input type="text"
+								name="communitySearch" id="communitySearch"
+								placeholder="검색어를 입력해주세요.">
+						</div>
+						<div>
+							<button>검색</button>
+						</div>
 					</div>
 				</div>
 				<div class="common-detail-list">
@@ -115,7 +117,7 @@
 					</ul>
 				</div>
 			</div>
-		</div>
+<!-- 		</div> -->
 	</div>
 </div>
 <!--  
