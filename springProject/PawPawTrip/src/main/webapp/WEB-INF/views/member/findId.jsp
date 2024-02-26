@@ -8,11 +8,10 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<link rel="stylesheet" href="${path}/css/member/findId.css">
-<body>
 	<!-- 헤더 -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-
+	<link rel="stylesheet" href="${path}/css/member/findId.css">
+	
 	<!-- 메인 -->
 	<form class="content" action="${ path }/member/find-id" method="post">
         <!-- 아이디찾기 -->
@@ -59,7 +58,6 @@
             </div>
         </section>
     </form>
+
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-</body>
-</html>

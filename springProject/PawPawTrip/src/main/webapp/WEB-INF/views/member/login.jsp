@@ -8,11 +8,10 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<link rel="stylesheet" href="${path}/css/member/login.css">
 
-<body>
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
+<link rel="stylesheet" href="${path}/css/member/login.css">
 
     <!--메인 로그인 창-->
     <section>
@@ -49,8 +48,9 @@
                     <!--간편 로그인-->
                     <div class="hr-sect">간편 로그인</div>
                     <br>
-                    <div class="kakao">
-                        <button type="button" class="kakao_btn"></button>
+                    <div class="kakao_btn">
+                        <img src="https://madangs.com/re_public/images/social/kakao_symbol.svg" alt="" width="20px">
+                        <span>카카오 간편로그인</span>
                     </div>
                 </div>
             </div>
@@ -59,4 +59,4 @@
     
 <!-- 푸터 -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
-</body>
+

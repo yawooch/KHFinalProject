@@ -8,11 +8,9 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<link rel="stylesheet" href="${path}/css/about/index.css">
-
-<body>
 	<!-- 헤더 -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<link rel="stylesheet" href="${path}/css/about/index.css">
 	
 	<!-- 소개 상단 -->
     <section class="fir_section">
@@ -64,5 +62,3 @@
 
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-</body>
-</html>

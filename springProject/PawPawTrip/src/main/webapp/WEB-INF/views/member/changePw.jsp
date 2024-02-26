@@ -8,14 +8,13 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<link rel="stylesheet" href="${path}/css/member/changePw.css">
-<body>
 	<!-- 헤더 -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<link rel="stylesheet" href="${path}/css/member/changePw.css">
 
 	<!-- 메인 -->
-	<section>
-        <form class="content" action="${ path }/member/change-pw" method="post">
+	<section class="content">
+        <form action="${ path }/member/change-pw" method="post">
             <!--navi-->
             <div class="navi">
                 <div class="findbyid">
@@ -63,5 +62,3 @@
 
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-</body>
-</html>

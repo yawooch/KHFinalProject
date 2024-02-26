@@ -8,10 +8,9 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<link rel="stylesheet" href="${path}/css/member/findPw.css">
-<body>
 	<!-- 헤더 -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<link rel="stylesheet" href="${path}/css/member/findPw.css">
 	
 	<!-- 메인 -->
 	<form class="content" action="${ path }/member/find-pw" method="post">
@@ -65,6 +64,7 @@
                 </div>
             </section>
         </form>
+        
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-</body>
+
