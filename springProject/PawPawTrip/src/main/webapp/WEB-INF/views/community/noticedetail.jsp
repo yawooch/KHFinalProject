@@ -61,7 +61,7 @@
 				</table>
 			</div>
 			<div class="btn-wrap"">
-				<button class="community-btn">목록</button>
+				<button class="community-btn" onclick="location.href='${ path }/community/notice'">목록</button>
 			</div>
 		</div>
 	</div>

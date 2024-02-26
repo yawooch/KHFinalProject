@@ -10,7 +10,7 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
-<link rel="stylesheet" href="${path}/css/community/talkdetail.css">
+<link rel="stylesheet" href="${path}/css/community/mypetdetail.css">
 
 <div class="content">
 	<div class="container">
@@ -24,38 +24,43 @@
 				<li class="board-text"><a href="${path}/community/board">자유 게시판</a>
 
 					<ul class="community-detail-sideMenu">
-						<li><a href="${ path }/community/board/talk" style="font-weight: bold; color: #B29254;">수다</a></li>
-						<li><a href="${ path }/community/board/mypet">마이펫 자랑</a></li>
+						<li><a href="${ path }/community/board/talk">수다</a></li>
+						<li><a href="${ path }/community/board/mypet" style="font-weight: bold; color: #B29254;">마이펫 자랑</a></li>
 					</ul></li>
 			</ul>
 		</div>
 		<div class="common-list">
 
 			<div class="community-detail-list">
+
 				<table border="1">
 					<tr>
 						<td style="background-color: #FDFAEF;">제목</td>
-						<td colspan="5" class="community-td-title" style="text-align: left;">[수다] 해상도 어떻게 하면
-							좋아지나요?</td>
+						<td colspan="5" class="community-td-title" style="text-align: left;">[마이펫 자랑] 도토리 미용했는데
+							어떤가용?</td>
 					</tr>
 					<tr>
 						<td style="background-color: #FDFAEF;">작성자</td>
-						<td>comwang00</td>
+						<td>jjkim31</td>
 						<td style="background-color: #FDFAEF;">등록일</td>
-						<td>2023-10-30</td>
+						<td>2023-12-17</td>
 						<td style="background-color: #FDFAEF;">조회수</td>
-						<td>11</td>
+						<td>91</td>
 					</tr>
 					<tr>
 						<td colspan="6" class="community-td-content"
-							style="text-align: left;">모니터가 이상한건지 컴퓨터가 이상한건지..<br>
-							해상도가 엉망이네요..<br> 스트레스 장난아닙니다 -_-;;
-						</td>
+							style="text-align: left;"><img
+							src="${ path }/img/community/KakaoTalk_20240215_211419884 1.png"
+							alt=""></td>
+					</tr>
+					<tr>
+						<td style="background-color: #FDFAEF;">첨부파일</td>
+						<td colspan="5" style="text-align: left;">KakaoTalk_20240215_211419884 1.png</td>
 					</tr>
 				</table>
 			</div>
 			<div class="btn-wrap"">
-				<button class="community-btn" onclick="location.href='${ path }/community/board/talk'">목록</button>
+				<button class="community-btn" onclick="location.href='${ path }/community/board/mypet'">목록</button>
 			</div>
 		</div>
 	</div>
