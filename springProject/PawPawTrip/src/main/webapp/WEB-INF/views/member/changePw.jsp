@@ -14,7 +14,7 @@
 
 	<!-- 메인 -->
 	<section class="content">
-        <form action="${ path }/member/change-pw" method="post">
+        <form class="main-box" action="${ path }/member/change-pw" method="post">
             <!--navi-->
             <div class="navi">
                 <div class="findbyid">

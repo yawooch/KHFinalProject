@@ -8,27 +8,28 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<link rel="stylesheet" href="${path}/css/member/mypage/myInfo.css">
-<body>
 	<!-- 헤더 -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />	
+	<link rel="stylesheet" href="${path}/css/member/mypage/myInfo.css">
 	
 	<!-- 메인 -->
-	<form action="">
-        <div class="notice-wrap">
-            <div class="notice-content">
-                <div class="notice-title">
-                    <p>마이페이지</p>
-                </div>
+	<form class="content" action="">
+		<!-- 타이틀 -->
+        <div class="community-wrap">
+			<div class="community-content">
+				<div class="common-title">
+					<p>마이페이지</p>
+				</div>
+				
                 <div class="notice-container">
                     <!-- 사이드 바 메뉴 -->
-                    <div class="notice-sideMenu">
-                        <ul>
-                            <li class="community-text">마이페이지</li>
-                            <li class="notice-text"><a href="#">회원 정보 수정</a></li>
-                            <li class="board-text"><a href="#">내가 쓴 게시글</a></li>
-                        </ul>
-                    </div>
+                    <div class="common-sideMenu">
+						<ul>
+							<li class="community-text">마이페이지</li>
+							<li class="notice-text"><a href="${path}/member/mypage/my-info">회원 정보 수정</a></li>
+							<li class="board-text"><a href="${path}/member/mypage/my-board">내가 쓴 게시글</a></li>
+						</ul>
+					</div>
                     <div class="notice-list">
                         <!-- 회원 정보 -->
                         <div class="notice-detail-list">
@@ -39,7 +40,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><b><input type="text" value="woochan" readonly></b></td>
+                                    <td><b><input type="text" value="woochan" readonly style="background-color: #E8E8E8;"></b></td>
                                     <td><input type="text" placeholder="8~15자 영문,숫자 포함"></td>
                                     <td></td>
                                 </tr>
@@ -51,7 +52,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" value="양우찬" readonly></td>
+                                    <td><input type="text" value="양우찬" readonly style="background-color: #E8E8E8;"></td>
                                     <td><input type="text" placeholder="8~15자 영문,숫자 포함"></td>
                                     <td></td>
                                 </tr>
@@ -63,7 +64,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" value="2023-12-21" readonly></td>
+                                    <td><input type="text" value="2023-12-21" readonly style="background-color: #E8E8E8;"></td>
                                     <td><input type="text" value="01012345678"></td>
                                     <td><button class="paw_btn2">인증받기</button></td>
                                 </tr>
@@ -87,7 +88,19 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td><input type="text"></td>
+                                <td>
+                                    <select name="" id="">
+                                        <option value="">골든 리트리버</option>
+                                        <option value="">포메라니안</option>
+                                        <option value="">프렌치 불도그</option>
+                                        <option value="">비숑 프리제</option>
+                                        <option value="">말티즈</option>
+                                        <option value="">푸들</option>
+                                        <option value="">시츄</option>
+                                        <option value="">요크셔 테리어</option>
+                                        <option value="">기타</option>
+                                    </select>
+                                </td>
                                 <td><input type="text" value="woochan@pawpaw.com"></td>
                                 <td></td>
                             </tr>
@@ -101,8 +114,9 @@
 				</div>
 			</div>
 		</div>
+		</div>
     </form>
     
     <!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-</body>
+

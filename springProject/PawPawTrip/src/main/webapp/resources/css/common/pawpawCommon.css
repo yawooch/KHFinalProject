@@ -46,7 +46,7 @@
 	}
 }
 .container{
-	height:calc(100% - 91px - 134px);
+/* 	height:calc(100% - 91px - 134px); */
 }
 
 input::placeholder {

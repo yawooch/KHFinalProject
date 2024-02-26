@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="${path}/css/member/login.css">
 
     <!--메인 로그인 창-->
-    <section>
+    <section class="content">
         <form action="${ path }/login" method="post">
             <!--로고-->
             <div id="biglogo">
@@ -50,7 +50,7 @@
                     <br>
                     <div class="kakao_btn">
                         <img src="https://madangs.com/re_public/images/social/kakao_symbol.svg" alt="" width="20px">
-                        <span>카카오 간편로그인</span>
+                        <span>카카오톡 간편로그인</span>
                     </div>
                 </div>
             </div>

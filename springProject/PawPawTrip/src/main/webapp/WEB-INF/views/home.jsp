@@ -49,7 +49,7 @@
 	            </div>
 	        </div>
 	    </div>
-    </div>
+	</div>
     <!-- End Banner Hero -->
 
     <section class="container py-5 favoriteMenu">
@@ -79,7 +79,7 @@
     </section>
 
     <section class="bg-pawpaw">
-        <div class="container py-5">
+        <div class="py-5 container">
             <div class="row py-3">
                 <div class="col-lg-6">
                     <h1 class="favoriteTitle"><img src="${path}/img/common/favSiteMarker.png" style="margin-right: 10px;"/>인기 추천 장소</h1>
@@ -125,5 +125,5 @@
             </div>
         </div>
     </section>
-<!-- </div> -->
+</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
