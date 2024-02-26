@@ -18,7 +18,7 @@
 		<div class="common-title">
 			<p>공지사항</p>
 		</div>
-		<div class="community-container">
+<!-- 		<div class="community-container container"> -->
 			<div class="common-sideMenu">
 				<ul>
 					<li class="community-text">커뮤니티</li>
@@ -31,7 +31,7 @@
 						</ul></li>
 				</ul>
 			</div>
-			<div class="community-list">
+			<div class="common-list">
 				<div class="common-search">
 					<div>
 						TOTAL <span>26</span>건
@@ -117,7 +117,7 @@
 					</ul>
 				</div>
 			</div>
-		</div>
+<!-- 		</div> -->
 	</div>
 </div>
 <!--  
