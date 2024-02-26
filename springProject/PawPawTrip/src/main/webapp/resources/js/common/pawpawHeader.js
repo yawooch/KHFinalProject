@@ -1,3 +1,37 @@
+function footerSink()
+{
+	let windowHeight    = $(window).height();
+	let htmlHeight      = $('html').outerHeight();
+	let bodyHeight      = $('body').outerHeight();
+	let navHeight       = $('nav.navbar').outerHeight().toFixed(2);
+	let footerHeight    = $('footer').outerHeight();
+	let containerHeight = (bodyHeight - navHeight - footerHeight).toFixed(0);
+	let contentHeight   = 0;
+	
+	$('body>.content').each((idx, ele)=>{
+		console.log($(ele).outerHeight());
+		contentHeight   += $(ele).outerHeight();
+	});
+	
+	contentHeight   = contentHeight.toFixed(0);
+	console.log(`windowHeight    : ${windowHeight}
+htmlHeight      : ${htmlHeight}
+bodyHeight      : ${bodyHeight}
+navHeight       : ${navHeight}
+footerHeight    : ${footerHeight}
+containerHeight : ${containerHeight}
+contentHeight   : ${contentHeight}`);
+	
+	if(containerHeight > contentHeight)
+	{
+		$('#tempaltemo_footer').css('position', 'absolute');
+	}
+	else
+	{
+		$('#tempaltemo_footer').css('position', 'relative');
+	}
+}
+
 $(document).ready(()=>
 {
 	/********************** 서브메뉴 on 클래스 주기 - 시작 ***************************/
@@ -22,17 +56,9 @@ $(document).ready(()=>
 	});
 	/********************** 서브메뉴 on 클래스 주기 - 종료 ***************************/
 	/********************** 푸터가 바닥으로 가기 위한 container-fluid height 설정 - 시작 ***************************/
+	footerSink();	
+	$(window).resize(footerSink);
 	
-	let navHeight       = $('nav.navbar').outerHeight();
-	let footerHeight    = $('footer').outerHeight();
-	let bodyHeight      = $('body').outerHeight();
-	let windowHeight    = $(window).height();
-	let containerHeight = windowHeight - navHeight - footerHeight;
-	
-	console.log(`windowHeight : \${windowHeight}, navHeight : \${navHeight}, footerHeight : \${footerHeight}, bodyHeight : \${bodyHeight}, containerHeight : \${containerHeight}`);
-	console.log(windowHeight, navHeight, footerHeight, bodyHeight, containerHeight);
-	
-	$('body>.content').css('height', containerHeight);
 	
 	
 	/********************** 푸터가 바닥으로 가기 위한 container-fluid height 설정 - 종료 ***************************/

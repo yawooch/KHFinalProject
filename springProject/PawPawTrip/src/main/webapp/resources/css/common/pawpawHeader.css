@@ -93,13 +93,15 @@ section.bg-pawpaw .card-body .stayAddressSize>img
 {
 	padding-right: 8px;
 }
-
+body>.content{
+	padding-bottom:0px;	
+}
 #tempaltemo_footer{
 	height:133px;
 	padding:34px 0px;
 /* 	position: sticky; */
-/*     width: 100%; */
-/*     bottom: 0px; */
+    width: 100%;
+    bottom: 0px;
 }
 #tempaltemo_footer .text-right{
 	text-align:right;

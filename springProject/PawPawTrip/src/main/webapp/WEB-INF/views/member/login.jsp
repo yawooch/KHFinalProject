@@ -8,15 +8,13 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="${path}/css/member/login.css">
 
 <body>
-<!-- 헤더 -->
-<jsp:include page="/WEB-INF/views/common/header.jsp" />
-
     <!--메인 로그인 창-->
     <section>
-        <form action="${ path }/login" method="post">
+        <form action="">
             <!--로고-->
             <div id="biglogo">
                 <img src="${ path }/img/member/big_logo.png" alt="로고" style="width: 250px" />
@@ -35,14 +33,14 @@
                     <br /><br />
                     <div class="label_signAndIdPass">
                         <div class="label_signup">
-                            <a class="a_btn" href="${ path }/member/enroll">회원가입</a>
+                            <a href="#">회원가입</a>
                         </div>
                         <div class="label_id">
-                            <a class="a_btn" href="${ path }/member/find-id">아이디 찾기</a>
+                            <a href="#">아이디 찾기</a>
                         </div>
 
                         <div class="label_pass">
-                            <a class="a_btn" href="${ path }/member/find-pw">비밀번호 찾기</a>
+                            <a href="#">비밀번호 찾기</a>
                         </div>
                     </div>
                     <br><br>
@@ -56,7 +54,4 @@
             </div>
         </form>
     </section>
-    
-<!-- 푸터 -->
-<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 </body>
