@@ -68,6 +68,7 @@ input::placeholder {
 	color: #B29254;
 }
 
+/* 
 .board-text>a:hover+.community-detail-sideMenu {
     display: block;
 }
@@ -75,13 +76,14 @@ input::placeholder {
 .community-detail-sideMenu:hover {
     display: block;
 }
+*/
 
 .community-detail-sideMenu {
     list-style-type: none;
     margin: 0;
     padding: 0;
 	
-    /* display: none; */
+    display: block;
 }
 
 .community-detail-sideMenu > li {

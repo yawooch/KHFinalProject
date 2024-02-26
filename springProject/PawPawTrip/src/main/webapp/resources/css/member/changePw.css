@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+/*공통 css*/
 * {
     font-family: 'Noto Sans KR', sans-serif;
     box-sizing: border-box;
@@ -14,14 +14,10 @@ body {
 }
 
 a {
-text-decoration: none;
+    text-decoration: none;
 }
 
-table > tr > td {
-	border:none;
-}
-
-.main-box {
+section {
     margin: 0 auto;
     width: 750px;
     padding-top: 100px;
@@ -33,12 +29,12 @@ table > tr > td {
 }
 
 .findbyid {
-    border: 1px solid #c0c0c0;
+    border: 1px solid #B29254;
     border-bottom: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background-color: #B29254;
-    color: #FFF;
+    background-color: #FFF;
+    color: #B29254;
     width: 135px;
     height: 45px;
     text-align: center;
@@ -48,12 +44,12 @@ table > tr > td {
 }
 
 .findbypwd {
-    border: 1px solid #B29254;
+    border: 1px solid #c0c0c0;
     border-bottom: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
-    background-color: #FFF;
-    color: #B29254;
+    background-color: #B29254;
+    color: #FFF;
     width: 135px;
     height: 45px;
     text-align: center;
@@ -61,62 +57,51 @@ table > tr > td {
     line-height: 40px;
 }
 
-/* 아이디 찾기 테이블 */
+/* 비밀번호 변경 테이블 */
 th {
-width: 130px;
-text-align: left;
-font-weight: bold;
-font-size: 18px;
+    width: 150px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 .acc-table {
-    color: #cacaca;
-    width: 750px;
-    height: 400px;
+    /* border-radius: 10px; */
+    color: #c0c0c0;
+    height: 450px;
+    /* width: 750px; */
     /* margin-top: 50px; */
     /* margin-left: 100px; */
     /* margin-right: 100px; */
     /* margin-bottom: 100px; */
     border: 1px solid #c0c0c0;
     background-color: #FFF;
-    /* display: block; */
 }
 
 .acc-table table {
-    font-size: 20px;
-    margin: 50px auto;
+    font-size: 18px;
+    margin: 40px auto;
+    margin-top: 130px;
     border-collapse: separate;
-    border-spacing: 18px;
+    border-spacing: 20px;
+}
+
+.acc-table th{
+    width:160px;
 }
 
 .user_info_input_tag1 {
-    width: 400px;
+    width: 430px;
     height: 40px;
     padding: 7px 20px;
-    /* border-radius: 5px; */
     background: #f4f6f9;
     color: #101010;
     line-height: 1.2em;
     cursor: pointer;
-    border: 1px solid #d9d9d9;
-}
-
-.user_info_input_tag2 {
-    width: 400px;
-    height: 40px;
-    padding: 7px 20px;
-    /* border-radius: 5px; */
-    color: #101010;
-    line-height: 1.2em;
-    cursor: pointer;
-    border: 1px solid #d9d9d9;
+    border: 1px solid #D9D9D9;
 }
 
 .user_info_input_tag1::placeholder{
-    color:#a2a2a2;
-}
-
-.user_info_input_tag2::placeholder{
     color:#a2a2a2;
 }
 
@@ -124,34 +109,16 @@ font-size: 18px;
     outline: 1px solid #B29254;
 }
 
-.user_info_input_tag2:focus{
-    outline: 1px solid #B29254;
-}
-
-/* 버튼들 */
+/* 하단 버튼 */
 .paw_btn1 {
     border: 1px solid #B29254;
     background-color: #B29254;
     border-radius: 5px;
     color: #FFF;
-    width: 90px;
-    height: 40px;
-}
-
-.paw_btn2 {
-    border: 1px solid #B29254;
-    border-radius: 5px;
-    background-color: #FFF;
-    color: #B29254;
-    width: 90px;
-    height: 40px;
-    font-size: 15px;
-}
-
-.acc-table .paw_btn1 {
     width: 174px;
-    border: none;
     height: 43px;
-    margin-top: 30px;
+    border: none;
+    margin-top: 50px;
     font-size: 15px;
+    line-height: 0px;
 }

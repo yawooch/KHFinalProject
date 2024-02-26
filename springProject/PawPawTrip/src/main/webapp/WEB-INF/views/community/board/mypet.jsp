@@ -9,10 +9,8 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<!--  
-<link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
--->
-<link rel="stylesheet" href="${path}/css/community/talk.css">
+
+<link rel="stylesheet" href="${path}/css/community/mypet.css">
 
 <div class="community-wrap content">
 	<div class="community-content">
@@ -27,8 +25,8 @@
 					<li class="board-text"><a href="${path}/community/board">자유 게시판</a>
 
 						<ul class="community-detail-sideMenu">
-							<li><a href="${ path }/community/board/talk" style="font-weight: bold; color: #B29254;">수다</a></li>
-							<li><a href="${ path }/community/board/mypet">마이펫 자랑</a></li>
+							<li><a href="${ path }/community/board/talk">수다</a></li>
+							<li><a href="${ path }/community/board/mypet" style="font-weight: bold; color: #B29254;">마이펫 자랑</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -106,19 +104,19 @@
 							<td>1</td>
 							<td
 								style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-								href="#" style="font-size: 16px;">[수다] 오늘 저녁 뭐먹죠?</a></td>
-							<td>hong22</td>
-							<td>18</td>
-							<td>2024-01-05</td>
+								href="#" style="font-size: 16px;">[마이펫 자랑] 우리집 춘식이를 소개합니다.</a></td>
+							<td>jeong7a71</td>
+							<td>24</td>
+							<td>2024-01-03</td>
 						</tr>
 						<tr>
 							<td>2</td>
 							<td
 								style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-								href="#" style="font-size: 16px;">[수다] 강아지 간식 추천 부탁드립니다.</a></td>
-							<td>nuguna11</td>
-							<td>27</td>
-							<td>2023-12-28</td>
+								href="#" style="font-size: 16px;">[마이펫 자랑] 리드줄 어디꺼가 좋은간가요?</a></td>
+							<td>ismoney</td>
+							<td>28</td>
+							<td>2023-11-03</td>
 						</tr>
 					</table>
 				</div>

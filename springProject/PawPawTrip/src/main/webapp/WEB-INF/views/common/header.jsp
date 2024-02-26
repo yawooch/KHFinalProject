@@ -52,9 +52,9 @@
                             <a class="nav-link" href="${path}/map">포포맵</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="${path}/trip/trip">포포트립</a>
+                            <a class="nav-link" href="${path}/trip/spot">포포트립</a>
                             <ul class="menu-sub" id="menuUlsecond">
-                                <li class="on"><a href="${path}/trip/trip">여행</a></li>
+                                <li class="on"><a href="${path}/trip/spot">여행</a></li>
                                 <li class=""><a href="${path}/trip/stay">숙박</a></li>
                             </ul>
                         </li>

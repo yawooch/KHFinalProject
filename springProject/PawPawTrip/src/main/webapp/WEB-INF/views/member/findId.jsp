@@ -23,7 +23,7 @@
                     <a href="#" style="color: #FFF;">아이디 찾기</a>
                 </div>
                 <div class="findbypwd">
-                    <a href="#" style="color: #B29254;">비밀번호 찾기</a>
+                    <a href="${ path }/member/find-pw" style="color: #B29254;">비밀번호 찾기</a>
                 </div>
             </div>
             

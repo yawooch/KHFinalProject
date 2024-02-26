@@ -14,12 +14,12 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	
 	<!-- 메인 -->
-	<form class="content" action="">
+	<form class="content" action="${ path }/member/find-pw" method="post">
         <section class="main-box">  
             <!--navi-->
             <div class="navi">
                 <div class="findbyid">
-                    <a href="#" style="color: #B29254;">아이디 찾기</a>
+                    <a href="${ path }/member/find-id" style="color: #B29254;">아이디 찾기</a>
                 </div>
                 <div class="findbypwd">
                     <a href="#" style="color: #FFF;">비밀번호 찾기</a>
