@@ -9,44 +9,46 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
 <div class="content">
-    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel" style="margin:auto;">
-        <ol class="carousel-indicators">
-            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
-            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
-            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
-        </ol>
-        
-        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
-            <i class="fas fa-chevron-left"></i>
-        </a>
-        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
-            <i class="fas fa-chevron-right"></i>
-        </a>
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="max-container">
-                    <div class="row">
-                        <img class="img-fluid" src="${path}/img/common/main-carousel-img1.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="max-container">
-                    <div class="row">
-                        <img class="img-fluid" src="${path}/img/common/main-carousel-img2.png" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="max-container">
-                    <div class="row">
-                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-                            <img class="img-fluid" src="${path}/img/common/main-carousel-img3.jpg" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<div class="container">
+	    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+	        <ol class="carousel-indicators">
+	            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+	            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+	            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+	        </ol>
+	        
+	        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+	            <i class="fas fa-chevron-left"></i>
+	        </a>
+	        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+	            <i class="fas fa-chevron-right"></i>
+	        </a>
+	        <div class="carousel-inner">
+	            <div class="carousel-item active">
+	                <div class="max-container">
+	                    <div class="row">
+	                        <img class="img-fluid" src="${path}/img/common/main-carousel-img1.png" alt="">
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="carousel-item">
+	                <div class="max-container">
+	                    <div class="row">
+	                        <img class="img-fluid" src="${path}/img/common/main-carousel-img2.png" alt="">
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="carousel-item">
+	                <div class="max-container">
+	                    <div class="row">
+	                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
+	                            <img class="img-fluid" src="${path}/img/common/main-carousel-img3.jpg" alt="">
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
     </div>
     <!-- End Banner Hero -->
 
@@ -66,7 +68,7 @@
             <div class="col-lg-4 col-md-12 p-5 mt-3">
                 <a href="${path}/trip/stay"><img src="${path}/img/common/menuComponent2.png" class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">포포트립</h2>
-                <p class="text-center"><a href="${path}/trip/spot" class="btn btn-letssee">보러가기</a></p>
+                <p class="text-center"><a href="${path}/trip/stay" class="btn btn-letssee">보러가기</a></p>
             </div>
             <div class="col-lg-4 col-md-12 p-5 mt-3">
                 <a href="${path}/community/notice"><img src="${path}/img/common/menuComponent3.png" class="rounded-circle img-fluid border"></a>
@@ -123,5 +125,5 @@
             </div>
         </div>
     </section>
-</div>
+<!-- </div> -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
