@@ -14,13 +14,13 @@ function footerSink()
 	});
 	contentHeight = Math.floor(contentHeight);
 	
-	console.log(`windowHeight    : ${windowHeight}
+/*	console.log(`windowHeight    : ${windowHeight}
 htmlHeight      : ${htmlHeight}
 bodyHeight      : ${bodyHeight}
 navHeight       : ${navHeight}
 footerHeight    : ${footerHeight}
 containerHeight : ${containerHeight}
-contentHeight   : ${contentHeight}`);
+contentHeight   : ${contentHeight}`); */
 	
 //	if(containerHeight > contentHeight)
 //	{
@@ -31,6 +31,7 @@ contentHeight   : ${contentHeight}`);
 //	{
 //		$('#tempaltemo_footer').css('position', 'relative');
 //		console.log('relative');
+//		$('body>.content>.container').removeAttr('height');
 //	}
 }
 

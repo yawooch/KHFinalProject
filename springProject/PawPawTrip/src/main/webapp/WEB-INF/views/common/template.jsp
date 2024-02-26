@@ -10,8 +10,8 @@
 
 
 <!-- ******************* 기본템플릿 시작 ******************* -->
-<div class="content"         style="position:relative;background-color:lime;  "><span style="position:absolute;top:0px;left:0px;">container-fluid</span>
-	<div class="container"           style="position:relative;background-color:orange;height:100%;"> <span style="position:absolute;top:0px;left:0px;">container</span>
+<div class="content"              style="position:relative;background-color:lime;  "><span style="position:absolute;top:0px;left:0px;">container-fluid</span>
+	<div class="container"        style="position:relative;background-color:orange;"> <span style="position:absolute;top:0px;left:0px;">container</span>
 		<div class="common-title" style="position:relative;background-color:red;   ">             <span style="position:absolute;top:0px;left:0px;">common-title</span>
 			<p>기본 템플릿</p>
 		</div>
