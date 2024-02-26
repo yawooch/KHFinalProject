@@ -1,9 +1,9 @@
 function footerSink()
 {
 	let windowHeight    = $(window).height();
-	let htmlHeight      = $('html').outerHeight();
-	let bodyHeight      = $('body').outerHeight();
-	let navHeight       = $('nav.navbar').outerHeight().toFixed(2);
+	let htmlHeight      = $('html').outerHeight().toFixed(0);
+	let bodyHeight      = $('body').outerHeight().toFixed(0);
+	let navHeight       = $('nav.navbar').outerHeight().toFixed(0);
 	let footerHeight    = $('footer').outerHeight();
 	let containerHeight = (bodyHeight - navHeight - footerHeight).toFixed(0);
 	let contentHeight   = 0;
@@ -12,8 +12,8 @@ function footerSink()
 		console.log($(ele).outerHeight());
 		contentHeight   += $(ele).outerHeight();
 	});
+	contentHeight = Math.floor(contentHeight);
 	
-	contentHeight   = contentHeight.toFixed(0);
 	console.log(`windowHeight    : ${windowHeight}
 htmlHeight      : ${htmlHeight}
 bodyHeight      : ${bodyHeight}
@@ -25,10 +25,12 @@ contentHeight   : ${contentHeight}`);
 	if(containerHeight > contentHeight)
 	{
 		$('#tempaltemo_footer').css('position', 'absolute');
+		console.log('absolute');
 	}
 	else
 	{
 		$('#tempaltemo_footer').css('position', 'relative');
+		console.log('relative');
 	}
 }
 
@@ -56,7 +58,6 @@ $(document).ready(()=>
 	});
 	/********************** 서브메뉴 on 클래스 주기 - 종료 ***************************/
 	/********************** 푸터가 바닥으로 가기 위한 container-fluid height 설정 - 시작 ***************************/
-	footerSink();	
 	$(window).resize(footerSink);
 	
 	
@@ -125,4 +126,5 @@ $(document).ready(()=>
 	
 	
 	
+	footerSink();	
 })

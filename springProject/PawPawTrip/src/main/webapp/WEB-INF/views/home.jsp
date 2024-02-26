@@ -68,7 +68,7 @@
             <div class="col-lg-4 col-md-12 p-5 mt-3">
                 <a href="${path}/trip/stay"><img src="${path}/img/common/menuComponent2.png" class="rounded-circle img-fluid border"></a>
                 <h2 class="h5 text-center mt-3 mb-3">포포트립</h2>
-                <p class="text-center"><a href="${path}/trip/spot" class="btn btn-letssee">보러가기</a></p>
+                <p class="text-center"><a href="${path}/trip/stay" class="btn btn-letssee">보러가기</a></p>
             </div>
             <div class="col-lg-4 col-md-12 p-5 mt-3">
                 <a href="${path}/community/notice"><img src="${path}/img/common/menuComponent3.png" class="rounded-circle img-fluid border"></a>
@@ -125,5 +125,5 @@
             </div>
         </div>
     </section>
-</div>
+<!-- </div> -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />

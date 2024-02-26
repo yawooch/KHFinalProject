@@ -81,4 +81,4 @@
         </div>
     </nav>
     <!-- Close Header -->
-    <div id="submenu_bg" class="container-fluid shadow" style="background-color:#FDFAEF;height:50px;display:none;position: absolute; z-index: 2;"></div>
+    <div id="submenu_bg" class="container-fluid shadow"></div>
