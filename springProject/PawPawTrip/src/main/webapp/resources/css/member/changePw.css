@@ -15,6 +15,11 @@ body {
 
 a {
     text-decoration: none;
+    font-size: 16px;
+}
+
+td {
+	border: none;
 }
 
 section {
@@ -66,14 +71,8 @@ th {
 }
 
 .acc-table {
-    /* border-radius: 10px; */
     color: #c0c0c0;
-    height: 450px;
-    /* width: 750px; */
-    /* margin-top: 50px; */
-    /* margin-left: 100px; */
-    /* margin-right: 100px; */
-    /* margin-bottom: 100px; */
+    height: 430px;
     border: 1px solid #c0c0c0;
     background-color: #FFF;
 }
@@ -94,7 +93,6 @@ th {
     width: 430px;
     height: 40px;
     padding: 7px 20px;
-    background: #f4f6f9;
     color: #101010;
     line-height: 1.2em;
     cursor: pointer;

@@ -14,10 +14,11 @@ body {
 }
 
 a {
-text-decoration: none;
+	text-decoration: none;
+	font-size: 16px;
 }
 
-table > tr > td {
+td {
 	border:none;
 }
 
@@ -42,7 +43,6 @@ table > tr > td {
     width: 135px;
     height: 45px;
     text-align: center;
-    /* margin-left: 100px; */
     float: left;
     line-height: 40px;
 }
@@ -93,8 +93,6 @@ font-size: 18px;
     width: 400px;
     height: 40px;
     padding: 7px 20px;
-    /* border-radius: 5px; */
-    background: #f4f6f9;
     color: #101010;
     line-height: 1.2em;
     cursor: pointer;

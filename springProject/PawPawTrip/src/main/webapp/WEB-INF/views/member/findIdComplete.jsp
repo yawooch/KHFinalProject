@@ -8,10 +8,9 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<link rel="stylesheet" href="${path}/css/member/findIdComplete.css">
-<body>
 	<!-- 헤더 -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<link rel="stylesheet" href="${path}/css/member/findIdComplete.css">
 
 	<!-- 메인 -->
     <section class="content">
@@ -23,7 +22,6 @@
                 <h2>
                 <b style="color: #B29254;">woochan</b> <br> 
                 </h2>
-                <br />
                 <input class="paw_btn_long" type="button" value="로그인 하기" onclick="location.href='${ path }/login'"/>
             </div>
         </div>
@@ -31,5 +29,3 @@
     
     <!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-</body>
-</html>

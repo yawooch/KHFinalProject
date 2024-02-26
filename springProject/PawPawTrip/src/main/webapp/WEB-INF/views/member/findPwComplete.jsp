@@ -8,10 +8,9 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
-<link rel="stylesheet" href="${path}/css/member/findPwComplete.css">
-<body>
 	<!-- 헤더 -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
+	<link rel="stylesheet" href="${path}/css/member/findPwComplete.css">
 	
 	<!-- 메인 -->
     <section class="content">
@@ -31,5 +30,3 @@
     
     <!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-</body>
-</html>
