@@ -255,10 +255,10 @@ td {
 /* 버튼 */
 .btn-wrap {
     margin-top: 35px;
+    text-align: right;
 }
 
 .community-btn {
-    margin-left: 810px;
     padding: 0;
     width: 90px;
     height: 35px;
