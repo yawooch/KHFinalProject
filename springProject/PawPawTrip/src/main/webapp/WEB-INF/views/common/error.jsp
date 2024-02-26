@@ -7,13 +7,35 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<link rel="stylesheet" href="${path}/css/common/error.css">
 
 <div class="container content">
+	<!--  
 	<div class="community-title">
 		<p>Error 페이지 입니다만? 호오</p>
 	</div>
+	-->
 	<div class="community-title">
-		<p style="font-size:200px;opacity:0.3;">*ฅ^•ﻌ•^ฅ*</p>
+		<p id="errMsg" style="font-size:200px;opacity:0.3;"></p>
+		<p>요청하신 페이지를 찾을 수 없습니다.</p>
+		
+		<button id="mainBtn">메인페이지</button>
+		<button id="prevBtn">이전페이지</button>
 	</div>
 </div>
+
+<script>
+	let random = Math.floor((Math.random() * 5));
+	let arr = ['( ͡° ᴥ ͡°)', 'U ´ᴥ` U', 'υ´• ﻌ •`υ', '*ฅ^•ﻌ•^ฅ*', '(ﾐⓛᆽⓛﾐ)'];
+	
+	let errMsg = document.getElementById('errMsg');
+	
+	for(let i = 0; i <= 4; i++) {
+		if(i === random) {
+			console.log(arr[i]);
+			errMsg.innerHTML = arr[i];
+		}
+	}
+</script>
+
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

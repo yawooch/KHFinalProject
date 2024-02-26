@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+#errMsg {
+	color: B29254;
+}
+
+.community-title > p {
+	text-align: center;
+}
+
+.community-title > p:nth-of-type(2) {
+	font-size: 24px;
+}
+
+button {
+	width: 90px;
+	height: 35px;
+	font-size: 15px;
+}
