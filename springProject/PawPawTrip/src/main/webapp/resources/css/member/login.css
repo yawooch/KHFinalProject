@@ -1,5 +1,15 @@
 @charset "UTF-8";
 
+/*모바일*/
+@media (min-width: 500px) {
+	
+}
+
+/*데스크탑*/
+@media (min-width: 992px) {
+	
+}
+
 /*공통 css*/
 * {
     font-family: 'Noto Sans KR', sans-serif;
@@ -101,6 +111,10 @@ input:focus{
 .label_signAndIdPass a {
 	text-decoration: none;
 	color: #4B4242;
+}
+
+.label_signAndIdPass > div > *:hover {
+	color: #B29254;
 }
 
 .login_info_save > * {

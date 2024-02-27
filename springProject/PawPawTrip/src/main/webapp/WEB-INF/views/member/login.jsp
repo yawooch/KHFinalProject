@@ -34,7 +34,7 @@
                     <br /><br />
                     <div class="label_signAndIdPass">
                         <div class="label_signup">
-                            <a class="a_btn" href="${ path }/member/enroll">회원가입</a>
+                            <a class="a_btn" href="${ path }/enroll">회원가입</a>
                         </div>
                         <div class="label_id">
                             <a class="a_btn" href="${ path }/member/find-id">아이디 찾기</a>
@@ -44,7 +44,7 @@
                             <a class="a_btn" href="${ path }/member/find-pw">비밀번호 찾기</a>
                         </div>
                     </div>
-                    <br><br>
+                    <br>
                     <!--간편 로그인-->
                     <div class="hr-sect">간편 로그인</div>
                     <br>
