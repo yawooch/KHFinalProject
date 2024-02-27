@@ -22,7 +22,7 @@
 			<ul>
 				<li>관리자</li>
 				<li><a href="${path}/admin/dashboard" style="font-weight: bold; color: #B29254;">대시보드</a></li>
-				<li><a href="${path}/admin/stayList">숙소 수정</a></li>
+				<li><a href="${path}/admin/tripList">포포트립 매핑</a></li>
 				<li><a href="${path}/admin/noticeWrite">공지사항 입력</a></li>
 			</ul>
 		</div>
