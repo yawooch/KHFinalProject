@@ -9,6 +9,7 @@
 
 <!-- css 파일 연결 -->
 <link rel="stylesheet" href="${path}/css/common/bootstrap.css">
+<link rel="stylesheet" href="${path}/css/common/templatemo.css">
 <link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
 <link rel="stylesheet" href="${path}/css/trip/stayDetail.css">
 
@@ -74,9 +75,9 @@ color: #FDFAEF;
         <!-- 사이드 메뉴바 -->
         <div class="menu-area">
             <div class="side-menu">
-                <a href="#">포포트립</a>
-                <a href="#">여행</a>
-                <a href="#">숙박</a>
+                <a href="${ path }/trip/spot">포포트립</a>
+                <a href="${ path }/trip/spot">여행</a>
+                <a href="${ path }/trip/stay">숙박</a>
             </div>
         </div>
         

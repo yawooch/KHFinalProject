@@ -27,12 +27,12 @@
 .swiper {
 display: inline-block;
 position: absolute;    
-width: 500px;
-height: 350px;
+width: 55%;
+height: 100%;
 /* margin: 15px 0px; */
 flex-direction: row;
 z-index: 5;
-/* right: 0; */
+left: 0; 
 border-radius: 10px;
 }
 
@@ -62,25 +62,23 @@ color: #FDFAEF;
 </style>
 
 <!-- 바디 -->
-<section class="tripDetail-wrap">
-    <!-- 페이지 타이틀 -->
-    <div class="tripDetail-title"><p>여행</p></div>
-
-
-    <!-- 사이드 바 + 내부 콘텐츠 -->
-    <div class="tripDetail-container">
-        <!-- 사이드 메뉴바 -->
-        <div class="menu-area">
-            <div class="side-menu">
-                <a href="#">포포트립</a>
-                <a href="#">여행</a>
-                <a href="#">숙박</a>
-            </div>
+<section class="content">
+	<div class="container">
+		
+	    <!-- 페이지 타이틀 -->
+	    <div class="common-title"><p>여행</p></div>
+	
+        <!-- 사이드 메뉴 -->
+        <div class="common-sideMenu">
+            <ul>
+                <li class="community-text">포포트립</li>
+                <li class="notice-text"><a href="${ path }/trip/spot">여행</a></li>
+                <li class="board-text"><a href="${ path }/trip/stay">숙박</a>
+            </ul>
         </div>
-        
-
+	        
         <!-- 내부 콘텐츠 -->
-        <div class="tripDetail-content">
+        <div class="common-list">
             <!-- 메인 정보 -->
             <div class="tripDetail-mainInfo-wrap">
                 <!-- 장소 이미지(슬라이드) -->

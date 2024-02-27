@@ -22,17 +22,14 @@
 </div>
 
 <script>
-	let random = Math.floor((Math.random() * 5));
-	let arr = ['( ͡° ᴥ ͡°)', 'U ´ᴥ` U', 'υ´• ﻌ •`υ', '*ฅ^•ﻌ•^ฅ*', '(ﾐⓛᆽⓛﾐ)'];
+
+	let random = Math.floor((Math.random() * 7));
+	let arr = ['( ͡° ᴥ ͡°)', 'U ´ᴥ` U', 'υ´• ﻌ •`υ', '*ฅ^•ﻌ•^ฅ*', '(ﾐⓛᆽⓛﾐ)', '▼・ᴥ・▼', 'ʕ´•ᴥ•`ʔ'];
 	
 	let errMsg = document.getElementById('errMsg');
 	
-	for(let i = 0; i <= 4; i++) {
-		if(i === random) {
-			console.log(arr[i]);
-			errMsg.innerHTML = arr[i];
-		}
-	}
+	errMsg.innerHTML = arr[random];
+	
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

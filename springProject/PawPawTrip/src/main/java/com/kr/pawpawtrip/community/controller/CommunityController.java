@@ -1,16 +1,38 @@
 package com.kr.pawpawtrip.community.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kr.pawpawtrip.community.model.service.CommunityService;
+import com.kr.pawpawtrip.community.model.vo.Community;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
+@RequiredArgsConstructor
 public class CommunityController {
+	private final CommunityService communityService;
+	
 
 //	공지사항
 	@GetMapping("/community/notice")
-	public String notice() 
-	{
-		return "community/notice";
+	public ModelAndView notice(ModelAndView modelAndView) {
+		
+		List<Community> noticeList = null;
+		
+		noticeList = communityService.getNoticeList();
+		
+		System.out.println(noticeList);
+		
+		modelAndView.addObject("noticeList", noticeList);
+		modelAndView.setViewName("community/notice");
+		
+		return modelAndView;
 	}
 	
 //	자유 게시판

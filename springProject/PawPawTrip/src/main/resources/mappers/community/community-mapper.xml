@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+<mapper namespace="com.kr.pawpawtrip.community.model.mapper.CommunityMapper">
+	<sql id="communityListSql">
+		SELECT COMMUNITY_NO,
+			   COMMUNITY_CATEGORY,
+			   COMMUNITY_TITLE,
+			   COMMUNITY_CONTENT,
+			   COMMUNITY_ED,
+			   COMMUNITY_STATUS,
+			   COMMUNITY_COUNT,
+			   COMMUNITY_O_FILENAME,
+			   COMMUNITY_R_FILENAME,
+			   NOTICE_IMPORTANT_YN
+		FROM COMMUNITY
+	</sql>
+	
+	<resultMap id="communityListResultMap" type="Community">
+		<id property="communityNo" column="COMMUNITY_NO" />
+		<result property="communityCategory" column="COMMUNITY_CATEGORY" />
+		<result property="communityTitle" column="COMMUNITY_TITLE" />
+		<result property="communityContent" column="COMMUNITY_CONTENT" />
+		<result property="communityEd" column="COMMUNITY_ED" />
+		<result property="communityStatus" column="COMMUNITY_STATUS" />
+		<result property="communityCount" column="COMMUNITY_COUNT" />
+		<result property="communityOfileName" column="COMMUNITY_O_FILENAME" />
+		<result property="communityRfileName" column="COMMUNITY_R_FILENAME" />
+		<result property="noticeImportantYN" column="NOTICE_IMPORTANT_YN" />
+	</resultMap>	
+
+	<select id="selectNoticeList" resultMap="communityListResultMap">
+		<include refid="communityListSql" />
+		WHERE COMMUNITY_STATUS = 'Y'
+		AND COMMUNITY_CATEGORY = '공지사항'
+		ORDER BY COMMUNITY_ED DESC
+	</select>
+	
+</mapper>

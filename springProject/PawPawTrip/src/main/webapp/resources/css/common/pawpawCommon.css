@@ -292,6 +292,8 @@ input::placeholder {
     margin-top: 25px;
     overflow: auto;
 }
+.common-detail-list.no-row {margin: 25px -12px 0px;}
+.common-detail-list.no-row>.row {margin:0px}
 
 tr {
     border: 1px solid #E8E8E8;
