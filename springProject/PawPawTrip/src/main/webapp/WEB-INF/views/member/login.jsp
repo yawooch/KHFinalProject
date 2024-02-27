@@ -12,50 +12,55 @@
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="${path}/css/member/login.css">
+<link rel="stylesheet" href="${path}/css/member/member.css">
 
     <!--메인 로그인 창-->
-    <section class="content">
-        <form action="${ path }/login" method="post">
-            <!--로고-->
-            <div id="biglogo">
-                <img src="${ path }/img/member/big_logo.png" alt="로고" style="width: 250px" />
-            </div>
-            <!--로그인 창-->
-            <div class="first_div">
-                <div class="login-box">
-                    <input type="text" name="input_id" id="input_id" placeholder="아이디" />
-                    <br />
-                    <input type="password" name="input_pass" id="input_pass" placeholder="비밀번호" />
-                    <div class="login_info_save">
-                        <input type="checkbox" name="" id="login_info_save"/>
-                        <label for="login_info_save">아이디 저장</label>
-                    </div>
-                    <button type="submit" class="login_btn">로그인</button>
-                    <br /><br />
-                    <div class="label_signAndIdPass">
-                        <div class="label_signup">
-                            <a class="a_btn" href="${ path }/enroll">회원가입</a>
-                        </div>
-                        <div class="label_id">
-                            <a class="a_btn" href="${ path }/member/find-id">아이디 찾기</a>
-                        </div>
-
-                        <div class="label_pass">
-                            <a class="a_btn" href="${ path }/member/find-pw">비밀번호 찾기</a>
-                        </div>
-                    </div>
-                    <br>
-                    <!--간편 로그인-->
-                    <div class="hr-sect">간편 로그인</div>
-                    <br>
-                    <div class="kakao_btn">
-                        <img src="https://madangs.com/re_public/images/social/kakao_symbol.svg" alt="" width="20px">
-                        <span>카카오톡 간편로그인</span>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </section>
+<section class="content container-fluid">
+	<div class="container">
+		<div class="member-content member-login">
+		    <form action="${ path }/login" method="post">
+		        <!--로고-->
+		        <div id="biglogo">
+		            <img src="${ path }/img/member/big_logo.png" alt="로고" style="width: 250px" />
+		        </div>
+		        <!--로그인 창-->
+		        <div class="first_div">
+		            <div class="login-box">
+		                <input type="text" name="input_id" id="input_id" placeholder="아이디" />
+		                <br />
+		                <input type="password" name="input_pass" id="input_pass" placeholder="비밀번호" />
+		                <div class="login_info_save">
+		                    <input type="checkbox" name="" id="login_info_save"/>
+		                    <label for="login_info_save">아이디 저장</label>
+		                </div>
+		                <button type="submit" class="login_btn">로그인</button>
+		                <br /><br />
+		                <div class="label_signAndIdPass">
+		                    <div class="label_signup">
+		                        <a class="a_btn" href="${ path }/enroll">회원가입</a>
+		                    </div>
+		                    <div class="label_id">
+		                        <a class="a_btn" href="${ path }/member/find-id">아이디 찾기</a>
+		                    </div>
+		
+		                    <div class="label_pass">
+		                        <a class="a_btn" href="${ path }/member/find-pw">비밀번호 찾기</a>
+		                    </div>
+		                </div>
+		                <br>
+		                <!--간편 로그인-->
+		                <div class="hr-sect">간편 로그인</div>
+		                <br>
+		                <div class="kakao_btn">
+		                    <img src="https://madangs.com/re_public/images/social/kakao_symbol.svg" alt="" width="20px">
+		                    <span>카카오톡 간편로그인</span>
+		                </div>
+		            </div>
+		        </div>
+		    </form>
+		</div>
+	</div>
+</section>
     
 <!-- 푸터 -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
