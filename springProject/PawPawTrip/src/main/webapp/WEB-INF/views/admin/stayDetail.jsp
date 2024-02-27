@@ -19,7 +19,7 @@
 		<div class="common-sideMenu">
 			<ul>
 				<li class="community-text">관리자</li>
-				<li class="notice-text"><a href="${path}/admin/notice">대시보드</a></li>
+				<li class="notice-text"><a href="${path}/admin/dashboard">대시보드</a></li>
 				<li class="board-text"><a href="${path}/admin/board">자유 게시판</a>
 
 				<ul class="community-detail-sideMenu">

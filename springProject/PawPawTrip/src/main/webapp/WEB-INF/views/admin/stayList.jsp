@@ -18,7 +18,7 @@
 		<div class="common-sideMenu">
 			<ul>
 				<li class="">관리자</li>
-				<li class=""><a href="${path}/admin/notice">대시보드</a></li>
+				<li class=""><a href="${path}/admin/dashboard">대시보드</a></li>
 				<li class="on"><a href="${path}/admin/stayList">숙소수정</a>
 				<li class=""><a href="${path}/admin/noticeWrite">공지사항 입력</a></li>
 			</ul>
