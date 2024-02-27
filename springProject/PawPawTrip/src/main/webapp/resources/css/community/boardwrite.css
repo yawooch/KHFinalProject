@@ -3,106 +3,20 @@
 
 input::placeholder {
     color: gray;
-}
-
-.community-wrap {
-    width: 1200px;
-    margin: 0 auto;
-}
-
-.community-title {
-    padding: 30px 0 30px 0;
-    border-bottom: 1px solid #e8e8e8;
-    font-size: 25px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.community-title > p {
-    margin: 0;
-    color: #4B4242;
-}
-
-.community-container {
-    margin-top: 35px;
-    display: flex;
-    gap: 35px;
-}
-
-.community-sideMenu {
-    width: 250px;
-    text-align: center;
-}
-
-.community-sideMenu > ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    border: 1px solid #CCCCCC;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-}
-
-.community-sideMenu a:hover {
-    color: #B29254;
-}
-
-.community-text, .notice-text, .board-text {
-    padding: 10px 0 10px 0;
-}
-
-.community-text {
-    background-color: #B29254;
-    color: white;
-    font-size: 18px;
-}
-
-.notice-text > a, .board-text > a {
     font-size: 16px;
-    color: black;
-    text-decoration: none;
 }
 
-.board-text>a:hover+.community-detail-sideMenu {
-    display: block;
+.board-text > a {
+	font-weight: bold;
+	color: #B29254;
 }
 
-.community-detail-sideMenu:hover {
-    display: block;
-}
-
-.community-detail-sideMenu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-
-    display: none;
-}
-
-.community-detail-sideMenu > li {
-    padding-top: 10px;
-}
-
-.community-detail-sideMenu > li a {
-    text-decoration: none;
-    color: black;
+table {
+	width: 811px;
 }
 
 td {
-    /* width: 100px; */
-    height: 40px;
-    font-size: 16px;
-}
-
-.community-list > form > table {
-    width: 914px;
-    border-collapse: collapse;
-    border-color: #E8E8E8;
-}
-
-.community-list > form > table td:nth-of-type(2n+1) {
-    background-color: #FDFAEF;
-    width: 197px;
+	height: 40px;
 }
 
 input[type=file]::file-selector-button {
@@ -121,9 +35,15 @@ input[type=file]::file-selector-button {
     } */
 }
 
+.community-td-header {
+	text-align: center;
+	background-color: #FDFAEF;
+	color: black;
+}
+
 .community-td-title {
     text-align: left;
-    padding-left: 10px;
+    padding-left: 5px;
 }
 
 .community-td-title > select {
@@ -138,6 +58,7 @@ input[type=file]::file-selector-button {
     border-style: none;
     outline: none;
     font-size: 16px;
+    padding-left: 10px;
 }
 
 .community-td-name {
@@ -157,6 +78,7 @@ input[type=file]::file-selector-button {
 
 .community-td-file + td > input {
     padding-left: 10px;
+    font-size: 16px;
 }
 
 .btn-wrap {

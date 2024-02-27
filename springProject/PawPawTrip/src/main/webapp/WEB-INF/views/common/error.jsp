@@ -11,7 +11,7 @@
 
 <div class="container content">
 	<div class="error-title">
-		<p id="errMsg" style="font-size:200px;opacity:0.3;"></p>
+		<p id="errMsg" style="font-size:200px;opacity:0.3; font-weight: 900;"></p>
 		<p>요청하신 페이지를 찾을 수 없습니다.</p>
 	</div>
 	
