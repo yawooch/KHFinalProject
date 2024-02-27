@@ -93,6 +93,15 @@
     color: #B29254;
 }
 
+.notice-text > a {
+	color: #B29254 !important;
+	font-weight: bold;
+}
+
+.notice-text>a:hover+.community-detail-sideMenu {
+    display: block;
+}
+
 /* ------------------------------------------- */
 
 /* 메인 콘텐츠 영역 */
@@ -128,13 +137,12 @@
 .tripNameAndLike {
     display: block;
     /* position: relative; */
-    width: 330px;
+    width: 100%;
     height: max-content;
 }
 
 .tripNameAndLike {
 	text-align: start;
-	margin-left: 26px
 }
 
 .tripName {
@@ -144,7 +152,8 @@
     font-weight: bold;
     font-size: 20px;
     height: 36px;
-    width: 289px;
+    width: 90%;
+    right: 0;
     margin: 10px auto;
 }
 
@@ -152,7 +161,7 @@
 #heart-icon {
     display: inline-block;
     /* position: absolute; */
-    width: 36px;
+    width: 7%;
     height: 31px;
     /* padding-left: 120px; */
     color: #4B4242;

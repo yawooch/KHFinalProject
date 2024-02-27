@@ -94,6 +94,14 @@
     color: #B29254;
 }
 
+.board-text > a {
+	color: #B29254 !important;
+	font-weight: bold;
+}
+
+.board-text>a:hover+.community-detail-sideMenu {
+    display: block;
+}
 /* ------------------------------------------- */
 
 /* 메인 콘텐츠 영역 */

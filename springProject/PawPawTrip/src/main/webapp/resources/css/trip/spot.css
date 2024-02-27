@@ -18,12 +18,12 @@
     font-size: 14px !important;
 }
 
-.board-text > a {
+.notice-text > a {
 	color: #B29254 !important;
 	font-weight: bold;
 }
 
-.board-text>a:hover+.community-detail-sideMenu {
+.notice-text>a:hover+.community-detail-sideMenu {
     display: block;
 }
 
