@@ -7,63 +7,63 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class MemberController {
 	
-	// �α���
+	// 로그인
 	@GetMapping("/login")
 	public String login() {
 		
 		return "member/login";
 	}
 	
-	// �α��� �Ϸ�
+	// 로그인 완료
 	@PostMapping("/login")
 	public String loginComplete() {
 		
 		return "member/login";
 	}
 	
-	// ���̵� ã��
+	// 아이디 찾기
 	@GetMapping("/member/find-id")
 	public String findId() {
 		
 		return "member/findId";
 	}
 	
-	// ���̵� ã�� �Ϸ�
+	// 아이디 찾기 완료
 	@PostMapping("/member/find-id")
 	public String findIdComplete() {
 		
 		return "member/findIdComplete";
 	}
 	
-	// ��й�ȣ ã��
+	// 비밀번호 찾기
 	@GetMapping("/member/find-pw")
 	public String findPw() {
 		
 		return "member/findPw";
 	}
 	
-	// ��й�ȣ ����
+	// 비밀번호 변경
 	@PostMapping("member/find-pw")
 	public String changePw() {
 		
 		return "member/changePw";
 	}
 	
-	// ��й�ȣ ã�� �Ϸ�
+	// 비밀번호 변경 완료
 	@PostMapping("/member/change-pw")
 	public String findPwComplete() {
 		
 		return "member/findPwComplete";
 	}
 	
-	// ���������� ȸ����������
+	// 마이페이지 - 회원 정보 수정
 	@GetMapping("/member/mypage/my-info")
 	public String myInfo() {
 		
 		return "member/mypage/myInfo";
 	}
 	
-	// ���������� �������Խñ�
+	// 마이페이지 - 내가 쓴 게시글
 	@GetMapping("/member/mypage/my-board")
 	public String myBoard() {
 		
@@ -78,7 +78,7 @@ public class MemberController {
 	}
 	
 	// 회원가입 완료(수정예정)
-	@GetMapping("/enroll/complete")
+	@PostMapping("/enroll")
 	public String enrollComplete() {
 		
 		return "member/enrollComplete";
