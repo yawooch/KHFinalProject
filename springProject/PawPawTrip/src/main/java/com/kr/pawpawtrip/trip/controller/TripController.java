@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TripController {
 	
-	// ì—¬í–‰ì§€ ì¡°íšŒí˜ì´ì§€
+	// ¿©Çà ¾È³» ÆäÀÌÁö
 	@GetMapping("/trip/spot")
 	public String spot() {
 		
 		return "trip/spot";
 	}
 	
-	// ì—¬í–‰ì§€ ìƒì„¸í˜ì´ì§€
+	// ¿©Çà ¾È³» »ó¼¼ ÆäÀÌÁö
 	@GetMapping("/trip/spot/detail")
 	public String spotDetail() {
 		
@@ -22,13 +22,14 @@ public class TripController {
 	
 	// --------------------------------------------------------------------------------------------
 	
-	// ìˆ™ë°• ì¡°íšŒ í˜ì´ì§€
+	// ¼÷¼Ò ¾È³» ÆäÀÌÁö
 	@GetMapping("/trip/stay")
 	public String stay() {
 		
 		return "trip/stay";
 	}
 	
+	// ¼÷¼Ò ¾È³» »ó¼¼ ÆäÀÌÁö
 	@GetMapping("/trip/stay/detail")
 	public String stayDetail() {
 		

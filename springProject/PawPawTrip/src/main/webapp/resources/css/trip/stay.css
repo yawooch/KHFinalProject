@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.common-title {
+    height: 150px; 
+    line-height: 150px; 
+    padding: 0;
+}
+
+
+.card.product-wap .card .product-overlay {
+    background: rgba(0,0,0,.4);
+}
+
+.readMore {
+    text-align: center;
+    /* font-weight: bold; */
+    color: #FDFAEF;
+    font-size: small;
+}
+
+/* 속소이름 */
+.text-center mb-4 {
+    font-weight: bold;
+    font-size: 20px !important;
+    
+}
+
+.text-start mb-2 {
+    font-size: 18px !important;
+}
+
+.text-start mb-2:first {
+    background: url(./resource_icon/map_icon.png);
+}
+
+/* 아이콘 */
+.card-body div img {
+    margin-bottom: 2.5px;
+    display: inline-block;
+}
