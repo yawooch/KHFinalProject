@@ -54,6 +54,8 @@ input::placeholder {
     font-size: 14px;
 }
 
+
+/************************************ 타이틀 - 시작 ***********************************/
 .common-title {
 	position:relative;
     padding: 30px 0 30px 0;
@@ -75,7 +77,8 @@ input::placeholder {
     gap: 35px;
 }
 
-/* 사이드 메뉴 */
+/************************************ 타이틀 - 종료 ***********************************/
+/************************************ 사이드 메뉴 - 시작 ***********************************/
 
 .common-sideMenu > ul {
     list-style-type: none;
@@ -87,6 +90,60 @@ input::placeholder {
     color: #B29254;
 }
 
+.common-sideMenu>ul>li:first-child
+{
+    background-color: #B29254;
+    color: white;
+    font-size: 18px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.common-sideMenu>ul>li {
+    padding: 10px 0 10px 0;
+	border-right: 1px solid #e8e8e8;
+    border-left: 1px solid #e8e8e8;
+}
+.common-sideMenu>ul>li.on>a
+{
+	font-weight: bold;
+    color: #B29254;
+}
+.common-sideMenu a:hover
+{
+    color: #B29254;
+}.common-sideMenu a
+{
+    color: black;
+}
+.common-sideMenu>ul>li:last-child {
+	border: 1px solid #e8e8e8;
+    border-top-style: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.common-sideMenu>ul>li:first-child
+{
+    background-color: #B29254;
+    color: white;
+    font-size: 18px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+.common-sideMenu>ul>li {
+	border-right: 1px solid #e8e8e8;
+    border-left: 1px solid #e8e8e8;
+}
+.common-sideMenu>ul>li> a{
+    font-size: 16px;
+    text-decoration: none;
+}
+.common-sideMenu>ul>li:last-child {
+	border: 1px solid #e8e8e8;
+    border-top-style: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
 .community-text, .notice-text, .board-text {
     padding: 10px 0 10px 0;
 }
@@ -95,7 +152,6 @@ input::placeholder {
     background-color: #B29254;
     color: white;
     font-size: 18px;
-    
     border-top-right-radius: 5px;
     border-top-left-radius: 5px;
 }
@@ -111,15 +167,15 @@ input::placeholder {
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
 }
-
 .notice-text > a, .board-text > a {
     font-size: 16px;
     color: black;
     text-decoration: none;
 }
 
-/* ---------------------------------------------------- */
+/************************************ 사이드 메뉴 - 종료 ***********************************/
 
+/************************************ 사이드 메뉴서브메뉴 - 시작 ***********************************/
 .board-text>a:hover+.community-detail-sideMenu {
     display: block;
 }
@@ -146,7 +202,8 @@ input::placeholder {
     font-size: 16px;
 }
 
-/* 검색바 */
+/************************************ 사이드 메뉴서브메뉴 - 종료 ***********************************/
+/************************************ 검색바 - 종료 ***********************************/
 .common-search {
     height: 45px;
 /*     display: flex; */
@@ -227,9 +284,9 @@ input::placeholder {
     color: #B29254;
 }
 
-/* ---------------------------------------------------- */
+/************************************ 검색바 - 종료 ***********************************/
 
-/* 테이블 */
+/************************************ 테이블 - 시작 ***********************************/
 .common-detail-list {
     /* border: 1px solid #E8E8E8; */
     margin-top: 25px;
@@ -253,9 +310,29 @@ td {
     border: 1px solid #E8E8E8;
 }
 
-.common-detail-list > table tr:nth-of-type(1) td {
+
+.common-detail-list>table>thead>tr>td,
+.common-detail-list>table>thead>tr>th,
+.common-detail-list>table>tr>th
+ {
+	text-align: center;
+    height: 62px;
+    font-weight:bold;
+    background-color: #FDFAEF;
+    border: 1px solid #E8E8E8;
+}
+
+.common-detail-list > table>tbody>tr td,
+.common-detail-list > table>tr td {
 	text-align: center;
 }
+/* .common-detail-list > table>tbody>tr td.td-title, */
+/* .common-detail-list > table>tr td.td-title { */
+/* 	display: block;  */
+/* 	padding-top: 20px;  */
+/* 	padding-left: 5px;  */
+/* 	border-style: none; */
+/* } */
 
 .common-detail-list > table tr {
     height: 62px;
@@ -264,16 +341,15 @@ td {
 .common-detail-list > table tr td a {
     text-decoration: none;
     color: black;
+    font-size: 16px;
 }
 
 .common-detail-list > table tr td:nth-of-type(1) {
-    width: 42.2px;
-    text-align: center;
+    width:42px;
 }
-
 .common-detail-list > table tr td:nth-of-type(2) {
-    width: 520px;
     text-align: left;
+    width:520px;
     cursor: pointer;
 }
 
@@ -294,14 +370,9 @@ td {
     text-align: center;
 }
 
-/* 
-.common-detail-list > table tr td img {
-	padding-left: 10px;
-}
-*/
+/************************************ 테이블 - 종료 ***********************************/
 
-/* ---------------------------------------------------- */
-
+/************************************ 페이징 - 시작 ***********************************/
 /* 페이징 */
 .common-page-number > ul {
     padding: 0;
@@ -329,3 +400,27 @@ td {
 .common-page-number > ul > li:hover {
     border-width: 2px;
 }
+.no-padding-all{
+	padding:0px !important;
+}
+.no-margin-top{
+	margin-top:0px !important;
+}
+.btn-wrap {
+    padding-top: 35px;
+    padding-bottom: 35px;
+    text-align: right;
+}
+.common-btn {
+    padding: 0;
+    width: 90px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid #B29254;
+    background-color: white;
+    color: #B29254;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/************************************ 페이징 - 종료 ***********************************/

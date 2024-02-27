@@ -8,6 +8,7 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+<link rel="stylesheet" href="${path}/css/community/noticedetail.css">
 
 <!-- ******************* 기본템플릿 시작 ******************* -->
 <div class="content"              style="position:relative;background-color:lime;  "><span style="position:absolute;top:0px;left:0px;">container-fluid</span>
@@ -35,14 +36,13 @@
 		</div>
 		<div class="common-sideMenu">
 			<ul>
-				<li class="community-text">커뮤니티</li>
-				<li class="notice-text"><a href="#">공지사항</a></li>
-				<li class="board-text"><a href="#">자유 게시판</a>
-
-					<ul class="community-detail-sideMenu">
-						<li><a href="#">수다</a></li>
-						<li><a href="#">마이펫 자랑</a></li>
-					</ul></li>
+				<li class="">커뮤니티</li>
+				<li class="on"><a href="#">공지사항</a></li>
+				<li class=""><a href="#">자유 게시판</a>
+				<ul class="community-detail-sideMenu">
+					<li><a href="#">수다</a></li>
+					<li><a href="#">마이펫 자랑</a></li>
+				</ul></li>
 			</ul>
 		</div>
 			
@@ -155,6 +155,47 @@
 			</div>
 		</div>
 		<!-- ******************* 페이징 종료 ******************* -->
+		<!-- ******************* 상세테이블 시작 ******************* -->
+
+		<div class="common-title">
+			<p>상세테이블</p>
+		</div>
+		<div class="common-list">
+
+			<div class="community-detail-list">
+				<table border="1">
+					<tr>
+						<td style="background-color: #FDFAEF;">제목</td>
+						<td colspan="5" class="community-td-title" style="text-align: left;">[공지사항] 댕댕트레킹, 프라이빗
+							반려견 트레킹 코스</td>
+					</tr>
+					<tr>
+						<td style="background-color: #FDFAEF;">작성자</td>
+						<td>관리자</td>
+						<td style="background-color: #FDFAEF;">등록일</td>
+						<td>2023-05-09</td>
+						<td style="background-color: #FDFAEF;">조회수</td>
+						<td>251</td>
+					</tr>
+					<tr>
+						<td colspan="6" class="community-td-content"
+							style="text-align: left">산을 통째로 빌렸어요!<br>
+							댕댕트레킹, 프라이빗 반려견 트레킹 코스<br> <br> 일시 : 2023년 5월 19일(금) ~
+							21일(일)<br> 장소 : 하늘길 트레킹 코스 + 정선 하이원 리조트<br> <br>
+							주요내용 : 6k, 4k, 3k 코스 자유 선택<br> 보듬 훈련사와 함께 대규모 트레킹 클래스<br>
+							트레킹 대장(강형욱 훈련사)과 다양한 프로그램<br> 대상 : 보호자 3,500명 with 반려견<br>
+							티켓 : 일반 참가권 49,000원 및 일부 할인적용 할인권 (숙박권 별도)<br> 링크 :
+							https://dangdangtrekking.com/<br> <br> 
+							<img src="${ path }/img/community/ddtrekking_1.jpg" alt="" width="800px">
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="btn-wrap"">
+				<button class="community-btn">목록</button>
+			</div>
+		</div>
+		<!-- ******************* 상세테이블 종료 ******************* -->
 		
 	</div>
 </div>

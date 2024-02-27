@@ -71,10 +71,20 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
-                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                    </div>
-                    <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/login">로그인</a>
-                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/enroll">회원가입</a>
+					<c:if test="${empty loginMember}">
+<%-- 	                    <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/login">로그인</a> --%>
+<%-- 	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/enroll">회원가입</a> --%>
+	                    <a class="nav-icon d-lg-inline text-decoration-none common"       href="${path}/logout">로그아웃</a>
+	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/admin/dashboard">관리자</a>
+					</c:if>
+					<c:if test="${not empty loginMember}">
+	                    <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/logout">로그아웃</a>
+	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/member/mypage/my-info">마이페이지</a>
+					</c:if>
+					<c:if test="${not empty loginMember and loginMember.userRole == 'ADMIN'}">
+	                    <a class="nav-icon d-lg-inline text-decoration-none common"       href="${path}/logout">로그아웃</a>
+	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/admin/dashboard">관리자</a>
+					</c:if>
                 </div>
             </div>
 
