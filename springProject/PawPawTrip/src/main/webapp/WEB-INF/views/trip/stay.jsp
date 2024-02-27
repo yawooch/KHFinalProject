@@ -20,14 +20,10 @@
 <!-- 바디 -->
 <section class="content">
     <div class="container">
+    
         <!-- 페이지 타이틀 -->
-        <!-- 높이 150으로 통일 -->
-        <div class="common-title">
-            <p> 숙소</p>
-        </div>
+        <div class="common-title"><p>숙박</p></div>
 
-        <!-- 콘텐츠 -->
-        <!-- <div class="community-container"> -->
         <!-- 사이드 메뉴 -->
         <div class="common-sideMenu">
             <ul>
@@ -79,17 +75,18 @@
 			</div>
 
             <!-- 콘텐츠 내용 -->
-            <div class="common-detail-list">
+            <div class="common-detail-list no-row">
                 <div class="row">
                     <!-- 카드 -->
+                    <!-- 처음 카드 만든 후 나머지 카드 반복 생성 예정 -->
                     <div class="col-md-4">
-                        <a href="#" style="text-decoration: none;">
+                        <a href="${ path }/trip/stay/detail" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0646/thumb/list/C0646_F20240122174932001.jpg">
+                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0472/thumb/list/C0472_F20211210134433001.jpg">
                                     <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 10px;">
+                                        <p class="readMore" style="font-size: 14px !important;">
                                             +<br>
                                             READ MORE
                                         </p>
@@ -100,11 +97,11 @@
                                     <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
                                         숙소 이름
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block; text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
                                         숙소 주소
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block;  text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        숙소 문의처(전화번호)
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+                                        숙소 문의처
                                     </p>
                                 </div>
                             </div>
@@ -128,11 +125,11 @@
                                     <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
                                         숙소 이름
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block; text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/map_icon.png)no-repeat; line-height: 19px;">
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
                                         숙소 주소
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block;  text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/tel_icon.png)no-repeat; line-height: 19px;">
-                                        숙소 문의처(전화번호)
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+                                        숙소 문의처
                                     </p>
                                 </div>
                             </div>
@@ -156,11 +153,11 @@
                                     <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
                                         숙소 이름
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block; text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/map_icon.png)no-repeat; line-height: 19px;">
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
                                         숙소 주소
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block;  text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/tel_icon.png)no-repeat; line-height: 19px;">
-                                        숙소 문의처(전화번호)
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+                                        숙소 문의처
                                     </p>
                                 </div>
                             </div>
@@ -184,11 +181,11 @@
                                     <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
                                         숙소 이름
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block; text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/map_icon.png)no-repeat; line-height: 19px;">
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
                                         숙소 주소
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block;  text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/tel_icon.png)no-repeat; line-height: 19px;">
-                                        숙소 문의처(전화번호)
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+                                        숙소 문의처
                                     </p>
                                 </div>
                             </div>
@@ -212,11 +209,11 @@
                                     <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
                                         숙소 이름
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block; text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/map_icon.png)no-repeat; line-height: 19px;">
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
                                         숙소 주소
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block;  text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/tel_icon.png)no-repeat; line-height: 19px;">
-                                        숙소 문의처(전화번호)
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+                                        숙소 문의처
                                     </p>
                                 </div>
                             </div>
@@ -240,11 +237,11 @@
                                     <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
                                         숙소 이름
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block; text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/map_icon.png)no-repeat; line-height: 19px;">
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
                                         숙소 주소
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block;  text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/tel_icon.png)no-repeat; line-height: 19px;">
-                                        숙소 문의처(전화번호)
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+                                        숙소 문의처
                                     </p>
                                 </div>
                             </div>
@@ -268,11 +265,11 @@
                                     <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
                                         숙소 이름
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block; text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/map_icon.png)no-repeat; line-height: 19px;">
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
                                         숙소 주소
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block;  text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/tel_icon.png)no-repeat; line-height: 19px;">
-                                        숙소 문의처(전화번호)
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+                                        숙소 문의처
                                     </p>
                                 </div>
                             </div>
@@ -296,11 +293,11 @@
                                     <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
                                         숙소 이름
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block; text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/map_icon.png)no-repeat; line-height: 19px;">
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
                                         숙소 주소
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block;  text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/tel_icon.png)no-repeat; line-height: 19px;">
-                                        숙소 문의처(전화번호)
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+                                        숙소 문의처
                                     </p>
                                 </div>
                             </div>
@@ -324,11 +321,11 @@
                                     <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
                                         숙소 이름
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block; text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/map_icon.png)no-repeat; line-height: 19px;">
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
                                         숙소 주소
                                     </p>
-                                    <p class="text-start mb-2" style="font-size: 16px !important; display: inline-block;  text-align: start; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(./resource_icon/tel_icon.png)no-repeat; line-height: 19px;">
-                                        숙소 문의처(전화번호)
+                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+                                        숙소 문의처
                                     </p>
                                 </div>
                             </div>

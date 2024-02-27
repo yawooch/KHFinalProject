@@ -71,6 +71,9 @@
                     </ul>
                 </div>
                 <div class="navbar align-self-center d-flex">
+                
+                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                    </div>
 					<c:if test="${empty loginMember}">
 <%-- 	                    <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/login">로그인</a> --%>
 <%-- 	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/enroll">회원가입</a> --%>
