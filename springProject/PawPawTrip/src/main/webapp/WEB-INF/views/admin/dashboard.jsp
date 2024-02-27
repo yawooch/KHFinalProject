@@ -160,7 +160,8 @@
 							beginAtZero : true,
 						}
 					},
-					responsive: false
+					responsive: true,
+					maintainAspectRatio: false
 				}
 			});
 </script>
