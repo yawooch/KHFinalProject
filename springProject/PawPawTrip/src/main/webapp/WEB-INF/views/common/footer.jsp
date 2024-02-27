@@ -21,14 +21,14 @@
 	                    	</a>
 	                    </span>
 	                    <span class="footer-span-left">
-	                        <span class="text-left text-white">서울 중구 남대문로 120 대일빌딩 2층, 3층</span><br>
-	                        <span class="text-left text-white">사업자 등록번호 :  205-82-12345</span><br>
-	                        <span class="text-left text-white">대표자명 : 양우찬 , 김정아, 이영우, 송은정</span><br>
+	                        <span class="text-left text-white">서울 중구 남대문로 120 은정빌딩 2층, 3층</span><br>
+	                        <span class="text-left text-white">사업자 등록번호 :  205-82-5-1000</span><br>
+	                        <span class="text-left text-white">대표자명 : 영우찬 , 은정아</span><br>
 	                    </span>
                     </span>
                     <span class="footer-span-right">
                         <p class="text-right text-white" >
-                            Copyright &copy; PAWPAWTRIP JONGRO-GO, Inc.<br>
+                            Copyright &copy; PAWPAWTRIP JUNG-AH-GO, Inc.<br>
                             All Right Reserved
                         </p>
                     </span>

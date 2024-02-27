@@ -1,146 +1,25 @@
 @charset "UTF-8";
 
-* {
-    font-family: 'Noto Sans KR', sans-serif;
-    box-sizing: border-box;
-    letter-spacing: 0.3px;
-    margin: 0;
-    padding: 0;
-    color: #4B4242;
-}
 
-td {
-	border: none;
-	white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-input::placeholder {
+/***************** 기본 input/select 스타일 설정 - 시작 *****************/  
+.myInfo-table input::placeholder {
     color: gray;
 }
 
-.community-wrap {
-    width: 1200px;
-    margin: 0 auto;
+.myInfo-table input:read-only {
+    background-color: #E8E8E8;
 }
 
-.notice-content {
-    text-align: center;
-}
-
-.notice-title {
-    padding: 30px 0 30px 0;
-    border-bottom: 1px solid #e8e8e8;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-.notice-title > p {
-    margin: 0;
-    color: #4B4242;
-}
-
-.notice-container {
-    margin-top: 35px;
-    margin-bottom: 35px;
-    display: flex;
-    gap: 35px;
-}
-
-.notice-sideMenu {
-    width: 250px;
-}
-
-.notice-sideMenu > ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    border: 1px solid #CCCCCC;
+.myInfo-table input, .myInfo-table select {
+    width: 100%;
+    height: 40px;
     border-radius: 5px;
-}
-
-.notice-sideMenu a:hover {
-    color: #B29254;
-}
-
-.community-text, .notice-text, .board-text {
-    padding: 10px 0 10px 0;
-}
-
-.community-text {
-    background-color: #B29254;
-    color: white;
-    font-size: 18px;
-}
-
-.notice-text > a, .board-text > a {
-    font-size: 16px;
-    color: black;
-    text-decoration: none;
-}
-
-.notice-text > a {
-    font-weight: bold;
-    color: #B29254;
-}
-
-.board-text>a:hover+.notice-detail-sideMenu {
-    display: block;
-}
-
-.notice-detail-sideMenu:hover {
-    display: block;
-}
-
-.notice-detail-sideMenu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: none;
-}
-
-.notice-detail-sideMenu > li {
-    padding-top: 10px;
-}
-
-.notice-detail-sideMenu > li a {
-    text-decoration: none;
-    color: black;
-}
-
-.notice-list {
-    width: 914px;
-    height: 650px;
+    padding: 8px;
     border: 1px solid #E8E8E8;
+    font-size: 15px;
 }
-
-.notice-detail-list > table {
-    width: 914px;
-    font-size: 16px;
-    border-collapse: separate;
-    border: none;
-    border-spacing: 0 5px;
-}
-
-.notice-detail-list {
-    padding: 40px;
-}
-
-.notice-detail-list > table tr {
-    text-align: left;
-}
-
-.notice-detail-list > table tr > td:first-child {
-    width: 46%;
-}
-
-.notice-detail-list > table tr > td:nth-child(2) {
-    width: 35%;
-}
-
-input, select {
-    width: 300px;
+.myInfo-table input.contain-button, .myInfo-table select.contain-button {
+    width: 100%;
     height: 40px;
     border-radius: 5px;
     padding: 8px;
@@ -148,13 +27,14 @@ input, select {
     font-size: 15px;
 }
 
-input:focus {
+.myInfo-table input:focus {
     outline: none;
 }
 
-/* 버튼 */
-.paw_btn2 {
-    text-align: center;
+/***************** 기본 input/select 스타일 설정 - 종료 *****************/
+
+/*********************** 버튼 스타일 설정 - 시작 ************************/
+.paw_btn {
     border: 1px solid #B29254;
     border-radius: 5px;
     background-color: #FFF;
@@ -164,19 +44,43 @@ input:focus {
     font-size: 15px;
 }
 
-.paw_btn1 {
-    border: 1px solid #B29254;
+.paw_btn.btn-filled{
     background-color: #B29254;
-    border-radius: 5px;
     color: #FFF;
-    width: 90px;
-    height: 40px;
-    margin-right: 10px;
-    font-size: 15px;
-    
+    margin-left: 10px;
 }
 
 .bottom-btn {
     float: right;
-    margin-right: 45px;
+    padding: 35px 0px;
 }
+/*********************** 버튼 스타일 설정 - 종료 ************************/
+
+/* 가장 외측 테두리 */
+.myInfo-list {
+    width: 100%;
+    border: 1px solid #E8E8E8;
+}
+
+/* 내부 컨텐츠영역 */
+.myinfo-inner-content {
+    padding: 40px;
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    border-spacing: 0 5px;
+}
+.myinfo-inner-content > .myInfo-table .myInfo-tr {
+    text-align: left;
+}
+
+.myInfo-td {
+	border: none;
+	display: inline-flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.padding-bottom {
+	padding-bottom:35px;
+}
+
