@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="${path}/css/member/enroll.css">
 
 	<!-- 메인 -->
-    <section class="content">
+    <div class="content">
         <!-- navi -->
         <div class="navi">
             <div class="findbyid">
@@ -59,14 +59,14 @@
 	                <br />
 	            </div>
 	            <!-- 회원가입 box -->
-	            <table>
-	                <tr>
-	                    <th>이름</th>
-	                    <td><input type="text" class="user_info_input_tag2" /></td>
-	                </tr>
-	                <tr>
-	                    <th>생년월일</th>
-	                    <td class="info" id="info_birth">
+	            <div>
+	                <div>
+	                    <div>이름</div>
+	                    <div><input type="text" class="user_info_input_tag2" /></div>
+	                </div>
+	                <div>
+	                    <div>생년월일</div>
+	                    <div class="info" id="info_birth">
 	                        <select name="" id="">
 	                            <option value="">출생 연도</option>
 	                        </select>
@@ -76,49 +76,49 @@
 	                        <select name="" id="">
 	                            <option value="">일</option>
 	                        </select>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <th>아이디</th>
-	                    <td><input type="text" class="user_info_input_tag2" placeholder="5~12자 영문, 숫자 포함" /></td>
-	                    <td><input type="button" class="algo_btn200" value="중복확인" /></td>
-	                </tr>
-	                <tr>
-	                    <th>비밀번호</th>
-	                    <td><input type="text" class="user_info_input_tag2" placeholder="8~15자 영문, 숫자 포함" /></td>
-	                </tr>
-	                <tr>
-	                    <th>비밀번호 확인</th>
-	                    <td><input type="text" class="user_info_input_tag2" placeholder="8~15자 영문, 숫자 포함" /></td>
-	                </tr> 
-	                <tr>
-	                    <th>휴대폰 번호</th>
-	                    <td><input type="text" class="user_info_input_tag2" placeholder="휴대폰 번호 '-' 제외하고 입력" /></td>
-	                    <td><input type="button" class="algo_btn200" value="인증받기" /></td>
-	                </tr>
-	                <tr>
-	                    <th></th>
-	                    <td><input type="text" class="user_info_input_tag2" placeholder="인증번호 입력" /></td>
-	                    <td><input type="button" class="algo_btn200" value="확인" /></td>
-	                </tr>
-	                <tr>
-	                    <th>이메일</th>
-	                    <td class="e-mail">
+	                    </div>
+	                </div>
+	                <div>
+	                    <div>아이디</div>
+	                    <div><input type="text" class="user_info_input_tag2" placeholder="5~12자 영문, 숫자 포함" /></div>
+	                    <div><input type="button" class="algo_btn200" value="중복확인" /></div>
+	                </div>
+	                <div>
+	                    <div>비밀번호</div>
+	                    <div><input type="text" class="user_info_input_tag2" placeholder="8~15자 영문, 숫자 포함" /></div>
+	                </div>
+	                <div>
+	                    <div>비밀번호 확인</div>
+	                    <div><input type="text" class="user_info_input_tag2" placeholder="8~15자 영문, 숫자 포함" /></div>
+	                </div> 
+	                <div>
+	                    <div>휴대폰 번호</div>
+	                    <div><input type="text" class="user_info_input_tag2" placeholder="휴대폰 번호 '-' 제외하고 입력" /></div>
+	                    <div><input type="button" class="algo_btn200" value="인증받기" /></div>
+	                </div>
+	                <div>
+	                    <div></div>
+	                    <div><input type="text" class="user_info_input_tag2" placeholder="인증번호 입력" /></div>
+	                    <div><input type="button" class="algo_btn200" value="확인" /></div>
+	                </div>
+	                <div>
+	                    <div>이메일</div>
+	                    <div class="e-mail">
 	                        <input type="text" />
 	                        @
 	                        <select name="" id="">
 	                            <option value="">직접 입력</option>
 	                            <option value="">naver.com</option>
 	                        </select>
-	                    </td>
-	                </tr>
-	                <tr>
-	                    <th>마이펫 이름</th>
-	                    <td><input type="text" class="user_info_input_tag2" /></td>
-	                </tr>
-	                <tr>
-	                    <th>마이펫 타입</th>
-	                    <td class="pet-type">
+	                    </div>
+	                </div>
+	                <div>
+	                    <div>마이펫 이름</div>
+	                    <div><input type="text" class="user_info_input_tag2" /></div>
+	                </div>
+	                <div>
+	                    <div>마이펫 타입</div>
+	                    <div class="pet-type">
 	                    	<select name="" id="">
 	                            <option value="">골든 리트리버</option>
 	                            <option value="">포메라니안</option>
@@ -130,8 +130,8 @@
 	                            <option value="">요크셔 테리어</option>
 	                            <option value="">기타</option>
                             </select>
-	                    </td>
-	                </tr>
+	                    </div>
+	                </div>
 	                <!-- <tr>
 	                    <th>이메일</th>
 	                    <td>
@@ -146,13 +146,13 @@
 	                        </select>
 	                    </td>
 	                </tr> -->
-	            </table>
+	            </div>
 	        </div>
 	        <div class="signInBtn">
 	            <input type="submit" class="algo_btn100" value="회원가입" />
 	        </div>
         </form>
-    </section>
+    </div>
 
 <!-- 푸터 -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
