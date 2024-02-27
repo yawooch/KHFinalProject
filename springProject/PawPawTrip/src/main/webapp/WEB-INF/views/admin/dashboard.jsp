@@ -120,7 +120,7 @@
 				data : [ 12, 19, 3, 5, 2, 3, 20, 31, 7 ],
 				borderWidth : 1,
 				backgroundColor : [ '#ED6C40', '#F1AC53', '#F7CA45', '#A7CF4A',
-						'#59C37C', '#659CF4', '#0352D0', '#3785BA', '#32558C' ]
+						'#59C37C', '#659CF4', '#3785BA', '#32558C', '#1D3660']
 			} ]
 		},
 		options : {
@@ -151,7 +151,7 @@
 						data : [ 12, 19, 3, 5, 2, 3, 20, 31, 35, 11, 50, 45, 7,
 								19, 33 ],
 						borderWidth : 1,
-						backgroundColor : '#4B4242',
+						backgroundColor : '#6D6E71'
 					} ]
 				},
 				options : {
