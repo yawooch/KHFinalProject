@@ -13,16 +13,15 @@
 
 .readMore {
     text-align: center;
-    /* font-weight: bold; */
+    
     color: #FDFAEF;
-    font-size: small;
+    font-size: 14px !important;
 }
 
 /* 속소이름 */
 .text-center mb-4 {
     font-weight: bold;
     font-size: 20px !important;
-    
 }
 
 .text-start mb-2 {

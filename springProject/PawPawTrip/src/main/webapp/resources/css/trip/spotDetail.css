@@ -2,7 +2,7 @@
 
 * {
     word-break: keep-all;
-    word-wrap: break-word;
+    word-wrap: ;
 }
 
 .tripDetail-wrap {
@@ -111,19 +111,15 @@
     display: block;
     position: relative;
     width: inherit;
-    height: 350px;
-    gap: 20px;
+    height: 330px;
 }
 
 .tripDetail-mainInfo {
     display: block;
     position: absolute;
     background-color: #FDFAEF;
-    width: 370px;
-    /* width: 370px; */
-    height: 350px;
-    /* height: 350px; */
-    margin-left: 10px;
+    width: 44%;
+    height: 330px;
     border-radius: 10px;
     padding: 10px 15px;
     right: 0;
@@ -134,6 +130,11 @@
     /* position: relative; */
     width: 330px;
     height: max-content;
+}
+
+.tripNameAndLike {
+	text-align: start;
+	margin-left: 26px
 }
 
 .tripName {
@@ -167,7 +168,7 @@
 
 .mainInfo {
     display: block;
-    width: inherit;
+    width: 100%;
     position: relative;
     font-size: 16px;
     line-height: 28px;
