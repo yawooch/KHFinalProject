@@ -16,7 +16,7 @@
 <section class="content container-fluid">
 	<!-- 메인 -->
 	<form class="container" action="${ path }/member/change-pw" method="post">
-        <!-- 아이디찾기 -->
+        <!-- 비밀번호 변경 -->
         <section class="member-content main-box">
             <!-- navi -->
             <div class="navi">
@@ -28,7 +28,7 @@
                 </div>
             </div>
             
-            <!-- 메인 아이디 찾기 창 -->
+            <!-- 메인 비밀번호 변경 창 -->
             <div class="main-table">
                 <div class="findId-table">
                     <div class="findId-tr row">

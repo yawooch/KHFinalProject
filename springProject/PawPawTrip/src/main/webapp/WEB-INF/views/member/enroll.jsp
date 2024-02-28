@@ -25,6 +25,7 @@
 	    </div>
 	    <form action="${ path }/enroll" method="POST">
 	     <div class="main_div">
+	    	<!-- 약관동의 -->
 	         <h3>약관 동의</h3>
 	         <div class="inner_top_div">
 	             <input type="checkbox" name="" id="all_Agree" />
@@ -60,14 +61,15 @@
 	             >
 	             <br />
 	         </div>
-	         <table>
-	             <tr>
-	                 <th>이름</th>
-	                 <td><input type="text" class="user_info_input_tag2" /></td>
-	             </tr>
-	             <tr>
-	                 <th>생년월일</th>
-	                 <td class="info" id="info_birth">
+	         <!-- 회원가입 테이블 -->
+	         <div class="enroll-table">
+	             <div class="enroll-tr row">
+	                 <div class="col-lg-3">이름</div>
+	                 <div class="col-lg-9"><input type="text" /></div>
+	             </div>
+	             <div class="enroll-tr row">
+	                 <div class="col-lg-3">생년월일</div>
+	                 <div class="info enroll-contain col-lg-9" id="info_birth">
 	                     <select name="" id="">
 	                         <option value="">출생 연도</option>
 	                     </select>
@@ -77,49 +79,62 @@
 	                     <select name="" id="">
 	                         <option value="">일</option>
 	                     </select>
-	                 </td>
-	             </tr>
-	             <tr>
-	                 <th>아이디</th>
-	                 <td><input type="text" class="user_info_input_tag2" placeholder="5~12자 영문, 숫자 포함" /></td>
-	                 <td><input type="button" class="algo_btn200" value="중복확인" /></td>
-	             </tr>
-	             <tr>
-	                 <th>비밀번호</th>
-	                 <td><input type="text" class="user_info_input_tag2" placeholder="8~15자 영문, 숫자 포함" /></td>
-	             </tr>
-	             <tr>
-	                 <th>비밀번호 확인</th>
-	                 <td><input type="text" class="user_info_input_tag2" placeholder="8~15자 영문, 숫자 포함" /></td>
-	             </tr> 
-	             <tr>
-	                 <th>휴대폰 번호</th>
-	                 <td><input type="text" class="user_info_input_tag2" placeholder="휴대폰 번호 '-' 제외하고 입력" /></td>
-	                 <td><input type="button" class="algo_btn200" value="인증받기" /></td>
-	             </tr>
-	             <tr>
-	                 <th></th>
-	                 <td><input type="text" class="user_info_input_tag2" placeholder="인증번호 입력" /></td>
-	                 <td><input type="button" class="algo_btn200" value="확인" /></td>
-	             </tr>
-	             <tr>
-	                 <th>이메일</th>
-	                 <td class="e-mail">
+	                 </div>
+	             </div>
+	             <div class="enroll-tr row">
+	                 <div class="col-lg-3">아이디</div>
+	                 <div class="col-lg-9 enroll-contain">
+	                 	<input type="text" placeholder="5~12자 영문, 숫자 포함" />
+	                 	<button type="button" class="col-12 enroll-btn">중복확인</button>
+	                	
+	                 </div>
+	             </div>
+	             <div class="enroll-tr row">
+	                 <div class="col-lg-3">비밀번호</div>
+	                 <div class="col-lg-9">
+	                 	<input type="text" placeholder="8~15자 영문, 숫자 포함" />
+	                 </div>
+	             </div>
+	             <div class="enroll-tr row">
+	                 <div class="col-lg-3">비밀번호 확인</div>
+	                 <div class="col-lg-9">
+	                 	<input type="text" placeholder="8~15자 영문, 숫자 포함" />
+	                 </div>
+	             </div> 
+	             <div class="enroll-tr row">
+	                 <div class="col-lg-3">휴대폰 번호</div>
+	                 <div class="col-lg-9 enroll-contain">
+	                 	<input type="text" placeholder="휴대폰 번호 '-' 제외하고 입력" />
+	                 	<button type="button" class="col-12 enroll-btn">인증받기</button>
+	                 </div>
+	             </div>
+	             <div class="enroll-tr row">
+	                 <div class="col-lg-3"></div>
+	                 <div class="col-lg-9 enroll-contain">
+	                 	<input type="text" placeholder="인증번호 입력" />
+	                 	<button type="button" class="col-12 enroll-btn">확인</button>
+	                 </div>
+	             </div>
+	             <div class="enroll-tr row">
+	                 <div class="col-lg-3">이메일</div>
+	                 <div class="e-mail enroll-contain col-lg-9">
 	                     <input type="text" />
-	                     @
+	                     <span>@</span>
 	                     <select name="" id="">
 	                         <option value="">직접 입력</option>
 	                         <option value="">naver.com</option>
 	                     </select>
-	                 </td>
-	             </tr>
-	             <tr>
-	                 <th>마이펫 이름</th>
-	                 <td><input type="text" class="user_info_input_tag2" /></td>
-	             </tr>
-	             <tr>
-	                 <th>마이펫 타입</th>
-	                 <td class="pet-type">
+	                 </div>
+	             </div>
+	             <div class="enroll-tr row">
+	                 <div class="col-lg-3">마이펫 이름</div>
+	                 <div class="col-lg-9">
+	                 	<input type="text" />
+	                 </div>
+	             </div>
+	             <div class="enroll-tr row">
+	                 <div class="col-lg-3">마이펫 타입</div>
+	                 <div class="pet-type col-lg-9 enroll-contain">
 	                 	<select name="" id="">
 	                         <option value="">골든 리트리버</option>
 	                         <option value="">포메라니안</option>
@@ -130,9 +145,10 @@
 	                         <option value="">시츄</option>
 	                         <option value="">요크셔 테리어</option>
 	                         <option value="">기타</option>
-	                        </select>
-	                 </td>
-	             </tr>
+	                    </select>
+	                    <button type="button" class="col-12 enroll-btn" style="visibility: hidden;">숨기기</button>
+	                 </div>
+	             </div>
 	             <!-- <tr>
 	                 <th>이메일</th>
 	                 <td>
@@ -147,10 +163,10 @@
 	                     </select>
 	                 </td>
 	             </tr> -->
-	         </table>
+	         </div>
 	     </div>
 	     <div class="signInBtn">
-	         <input type="submit" class="algo_btn100" value="회원가입" />
+			 <button type="submit" class="bottom-btn">회원가입</button>
 	     </div>
 	    </form>
 		</div>
