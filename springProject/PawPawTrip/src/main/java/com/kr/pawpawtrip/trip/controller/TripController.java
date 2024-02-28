@@ -14,7 +14,7 @@ public class TripController {
 	}
 	
 	// 여행 안내 상세 페이지
-	@GetMapping("/trip/spot/detail")
+	@GetMapping("/trip/spot/spotDetail")
 	public String spotDetail() {
 		
 		return "trip/spotDetail";
@@ -30,7 +30,7 @@ public class TripController {
 	}
 	
 	// 숙소 안내 상세 페이지
-	@GetMapping("/trip/stay/detail")
+	@GetMapping("/trip/stay/stayDetail")
 	public String stayDetail() {
 		
 		return "trip/stayDetail";

@@ -80,7 +80,7 @@
                     <!-- 카드 -->
                     <!-- 처음 카드 만든 후 나머지 카드 반복 생성 예정 -->
                     <div class="col-md-4">
-                        <a href="${ path }/trip/spot/detail" style="text-decoration: none;">
+                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
@@ -108,7 +108,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="${ path }/trip/spot/detail" style="text-decoration: none;">
+                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
@@ -136,7 +136,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="${ path }/trip/spot/detail" style="text-decoration: none;">
+                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
@@ -164,7 +164,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="${ path }/trip/spot/detail" style="text-decoration: none;">
+                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
@@ -192,7 +192,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="${ path }/trip/spot/detail" style="text-decoration: none;">
+                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
@@ -220,7 +220,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="${ path }/trip/spot/detail" style="text-decoration: none;">
+                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
@@ -248,7 +248,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="${ path }/trip/spot/detail" style="text-decoration: none;">
+                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
@@ -276,7 +276,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="${ path }/trip/spot/detail" style="text-decoration: none;">
+                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">
@@ -304,7 +304,7 @@
                         </a>
                     </div>
                     <div class="col-md-4">
-                        <a href="${ path }/trip/spot/detail" style="text-decoration: none;">
+                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
                                 <div class="card rounded-0">

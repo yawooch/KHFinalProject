@@ -11,21 +11,24 @@
 	<!-- 헤더 -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<link rel="stylesheet" href="${path}/css/member/findIdComplete.css">
+	<link rel="stylesheet" href="${path}/css/member/member.css">
 
 	<!-- 메인 -->
-    <section class="content">
-        <div class="first_div">
-            <img src="${ path }/img/member/big_logo.png" alt="" />
-            <div class="second_div">
-                <h3>보호자님 아이디는 아래와 같습니다.</h3>
-                <br />
-                <h2>
-                <b style="color: #B29254;">woochan</b> <br> 
-                </h2>
-                <input class="paw_btn_long" type="button" value="로그인 하기" onclick="location.href='${ path }/login'"/>
-            </div>
-        </div>
-    </section>
+	<div class="content container-fluid">
+	    <section class="container find-box">
+	        <div class="member-content first_div">
+	            <img src="${ path }/img/member/big_logo.png" alt="" />
+	            <div class="second_div">
+	                <h3>보호자님 아이디는 아래와 같습니다.</h3>
+	                <br />
+	                <h2>
+	                <b style="color: #B29254;">woochan</b> <br> 
+	                </h2>
+	                <input class="paw_btn_long" type="button" value="로그인 하기" onclick="location.href='${ path }/login'"/>
+	            </div>
+	        </div>
+	    </section>
+	</div>
     
     <!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
