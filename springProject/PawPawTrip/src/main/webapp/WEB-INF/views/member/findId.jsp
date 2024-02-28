@@ -35,7 +35,7 @@
                         <div class="col-lg-3">이름</div>
                         <div class="col-lg-9 findId-contain">
                             <input class="user_info_input_tag1" type="text" name="" id="" />
-                            <button class="paw_btn2" type="button" style="visibility: hidden;">숨기기</button>
+                           	<button class="col-12 paw_btn2" type="button" style="visibility: hidden;">숨기기</button>
                         </div>
                     </div>
                     <div class="findId-tr row">
@@ -49,7 +49,7 @@
                         <div class="col-lg-3"></div>
                         <div class="col-lg-9 findId-contain">
                             <input class="user_info_input_tag2" type="text" name="" id="" placeholder="인증번호 입력" />
-                        	<button class="paw_btn2">확인</button>
+                        	<button class="col-12 paw_btn2">확인</button>
                         </div>
                     </div>
                 </div>

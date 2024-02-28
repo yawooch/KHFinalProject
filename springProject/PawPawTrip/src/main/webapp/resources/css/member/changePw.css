@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*공통 css*/
+
 * {
     font-family: 'Noto Sans KR', sans-serif;
     box-sizing: border-box;
@@ -18,18 +18,11 @@ body {
 	font-size: 16px;
 }
 
-td {
-	border: none;
-}
-
 .main-box {
+    /* margin: 0 auto; */
+    /* width: 750px; */
+    height: 628px;
     padding-top: 100px;
-    height: 728px;
-}
-
-section {
-    margin: 0 auto;
-    width: 750px;
 }
 
 /* 네비 */
@@ -38,7 +31,7 @@ section {
 }
 
 .findbyid {
-    border: 1px solid #B29254;
+    border: 1px solid #c0c0c0;
     border-bottom: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -47,13 +40,12 @@ section {
     width: 135px;
     height: 45px;
     text-align: center;
-    /* margin-left: 100px; */
     float: left;
     line-height: 40px;
 }
 
 .findbypwd {
-    border: 1px solid #c0c0c0;
+    border: 1px solid #B29254;
     border-bottom: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -67,60 +59,62 @@ section {
 }
 
 /* 비밀번호 변경 테이블 */
-th {
-    width: 150px;
-    text-align: left;
-    font-weight: bold;
-    font-size: 18px;
-}
-
-.acc-table {
-    color: #c0c0c0;
-    height: 430px;
+.main-table {
+    color: #cacaca;
+    width: 100%;
+    /* height: 400px; */
     border: 1px solid #c0c0c0;
     background-color: #FFF;
+    /* display: block; */
+    padding: 80px;
 }
 
-.acc-table table {
-    font-size: 18px;
-    margin: 40px auto;
-    margin-top: 130px;
-    border-collapse: separate;
-    border-spacing: 20px;
+.findId-tr {
+	padding-bottom: 20px;
 }
 
-.acc-table th{
-    width:160px;
+.findId-tr > div {
+	font-weight: bold;
 }
 
-.user_info_input_tag1 {
-    width: 430px;
+.findId-table input {
+    width: 100%;
     height: 40px;
-    padding: 7px 20px;
-    color: #101010;
-    line-height: 1.2em;
-    cursor: pointer;
-    border: 1px solid #D9D9D9;
+    border: 1px solid #E8E8E8;
+    padding: 8px;
+    font-size: 15px;
 }
 
-.user_info_input_tag1::placeholder{
-    color:#a2a2a2;
+.findId-contain {
+	display:inline-flex;	
 }
 
-.user_info_input_tag1:focus{
-    outline: 1px solid #B29254;
+/*버튼*/
+.paw_btn2 {
+    border: 1px solid #B29254;
+    border-radius: 5px;
+    background-color: #FFF;
+    color: #B29254;
+    width: 90px;
+    height: 40px;
+    font-size: 15px;
+    margin-left: 10px;
 }
 
-/* 하단 버튼 */
+/* 버튼들 */
 .paw_btn1 {
     border: 1px solid #B29254;
     background-color: #B29254;
     border-radius: 5px;
     color: #FFF;
+    width: 90px;
+    height: 40px;
+}
+
+.main-table .paw_btn1 {
     width: 174px;
-    height: 43px;
     border: none;
-    margin-top: 50px;
+    height: 43px;
+    margin-top: 30px;
     font-size: 15px;
-    line-height: 0px;
 }

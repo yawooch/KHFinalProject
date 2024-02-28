@@ -11,54 +11,46 @@
 	<!-- 헤더 -->
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<link rel="stylesheet" href="${path}/css/member/changePw.css">
-
+	<link rel="stylesheet" href="${path}/css/member/member.css">
+	
+<section class="content container-fluid">
 	<!-- 메인 -->
-	<section class="content">
-        <form class="main-box" action="${ path }/member/change-pw" method="post">
-            <!--navi-->
+	<form class="container" action="${ path }/member/change-pw" method="post">
+        <!-- 아이디찾기 -->
+        <section class="member-content main-box">
+            <!-- navi -->
             <div class="navi">
                 <div class="findbyid">
                     <a href="${ path }/member/find-id" style="color: #B29254;">아이디 찾기</a>
                 </div>
                 <div class="findbypwd">
-                    <a href="#" style="color: #FFF;">비밀번호 찾기</a>
+                    <a href="${ path }/member/find-pw" style="color: #FFF;">비밀번호 찾기</a>
                 </div>
             </div>
-            <div>
-            <div class="acc-table">
-                <table>
-                <tr>
-                    <th>새 비밀번호</th>
-                    <td>
-                    <input
-                        class="user_info_input_tag1"
-                        type="password"
-                        name=""
-                        id=""
-                        placeholder="8~15자 영문, 숫자 포함"
-                    />
-                    </td>
-                </tr>
-                <tr>
-                    <th>새 비밀번호 확인</th>
-                    <td>
-                    <input
-                        class="user_info_input_tag1"
-                        type="password"
-                        name=""
-                        id=""
-                        placeholder="8~15자 영문, 숫자 포함"
-                    />
-                    </td>
-                </tr>
-                </table>
-                <div style="margin: -40px 0 auto; text-align: center">
-                <button class="paw_btn1" type="submit">변경하기</button>
+            
+            <!-- 메인 아이디 찾기 창 -->
+            <div class="main-table">
+                <div class="findId-table">
+                    <div class="findId-tr row">
+                        <div class="col-lg-3">새 비밀번호</div>
+                        <div class="col-lg-9 findId-contain">
+                            <input class="user_info_input_tag1" type="text" name="" id="" />
+                        </div>
+                    </div>
+                    <div class="findId-tr row">
+                        <div class="col-lg-3">비밀번호 확인</div>
+                        <div class="col-lg-9 findId-contain">
+                            <input class="user_info_input_tag1" type="text" name="" id="" />
+                        </div>
+                    </div>
+                    
+                <div style="text-align: center">
+                    <button class="paw_btn1" type="submit">변경하기</button>
                 </div>
             </div>
-            </div>
-        </form>
-    </section>
+        </section>
+    </form>
+</section>
 
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />

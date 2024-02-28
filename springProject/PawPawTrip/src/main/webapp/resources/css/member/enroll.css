@@ -78,8 +78,9 @@ h3 {
     margin-right: 80px;
     margin-top: 10px;
     margin-bottom: 20px;
-    padding: 40px;
+    padding: 35px;
     font-size: 15px;
+    overflow: auto;
 }
 
 .required_option {
