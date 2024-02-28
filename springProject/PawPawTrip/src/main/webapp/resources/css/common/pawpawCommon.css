@@ -378,6 +378,7 @@ td {
 /* 페이징 */
 .common-page-number > ul {
     padding: 0;
+    padding-bottom: 81px;
     margin-top: 18px;
     list-style-type: none;
     display: flex;
