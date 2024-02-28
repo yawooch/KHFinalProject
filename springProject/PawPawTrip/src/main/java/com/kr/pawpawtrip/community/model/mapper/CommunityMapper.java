@@ -10,4 +10,6 @@ import com.kr.pawpawtrip.community.model.vo.Community;
 public interface CommunityMapper {
 
 	List<Community> selectNoticeList();
+	
+	int insertBoard(Community community);
 }

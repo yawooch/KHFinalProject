@@ -8,4 +8,6 @@ public interface CommunityService {
 
 	List<Community> getNoticeList();
 
+	int save(Community community);
+
 }

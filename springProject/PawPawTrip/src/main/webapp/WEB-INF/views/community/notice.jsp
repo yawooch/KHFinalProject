@@ -76,7 +76,7 @@
 									<img src="${ path }/img/community/ant-design_sound-filled.png" alt="">
 								</td>
 								<td style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
-									<a href="#" style="font-size: 16px;">${ notice.communityTitle }</a>
+									<a href="#" style="font-size: 16px;">${ notice.communityCategory } ${ notice.communityTitle }</a>
 								</td>
 								<td>관리자</td>
 								<td>${ notice.communityCount }</td>

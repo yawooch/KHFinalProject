@@ -41,4 +41,7 @@ public class Community {
 	// 공지사항 중요 여부
 	private String noticeImportantYN;
 	
+	// 커뮤니티 작성자
+	private int communityWriterNo;
+	
 }

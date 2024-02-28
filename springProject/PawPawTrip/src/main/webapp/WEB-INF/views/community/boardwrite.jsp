@@ -39,35 +39,38 @@
 		</div>
 		<div class="common-list">
 			<div class="community-detail-list">
-				<form action="" method="post">
+				<form action="${ path }/community/boardwrite" method="post" enctype="multipart/form-data">
 					<table border="1">
 						<tr>
 							<td class="community-td-header">제목</td>
-							<td class="community-td-title"><select name="comunityCate"
-								id="comunityCate">
-									<option value="" selected>분류</option>
-									<option value="">수다</option>
-									<option value="">마이펫 자랑</option>
-							</select> <input type="text" name="communityTitle" id="communityTitle"
-								placeholder="제목을 입력해주세요." /></td>
+							<td class="community-td-title">
+								<select name="communityCategory" id="comunityCate">
+										<option selected>분류</option>
+										<option value="[수다]">수다</option>
+										<option value="[마이펫 자랑]">마이펫 자랑</option>
+								</select> 
+								<input type="text" name="communityTitle" id="communityTitle" placeholder="제목을 입력해주세요." />
+							</td>
 						</tr>
 						<tr>
 							<td class="community-td-header">작성자</td>
-							<td class="community-td-name"><input type="text"
-								name="comunityName" id="comunityName" value="ywlee0000" readonly />
+							<td class="community-td-name">
+								<input type="text" name="memberId" id="comunityName" value="ywlee0000" readonly />
 							</td>
 						</tr>
 						<tr>
 							<td class="community-td-header">내용</td>
-							<td><textarea resize="none" name="summernote"
-									id="summernote" class="summernote" cols="30" rows="10"></textarea></td>
+							<td>
+								<textarea resize="none" name="communityContent" id="summernote" class="summernote" cols="30" rows="10"></textarea>
+							</td>
 						</tr>
 						<tr>
 							<td class="community-td-file community-td-header">첨부파일<br>
 								※ 30MB까지 첨부 가능
 							</td>
-							<td><input type="file" name="talkWriteFile"
-								id="talkWriteFile"></td>
+							<td>
+								<input type="file" name="talkWriteFile" id="talkWriteFile">
+							</td>
 						</tr>
 					</table>
 					<div class="btn-wrap">
