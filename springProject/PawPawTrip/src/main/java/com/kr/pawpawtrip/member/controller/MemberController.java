@@ -74,7 +74,7 @@ public class MemberController {
 	@GetMapping("/enroll")
 	public String enroll() {
 		
-		return "member/create";
+		return "member/enroll";
 	}
 	
 	// 회원가입 완료(수정예정)

@@ -1,14 +1,13 @@
 @charset "UTF-8";
 
-/*공통 css*/
 * {
-        font-family: 'Noto Sans KR', sans-serif;
-        box-sizing: border-box;
-        letter-spacing: 0.3px;
-        margin: 0;
-        padding: 0;
-        color: #101010;
-    }
+    font-family: 'Noto Sans KR', sans-serif;
+    box-sizing: border-box;
+    letter-spacing: 0.3px;
+    margin: 0;
+    padding: 0;
+    color: #101010;
+}
 
 body {
     background-color: #FFF9E5;
@@ -20,7 +19,7 @@ body {
 }
 
 td {
-	border: none;
+	border:none;
 }
 
 .main-box {
@@ -36,7 +35,7 @@ td {
 }
 
 .findbyid {
-    border: 1px solid #B29254;
+    border: 1px solid #c0c0c0;
     border-bottom: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -45,13 +44,12 @@ td {
     width: 135px;
     height: 45px;
     text-align: center;
-    /* margin-left: 100px; */
     float: left;
     line-height: 40px;
 }
 
 .findbypwd {
-    border: 1px solid #c0c0c0;
+    border: 1px solid #B29254;
     border-bottom: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -64,26 +62,72 @@ td {
     line-height: 40px;
 }
 
-/* 비밀번호 찾기 테이블 */
+/* 아이디 찾기 테이블 */
 th {
-    width: 130px;
-    text-align: left;
-    font-weight: bold;
-    font-size: 18px;
+width: 130px;
+text-align: left;
+font-weight: bold;
+font-size: 18px;
 }
 
-.acc-table {
-    color: #c0c0c0;
-    height: 430px;
+.main-table {
+    color: #cacaca;
+    width: 100%;
+    /* height: 400px; */
     border: 1px solid #c0c0c0;
     background-color: #FFF;
+    /* display: block; */
+    padding: 40px;
 }
 
+.findId-tr {
+	padding-bottom: 20px;
+}
+
+.findId-tr > div {
+	font-weight: bold;
+}
+
+.findId-table input {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #E8E8E8;
+    padding: 8px;
+    font-size: 15px;
+}
+
+.findId-contain {
+	display:inline-flex;	
+}
+
+/*버튼*/
+.paw_btn2 {
+    border: 1px solid #B29254;
+    border-radius: 5px;
+    background-color: #FFF;
+    color: #B29254;
+    width: 90px;
+    height: 40px;
+    font-size: 15px;
+    margin-left: 10px;
+}
+
+/*
+input {
+	width: 100%
+	height: 40px;
+	padding: 7px 20px;
+	border: 1px solid #d9d9d9;
+	color: #101010;
+	cursor: pointer;
+}
+
+
 .acc-table table {
-    font-size: 18px;
-    margin: 40px auto;
+    font-size: 20px;
+    margin: 50px auto;
     border-collapse: separate;
-    border-spacing: 20px;
+    border-spacing: 18px;
 }
 
 .user_info_input_tag1 {
@@ -105,6 +149,7 @@ th {
     cursor: pointer;
     border: 1px solid #d9d9d9;
 }
+*/
 
 .user_info_input_tag1::placeholder{
     color:#a2a2a2;
@@ -130,23 +175,14 @@ th {
     color: #FFF;
     width: 90px;
     height: 40px;
-    font-size: 15px;
 }
 
-.paw_btn2 {
-    border: 1px solid #B29254;
-    border-radius: 5px;
-    background-color: #FFF;
-    color: #B29254;
-    width: 90px;
-    height: 40px;
-    font-size: 15px;
-}
 
-.acc-table .paw_btn1 {
+
+.main-table .paw_btn1 {
     width: 174px;
     border: none;
     height: 43px;
-    margin-top: 40px;
+    margin-top: 30px;
     font-size: 15px;
 }
