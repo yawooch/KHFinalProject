@@ -27,6 +27,20 @@
     display: block;
 }
 
+/* ------------------------------------------------- */
+.common-detail-list > .row {
+	padding-top: 7px
+}
+
+/* 카드 */
+.col-md-4 {
+	transition: 0.2s ease-in-out !important;
+}
+
+.col-md-4:hover {
+	transform: translateY(-7px) !important;
+}
+
 /* 속소이름 */
 .text-center mb-4 {
     font-weight: bold;
