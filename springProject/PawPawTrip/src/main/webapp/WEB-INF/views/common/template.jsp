@@ -10,11 +10,20 @@
 
 <link rel="stylesheet" href="${path}/css/community/noticedetail.css">
 
-<!-- ******************* 기본템플릿 시작 ******************* -->
-<div class="content"              style="position:relative;background-color:lime;  "><span style="position:absolute;top:0px;left:0px;">container-fluid</span>
-	<div class="container"        style="position:relative;background-color:orange;"> <span style="position:absolute;top:0px;left:0px;">container</span>
-		<div class="common-title" style="position:relative;background-color:red;   ">             <span style="position:absolute;top:0px;left:0px;">common-title</span>
-			<p>기본 템플릿</p>
+<!-- ******************* 기본 template(사이드메뉴 No  형식) 시작 ******************* -->
+<div class="content container-fluid" style="position:relative;background-color:#FFF9E5;height:100px;"><span style="position:absolute;top:0px;left:0px;">content & container-fluid</span>
+	<div class="container"           style="position:relative;background-color:skyblue;height:100px;"><span style="position:absolute;top:0px;left:0px;">container</span>
+		<div class="common-title" style="position:relative;background-color:lavender;   ">             <span style="position:absolute;top:0px;left:0px;">common-title</span>
+			<p>No 사이드메뉴 기본 템플릿</p>
+		</div>
+	</div>
+</div>
+<!-- ******************* 기본 template(사이드메뉴 No  형식) 종료 ******************* -->
+<!-- ******************* 기본 template(사이드메뉴 Yes 형식) 시작 ******************* -->
+<div class="content"              style="position:relative;background-color:lime;  "><span style="position:absolute;top:0px;left:0px;">content</span>
+	<div class="container"        style="position:relative;background-color:orange;"><span style="position:absolute;top:0px;left:0px;">container</span>
+		<div class="common-title" style="position:relative;background-color:lavender;   "><span style="position:absolute;top:0px;left:0px;">common-title</span>
+			<p>Yes 사이드메뉴 기본 템플릿</p>
 		</div>
 		
 		<div class="common-sideMenu" style="position:relative;background-color:deeppink;height:100px;"><span style="position:absolute;top:0px;left:0px;">common-sideMenu</span>
@@ -24,8 +33,7 @@
 		</div>
 	</div>
 </div>
-
-<!-- ******************* 기본템플릿 종료 ******************* -->
+<!-- ******************* 기본 template(사이드메뉴 Yes 형식) 종료 ******************* -->
 <!-- <div class="container-fluid"> -->
 <div class="content">
 	<div class="container">
@@ -145,7 +153,7 @@
 			<div class="common-page-number">
 				<ul>
 					<li><a href="#">&lt;</a></li>
-					<li><a href="#">1</a></li>
+					<li class="on"><a href="#">1</a></li>
 					<li><a href="#">2</a></li>
 					<li><a href="#">3</a></li>
 					<li><a href="#">4</a></li>
@@ -191,19 +199,31 @@
 					</tr>
 				</table>
 			</div>
-			<div class="btn-wrap"">
+			<div class="btn-wrap">
 				<button class="community-btn">목록</button>
 			</div>
 		</div>
 		<!-- ******************* 상세테이블 종료 ******************* -->
-		
 	</div>
 </div>
 
-<!-- ******************* 기본 template 시작 ******************* -->
-<!-- <div class="container-fluid"> -->
+
+
+<!-- ******************* 기본 template(사이드메뉴 Yes 형식) 시작 ******************* -->
+<!-- <div class="content"              > -->
+<!-- 	<div class="container"> -->
+<!-- 		<div class="common-title" > -->
+<!-- 			<p>기본 템플릿</p> -->
+<!-- 		</div> -->
+<!-- 		<div class="common-sideMenu"></div> -->
+<!-- 		<div class="common-list"></div> -->
+<!-- 	</div> -->
+<!-- </div> -->
+<!-- ******************* 기본 template(사이드메뉴 Yes 형식) 종료 ******************* -->
+<!-- ******************* 기본 template(사이드메뉴 No  형식) 시작 ******************* -->
+<!-- <div class="content container-fluid"> -->
 <!-- 	<div class="container"> -->
 <!-- 	</div> -->
 <!-- </div> -->
-<!-- ******************* 기본 template 종료 ******************* -->
+<!-- ******************* 기본 template(사이드메뉴 No  형식) 종료 ******************* -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

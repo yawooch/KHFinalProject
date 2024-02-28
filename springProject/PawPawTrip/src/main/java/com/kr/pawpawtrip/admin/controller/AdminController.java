@@ -29,18 +29,14 @@ public class AdminController
 		return "admin/dashboard";
 	}
 
-	/* 트립목록 화면 이동 */
+	/* 트립 매핑 - 목록 화면으로 이동 */
 	@GetMapping("/admin/tripList")
     @ResponseBody
-	public ModelAndView stay(ModelAndView modelAndView, @RequestParam(defaultValue = "1") String pageNo) throws RestClientException, URISyntaxException {
-//	public ModelAndView stay(ModelAndView modelAndView, @RequestParam(defaultValue = "1") String pageNo){
-//		List<City> cities = weatherService.getCities();
-
+	public ModelAndView stay(ModelAndView modelAndView, @RequestParam(defaultValue = "1") String pageNo) throws RestClientException, URISyntaxException 
+	{
+		
+		
 		PetTourResponse response = adminApiClient.apiDetailPetTour(pageNo);
-
-//response.setWeatherItems(null);
-
-//		modelAndView.addObject("cities", cities);
 		
 		log.info("response : {}", response);
 		
@@ -50,10 +46,10 @@ public class AdminController
 		return modelAndView;
 	}
 
-	/* 숙소상세 화면 이동 */
-	@GetMapping("/admin/stayDetail")
+	/* 트립 매핑 - 상세 화면으로 이동 */
+	@GetMapping("/admin/tripDetail")
 	public String stayDetail() {
-		return "admin/stayDetail";
+		return "admin/tripDetail";
 	}
 
 	/* 숙소수정 화면 이동 */

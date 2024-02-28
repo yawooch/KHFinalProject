@@ -53,12 +53,14 @@ input::placeholder {
     color: gray;
     font-size: 14px;
 }
-
+input:focus {
+    outline: 1px solid #B29254;
+}
 
 /************************************ 타이틀 - 시작 ***********************************/
 .common-title {
 	position:relative;
-    padding: 30px 0 30px 0;
+    padding: 80px 0px 30px;
     border-bottom: 1px solid #e8e8e8;
     text-align: center;
     clear: both;
@@ -69,12 +71,6 @@ input::placeholder {
     color: #4B4242;
     font-size: 25px;
     font-weight: bold;
-}
-
-.community-container {
-    margin-top: 35px;
-    display: flex;
-    gap: 35px;
 }
 
 /************************************ 타이틀 - 종료 ***********************************/
@@ -387,21 +383,30 @@ td {
     text-align: center;
 }
 
-.common-page-number > ul li {
-    width: 25px;
-    height: 29px;
-    border: 1px solid #B29254;
-    border-radius: 5px;
-}
-
 .common-page-number > ul a {
     font-size: 18px;
     color: #B29254;
     text-decoration: none;
 }
 
+.common-page-number > ul li {
+    width: 25px;
+    height: 29px;
+    border: 1px solid #B29254;
+    border-radius: 5px;
+}
+.common-page-number > ul li.on{
+    background-color:#B29254;
+}
+.common-page-number > ul li.on>a{
+    color:#FFFFFF;
+}
 .common-page-number > ul > li:hover {
     border-width: 2px;
+    cursor:pointer;
+}
+.common-page-number > ul > li:hover>a{
+    line-height:10px;
 }
 .no-padding-all{
 	padding:0px !important;
