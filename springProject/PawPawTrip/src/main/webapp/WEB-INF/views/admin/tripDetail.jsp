@@ -15,35 +15,16 @@
 		<div class="common-title">
 			<p>관리자</p>
 		</div>
-		<!-- <div class="community-container"> -->
 		<div class="common-sideMenu">
 			<ul>
-				<li class="community-text">관리자</li>
-				<li class="notice-text"><a href="${path}/admin/dashboard">대시보드</a></li>
-				<li class="board-text"><a href="${path}/admin/board">자유 게시판</a>
-
-				<ul class="community-detail-sideMenu">
-					<li><a href="${path}/admin/board/talk">수다</a></li>
-					<li><a href="${path}/admin/board/mypet">마이펫 자랑</a></li>
-				</ul></li>
+				<li class="">관리자</li>
+				<li class=""><a href="${path}/admin/dashboard">대시보드</a></li>
+				<li class="on"><a href="${path}/admin/tripList">포포트립 매핑</a>
+				<li class=""><a href="${path}/admin/noticeWrite">공지사항 입력</a></li>
 			</ul>
 		</div>
 		<div class="common-list">
-			<div class="common-search">
-				<div></div>
-				<div>
-					<div></div>
-					<div>
-						<img src="${ path }/img/community/search.png"> <input type="text"
-							name="communitySearch" id="communitySearch"
-							placeholder="검색어를 입력해주세요.">
-					</div>
-					<div>
-						<button>검색</button>
-					</div>
-				</div>
-			</div>
-			<div class="common-detail-list">
+			<div class="common-detail-list no-margin-top">
 				<table border="1">
 					<tr>
 						<td style="background-color: #FDFAEF;">제목</td>
@@ -72,20 +53,8 @@
 					</tr>
 				</table>
 			</div>
-			<div class="btn-wrap"">
-				<button class="common-btn">목록</button>
-			</div>
-			
-			<div class="common-page-number">
-				<ul>
-					<li><a href="#"><</a></li>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#">></a></li>
-				</ul>
+			<div class="btn-wrap">
+				<button class="common-btn" onClick="location.href='${path}/admin/tripList';">목록</button>
 			</div>
 		</div>
 	</div>

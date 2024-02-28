@@ -59,7 +59,7 @@ $(document).ready(()=>
 	});
 	/********************** 서브메뉴 on 클래스 주기 - 종료 ***************************/
 	/********************** 푸터가 바닥으로 가기 위한 container-fluid height 설정 - 시작 ***************************/
-	$(window).resize(footerSink);
+//	$(window).resize(footerSink);
 	
 	
 	
@@ -127,5 +127,5 @@ $(document).ready(()=>
 	
 	
 	
-	footerSink();	
+	//footerSink();	
 })

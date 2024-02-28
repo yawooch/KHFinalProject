@@ -5,15 +5,18 @@
     word-wrap: break-word;
 }
 
+/* 
 .tripDetail-wrap {
     display: block;
     width: 1200px;
-    /* height: 100%; */
+    height: 100%;
     margin: 0 auto;
     padding: 0;
 }
+ */
 
 /* 페이지 타이틀 */
+/* 
 .tripDetail-title {
     display: block;
     width: 1200px;
@@ -32,6 +35,7 @@
     text-align: center;
     margin: 0 auto;
 }
+*/
 /* ---------------------------------------------- */
 
 /* 내부 전체 콘텐츠  */
@@ -119,20 +123,16 @@
 .tripDetail-mainInfo-wrap {
     display: block;
     position: relative;
-    width: inherit;
-    height: 350px;
-    gap: 20px;
+    width: 100%;
+    height: 330px;
 }
 
 .tripDetail-mainInfo {
     display: block;
     position: absolute;
     background-color: #FDFAEF;
-    width: 370px;
-    /* width: 370px; */
-    height: 350px;
-    /* height: 350px; */
-    margin-left: 10px;
+    width: 44%;
+    height: 330px;
     border-radius: 10px;
     padding: 10px 15px;
     right: 0;
@@ -141,8 +141,9 @@
 .tripNameAndLike {
     display: block;
     /* position: relative; */
-    width: 330px;
+    width: 100%;
     height: max-content;
+    text-align: start;
 }
 
 .tripName {
@@ -152,7 +153,8 @@
     font-weight: bold;
     font-size: 20px;
     height: 36px;
-    width: 289px;
+    width: 90%;
+    right: 0;
     margin: 10px auto;
 }
 
@@ -160,7 +162,7 @@
 #heart-icon {
     display: inline-block;
     /* position: absolute; */
-    width: 36px;
+    width: 7%;
     height: 31px;
     /* padding-left: 120px; */
     color: #4B4242;
@@ -176,27 +178,32 @@
 
 .mainInfo {
     display: block;
-    width: inherit;
+    width: 100%;
     position: relative;
-    font-size: 16px;
+    font-size: 16px !important;
     line-height: 28px;
     text-align: start;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .mainInfo > span {
     display: inline-block;
     margin-left: 28px;
     font-weight: 600;
+    font-weight: bold;
     color: #4B4242;
+}
+
+.mainInfo a {
+	color: #FFDE69 !important;
 }
 
 .mainInfo > p {
     display: block;
     width: inherit;
-    margin-bottom: 20px;
-    font-weight: 300;
+    margin-bottom: 5px !important;
     text-align: start;
+    font-size: 16px !important;
 }
 
 .mainInfo > p,
@@ -215,7 +222,7 @@
 /* 세부 정보 */
 .tripDetail-subInfo-wrap {
     display: block;
-    width: 900px;
+    width: 100%;
     height: max-content;
     margin-top: 55px;
     /* border: 1px solid black; */
@@ -230,14 +237,14 @@
 
 .subInfo-div {
     text-align: left;
-    width: 900px;
+    width: 100%;
     word-wrap: break-word;
     margin: 35px auto;
 }
 
 .iconAndInfo {
     height: 50;
-    border-bottom: 1px solid #B7B7B7;
+    border-bottom: 1px solid #e8e8e8;
     line-height: 50px;
 }
 
@@ -248,21 +255,25 @@
 }
 
 .iconAndInfo p {
-    width: 900px;
-    word-wrap: break-word;
-    margin-left: 29px;
+    width: 100%;
+}
+
+.btn-wrap {
+    text-align: center !important;
 }
 
 .btnList {
-    display: block;
-    width: 104px;
-    height: 29px;
-    margin: 30px auto;
-    color: #FDFAEF;
-    font-weight: 500;
-    letter-spacing: 1.3px;
-    background-color: #B29254;
-    border: 1px ;
+    padding: 0;
+    width: 90px;
+    height: 35px;
     border-radius: 5px;
-    right: 50%;
+    border: 1px solid #B29254;
+    background-color: white;
+    color: #B29254;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btnList:hover {
+	border-width: 2px;
 }

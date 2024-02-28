@@ -22,68 +22,68 @@
 
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
+
 <style>
- * { 
+* { 
     font-family: 'Noto Sans KR'; 
 }
 
+/* ------------------------------ */
 .swiper {
-display: inline-block;
-position: absolute;    
-width: 500px;
-height: 350px;
-/* margin: 15px 0px; */
-flex-direction: row;
-z-index: 5;
-/* right: 0; */
-border-radius: 10px;
+	display: inline-block;
+	position: absolute;    
+	width: 55%;
+	height: 330px;
+	/* margin: 15px 0px; */
+	flex-direction: row;
+	z-index: 5;
+	left: 0; 
+	border-radius: 10px;
 }
 
 .swiper-slide {
-text-align: center;
-font-size: 18px;
-background: #fff;
-display: flex;
-justify-content: center;
-align-items: center;
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .swiper-slide img {
-display: block;
-width: 100%;
-height: 100%;
-object-fit: cover;
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .swiper-button-next {
-color: #FDFAEF;
+	color: #FDFAEF;
 }
 
 :root {
---swiper-theme-color: #FDFAEF;
+	--swiper-theme-color: #FDFAEF;
 }
 </style>
 
 <!-- 바디 -->
-<section class="tripDetail-wrap">
-    <!-- 페이지 타이틀 -->
-    <div class="tripDetail-title"><p>숙박</p></div>
-
-
-    <!-- 사이드 바 + 내부 콘텐츠 -->
-    <div class="tripDetail-container">
-        <!-- 사이드 메뉴바 -->
-        <div class="menu-area">
-            <div class="side-menu">
-                <a href="${ path }/trip/spot">포포트립</a>
-                <a href="${ path }/trip/spot">여행</a>
-                <a href="${ path }/trip/stay">숙박</a>
-            </div>
+<section class="content">
+	<div class="container">
+		
+	    <!-- 페이지 타이틀 -->
+	    <div class="common-title"><p>숙박</p></div>
+	
+        <!-- 사이드 메뉴 -->
+        <div class="common-sideMenu">
+            <ul>
+                <li class="community-text">포포트립</li>
+                <li class="notice-text"><a href="${ path }/trip/spot">여행</a></li>
+                <li class="board-text"><a href="${ path }/trip/stay">숙박</a>
+            </ul>
         </div>
-        
-
+	        
         <!-- 내부 콘텐츠 -->
-        <div class="tripDetail-content">
+        <div class="common-list">
             <!-- 메인 정보 -->
             <div class="tripDetail-mainInfo-wrap">
                 <!-- 장소 이미지(슬라이드) -->
@@ -194,10 +194,11 @@ color: #FDFAEF;
             </div>
 
             <!-- 목록으로 가는 버튼 -->
-            <button onclick="" class="btnList">목록으로</button>
+            <div class="btn-wrap">
+            	<button onclick="location.href='${path}/trip/spot'" class="btnList">목록으로</button>
+            </div>
         </div>
     </div>
-
 </section>
 
 <script>

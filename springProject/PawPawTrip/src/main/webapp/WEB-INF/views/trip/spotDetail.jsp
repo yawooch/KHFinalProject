@@ -114,7 +114,7 @@ color: #FDFAEF;
                         <span class="material-icons" id="heart-icon">favorite_border</span>
                     </div>
 
-                    <div class="mainInfo">
+                    <div class="mainInfo" style="">
                         <img class="infoIcon" src="${ path }/img/trip/map_icon.png" alt="주소 아이콘">
                         <span>주소</span>
                         <p>강원 강릉시 왕산면 안반데기 1길</p>
@@ -129,7 +129,9 @@ color: #FDFAEF;
                         <!-- 새 창으로 해당 홈페이지 열기! -->
                         <img class="infoIcon" src="${ path }/img/trip/homepage_icon.png" alt="홈페이지 아이콘">
                         <span>홈페이지</span>
-                        <a href="https://blog.naver.com/sanai4744" target="_blank"><p>https://blog.naver.com/sanai4744</p></a>
+                        <a href="https://blog.naver.com/sanai4744" target="_blank">
+                        	<p>https://blog.naver.com/sanai4744</p>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -176,7 +178,9 @@ color: #FDFAEF;
             </div>
 
             <!-- 목록으로 가는 버튼 -->
-            <button onclick="" class="btnList">목록으로</button>
+            <div class="btn-wrap">
+            	<button onclick="location.href='${path}/trip/spot'" class="btnList">목록으로</button>
+            </div>
         </div>
     </div>
 </section>
