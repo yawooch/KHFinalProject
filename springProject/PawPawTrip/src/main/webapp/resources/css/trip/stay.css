@@ -1,12 +1,5 @@
 @charset "UTF-8";
 
-.common-title {
-    height: 150px; 
-    line-height: 150px; 
-    padding: 0 !important;
-}
-
-
 .card.product-wap .card .product-overlay {
     background: rgba(0,0,0,.4);
 }

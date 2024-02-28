@@ -5,59 +5,6 @@
     word-wrap: break-word;
 }
 
-/* 모바일처럼 보이게 할때 */
-@media (min-width: 500px) 
-{
-	.common-list {
-		width:100%;
-	    padding:0px; 
-		float:right;
-		margin-top:35px;
-		text-align:center;
-	}
-	
-	.common-sideMenu {
-		width:100%;
-	    text-align: center;
-		float:left;
-		margin-top:35px;
-	}
-}
-/* 데스크탑처럼 보이게 할때 */
-@media (min-width: 992px) 
-{
-	.common-list {
-		width:651px;
-	    padding:0px; 
-		float:right;
-		margin-top:35px;
-		text-align:center;
-	}
-	.swiper {
-		display: block;
-		position: relative;
-		width:100%;
-		float:left;
-	}
-	
-	.tripDetail-mainInfo {
-		display: block;
-		position: relative;
-		width: 100%;
-		
-	}
-}
-@media (min-width: 1200px)
-{
-	.common-list {
-		width:811px;
-	    padding:0px; 
-		float:right;
-		margin-top:35px;
-		text-align:center;
-	}
-}
-
 /* 
 .tripDetail-wrap {
     display: block;
@@ -69,12 +16,6 @@
  */
 
 /* 페이지 타이틀 */
-.common-title {
-    height: 150px; 
-    line-height: 150px; 
-    padding: 0 !important;
-}
-
 /* 
 .tripDetail-title {
     display: block;
