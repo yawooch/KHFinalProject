@@ -62,16 +62,29 @@
 						<td style="text-align: center;">조회수</td>
 						<td>등록일</td>
 					</tr>
-					<tr>
-						<td><img
-							src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[공지사항] 2023 영월 댕댕트레인 안내!</a></td>
-						<td>관리자</td>
-						<td>139</td>
-						<td>2023-10-13</td>
-					</tr>
+					<!--  
+					<c:if test="${ empty noticeList }">
+						<tr>
+							<td colspan="5">조회된 데이터가 없습니다.</td>
+						</tr>
+					</c:if>
+					-->
+					<c:if test="${ not empty noticeList }">
+						<c:forEach var="notice" items="${ noticeList }">
+							<tr>
+								<td>
+									<img src="${ path }/img/community/ant-design_sound-filled.png" alt="">
+								</td>
+								<td style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
+									<a href="#" style="font-size: 16px;">${ notice.communityCategory } ${ notice.communityTitle }</a>
+								</td>
+								<td>관리자</td>
+								<td>${ notice.communityCount }</td>
+								<td>${ notice.communityEd }</td>
+							</tr>
+						</c:forEach>
+					</c:if>
+					
 					<tr>
 						<td><img
 							src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>

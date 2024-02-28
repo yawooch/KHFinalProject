@@ -15,12 +15,21 @@ import lombok.RequiredArgsConstructor;
 public class CommunityServiceImpl implements CommunityService {
 	private final CommunityMapper communityMapper;
 
+	// 공지사항 리스트 조회
 	@Override
 	public List<Community> getNoticeList() {
 		
 		return communityMapper.selectNoticeList();
 	}
+	
+	// 자유게시판 리스트 조회(수다, 마이펫 자랑 포함)
+	@Override
+	public List<Community> getBoardList() {
+		
+		return communityMapper.selectBoardList();
+	}
 
+	// 게시글 작성
 	@Override
 	@Transactional
 	public int save(Community community) {

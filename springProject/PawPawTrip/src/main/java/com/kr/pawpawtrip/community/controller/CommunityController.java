@@ -32,6 +32,7 @@ public class CommunityController {
 		
 		List<Community> noticeList = null;
 		
+		// 공지사항 리스트 조회
 		noticeList = communityService.getNoticeList();
 		
 		System.out.println(noticeList);
@@ -44,9 +45,19 @@ public class CommunityController {
 	
 //	자유 게시판
 	@GetMapping("/community/board")
-	public String board() {
+	public ModelAndView board(ModelAndView modelAndView) {
 		
-		return "community/board";
+		List<Community> boardList = null;
+		
+		// 자유게시판 리스트 조회(수다, 마이펫 자랑 포함)
+		boardList = communityService.getBoardList();
+		
+		System.out.println("자유게시판 : " + boardList);
+		
+		modelAndView.addObject("boardList", boardList);
+		modelAndView.setViewName("community/board");
+		
+		return modelAndView;
 	}
 	
 //	자유 게시판 > 수다
@@ -109,7 +120,7 @@ public class CommunityController {
 		// 누가 작성했는지..(일단 임의로 저장)
 		community.setCommunityWriterNo(2);
 		
-		System.out.println("커뮤니티 : " + community);
+//		System.out.println("커뮤니티 : " + community);
 		
 		result = communityService.save(community);
 		
