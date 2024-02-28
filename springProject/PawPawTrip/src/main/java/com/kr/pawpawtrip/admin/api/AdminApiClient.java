@@ -22,22 +22,28 @@ public class AdminApiClient {
     @Qualifier("restTemplate")
     private final RestTemplate restTemplate;
 
-    /** 관리자 - 포포트립 매핑 화면에서 사용하기위한 detailPetTour1 API 사용 메소드 */
-    public PetTourResponse apiDetailPetTour(String pageNo) throws RestClientException, URISyntaxException 
+    /** 관리자 - 포포트립 매핑 화면에서 사용하기위한 detailPetTour1 API 사용 메소드 
+     * @param contentId */
+//    public String apiDetailPetTour(String pageNo, String contentId) throws RestClientException, URISyntaxException 
+    public PetTourResponse apiDetailPetTour(String pageNo, String contentId) throws RestClientException, URISyntaxException 
     {
-        StringBuilder urlBuilder          = null;
-        
-        urlBuilder     = new StringBuilder(baseURL + "detailPetTour1");
+        StringBuilder urlBuilder = new StringBuilder(baseURL + "detailPetTour1");
         urlBuilder.append("?ServiceKey=").append(serviceKey);
         urlBuilder.append("&pageNo=").append(pageNo);
         urlBuilder.append("&numOfRows=").append("10");
         urlBuilder.append("&MobileOS=").append("ETC");
         urlBuilder.append("&MobileApp=").append("pawpawtrip");
         urlBuilder.append("&_type=").append("json");
-        //urlBuilder.append("&contentId=").append("");
+        
+        
+        if(!contentId.isEmpty())
+        {
+        	urlBuilder.append("&contentId=").append(contentId);
+        }
         
         log.info("Request URL : {}", urlBuilder.toString());
 
-        return restTemplate.getForObject(new URI(urlBuilder.toString()), PetTourResponse.class);
+//		return restTemplate.getForObject(new URI(urlBuilder.toString()), String.class);
+    	return restTemplate.getForObject(new URI(urlBuilder.toString()), PetTourResponse.class);
     }
 }
