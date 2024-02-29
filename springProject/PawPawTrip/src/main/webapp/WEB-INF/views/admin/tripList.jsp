@@ -10,108 +10,77 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <script>
-function showPaging(pageNo , numOfRows, totalCount, pagingNum)
-{
-	pageNo = pageNo<1?1:pageNo;
-	let pagingTagResult = '';
-	let maxPagingNo   = totalCount/pagingNum;
-	let strPagingNo   = 0;
-	let endPagingNo   = 0;
-	console.log('pageNo : ' + pageNo);
-	console.log('maxPagingNo : ' + maxPagingNo);
-	//pageNo
-	//numOfRows
-	//totalCount
-
-	//strPagingNo = pageNo / pagingNum + 1
-	//endPagingNo = pageNo / pagingNum + pagingNum
-	console.log(Math.floor(pageNo / pagingNum)*pagingNum);
-	strPagingNo = Math.floor(pageNo / pagingNum)*pagingNum + 1;
-	endPagingNo = strPagingNo + pagingNum;
-	$('div.common-page-number').empty();
-		
-	
-	pagingTagResult += '<ul>';
-	pagingTagResult += '    <li><a href="#">&laquo</a></li>';
-	pagingTagResult += '    <li><a href="#">&lt;&lt;</a></li>';
-	pagingTagResult += '    <li><a href="#">&lt;</a></li>';
-	for(let idx = strPagingNo; idx<endPagingNo; idx++)
-	{
-		pagingTagResult += '    <li'+ (idx==pageNo?' class="on"':'') +'><a href="#">'+ idx +'</a></li>';
-	}
-	pagingTagResult += '    <li><a href="#">&gt;</a></li>';
-	pagingTagResult += '    <li><a href="#">&gt;&gt;</a></li>';
-	pagingTagResult += '    <li><a href="#">&raquo;</a></li>';
-	pagingTagResult += '</ul>';
-	$('div.common-page-number').append(pagingTagResult);
-}
+//페이징 요소를 생성하기 위한 콜백용 함수
+function clickPaging(){
+	showList(($(this).attr('pageno')*1), $('#contentId').val());
+};
 
 function showList(pageNo, contentId)
 {				
-	console.log(pageNo, contentId);
-// 	console.log(`pageNo : ${pageNo}, contentId : ${contentId}`);
-	
-// 	$.getJSON('${path}/admin/tripListApi', {pageNo, contentId}).done((data) =>
-// 	{
-// 		console.log(data);
-// 		let result = '';
-// // 		let {pageNo, numOfRows, totalCount, items} = data.response.body;
-// 		let {pageNo, numOfRows, totalCount, petTourItems} = data;
-// 		console.log(petTourItems);
-// // 		let {item} = items;
-// // 		item.forEach((element, idx) => {
-// 		petTourItems.forEach((element, idx) => {
-// 			result += '<tr>';
-// 			result += '		<td>' + idx + '</td>'
-// 			result += '		<td><a href="${path}/admin/tripDetail?contentId=' + element.contentid + '">'
-// 			result += '			' + element.contentid + '</a>'
-// 			result += '		</td>'
-// 			result += '		<td>' + idx + 'N</td>'
-// 			result += '		<td>' + idx + '여행</td>'
-// 			result += '		<td>' + idx + '2024-02-28</td>'
-// 			result += '</tr>';
-// 		});
-		
-// 		$('.common-detail-list>table>tbody').empty();
-// 		$('.common-detail-list>table>tbody').append(result);
-// 		$('.common-search>div:nth-child(1)>span').text(totalCount)
-// 		console.log($('.common-search>div:nth-child(1)>span').text(totalCount));
-		
-// 		//  $('#currentPage').text(pageNo);
-// 		//  $('#lastPage').text(Math.ceil(totalCount / numOfRows));
-// 	});
-	showPaging(pageNo , 10, 1010, 5);
-}
+    $('#spinnerLoading').show();
+	let pagingNum = 5;
+    $.ajax(
+ 	{
+        type : 'GET',
+        url  : '${path}/admin/tripListApi',
+        data : 
+        {
+        	pageNo,
+        	contentId
+        },
+        success:function(data)
+        {
+    		let result = '';
+    		let startRowNo = 0;
+    		let {pageNo, numOfRows, totalCount, petTourItems} = data;
 
+    		startRowNo = totalCount - ((pageNo-1)*numOfRows);//DESC 용
+//     		startRowNo = ((pageNo-1)*numOfRows) + 1;         //ASC  용
+    		
+    		if(petTourItems.length==0){
+    			result += '<tr>';
+    			result += '    <td colspan="5">';
+    			result += '        조회된 게시글이 없습니다.';
+    			result += '    </td>';
+    			result += '</tr>';
+    		}
+    		else{
+    			petTourItems.forEach((element, idx) => {
+    				result += '<tr>';
+    				result += '		<td>' + (startRowNo - idx) + '</td>';//DESC 용
+//     				result += '		<td>' + (startRowNo + idx) + '</td>';//ASC  용
+    				result += '		<td><a href="${path}/admin/tripDetail?contentId=' + element.contentid + '">';
+    				result += '			' + element.contentid + '</a>';
+    				result += '		</td>';
+    				result += '		<td>' + idx + 'N</td>';
+    				result += '		<td>' + idx + '여행</td>';
+    				result += '		<td>' + idx + '2024-02-28</td>';
+    				result += '</tr>';
+    			});
+    		}
+    		
+    		$('.common-detail-list>table>tbody').empty();
+    		$('.common-detail-list>table>tbody').append(result);
+    		$('.common-search>div:nth-child(1)>span').text(totalCount)
+    		
+    		showPaging(pageNo , numOfRows, totalCount, pagingNum,clickPaging);
+            $('#spinnerLoading').hide();
+        },
+        error: function(error){
+            console.log(`status : ${error.status}`);
+            $('#spinnerLoading').hide();
+        }
+       });
+	};
 $(document).ready(() => {
 	//리스트를 먼저 보여준다.
-	showList(102, $('#contentId').val());
+	showList(1, $('#contentId').val());
 	
 	$('#contentId').on('change', (event) => {
 		showList(1, $(event.target).val());
 	});
-	
-	// $('#prevPage').on('click', () => {
-	// 	let prevPage = Number.parseInt($('#currentPage').text()) - 1;
-	
-	// 	prevPage = prevPage > 0 ? prevPage : 1;
-		
-	// 	console.log(`Prev Page : ${prevPage}`);
-		
-	// 	showList(prevPage, $('#courseId').val());
-	// });
-	
-	// $('#nextPage').on('click', () => {
-	// 	let nextPage = Number.parseInt($('#currentPage').text()) + 1;
-	// 	let lastPage = Number.parseInt($('#lastPage').text());
-		
-	// 	nextPage = nextPage > lastPage ? lastPage : nextPage;
-		
-	// 	console.log(`Next Page : ${nextPage}`);
-		
-	// 	showList(nextPage, $('#courseId').val());
-		
-	// });
+
+	$('div.common-page-number>ul>li').on('click',  clickPaging);
 	
 });
 </script>
@@ -144,7 +113,10 @@ $(document).ready(() => {
 					</div>
 				</div>
 			</div>
-			<div class="common-detail-list">
+			<div class="common-detail-list" style="position:relative;">
+				<div id="spinnerLoading" style="display:none;position:absolute;width:100%;height:100%;background-color:rgb(0 0 0 / 65%);">
+					<div class="spinner-border text-warning" style="width: 100px; height: 100px; border: 16px solid currentcolor; border-right-color: transparent;"></div>
+				</div>
 				<table>
 					<colgroup>
 						<col width="45">
@@ -228,13 +200,13 @@ $(document).ready(() => {
 			
 			<div class="common-page-number">
 				<ul>
-					<li><a href="#">&lt;</a></li>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#">&gt;</a></li>
+					<li pageNo="1"><a href="#">&lt;</a></li>
+					<li pageNo="1"><a href="#">1</a></li>
+					<li pageNo="2"><a href="#">2</a></li>
+					<li pageNo="3"><a href="#">3</a></li>
+					<li pageNo="4"><a href="#">4</a></li>
+					<li pageNo="5"><a href="#">5</a></li>
+					<li pageNo="5"><a href="#">&gt;</a></li>
 				</ul>
 			</div>
 		</div>

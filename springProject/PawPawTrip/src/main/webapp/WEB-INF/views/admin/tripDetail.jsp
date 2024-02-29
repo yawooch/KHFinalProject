@@ -25,32 +25,71 @@
 		</div>
 		<div class="common-list">
 			<div class="common-detail-list no-margin-top">
-				<table border="1">
+				<table style="width:100%;">
+				<colgroup>
+					<col width="120px"/>
+					<col width="690px"/>
+<%-- 					<col width="280px"/> --%>
+<%-- 					<col width="120px"/> --%>
+<%-- 					<col width="280px"/> --%>
+				</colgroup>
+				<tbody>
 					<tr>
-						<td style="background-color: #FDFAEF;">제목</td>
-						<td colspan="5" class="community-td-title" style="text-align: left;">[공지사항] 댕댕트레킹, 프라이빗
-							반려견 트레킹 코스</td>
+						<td>콘텐츠ID</td>
+						<td>${selectedItem.petinfoContentid}</td>
 					</tr>
 					<tr>
-						<td style="background-color: #FDFAEF;">작성자</td>
-						<td>관리자</td>
-						<td style="background-color: #FDFAEF;">등록일</td>
-						<td>2023-05-09</td>
-						<td style="background-color: #FDFAEF;">조회수</td>
-						<td>251</td>
+						<td>반려견관광정보</td>
+						<td  >${selectedItem.tourInfo}</td>
 					</tr>
 					<tr>
-						<td colspan="6" class="community-td-content"
-							style="text-align: left">산을 통째로 빌렸어요!<br>
+						<td>관련사고대비사항</td>
+						<td >${selectedItem.relaAcdntRiskMtr}</td>
+					</tr>
+					<tr>
+						<td>동반구분</td>
+						<td >${selectedItem.acmpyTypeCd}</td>
+					</tr>
+					<tr>
+						<td>관련구비시설</td>
+						<td >${selectedItem.relaPosesFclty}</td>
+					</tr>
+					<tr>
+						<td>동반가능동물</td>
+						<td >${selectedItem.acmpyPsblCpam}</td>
+					</tr>
+					<tr>
+						<td>관련비치품목</td>
+						<td >${selectedItem.relaFrnshPrdlst}</td>
+					</tr>
+					<tr>
+						<td>기타동반정보</td>
+						<td style="text-align: left;text-wrap: wrap;">${selectedItem.etcAcmpyInfo}</td>
+					</tr>
+					<tr>
+						<td>관련구매품목</td>
+						<td>${selectedItem.relaPurcPrdlst}</td>
+					</tr>
+					<tr>
+						<td>관련렌탈품목</td>
+						<td >${selectedItem.relaRntlPrdlst}</td>
+					</tr>
+					<tr>
+						<td>동반시필요사항</td>
+						<td >${selectedItem.acmpyNeedMtr}</td>
+					</tr>
+					<tr>
+						<td  colspan="2" style="text-align: left;overflow:hidden;width:800px;">산을 통째로 빌렸어요!<br>
 							댕댕트레킹, 프라이빗 반려견 트레킹 코스<br> <br> 일시 : 2023년 5월 19일(금) ~
 							21일(일)<br> 장소 : 하늘길 트레킹 코스 + 정선 하이원 리조트<br> <br>
 							주요내용 : 6k, 4k, 3k 코스 자유 선택<br> 보듬 훈련사와 함께 대규모 트레킹 클래스<br>
 							트레킹 대장(강형욱 훈련사)과 다양한 프로그램<br> 대상 : 보호자 3,500명 with 반려견<br>
 							티켓 : 일반 참가권 49,000원 및 일부 할인적용 할인권 (숙박권 별도)<br> 링크 :
 							https://dangdangtrekking.com/<br> <br> 
-							<img src="${ path }/img/community/ddtrekking_1.jpg" alt="" width="800px">
+							<img src="${ path }/img/community/ddtrekking_1.jpg" alt="" style="width:100%;">
 						</td>
 					</tr>
+				</tbody>
 				</table>
 			</div>
 			<div class="btn-wrap">

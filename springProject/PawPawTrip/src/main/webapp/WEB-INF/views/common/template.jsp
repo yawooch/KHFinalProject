@@ -11,8 +11,8 @@
 <link rel="stylesheet" href="${path}/css/community/noticedetail.css">
 
 <!-- ******************* 기본 template(사이드메뉴 No  형식) 시작 ******************* -->
-<div class="content container-fluid" style="position:relative;background-color:#FFF9E5;height:100px;"><span style="position:absolute;top:0px;left:0px;">content & container-fluid</span>
-	<div class="container"           style="position:relative;background-color:skyblue;height:100px;"><span style="position:absolute;top:0px;left:0px;">container</span>
+<div class="content container-fluid" style="position:relative;background-color:#FFF9E5;height:300px;"><span style="position:absolute;top:0px;left:0px;">content & container-fluid</span>
+	<div class="container"           style="position:relative;background-color:skyblue;height:300px;"><span style="position:absolute;top:0px;left:0px;">container</span>
 		<div class="common-title" style="position:relative;background-color:lavender;   ">             <span style="position:absolute;top:0px;left:0px;">common-title</span>
 			<p>No 사이드메뉴 기본 템플릿</p>
 		</div>
@@ -20,8 +20,8 @@
 </div>
 <!-- ******************* 기본 template(사이드메뉴 No  형식) 종료 ******************* -->
 <!-- ******************* 기본 template(사이드메뉴 Yes 형식) 시작 ******************* -->
-<div class="content"              style="position:relative;background-color:lime;  "><span style="position:absolute;top:0px;left:0px;">content</span>
-	<div class="container"        style="position:relative;background-color:orange;"><span style="position:absolute;top:0px;left:0px;">container</span>
+<div class="content"              style="position:relative;background-color:lime;  height:300px;"><span style="position:absolute;top:0px;left:0px;">content</span>
+	<div class="container"        style="position:relative;background-color:orange;height:300px;"><span style="position:absolute;top:0px;left:0px;">container</span>
 		<div class="common-title" style="position:relative;background-color:lavender;   "><span style="position:absolute;top:0px;left:0px;">common-title</span>
 			<p>Yes 사이드메뉴 기본 템플릿</p>
 		</div>
@@ -145,6 +145,16 @@
 		<!-- ******************* 테이블 종료 ******************* -->
 		
 		<!-- ******************* 페이징 시작 ******************* -->
+		
+<script>
+function clickPaging(){
+	showPaging(($(this).attr('pageno')*1) , 10, 1009, 10, clickPaging);
+};
+$(document).ready(() => {
+	showPaging(101 , 10, 1009, 10, clickPaging);
+	$('div.common-page-number>ul>li').on('click',  clickPaging);
+});
+</script>
 		<div class="common-title">
 			<p>페이징 </p>
 		</div>
@@ -152,6 +162,8 @@
 		<div class="common-list">
 			<div class="common-page-number">
 				<ul>
+					<li><a href="#">&laquo;</a></li>
+					<li><a href="#">&lt;&lt;</a></li>
 					<li><a href="#">&lt;</a></li>
 					<li class="on"><a href="#">1</a></li>
 					<li><a href="#">2</a></li>
@@ -159,6 +171,8 @@
 					<li><a href="#">4</a></li>
 					<li><a href="#">5</a></li>
 					<li><a href="#">&gt;</a></li>
+					<li><a href="#">&gt;&gt;</a></li>
+					<li><a href="#">&raquo;</a></li>
 				</ul>
 			</div>
 		</div>

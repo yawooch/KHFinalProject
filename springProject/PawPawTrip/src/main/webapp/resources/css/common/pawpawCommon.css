@@ -390,7 +390,8 @@ td {
 }
 
 .common-page-number > ul li {
-    width: 25px;
+    min-width: 25px;
+    padding:0px 3px;
     height: 29px;
     border: 1px solid #B29254;
     border-radius: 5px;
