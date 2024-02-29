@@ -15,7 +15,8 @@
 			   COMMUNITY_COUNT,
 			   COMMUNITY_O_FILENAME,
 			   COMMUNITY_R_FILENAME,
-			   NOTICE_IMPORTANT_YN
+			   NOTICE_IMPORTANT_YN,
+			   COMMUNITY_WRITER_NO
 		FROM COMMUNITY
 	</sql>
 	
@@ -30,6 +31,7 @@
 		<result property="communityOfileName" column="COMMUNITY_O_FILENAME" />
 		<result property="communityRfileName" column="COMMUNITY_R_FILENAME" />
 		<result property="noticeImportantYN" column="NOTICE_IMPORTANT_YN" />
+		<result property="communityWriterNo" column="COMMUNITY_WRITER_NO" />
 	</resultMap>	
 
 	<!-- 조회 -->
@@ -38,6 +40,12 @@
 		WHERE COMMUNITY_STATUS = 'Y'
 		AND COMMUNITY_CATEGORY = '[공지사항]'
 		ORDER BY COMMUNITY_ED DESC
+	</select>
+	
+	<select id="selectBoardList" resultMap="communityListResultMap">
+		<include refid="communityListSql" />
+		WHERE COMMUNITY_STATUS = 'Y'
+		AND COMMUNITY_CATEGORY IN ('[수다]', '[마이펫 자랑]')
 	</select>
 	
 	<!-- 추가 -->

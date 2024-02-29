@@ -306,6 +306,7 @@ td {
     font-size: 16px;
     border-collapse: collapse;
     border: 1px solid #E8E8E8;
+    width: 100%;
 }
 
 
@@ -366,6 +367,14 @@ td {
 .common-detail-list > table tr td:nth-of-type(5) {
 /*     width: 120px; */
     text-align: center;
+}
+
+.common-text-left {
+	text-align: left !important;
+}
+
+.common-text-right {
+	text-align: right !important;
 }
 
 /************************************ 테이블 - 종료 ***********************************/
