@@ -8,6 +8,16 @@
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
+<style>
+	.common-detail-list > table > tbody >tr .common-text-left {
+		padding: 10px;
+	}
+	
+	.common-detail-list> table > tbody > tr > td:nth-child(odd) {
+	    color: #4B4242;
+	}
+</style>
+
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <form action="${path}/admin/tripDetail" name="tripSaveForm" method="POST">
 <div class="content">
@@ -29,7 +39,7 @@
                     <tbody>
                         <tr>
                             <td>콘텐츠ID</td>
-                            <td class="common-text-left no-ellipsis">${detailCommonItem.contentid}</td>
+                            <td class="common-text-left ml-1 no-ellipsis">${detailCommonItem.contentid}</td>
                             <td>콘텐츠타입ID</td>
                             <td class="common-text-left no-ellipsis">${detailCommonItem.contenttypeid}</td>
                         </tr>

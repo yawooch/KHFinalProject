@@ -36,10 +36,12 @@
         <div class="common-list">
             <!-- 검색바 -->
             <div class="common-search">
+            	<!-- 조회된 게시물 건 수 -->
 				<div>
 					TOTAL <span>26</span>건
 				</div>
 				<div>
+					<!-- 지역 선택 -->
 					<div>
 						<select name="communitySelect" id="communitySelect">
 							<option value="title" selected>지역</option>
@@ -63,10 +65,12 @@
 	                        <option value="area-39">제주특별자치도</option>
 						</select>
 					</div>
+					<!-- 검색어 입력 -->
 					<div>
-						<img src="${ path }/img/community/search.png"> <input type="text"
-							name="communitySearch" id="communitySearch"
-							placeholder="검색어를 입력해주세요.">
+						<img src="${ path }/img/community/search.png"> 
+						<input type="text"
+							   name="communitySearch" id="communitySearch"
+							   placeholder="검색어를 입력해주세요.">
 					</div>
 					<div>
 						<button>검색</button>
@@ -77,260 +81,39 @@
             <!-- 콘텐츠 내용 -->
             <div class="common-detail-list no-row">
                 <div class="row">
-                    <!-- 카드 -->
-                    <!-- 처음 카드 만든 후 나머지 카드 반복 생성 예정 -->
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0340/thumb/list/C0340_F20210923104924001.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
-                                        여행지 이름
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 주소
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 문의처
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0340/thumb/list/C0340_F20210923104924001.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
-                                        여행지 이름
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 주소
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 문의처
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0340/thumb/list/C0340_F20210923104924001.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
-                                        여행지 이름
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 주소
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 문의처
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0340/thumb/list/C0340_F20210923104924001.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
-                                        여행지 이름
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 주소
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 문의처
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0340/thumb/list/C0340_F20210923104924001.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
-                                        여행지 이름
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 주소
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 문의처
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0340/thumb/list/C0340_F20210923104924001.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
-                                        여행지 이름
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 주소
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 문의처
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0340/thumb/list/C0340_F20210923104924001.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
-                                        여행지 이름
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 주소
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 문의처
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0340/thumb/list/C0340_F20210923104924001.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
-                                        여행지 이름
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 주소
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 문의처
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0340/thumb/list/C0340_F20210923104924001.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
-                                        여행지 이름
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 주소
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        여행지 문의처
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                
+                    <!-- c:forEach로 카드 반복 생성 -->
+                    <c:forEach var="spot" items="${ spots }">
+	                    <div class="col-md-4">
+	                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
+	                            <!-- 카드 이미지 -->
+	                            <div class="card mb-4 product-wap rounded-0">
+	                                <div class="card rounded-0">
+	                                    <img class="card-img rounded-0 img-fluid" 
+	                                    	 src="${ spot.tripImage }">
+	                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+	                                        <p class="readMore" style="font-size: 14px !important;">
+	                                            +<br>
+	                                            READ MORE
+	                                        </p>
+	                                    </div>
+	                                </div>
+	                                <!-- 카드 내용 -->
+	                                <div class="card-body">
+	                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
+	                                        ${ spot.tripTitle }
+	                                    </p>
+	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
+	                                        ${ spot.tripAddress }
+	                                    </p>
+	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+	                                        ${ spot.tripTel }
+	                                    </p>
+	                                </div>
+	                            </div>
+	                        </a>
+	                    </div>
+                    </c:forEach>
                 </div>
             </div>
 

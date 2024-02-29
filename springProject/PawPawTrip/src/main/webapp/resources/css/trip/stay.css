@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 .card.product-wap .card .product-overlay {
     background: rgba(0,0,0,.4);
 }
@@ -45,6 +46,10 @@
 
 .text-start mb-2:first {
     background: url(./resource_icon/map_icon.png);
+}
+
+.card-body p:nth-of-type(2) {
+	height: 38px !important;
 }
 
 /* 아이콘 */
