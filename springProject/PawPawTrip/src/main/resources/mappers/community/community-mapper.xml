@@ -22,6 +22,7 @@
 	
 	<resultMap id="communityListResultMap" type="Community">
 		<id property="communityNo" column="COMMUNITY_NO" />
+		<result property="communityRNUM" column="RNUM" />
 		<result property="communityCategory" column="COMMUNITY_CATEGORY" />
 		<result property="communityTitle" column="COMMUNITY_TITLE" />
 		<result property="communityContent" column="COMMUNITY_CONTENT" />
@@ -32,9 +33,15 @@
 		<result property="communityRfileName" column="COMMUNITY_R_FILENAME" />
 		<result property="noticeImportantYN" column="NOTICE_IMPORTANT_YN" />
 		<result property="communityWriterNo" column="COMMUNITY_WRITER_NO" />
+		<result property="communityWriterId" column="MEMBER_ID" />
 	</resultMap>	
 
 	<!-- 조회 -->
+	<select id="selectBoardCount">
+		SELECT COUNT(*) FROM COMMUNITY
+		WHERE COMMUNITY_CATEGORY IN ('[수다]', '[마이펫 자랑]')
+	</select>
+	
 	<select id="selectNoticeList" resultMap="communityListResultMap">
 		<include refid="communityListSql" />
 		WHERE COMMUNITY_STATUS = 'Y'
@@ -43,9 +50,70 @@
 	</select>
 	
 	<select id="selectBoardList" resultMap="communityListResultMap">
-		<include refid="communityListSql" />
-		WHERE COMMUNITY_STATUS = 'Y'
-		AND COMMUNITY_CATEGORY IN ('[수다]', '[마이펫 자랑]')
+		SELECT RNUM, COMMUNITY_NO, COMMUNITY_CATEGORY, COMMUNITY_TITLE, MEMBER_ID, COMMUNITY_COUNT, COMMUNITY_ED
+		FROM (
+		    SELECT ROWNUM AS RNUM, COMMUNITY_NO, COMMUNITY_CATEGORY, COMMUNITY_TITLE, MEMBER_ID, COMMUNITY_COUNT, COMMUNITY_ED
+		    FROM(
+		        SELECT C.COMMUNITY_NO,
+		               C.COMMUNITY_CATEGORY,
+		               C.COMMUNITY_TITLE,
+		               M.MEMBER_ID,
+		               C.COMMUNITY_COUNT,
+		               C.COMMUNITY_ED
+		        FROM COMMUNITY C
+		        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+		        WHERE C.COMMUNITY_STATUS = 'Y' 
+		        AND M.MEMBER_ID != 'admin'
+		        ORDER BY C.COMMUNITY_ED ASC
+		    )
+		) ORDER BY RNUM DESC
+	</select>
+	
+	<!-- 1페이지 페이징 처리 관련 쿼리 -->
+	<select id="selectBoardListFirstPage" resultMap="communityListResultMap">
+		WITH BOARD AS 
+		(  
+		    SELECT ROWNUM AS RNUM, COMMUNITY_NO, COMMUNITY_CATEGORY, COMMUNITY_TITLE, MEMBER_ID, COMMUNITY_COUNT, COMMUNITY_ED, NOTICE_IMPORTANT_YN
+		    FROM (
+		        SELECT C.COMMUNITY_NO,
+		               C.COMMUNITY_CATEGORY,
+		               C.COMMUNITY_TITLE,
+		               M.MEMBER_ID,
+		               C.COMMUNITY_COUNT,
+		               C.COMMUNITY_ED,
+		               C.NOTICE_IMPORTANT_YN
+		        FROM COMMUNITY C
+		        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+		        WHERE C.COMMUNITY_STATUS = 'Y'
+		        AND C.COMMUNITY_CATEGORY IN ('[수다]', '[마이펫 자랑]')
+		        
+		        UNION
+		        
+		        SELECT C.COMMUNITY_NO,
+		               C.COMMUNITY_CATEGORY,
+		               C.COMMUNITY_TITLE,
+		               M.MEMBER_ID,
+		               C.COMMUNITY_COUNT,
+		               C.COMMUNITY_ED,
+		               C.NOTICE_IMPORTANT_YN
+		        FROM COMMUNITY C
+		        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+		        WHERE C.COMMUNITY_STATUS = 'Y'
+		        AND C.NOTICE_IMPORTANT_YN = 'Y'
+		        ORDER BY NOTICE_IMPORTANT_YN ASC, COMMUNITY_ED ASC
+		    )
+		    
+		)
+		SELECT RNUM,
+		       COMMUNITY_NO,
+		       COMMUNITY_CATEGORY,
+		       COMMUNITY_TITLE,
+		       MEMBER_ID,
+		       COMMUNITY_COUNT,
+		       COMMUNITY_ED,
+		       NOTICE_IMPORTANT_YN
+		FROM BOARD
+		ORDER BY RNUM DESC
 	</select>
 	
 	<!-- 추가 -->

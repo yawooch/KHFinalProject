@@ -11,12 +11,19 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="${path}/css/community/board.css">
 
+<style>
+	.disable {
+		pointer-events: none;
+		background-color: #B29254;
+		color: white;
+	}
+</style>
+
 <div class="content">
 	<div class="container">
 		<div class="common-title">
 			<p>자유 게시판</p>
 		</div>
-		<!-- 		<div class="community-container"> -->
 		<div class="common-sideMenu">
 			<ul>
 				<li class="community-text">커뮤니티</li>
@@ -70,23 +77,41 @@
 					<c:if test="${ not empty boardList }">
 						<c:forEach var="board" items="${ boardList }">
 							<tr>
-								<td>
-									${ board.communityNo }
-								</td>
+								<c:if test="${ board.communityCategory eq '[공지사항]' }">
+									<td>
+										<img src="${ path }/img/community/ant-design_sound-filled.png" alt="">
+									</td>
+									<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
+										<a href="#" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
+									</td>
+									<td>${ board.communityWriterId }</td>
+									<td class="common-text-right">${ board.communityCount }</td>
+									<td>${ board.communityEd }</td>
+								</c:if>
+								<c:if test="${ board.communityCategory ne '[공지사항]' }">
+									<td>${ board.communityRNUM }</td>
+									<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
+										<a href="#" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
+									</td>
+									<td>${ board.communityWriterId }</td>
+									<td class="common-text-right">${ board.communityCount }</td>
+									<td>${ board.communityEd }</td>
+								</c:if>
+								<!--  
 								<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
 									<a href="#" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
 								</td>
-								<td>관리자</td>
+								<td>${ board.communityWriterId }</td>
 								<td class="common-text-right">${ board.communityCount }</td>
 								<td>${ board.communityEd }</td>
+								-->
 							</tr>
 						</c:forEach>
 					</c:if>
 					<!--  
 					
 					<tr>
-						<td><img
-							src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
+						<td><img src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
 						<td
 							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
 							href="#" style="font-size: 16px;">[공지사항] 2023 영월 댕댕트레인 안내!</a></td>
@@ -134,17 +159,26 @@
 			</div>
 			<div class="common-page-number">
 				<ul>
-					<li><a href="#"><</a></li>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#">></a></li>
+					<!-- 페이징 처리 -->
+					<!-- 이전 페이지 -->
+					<li><a href="${ path }/community/board?page=${ pageInfo.prevPage }">&lt;</a></li>
+					<!-- 5개 페이지 목록 -->
+					<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
+						<c:choose>
+							<c:when test="${ current == pageInfo.currentPage }">
+								<li class="disable"><a>${ current }</a></li>
+							</c:when>
+							<c:otherwise>
+								<li><a href="${ path }/community/board?page=${ current }">${ current }</a></li>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					
+					<!-- 다음페이지 -->
+					<li><a href="${ path }/community/board?page=${ pageInfo.nextPage }">&gt;</a></li>
 				</ul>
 			</div>
 		</div>
-		<!-- 		</div> -->
 	</div>
 
 </div>

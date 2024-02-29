@@ -13,6 +13,9 @@ public class Community {
 
 	// 커뮤니티 번호
 	private int communityNo;
+	
+	// ROWNUM
+	private int communityRNUM;
 
 	// 커뮤니티 분류
 	private String communityCategory;
@@ -41,7 +44,10 @@ public class Community {
 	// 공지사항 중요 여부
 	private String noticeImportantYN;
 	
-	// 커뮤니티 작성자
+	// 커뮤니티 작성자 번호
 	private int communityWriterNo;
+	
+	// 커뮤니티 작성자 아이디
+	private String communityWriterId;
 	
 }

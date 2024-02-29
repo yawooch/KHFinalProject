@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kr.pawpawtrip.common.util.MultipartFileUtil;
+import com.kr.pawpawtrip.common.util.PageInfo;
 import com.kr.pawpawtrip.community.model.service.CommunityService;
 import com.kr.pawpawtrip.community.model.vo.Community;
 
@@ -45,15 +46,22 @@ public class CommunityController {
 	
 //	자유 게시판
 	@GetMapping("/community/board")
-	public ModelAndView board(ModelAndView modelAndView) {
+	public ModelAndView board(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page) {
 		
 		List<Community> boardList = null;
+		PageInfo pageInfo = null;
+		// 전체 리스트 수
+		int listCount = 0;
+		
+		listCount = communityService.getBoardCount();
+		pageInfo = new PageInfo(page, 5, listCount, 15);
 		
 		// 자유게시판 리스트 조회(수다, 마이펫 자랑 포함)
-		boardList = communityService.getBoardList();
+		boardList = communityService.getBoardList(pageInfo);
 		
 		System.out.println("자유게시판 : " + boardList);
 		
+		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("boardList", boardList);
 		modelAndView.setViewName("community/board");
 		
