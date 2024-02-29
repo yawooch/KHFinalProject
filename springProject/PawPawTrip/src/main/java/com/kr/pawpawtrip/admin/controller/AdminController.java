@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -81,7 +82,7 @@ public class AdminController
         DetailCommonResponse response = commonApiClient.apiDetailCommonToContentId(contentId);
         
         
-        log.info("response : {}", response);
+//        log.info("response : {}", response);
         
         // TODO:stream으로 정리 안됨?
         for (PetTourItem petTourItem : petTourInfos)
@@ -110,6 +111,17 @@ public class AdminController
         return modelAndView;
     }
 
+    /** 숙소등록 처리 */
+    @PostMapping("/admin/tripDetail")
+    public ModelAndView tripSave(ModelAndView modelAndView)
+    {
+        System.out.println("여기야 여기~~~~~");
+        
+        modelAndView.setViewName("admin/tripDetail");
+        
+        return modelAndView;
+    }
+    
     /** 숙소수정 화면 이동 */
     @GetMapping("/admin/stayUpdate")
     public String stayUpdate()

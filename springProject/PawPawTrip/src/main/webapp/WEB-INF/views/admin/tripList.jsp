@@ -195,7 +195,7 @@ $(document).ready(() => {
 				</table>
 			</div>
 			<div class="btn-wrap">
-				<button class="common-btn">일괄등록</button>
+				<button class="common-btn" onClick="alert('구현 안했지롱~~');">일괄등록</button>
 			</div>
 			
 			<div class="common-page-number">
