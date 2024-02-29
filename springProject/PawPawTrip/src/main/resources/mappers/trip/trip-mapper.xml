@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+	
+<mapper namespace="com.kr.pawpawtrip.trip.model.mapper.TripMapper">
+	<!-- 여행 SQL 구문 -->
+	<sql id="spotListSql">
+		SELECT TRIP_CONTENTID,
+		       TRIP_ADDRESS,
+		       TRIP_TITLE,
+		       AREACODE,
+		       TRIP_CATEGORY1,
+		       TRIP_CATEGORY2,
+		       TRIP_CATEGORY3,
+		       TRIP_CONTENTTYPEID,
+		       TRIP_CREATETIME,
+		       TRIP_MODIFYTIME,
+		       TRIP_IMAGE,
+		       MAPX,
+		       MAPY,
+		       MAPLEVEL,
+		       TRIP_TEL,
+		       SIGUNGUCODE
+		FROM TRIP
+	</sql>
+	
+	
+	<!-- 여행 페이지 ReaultMap -->
+	<resultMap id="spotListResultMap" type="Spot">
+		<!-- 기본키 -->
+		<id property="tripContentId" column="TRIP_CONTENTID"/>
+		
+		<result property="tripAddress" column="TRIP_ADDRESS"/>
+		<result property="tripTitle" column="TRIP_TITLE"/>
+		<result property="areaCode" column="AREACODE"/>
+		<result property="tripCategory1" column="TRIP_CATEGORY1"/>
+		<result property="tripCategory2" column="TRIP_CATEGORY2"/>
+		<result property="tripCategory3" column="TRIP_CATEGORY3"/>
+		<result property="tripContentTypeId" column="TRIP_CONTENTTYPEID"/>
+		<result property="tripCreateTime" column="TRIP_CREATETIME"/>
+		<result property="tripModifyTime" column="TRIP_MODIFYTIME"/>
+		<result property="tripImage" column="TRIP_IMAGE"/>
+		<result property="mapX" column="MAPX"/>
+		<result property="mapY" column="MAPY"/>
+		<result property="mapLevel" column="MAPLEVEL"/>
+		<result property="tripTel" column="TRIP_TEL"/>
+		<result property="sigunguCode" column="SIGUNGUCODE"/>
+	</resultMap>
+	
+	<!-- 숙박 페이지 ReaultMap -->
+	<resultMap id="stayListResultMap" type="Stay">
+		<!-- 기본키 -->
+		<id property="stayContentId" column="STAY_CONTENTID"/>
+		
+		<result property="stayAddress" column="STAY_ADDRESS"/>
+		<result property="stayDetailAddress" column="STAY_DETAIL_ADDRESS"/>
+		<result property="stayTitle" column="STAY_TITLE"/>
+		<result property="areaCode" column="AREACODE"/>
+		<result property="stayCategory1" column="STAY_CATEGORY1"/>
+		<result property="stayCategory2" column="STAY_CATEGORY2"/>
+		<result property="stayCategory3" column="STAY_CATEGORY3"/>
+		<result property="stayContentTypeId" column="STAY_CONTENTTYPEID"/>
+		<result property="stayCrateTime" column="STAY_CREATETIME"/>
+		<result property="stayModifyTime" column="STAY_MODIFYTIME"/>
+		<result property="stayImage" column="STAY_IMAGE"/>
+		<result property="mapX" column="MAPX"/>
+		<result property="mapY" column="MAPY"/>
+		<result property="mapLevel" column="MAPLEVEL"/>
+		<result property="stayTel" column="STAY_TEL"/>
+		<result property="sigunguCode" column="SIGUNGUCODE"/>
+	</resultMap>
+		
+	
+	<!-- 여행지 전체 조회 -->	
+	<select id="selectAll" resultMap="spotListResultMap">
+		<include refid="spotListSql"></include>
+		ORDER BY TRIP_CONTENTID ASC
+	</select>
+	
+</mapper>

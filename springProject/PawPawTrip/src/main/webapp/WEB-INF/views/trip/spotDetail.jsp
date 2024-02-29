@@ -85,7 +85,7 @@ color: #FDFAEF;
                 <div class="swiper Swiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="https://dangdangmap.net/upload/mapdata/C0517/thumb/content/C0517_F20221201111723001.jpg" alt="안반데기 예시">
+                            <img src="http://tong.visitkorea.or.kr/cms/resource/37/2596337_image2_1.jpg" alt="안반데기 예시">
                         </div>
                         <div class="swiper-slide">
                             <img src="https://dangdangmap.net/upload/mapdata/C0517/thumb/content/C0517_F20221201111723002.jpg" alt="안반데기 예시">

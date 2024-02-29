@@ -1,19 +1,42 @@
 package com.kr.pawpawtrip.trip.controller;
 
+import java.util.List;
+
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kr.pawpawtrip.trip.model.service.TripService;
+import com.kr.pawpawtrip.trip.model.vo.Spot;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
+@RequiredArgsConstructor
 public class TripController {
+	private final TripService tripService;
 	
-	// ¿©Çà ¾È³» ÆäÀÌÁö
+	private final ResourceLoader resourceLoader;
+	
+	// ì—¬í–‰ ì¡°íšŒ í˜ì´ì§€
 	@GetMapping("/trip/spot")
-	public String spot() {
+	public ModelAndView spot(ModelAndView modelAndView) {
+		List<Spot> spots = null;
 		
-		return "trip/spot";
+		spots = tripService.getSpotList();
+		
+		log.info(" Spot List : {}", spots);
+		
+		modelAndView.addObject("spots", spots);
+		modelAndView.setViewName("trip/spot");	// ì´ë™í•  view
+		
+		return modelAndView;
 	}
 	
-	// ¿©Çà ¾È³» »ó¼¼ ÆäÀÌÁö
+	// ì—¬í–‰ ìƒì„¸ í˜ì´ì§€
 	@GetMapping("/trip/spot/spotDetail")
 	public String spotDetail() {
 		
@@ -22,14 +45,14 @@ public class TripController {
 	
 	// --------------------------------------------------------------------------------------------
 	
-	// ¼÷¼Ò ¾È³» ÆäÀÌÁö
+	// ìˆ™ë°• ì¡°íšŒ í˜ì´ì§€
 	@GetMapping("/trip/stay")
 	public String stay() {
 		
 		return "trip/stay";
 	}
 	
-	// ¼÷¼Ò ¾È³» »ó¼¼ ÆäÀÌÁö
+	// ìˆ™ë°• ìƒì„¸ í˜ì´ì§€
 	@GetMapping("/trip/stay/stayDetail")
 	public String stayDetail() {
 		
