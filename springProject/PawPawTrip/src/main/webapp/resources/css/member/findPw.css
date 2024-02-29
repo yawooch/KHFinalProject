@@ -13,11 +13,6 @@ body {
     background-color: #FFF9E5;
 }
 
-/* 공통 input */
-input:focus {
-    outline: 1px solid #B29254;
-}
-
 .navi > div > a {
 	text-decoration: none;
 	font-size: 16px;

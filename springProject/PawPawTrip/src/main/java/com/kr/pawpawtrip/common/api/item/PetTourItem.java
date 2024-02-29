@@ -1,4 +1,4 @@
-package com.kr.pawpawtrip.admin.api;
+package com.kr.pawpawtrip.common.api.item;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

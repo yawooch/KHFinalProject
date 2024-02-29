@@ -25,74 +25,142 @@
 		</div>
 		<div class="common-list">
 			<div class="common-detail-list no-margin-top">
-				<table style="width:100%;">
-				<colgroup>
-					<col width="120px"/>
-					<col width="690px"/>
-<%-- 					<col width="280px"/> --%>
-<%-- 					<col width="120px"/> --%>
-<%-- 					<col width="280px"/> --%>
-				</colgroup>
-				<tbody>
-					<tr>
-						<td>콘텐츠ID</td>
-						<td>${selectedItem.petinfoContentid}</td>
-					</tr>
-					<tr>
-						<td>반려견관광정보</td>
-						<td  >${selectedItem.tourInfo}</td>
-					</tr>
-					<tr>
-						<td>관련사고대비사항</td>
-						<td >${selectedItem.relaAcdntRiskMtr}</td>
-					</tr>
-					<tr>
-						<td>동반구분</td>
-						<td >${selectedItem.acmpyTypeCd}</td>
-					</tr>
-					<tr>
-						<td>관련구비시설</td>
-						<td >${selectedItem.relaPosesFclty}</td>
-					</tr>
-					<tr>
-						<td>동반가능동물</td>
-						<td >${selectedItem.acmpyPsblCpam}</td>
-					</tr>
-					<tr>
-						<td>관련비치품목</td>
-						<td >${selectedItem.relaFrnshPrdlst}</td>
-					</tr>
-					<tr>
-						<td>기타동반정보</td>
-						<td style="text-align: left;text-wrap: wrap;">${selectedItem.etcAcmpyInfo}</td>
-					</tr>
-					<tr>
-						<td>관련구매품목</td>
-						<td>${selectedItem.relaPurcPrdlst}</td>
-					</tr>
-					<tr>
-						<td>관련렌탈품목</td>
-						<td >${selectedItem.relaRntlPrdlst}</td>
-					</tr>
-					<tr>
-						<td>동반시필요사항</td>
-						<td >${selectedItem.acmpyNeedMtr}</td>
-					</tr>
-					<tr>
-						<td  colspan="2" style="text-align: left;overflow:hidden;width:800px;">산을 통째로 빌렸어요!<br>
-							댕댕트레킹, 프라이빗 반려견 트레킹 코스<br> <br> 일시 : 2023년 5월 19일(금) ~
-							21일(일)<br> 장소 : 하늘길 트레킹 코스 + 정선 하이원 리조트<br> <br>
-							주요내용 : 6k, 4k, 3k 코스 자유 선택<br> 보듬 훈련사와 함께 대규모 트레킹 클래스<br>
-							트레킹 대장(강형욱 훈련사)과 다양한 프로그램<br> 대상 : 보호자 3,500명 with 반려견<br>
-							티켓 : 일반 참가권 49,000원 및 일부 할인적용 할인권 (숙박권 별도)<br> 링크 :
-							https://dangdangtrekking.com/<br> <br> 
-							<img src="${ path }/img/community/ddtrekking_1.jpg" alt="" style="width:100%;">
-						</td>
-					</tr>
-				</tbody>
+				<table class="common-col-table" style="width: 100%;">
+					<tbody>
+						<tr>
+							<td>콘텐츠ID</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.contentid}</td>
+							<td>콘텐츠타입ID</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.contenttypeid}</td>
+						</tr>
+						<tr>
+							<td>장소이름</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.title}</td>
+							<td>DB 등록여부</td>
+							<td class="common-text-left no-ellipsis"></td>
+						</tr>
+						<tr>
+							<td>수정일</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.modifiedtime}</td>
+							<td>등록일</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.createdtime}</td>
+						</tr>
+						<tr>
+							<td>전화번호</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.tel}</td>
+							<td>전화번호이름</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.telname}</td>
+						</tr>
+<!-- 						<tr> -->
+<!-- 							<td>교과서속여행지 여부</td> -->
+<%-- 							<td class="common-text-left no-ellipsis">${detailCommonItem.booktour}</td> --%>
+<!-- 						</tr> -->
+						<tr>
+							<td>대표이미지(원본)</td>
+							<td colspan="3" class="common-text-left no-ellipsis"><img src="${detailCommonItem.firstimage}" style="width:100%;"/></td>
+						</tr>
+<!-- 						<tr> -->
+<!-- 							<td>대표이미지(썸네일)</td> -->
+<%-- 							<td class="common-text-left no-ellipsis"><img src="${detailCommonItem.firstimage2}" style="width:100%;"/></td> --%>
+<!-- 						</tr> -->
+						<tr>
+							<td>지역코드</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.areacode}</td>
+							<td>시군구코드</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.sigungucode}</td>
+						</tr>
+						<tr>
+							<td>대분류</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.cat1}</td>
+							<td>중분류</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.cat2}</td>
+						</tr>
+						<tr>
+							<td>소분류</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.cat3}</td>
+							<td>저작권 유형</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.cpyrhtDivCd}</td>
+						</tr>
+						<tr>
+							<td>주소</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.addr1}</td>
+							<td>상세주소</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.addr2}</td>
+						</tr>
+						<tr>
+							<td>GPS X좌표</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.mapx}</td>
+							<td>GPS Y좌표</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.mapy}</td>
+						</tr>
+						<tr>
+							<td>Map Level</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.mlevel}</td>
+							<td>거리</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.dist}</td>
+						</tr>
+						<tr>
+							<td>연관 URL 정보</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.homepage}</td>
+							<td>우편번호</td>
+							<td class="common-text-left no-ellipsis">${detailCommonItem.zipcode}</td>
+						</tr>
+						<tr>
+							<td>개요설명</td>
+							<td  colspan="3" class="common-text-left no-ellipsis">${detailCommonItem.overview}</td>
+						</tr>
+<!-- 						<tr> -->
+<!-- 							<td>콘텐츠ID</td> -->
+<%-- 							<td class="common-text-left no-ellipsis">${selectedItem.petinfoContentid}</td> --%>
+<!-- 						</tr> -->
+                        <tr>
+                            <td colspan="10" class="no-ellipsis">반려견 동반 정보</td>
+                        </tr>
+                        <tr>
+                            <td>반려견관광정보</td>
+                            <td colspan="3" class="common-text-left no-ellipsis">${selectedItem.tourInfo}</td>
+                        </tr>
+						<tr>
+							<td>관련사고대비사항</td>
+							<td colspan="3"  class="common-text-left no-ellipsis">${selectedItem.relaAcdntRiskMtr}</td>
+						</tr>
+						<tr>
+							<td>동반구분</td>
+							<td colspan="3"  class="common-text-left no-ellipsis">${selectedItem.acmpyTypeCd}</td>
+						</tr>
+						<tr>
+							<td>관련구비시설</td>
+							<td colspan="3"  class="common-text-left no-ellipsis">${selectedItem.relaPosesFclty}</td>
+						</tr>
+						<tr>
+							<td>동반가능동물</td>
+							<td colspan="3"  class="common-text-left no-ellipsis">${selectedItem.acmpyPsblCpam}</td>
+						</tr>
+						<tr>
+							<td>관련비치품목</td>
+							<td colspan="3"  class="common-text-left no-ellipsis">${selectedItem.relaFrnshPrdlst}</td>
+						</tr>
+						<tr>
+							<td>기타동반정보</td>
+							<td colspan="3"  class="common-text-left no-ellipsis">${selectedItem.etcAcmpyInfo}</td>
+						</tr>
+						<tr>
+							<td>관련구매품목</td>
+							<td colspan="3"  class="common-text-left no-ellipsis">${selectedItem.relaPurcPrdlst}</td>
+						</tr>
+						<tr>
+							<td>관련렌탈품목</td>
+							<td colspan="3"  class="common-text-left no-ellipsis">${selectedItem.relaRntlPrdlst}</td>
+						</tr>
+						<tr>
+							<td>동반시필요사항</td>
+							<td colspan="3"  class="common-text-left no-ellipsis">${selectedItem.acmpyNeedMtr}</td>
+						</tr>
+					</tbody>
 				</table>
 			</div>
 			<div class="btn-wrap">
+				<button class="common-btn btn-filled">등록</button>
 				<button class="common-btn" onClick="location.href='${path}/admin/tripList';">목록</button>
 			</div>
 		</div>

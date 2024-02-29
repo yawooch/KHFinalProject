@@ -1,10 +1,11 @@
-package com.kr.pawpawtrip.admin.api;
+package com.kr.pawpawtrip.common.api.response;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kr.pawpawtrip.common.api.item.PetTourItem;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -295,13 +295,6 @@ tr {
     border: 1px solid #E8E8E8;
 }
 
-td {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    border-width: 1px;
-}
-
 .common-detail-list > table {
     font-size: 16px;
     border-collapse: collapse;
@@ -321,17 +314,15 @@ td {
     border: 1px solid #E8E8E8;
 }
 
+
 .common-detail-list > table>tbody>tr td,
 .common-detail-list > table>tr td {
 	text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-width: 1px;
 }
-/* .common-detail-list > table>tbody>tr td.td-title, */
-/* .common-detail-list > table>tr td.td-title { */
-/* 	display: block;  */
-/* 	padding-top: 20px;  */
-/* 	padding-left: 5px;  */
-/* 	border-style: none; */
-/* } */
 
 .common-detail-list > table tr {
     height: 62px;
@@ -343,30 +334,17 @@ td {
     font-size: 16px;
 }
 
-.common-detail-list > table tr td:nth-of-type(1) {
-/*     width:42px; */
-}
-.common-detail-list > table tr td:nth-of-type(2) {
-/*     text-align: left; */
-/*     width:520px; */
-/*     cursor: pointer; */
-}
-
-.common-detail-list > table tr td:nth-of-type(3) {
-/*     width: 107px; */
+.common-detail-list>table.common-col-table>tbody>tr>td:nth-child(odd)
+ {
     text-align: center;
+    height: 62px;
+    font-weight:bold;
+    background-color: #FDFAEF;
+    border: 1px solid #E8E8E8;
 }
-
-.common-detail-list > table tr td:nth-of-type(4) {
-/*     width: 63.46px; */
-/*     text-align: right; */
-    padding-right: 5px;
-    padding-left: 5px;
-}
-
-.common-detail-list > table tr td:nth-of-type(5) {
-/*     width: 120px; */
-    text-align: center;
+.no-ellipsis{
+    text-wrap: wrap;
+    white-space: break-spaces !important;
 }
 
 .common-text-left {
@@ -430,15 +408,27 @@ td {
     text-align: right;
 }
 .common-btn {
-    padding: 0;
     width: 90px;
-    height: 35px;
-    border-radius: 5px;
-    border: 1px solid #B29254;
-    background-color: white;
+    height: 40px;
     color: #B29254;
     font-size: 15px;
     cursor: pointer;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #B29254;
+}
+.common-btn.btn-filled{
+    background-color: #B29254;
+    color: #FFF;
+    margin-left: 10px;
 }
 
 /************************************ 페이징 - 종료 ***********************************/
+
+.common-input-text
+{
+    height: 40px;
+    border: 1px solid #E8E8E8;
+    padding: 8px;
+    font-size: 15px;
+}

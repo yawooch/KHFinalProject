@@ -213,11 +213,23 @@ $(document).ready(() => {
 					</tr>
 				</table>
 			</div>
-			<div class="btn-wrap">
-				<button class="community-btn">목록</button>
-			</div>
 		</div>
 		<!-- ******************* 상세테이블 종료 ******************* -->
+		
+        <!-- ******************* 입력컴포넌트 시작 ******************* -->
+
+        <div class="common-title">
+            <p>입력 컴포넌트</p>
+        </div>
+        <div class="common-list">
+
+            <div class="btn-wrap">
+                <button class="community-btn">목록</button>
+                <button class="community-btn btn-filled">목록</button>
+                <input class="common-input-text" type="text" name="" id="">
+            </div>
+        </div>
+        <!-- ******************* 입력컴포넌트 종료 ******************* -->
 	</div>
 </div>
 
