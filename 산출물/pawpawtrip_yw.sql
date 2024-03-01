@@ -180,7 +180,8 @@ SELECT RNUM,
        COMMUNITY_ED,
        NOTICE_IMPORTANT_YN
 FROM BOARD
---WHERE COMMUNITY_TITLE LIKE '%92%'
+WHERE COMMUNITY_TITLE LIKE '%92%'
+AND COMMUNITY_CATEGORY LIKE '%수%'
 ORDER BY RNUM DESC;
 -----------------------------------------------------------------------------------
 
