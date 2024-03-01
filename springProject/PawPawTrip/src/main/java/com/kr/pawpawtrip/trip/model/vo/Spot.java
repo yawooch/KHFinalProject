@@ -25,7 +25,7 @@ public class Spot
     private String tripTitle;
 
     // 지역 코드
-    private int areaCode;
+    private String areaCode;
 
     // 여행 카테고리 대분류
     private String tripCategory1;
@@ -37,7 +37,7 @@ public class Spot
     private String tripCategory3;
 
     // 여행 콘텐츠 타입 ID
-    private int tripContentTypeId;
+    private String tripContentTypeId;
 
     // 등록일
     private LocalDate tripCreateTime;
@@ -49,23 +49,23 @@ public class Spot
     private String tripImage;
 
     // x좌표
-    private int mapX;
+    private String mapX;
 
     // y좌표
-    private int mapY;
+    private String mapY;
 
     // 축척
-    private int mapLevel;
+    private String mapLevel;
 
     // 여행 전화번호
     private String tripTel;
 
     // 시군구 코드
-    private int sigunguCode;
+    private String sigunguCode;
     
     // 홈페이지주소
-    private int homepage;
+    private String homepage;
     
     // 소개설명
-    private int overview;
+    private String overview;
 }

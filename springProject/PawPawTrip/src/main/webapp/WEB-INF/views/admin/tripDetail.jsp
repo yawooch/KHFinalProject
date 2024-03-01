@@ -166,6 +166,11 @@
                             <td>동반시필요사항</td>
                             <td colspan="3"  class="common-text-left no-ellipsis">${selectedItem.acmpyNeedMtr}</td>
                         </tr>
+                        <c:if test="${not empty requestMsg}">
+                            <tr>
+                                <td colspan="10" class="no-ellipsis">반려견 동반 정보</td>
+                            </tr>
+                        </c:if>
                     </tbody>
                 </table>
             </div>

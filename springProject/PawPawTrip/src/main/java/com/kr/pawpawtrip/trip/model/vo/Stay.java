@@ -24,7 +24,7 @@ public class Stay
     private String stayTitle;
 
     // 지역 코드
-    private int areaCode;
+    private String areaCode;
 
     // 숙박 카테고리 대분류
     private String stayCategory1;
@@ -36,10 +36,10 @@ public class Stay
     private String stayCategory3;
 
     // 숙박 콘텐츠 타입ID
-    private int stayContentTypeId;
+    private String stayContentTypeId;
 
     // 등록일
-    private LocalDate stayCrateTime;
+    private LocalDate stayCreateTime;
 
     // 수정일
     private LocalDate stayModifyTime;
@@ -48,23 +48,23 @@ public class Stay
     private String stayImage;
 
     // x좌표
-    private int mapX;
+    private String mapX;
 
     // y좌표
-    private int mapY;
+    private String mapY;
 
     // 축척
-    private int mapLevel;
+    private String mapLevel;
 
     // 숙박 전화번호
     private String stayTel;
 
     // 시군구 코드
-    private int sigunguCode;
+    private String sigunguCode;
 
     // 홈페이지주소
-    private int homepage;
+    private String homepage;
 
     // 소개설명
-    private int overview;
+    private String overview;
 }

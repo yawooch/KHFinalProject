@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!DOCTYPE mapper 
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-    
+
 <mapper namespace="com.kr.pawpawtrip.trip.model.mapper.TripMapper">
     <!-- 여행 SQL 구문 -->
     <sql id="spotListSql">
@@ -25,8 +25,8 @@
                SIGUNGUCODE
           FROM TRIP
     </sql>
-    
-    
+
+
     <!-- 여행 페이지 ReaultMap -->
     <resultMap id="spotListResultMap" type="Spot">
         <!-- 기본키 -->
@@ -50,7 +50,7 @@
         <result property="homepage"          column="HOMEPAGE"           />
         <result property="overview"          column="OVERVIEW"           />
     </resultMap>
-    
+
     <!-- 숙박 페이지 ReaultMap -->
     <resultMap id="stayListResultMap" type="Stay">
         <!-- 기본키 -->
@@ -63,7 +63,7 @@
         <result property="stayCategory2"     column="STAY_CATEGORY2"     />
         <result property="stayCategory3"     column="STAY_CATEGORY3"     />
         <result property="stayContentTypeId" column="STAY_CONTENTTYPEID" />
-        <result property="stayCrateTime"     column="STAY_CREATETIME"    />
+        <result property="stayCreateTime"    column="STAY_CREATETIME"    />
         <result property="stayModifyTime"    column="STAY_MODIFYTIME"    />
         <result property="stayImage"         column="STAY_IMAGE"         />
         <result property="mapX"              column="MAPX"               />
@@ -74,12 +74,155 @@
         <result property="homepage"          column="HOMEPAGE"           />
         <result property="overview"          column="OVERVIEW"           />
     </resultMap>
-        
-    
-    <!-- 여행지 전체 조회 -->  
+
+    <!-- 숙박 페이지 ReaultMap -->
+    <resultMap id="petInfoResultMap" type="PetInfo">
+        <!-- 기본키 -->
+        <id     property="petinfoContentid"  column="PETINFO_CONTENTID"/>
+        <result property="tourInfo"          column="TOUR_INFO"        />
+        <result property="acmpyTypeCd"       column="ACMPY_TYPE_CD"    />
+        <result property="relaPosesFclty"    column="RELA_POSES_FCLTY" />
+        <result property="relaFrnshPrdlst"   column="RELA_FRNSH_PRDLST"/>
+        <result property="relaPurcPrdlst"    column="RELA_PURC_PRDLST" />
+        <result property="relaRntlPrdlst"    column="RELA_RNTL_PRDLST" />
+        <result property="acmpyPsblCpam"     column="ACMPY_PSBL_CPAM"  />
+        <result property="etcAcmpyInfo"      column="ETC_ACMPY_INFO"   />
+        <result property="acmpyNeedMtr"      column="ACMPY_NEED_MTR"   />
+    </resultMap>
+
+    <!-- 여행지 전체 조회 -->
     <select id="selectAll" resultMap="spotListResultMap">
         <include refid="spotListSql"/>
         ORDER BY TRIP_CONTENTID ASC
     </select>
-    
+
+
+    <!-- 여행 테이블 등록 -->
+    <insert id="insertTrip" parameterType="Spot">
+        INSERT
+          INTO TRIP
+        (
+               TRIP_CONTENTID
+             , TRIP_ADDRESS
+             , TRIP_DETAIL_ADDRESS
+             , TRIP_TITLE
+             , AREACODE
+             , TRIP_CATEGORY1
+             , TRIP_CATEGORY2
+             , TRIP_CATEGORY3
+             , TRIP_CONTENTTYPEID
+             , TRIP_CREATETIME
+             , TRIP_MODIFYTIME
+             , TRIP_IMAGE
+             , MAPX
+             , MAPY
+             , MAPLEVEL
+             , TRIP_TEL
+             , SIGUNGUCODE
+             , HOMEPAGE
+             , OVERVIEW
+        )
+       VALUES
+       (
+               #{tripContentId}
+             , #{tripAddress}
+             , #{tripDetailAddress}
+             , #{tripTitle}
+             , #{areaCode}
+             , #{tripCategory1}
+             , #{tripCategory2}
+             , #{tripCategory3}
+             , #{tripContentTypeId}
+             , #{tripCreateTime}
+             , #{tripModifyTime}
+             , #{tripImage}
+             , #{mapX}
+             , #{mapY}
+             , #{mapLevel}
+             , #{tripTel}
+             , #{sigunguCode}
+             , #{homepage}
+             , #{overview}
+        )
+    </insert>
+
+    <!-- 숙소 테이블 등록 -->
+    <insert id="insertStay" parameterType="Stay">
+        INSERT
+          INTO STAY
+        (
+               STAY_CONTENTID
+             , STAY_ADDRESS
+             , STAY_DETAIL_ADDRESS
+             , STAY_TITLE
+             , AREACODE
+             , STAY_CATEGORY1
+             , STAY_CATEGORY2
+             , STAY_CATEGORY3
+             , STAY_CONTENTTYPEID
+             , STAY_CREATETIME
+             , STAY_MODIFYTIME
+             , STAY_IMAGE
+             , MAPX
+             , MAPY
+             , MAPLEVEL
+             , STAY_TEL
+             , SIGUNGUCODE
+             , HOMEPAGE
+             , OVERVIEW
+        )
+       VALUES
+       (
+               #{stayContentId}
+             , #{stayAddress}
+             , #{stayDetailAddress}
+             , #{stayTitle}
+             , #{areaCode}
+             , #{stayCategory1}
+             , #{stayCategory2}
+             , #{stayCategory3}
+             , #{stayContentTypeId}
+             , #{stayCreateTime}
+             , #{stayModifyTime}
+             , #{stayImage}
+             , #{mapX}
+             , #{mapY}
+             , #{mapLevel}
+             , #{stayTel}
+             , #{sigunguCode}
+             , #{homepage}
+             , #{overview}
+        )
+    </insert>
+
+    <!-- petTourInfo 테이블 등록 -->
+    <insert id="insertPetInfo" parameterType="PetInfo">
+        INSERT
+          INTO PETINFO
+        (
+               PETINFO_CONTENTID
+             , TOUR_INFO
+             , ACMPY_TYPE_CD
+             , RELA_POSES_FCLTY
+             , RELA_FRNSH_PRDLST
+             , RELA_PURC_PRDLST
+             , RELA_RNTL_PRDLST
+             , ACMPY_PSBL_CPAM
+             , ETC_ACMPY_INFO
+             , ACMPY_NEED_MTR
+        )
+        VALUES
+        (
+               #{petinfoContentid}
+             , #{tourInfo}
+             , #{acmpyTypeCd}
+             , #{relaPosesFclty}
+             , #{relaFrnshPrdlst}
+             , #{relaPurcPrdlst}
+             , #{relaRntlPrdlst}
+             , #{acmpyPsblCpam}
+             , #{etcAcmpyInfo}
+             , #{acmpyNeedMtr}
+        )
+    </insert>
 </mapper>
