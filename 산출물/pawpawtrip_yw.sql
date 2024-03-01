@@ -11,7 +11,6 @@ COMMENT ON COLUMN "COMMUNITY"."COMMUNITY_WRITER_NO" IS '커뮤니티작성자';
 
 -- 조회
 SELECT COUNT(*) FROM COMMUNITY;
-WHERE COMMUNITY_CATEGORY IN ('[수다]', '[마이펫 자랑]');
 
 SELECT * FROM COMMUNITY;
 
@@ -55,7 +54,7 @@ FROM (
 
 
 -----------------------------------------------------------------------------------
-
+-- 자유 게시판 조회(중요 공지사항 포함)
 WITH BOARD AS 
 (  
     SELECT ROWNUM AS RNUM, COMMUNITY_NO, COMMUNITY_CATEGORY, COMMUNITY_TITLE, MEMBER_ID, COMMUNITY_COUNT, COMMUNITY_ED, NOTICE_IMPORTANT_YN
@@ -101,9 +100,89 @@ FROM BOARD
 ORDER BY RNUM DESC;
 
 -----------------------------------------------------------------------------------
-
-
-
+-- 전체 게시글 수 조회
+WITH BOARD AS 
+(  
+    SELECT ROWNUM AS RNUM, COMMUNITY_NO, COMMUNITY_CATEGORY, COMMUNITY_TITLE, MEMBER_ID, COMMUNITY_COUNT, COMMUNITY_ED, NOTICE_IMPORTANT_YN
+    FROM (
+        SELECT C.COMMUNITY_NO,
+               C.COMMUNITY_CATEGORY,
+               C.COMMUNITY_TITLE,
+               M.MEMBER_ID,
+               C.COMMUNITY_COUNT,
+               C.COMMUNITY_ED,
+               C.NOTICE_IMPORTANT_YN
+        FROM COMMUNITY C
+        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+        WHERE C.COMMUNITY_STATUS = 'Y'
+        AND C.COMMUNITY_CATEGORY IN ('[수다]', '[마이펫 자랑]')
+        
+        UNION
+        
+        SELECT C.COMMUNITY_NO,
+               C.COMMUNITY_CATEGORY,
+               C.COMMUNITY_TITLE,
+               M.MEMBER_ID,
+               C.COMMUNITY_COUNT,
+               C.COMMUNITY_ED,
+               C.NOTICE_IMPORTANT_YN
+        FROM COMMUNITY C
+        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+        WHERE C.COMMUNITY_STATUS = 'Y'
+        AND C.NOTICE_IMPORTANT_YN = 'Y'
+        ORDER BY NOTICE_IMPORTANT_YN ASC, COMMUNITY_ED ASC
+    )
+    
+)
+SELECT COUNT(*)
+FROM BOARD;
+-----------------------------------------------------------------------------------
+-- 게시글 상세 조회
+WITH BOARD AS 
+(  
+    SELECT ROWNUM AS RNUM, COMMUNITY_NO, COMMUNITY_CATEGORY, COMMUNITY_TITLE, MEMBER_ID, COMMUNITY_COUNT, COMMUNITY_ED, NOTICE_IMPORTANT_YN
+    FROM (
+        SELECT C.COMMUNITY_NO,
+               C.COMMUNITY_CATEGORY,
+               C.COMMUNITY_TITLE,
+               M.MEMBER_ID,
+               C.COMMUNITY_COUNT,
+               C.COMMUNITY_ED,
+               C.NOTICE_IMPORTANT_YN
+        FROM COMMUNITY C
+        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+        WHERE C.COMMUNITY_STATUS = 'Y'
+        AND C.COMMUNITY_CATEGORY IN ('[수다]', '[마이펫 자랑]')
+        
+        UNION
+        
+        SELECT C.COMMUNITY_NO,
+               C.COMMUNITY_CATEGORY,
+               C.COMMUNITY_TITLE,
+               M.MEMBER_ID,
+               C.COMMUNITY_COUNT,
+               C.COMMUNITY_ED,
+               C.NOTICE_IMPORTANT_YN
+        FROM COMMUNITY C
+        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+        WHERE C.COMMUNITY_STATUS = 'Y'
+        AND C.NOTICE_IMPORTANT_YN = 'Y'
+        ORDER BY NOTICE_IMPORTANT_YN ASC, COMMUNITY_ED ASC
+    )
+    
+)
+SELECT RNUM,
+       COMMUNITY_NO,
+       COMMUNITY_CATEGORY,
+       COMMUNITY_TITLE,
+       MEMBER_ID,
+       COMMUNITY_COUNT,
+       COMMUNITY_ED,
+       NOTICE_IMPORTANT_YN
+FROM BOARD
+--WHERE COMMUNITY_TITLE LIKE '%92%'
+ORDER BY RNUM DESC;
+-----------------------------------------------------------------------------------
 
 
 

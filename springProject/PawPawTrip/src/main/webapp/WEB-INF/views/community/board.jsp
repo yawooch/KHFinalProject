@@ -40,23 +40,24 @@
 		<div class="common-list">
 			<div class="common-search">
 				<div>
-					TOTAL <span>26</span>건
+					TOTAL <span>${ pageInfo.listCount }</span>건
 				</div>
 				<div>
 					<div>
 						<select name="communitySelect" id="communitySelect">
-							<option value="title" selected>제목</option>
-							<option value="name">작성자</option>
-							<option value="content">내용</option>
+							<!-- <c:if test="searchInfoMap"></c:if> -->
+							<option value="title" <c:if test="${searchInfoMap.select == 'title'}">selected</c:if>>제목</option>
+							<option value="name" <c:if test="${searchInfoMap.select == 'name'}">selected</c:if>>작성자</option>
+							<option value="content" <c:if test="${searchInfoMap.select == 'content'}">selected</c:if>>내용</option>
 						</select>
 					</div>
 					<div>
-						<img src="${ path }/img/community/search.png"> <input
-							type="text" name="communitySearch" id="communitySearch"
-							placeholder="검색어를 입력해주세요.">
+						<img src="${ path }/img/community/search.png"> 
+						<input type="text" name="communitySearch" id="communitySearch" placeholder="검색어를 입력해주세요." value="${ searchInfoMap.search }">
 					</div>
 					<div>
-						<button>검색</button>
+						<button onclick=search()>검색</button>
+						<!--<button onclick="location.href='${path}/community/board'">검색</button>  -->
 					</div>
 				</div>
 			</div>
@@ -82,7 +83,7 @@
 										<img src="${ path }/img/community/ant-design_sound-filled.png" alt="">
 									</td>
 									<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
-										<a href="#" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
+										<a href="${ path }/community/noticedetail" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
 									</td>
 									<td>${ board.communityWriterId }</td>
 									<td class="common-text-right">${ board.communityCount }</td>
@@ -90,67 +91,24 @@
 								</c:if>
 								<c:if test="${ board.communityCategory ne '[공지사항]' }">
 									<td>${ board.communityRNUM }</td>
-									<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
-										<a href="#" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
-									</td>
+									<c:if test="${ board.communityCategory eq '[수다]' }">
+										<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
+											<a href="${ path }/community/board/talkdetail" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
+										</td>
+									</c:if>
+									<c:if test="${ board.communityCategory eq '[마이펫 자랑]' }">
+										<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
+											<a href="${ path }/community/board/mypetdetail" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
+										</td>
+									</c:if>
+									
 									<td>${ board.communityWriterId }</td>
 									<td class="common-text-right">${ board.communityCount }</td>
 									<td>${ board.communityEd }</td>
 								</c:if>
-								<!--  
-								<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
-									<a href="#" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
-								</td>
-								<td>${ board.communityWriterId }</td>
-								<td class="common-text-right">${ board.communityCount }</td>
-								<td>${ board.communityEd }</td>
-								-->
 							</tr>
 						</c:forEach>
 					</c:if>
-					<!--  
-					
-					<tr>
-						<td><img src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[공지사항] 2023 영월 댕댕트레인 안내!</a></td>
-						<td>관리자</td>
-						<td>139</td>
-						<td>2023-10-13</td>
-					</tr>
-					<tr>
-						<td><img
-							src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="${ path }/community/noticedetail" style="font-size: 16px;">[공지사항] 댕댕트레킹, 프라이빗 반려견 트레킹
-								코스</a></td>
-						<td>관리자</td>
-						<td>247</td>
-						<td>2023-05-09</td>
-					</tr>
-					<tr>
-						<td><img
-							src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[공지사항] 2023 춘천 반려동물 페스티벌</a></td>
-						<td>관리자</td>
-						<td>350</td>
-						<td>2023-05-04</td>
-					</tr>
-					<tr>
-						<td><img
-							src="${ path }/img/community/ant-design_sound-filled.png" alt=""></td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[공지사항] '전국댕댕자랑' 수상작 발표~!!!!</a></td>
-						<td>관리자</td>
-						<td>1236</td>
-						<td>2022-12-12</td>
-					</tr>
-					-->
 				</table>
 			</div>
 			<div class="btn-wrap">
@@ -161,7 +119,7 @@
 				<ul>
 					<!-- 페이징 처리 -->
 					<!-- 이전 페이지 -->
-					<li><a href="${ path }/community/board?page=${ pageInfo.prevPage }">&lt;</a></li>
+					<li><a href="${ path }/community/board?page=${ pageInfo.prevPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&lt;</a></li>
 					<!-- 5개 페이지 목록 -->
 					<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
 						<c:choose>
@@ -169,18 +127,30 @@
 								<li class="disable"><a>${ current }</a></li>
 							</c:when>
 							<c:otherwise>
+								<!--  
 								<li><a href="${ path }/community/board?page=${ current }">${ current }</a></li>
+								-->
+								<li><a href="${ path }/community/board?page=${ current }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">${ current }</a></li>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					
 					<!-- 다음페이지 -->
-					<li><a href="${ path }/community/board?page=${ pageInfo.nextPage }">&gt;</a></li>
+					<li><a href="${ path }/community/board?page=${ pageInfo.nextPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&gt;</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 
 </div>
+
+<script>
+function search() {
+    var selectValue = document.getElementById("communitySelect").value;
+    var searchValue = document.getElementById("communitySearch").value;
+    var url = "${path}/community/board?select=" + selectValue + "&search=" + encodeURIComponent(searchValue);
+    window.location.href = url;
+}
+</script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

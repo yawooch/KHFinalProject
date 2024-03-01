@@ -1,7 +1,9 @@
 package com.kr.pawpawtrip.community.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Controller;
@@ -46,22 +48,41 @@ public class CommunityController {
 	
 //	자유 게시판
 	@GetMapping("/community/board")
-	public ModelAndView board(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page) {
+	public ModelAndView board(ModelAndView modelAndView, 
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(defaultValue = "") String select,
+			@RequestParam(defaultValue = "") String search) {
 		
+		System.out.println("타이틀 : " + select);
+		System.out.println(select.isEmpty());
+		System.out.println("내용 : " + search);
+		System.out.println(search.isEmpty());
+		
+		// 전체 리스트 조회(검색기능 포함)
 		List<Community> boardList = null;
+		// 페이징 처리
 		PageInfo pageInfo = null;
 		// 전체 리스트 수
 		int listCount = 0;
+		Map<String, String> map = new HashMap<String, String>();
 		
-		listCount = communityService.getBoardCount();
+		map.put("select", select);
+		map.put("search", search);
+		
+		listCount = communityService.getBoardCount(select, search);
 		pageInfo = new PageInfo(page, 5, listCount, 15);
 		
+		int currentPage = pageInfo.getCurrentPage();
+		
+		System.out.println("현재 페이지 : " + currentPage);
+		
 		// 자유게시판 리스트 조회(수다, 마이펫 자랑 포함)
-		boardList = communityService.getBoardList(pageInfo);
+		boardList = communityService.getBoardList(pageInfo, select, search);
 		
 		System.out.println("자유게시판 : " + boardList);
 		
 		modelAndView.addObject("pageInfo", pageInfo);
+		modelAndView.addObject("searchInfoMap", map);
 		modelAndView.addObject("boardList", boardList);
 		modelAndView.setViewName("community/board");
 		
@@ -154,18 +175,6 @@ public class CommunityController {
 		
 		return modelAndView;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 //	공지사항 상세
 	@GetMapping("community/noticedetail")

@@ -19,9 +19,9 @@ public class CommunityServiceImpl implements CommunityService {
 
 	// 전체 게시글 수(공지사항 제외)
 	@Override
-	public int getBoardCount() {
+	public int getBoardCount(String select, String search) {
 		
-		return communityMapper.selectBoardCount();
+		return communityMapper.selectBoardCount(select, search);
 	}
 	
 	// 공지사항 리스트 조회
@@ -31,19 +31,15 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityMapper.selectNoticeList();
 	}
 	
-	// 자유게시판 리스트 조회(수다, 마이펫 자랑 포함)
+	// 전체 리스트 조회(검색기능 포함)
 	@Override
-	public List<Community> getBoardList(PageInfo pageInfo) {
+	public List<Community> getBoardList(PageInfo pageInfo, String select, String search) {
 		
 		int limit = pageInfo.getListLimit();
 		int offset = (pageInfo.getCurrentPage() - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
-		int currentPage = pageInfo.getCurrentPage();
-		
-		System.out.println("현재 페이지 : " + currentPage);
-		
-		return communityMapper.selectBoardListFirstPage(rowBounds);
+		return communityMapper.selectBoardList(rowBounds, select, search);
 	}
 
 	// 게시글 작성
