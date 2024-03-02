@@ -17,17 +17,24 @@ function clickPaging(){
 
 function showList(pageNo, contentId)
 {               
-    $('#spinnerLoading').show();
+	let data = {};
+	
+	console.log('contentId : '+ contentId);
+	
+	if(contentId ==''){
+		data = {pageNo};
+	}
+	else
+	{
+		data = {pageNo, contentId};
+	}
+    $('#spinnerLoading').fadeIn();
     let pagingNum = 5;
     $.ajax(
     {
         type : 'GET',
         url  : '${path}/admin/tripListApi',
-        data : 
-        {
-            pageNo,
-            contentId
-        },
+        data : data,
         success:function(data)
         {
             let result = '';
@@ -64,11 +71,11 @@ function showList(pageNo, contentId)
             $('.common-search>div:nth-child(1)>span').text(totalCount)
             
             showPaging(pageNo , numOfRows, totalCount, pagingNum,clickPaging);
-            $('#spinnerLoading').hide();
+            $('#spinnerLoading').fadeOut();
         },
         error: function(error){
-            console.log(`status : ${error.status}`);
-            $('#spinnerLoading').hide();
+            console.log(`error : ${error}`);
+            $('#spinnerLoading').fadeOut();
         }
        });
     };
@@ -81,6 +88,11 @@ $(document).ready(() => {
     });
 
     $('div.common-page-number>ul>li').on('click',  clickPaging);
+    
+    if('${requestMsg}'.length !== 0)
+    {
+	    alert('${requestMsg}');
+    }
     
 });
 </script>

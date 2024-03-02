@@ -72,6 +72,7 @@ public class CommonApiClient
 //        urlBuilder.append("&contentTypeId="     ).append("");   // 12 또는 32   관광타입(12:관광지, 14:문화시설, 15:축제공연행사, 25:여행코스, 28:레포츠, 32:숙박, 38:쇼핑, 39:음식점) ID
         
         
+        
         log.info("Request URL : {}", urlBuilder.toString());
 
         return restTemplate.getForObject(new URI(urlBuilder.toString()), DetailCommonResponse.class);

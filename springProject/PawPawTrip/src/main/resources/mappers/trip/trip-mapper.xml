@@ -22,12 +22,55 @@
                MAPY,
                MAPLEVEL,
                TRIP_TEL,
-               SIGUNGUCODE
+               SIGUNGUCODE,
+               HOMEPAGE,
+               OVERVIEW
           FROM TRIP
     </sql>
 
+    <!-- 숙소 SQL 구문 -->
+    <sql id="stayListSql">
+        SELECT STAY_CONTENTID,
+               STAY_ADDRESS,
+               STAY_DETAIL_ADDRESS,
+               STAY_TITLE,
+               AREACODE,
+               STAY_CATEGORY1,
+               STAY_CATEGORY2,
+               STAY_CATEGORY3,
+               STAY_CONTENTTYPEID,
+               STAY_CREATETIME,
+               STAY_MODIFYTIME,
+               STAY_IMAGE,
+               MAPX,
+               MAPY,
+               MAPLEVEL,
+               STAY_TEL,
+               SIGUNGUCODE,
+               HOMEPAGE,
+               OVERVIEW
+          FROM STAY
+    </sql>
+    
+    
+    <!-- 반려동물 동반정보 SQL 구문 -->
+    <sql id="petInfoListSql">
+        SELECT PETINFO_CONTENTID
+             , TOUR_INFO
+             , ACMPY_TYPE_CD
+             , RELA_POSES_FCLTY
+             , RELA_FRNSH_PRDLST
+             , RELA_PURC_PRDLST
+             , RELA_RNTL_PRDLST
+             , ACMPY_PSBL_CPAM
+             , ETC_ACMPY_INFO
+             , ACMPY_NEED_MTR
+          FROM PETINFO
+    </sql>
+    
+    
 
-    <!-- 여행 페이지 ReaultMap -->
+    <!-- 여행 페이지 ResultMap -->
     <resultMap id="spotListResultMap" type="Spot">
         <!-- 기본키 -->
         <id     property="tripContentId"     column="TRIP_CONTENTID"     />
@@ -51,7 +94,7 @@
         <result property="overview"          column="OVERVIEW"           />
     </resultMap>
 
-    <!-- 숙박 페이지 ReaultMap -->
+    <!-- 숙박 페이지 ResultMap -->
     <resultMap id="stayListResultMap" type="Stay">
         <!-- 기본키 -->
         <id     property="stayContentId"     column="STAY_CONTENTID"     />
@@ -75,7 +118,31 @@
         <result property="overview"          column="OVERVIEW"           />
     </resultMap>
 
-    <!-- 숙박 페이지 ReaultMap -->
+    <!-- 공통컨텐츠 페이지 ResultMap -->
+    <resultMap id="commListResultMap" type="Comm">
+        <!-- 기본키 -->
+        <id     property="commContentId"     column="COMM_CONTENTID"     />
+        <result property="commAddress"       column="COMM_ADDRESS"       />
+        <result property="commDetailAddress" column="COMM_DETAIL_ADDRESS"/>
+        <result property="commTitle"         column="COMM_TITLE"         />
+        <result property="areaCode"          column="AREACODE"           />
+        <result property="commCategory1"     column="COMM_CATEGORY1"     />
+        <result property="commCategory2"     column="COMM_CATEGORY2"     />
+        <result property="commCategory3"     column="COMM_CATEGORY3"     />
+        <result property="commContentTypeId" column="COMM_CONTENTTYPEID" />
+        <result property="commCreateTime"    column="COMM_CREATETIME"    />
+        <result property="commModifyTime"    column="COMM_MODIFYTIME"    />
+        <result property="commImage"         column="COMM_IMAGE"         />
+        <result property="mapX"              column="MAPX"               />
+        <result property="mapY"              column="MAPY"               />
+        <result property="mapLevel"          column="MAPLEVEL"           />
+        <result property="commTel"           column="COMM_TEL"           />
+        <result property="sigunguCode"       column="SIGUNGUCODE"        />
+        <result property="homepage"          column="HOMEPAGE"           />
+        <result property="overview"          column="OVERVIEW"           />
+    </resultMap>
+    
+    <!-- 동물동반정보테이블 ResultMap -->
     <resultMap id="petInfoResultMap" type="PetInfo">
         <!-- 기본키 -->
         <id     property="petinfoContentid"  column="PETINFO_CONTENTID"/>
@@ -94,6 +161,16 @@
     <select id="selectAll" resultMap="spotListResultMap">
         <include refid="spotListSql"/>
         ORDER BY TRIP_CONTENTID ASC
+    </select>
+
+    <!-- 여행지 전체 조회 -->
+    <select id="selectPetInfoByContentId" parameterType="map"  resultMap="petInfoResultMap" >
+        <include refid="petInfoListSql"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="contentIdQuery != ''">
+                   PETINFO_CONTENTID IN(${contentIdQuery})
+            </if>
+        </trim>
     </select>
 
 
@@ -194,6 +271,57 @@
              , #{overview}
         )
     </insert>
+
+
+    <!-- 공통컨텐츠 테이블 등록 -->
+    <insert id="insertComm" parameterType="Comm">
+        INSERT
+          INTO COMM
+        (
+               COMM_CONTENTID
+             , COMM_ADDRESS
+             , COMM_DETAIL_ADDRESS
+             , COMM_TITLE
+             , AREACODE
+             , COMM_CATEGORY1
+             , COMM_CATEGORY2
+             , COMM_CATEGORY3
+             , COMM_CONTENTTYPEID
+             , COMM_CREATETIME
+             , COMM_MODIFYTIME
+             , COMM_IMAGE
+             , MAPX
+             , MAPY
+             , MAPLEVEL
+             , COMM_TEL
+             , SIGUNGUCODE
+             , HOMEPAGE
+             , OVERVIEW
+        )
+       VALUES
+       (
+               #{commContentId}
+             , #{commAddress}
+             , #{commDetailAddress}
+             , #{commTitle}
+             , #{areaCode}
+             , #{commCategory1}
+             , #{commCategory2}
+             , #{commCategory3}
+             , #{commContentTypeId}
+             , #{commCreateTime}
+             , #{commModifyTime}
+             , #{commImage}
+             , #{mapX}
+             , #{mapY}
+             , #{mapLevel}
+             , #{commTel}
+             , #{sigunguCode}
+             , #{homepage}
+             , #{overview}
+        )
+    </insert>
+
 
     <!-- petTourInfo 테이블 등록 -->
     <insert id="insertPetInfo" parameterType="PetInfo">

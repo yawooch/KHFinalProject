@@ -2,6 +2,7 @@ package com.kr.pawpawtrip.trip.model.service;
 
 import java.util.List;
 
+import com.kr.pawpawtrip.trip.model.vo.Comm;
 import com.kr.pawpawtrip.trip.model.vo.PetInfo;
 import com.kr.pawpawtrip.trip.model.vo.Spot;
 import com.kr.pawpawtrip.trip.model.vo.Stay;
@@ -19,5 +20,9 @@ public interface TripService {
 
     //Stay 수정/저장
     int saveStay(Stay stay);
+
+    int saveComm(Comm comm);
+
+    List<PetInfo> getPetTourListByContentId(String contentIdQuery);
 
 }

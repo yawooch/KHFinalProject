@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kr.pawpawtrip.trip.model.mapper.TripMapper;
+import com.kr.pawpawtrip.trip.model.vo.Comm;
 import com.kr.pawpawtrip.trip.model.vo.PetInfo;
 import com.kr.pawpawtrip.trip.model.vo.Spot;
 import com.kr.pawpawtrip.trip.model.vo.Stay;
@@ -74,5 +75,27 @@ public class TripServiceImpl implements TripService {
         result = tripMapper.insertStay(stay);
         
         return result;
+    }
+
+    @Override
+    public int saveComm(Comm comm)
+    {
+        int result = 0;
+        
+//      if (stay.getStayContentId() > 0) {
+//          // update
+//          result = petInfo.updateBoard(petInfo);
+//      } else {
+//          // insert
+//      }
+      result = tripMapper.insertComm(comm);
+      
+      return result;
+    }
+
+    @Override
+    public List<PetInfo> getPetTourListByContentId(String contentIdQuery)
+    {
+        return tripMapper.selectPetInfoByContentId(contentIdQuery);
     }
 }
