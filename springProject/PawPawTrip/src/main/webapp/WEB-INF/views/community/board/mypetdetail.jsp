@@ -36,22 +36,22 @@
 				<table border="1">
 					<tr>
 						<td style="background-color: #FDFAEF;">제목</td>
-						<td colspan="5" class="community-td-title" style="text-align: left;">[마이펫 자랑] 도토리 미용했는데
-							어떤가용?</td>
+						<td colspan="5" class="community-td-title" style="text-align: left;">
+							${ community.communityCategory } ${ community.communityTitle }
+						</td>
 					</tr>
 					<tr>
 						<td style="background-color: #FDFAEF;">작성자</td>
-						<td>jjkim31</td>
+						<td>${ community.communityWriterId }</td>
 						<td style="background-color: #FDFAEF;">등록일</td>
-						<td>2023-12-17</td>
+						<td>${ community.communityEd }</td>
 						<td style="background-color: #FDFAEF;">조회수</td>
-						<td>91</td>
+						<td>${ community.communityCount }</td>
 					</tr>
 					<tr>
-						<td colspan="6" class="community-td-content"
-							style="text-align: left;"><img
-							src="${ path }/img/community/KakaoTalk_20240215_211419884 1.png"
-							alt=""></td>
+						<td colspan="6" class="community-td-content" style="text-align: left;">
+							${ community.communityContent }
+						</td>
 					</tr>
 					<tr>
 						<td style="background-color: #FDFAEF;">첨부파일</td>

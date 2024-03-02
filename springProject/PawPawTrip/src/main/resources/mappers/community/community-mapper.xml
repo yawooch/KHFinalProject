@@ -23,11 +23,12 @@
 	<sql id="communityListSql">
 		WITH BOARD AS 
 		(  
-		    SELECT ROWNUM AS RNUM, COMMUNITY_NO, COMMUNITY_CATEGORY, COMMUNITY_TITLE, MEMBER_ID, COMMUNITY_COUNT, COMMUNITY_ED, NOTICE_IMPORTANT_YN
+		    SELECT ROWNUM AS RNUM, COMMUNITY_NO, COMMUNITY_CATEGORY, COMMUNITY_TITLE, COMMUNITY_CONTENT, MEMBER_ID, COMMUNITY_COUNT, COMMUNITY_ED, NOTICE_IMPORTANT_YN
 		    FROM (
 		        SELECT C.COMMUNITY_NO,
 		               C.COMMUNITY_CATEGORY,
 		               C.COMMUNITY_TITLE,
+		               C.COMMUNITY_CONTENT,
 		               M.MEMBER_ID,
 		               C.COMMUNITY_COUNT,
 		               C.COMMUNITY_ED,
@@ -42,6 +43,7 @@
 		        SELECT C.COMMUNITY_NO,
 		               C.COMMUNITY_CATEGORY,
 		               C.COMMUNITY_TITLE,
+		               C.COMMUNITY_CONTENT,
 		               M.MEMBER_ID,
 		               C.COMMUNITY_COUNT,
 		               C.COMMUNITY_ED,
@@ -87,10 +89,54 @@
 						MEMBER_ID LIKE '%' || #{search} || '%'
 					</when>
 					<when test="select.equals('content')">
-						COMMUNITY_COUNT LIKE '%' || #{search} || '%'
+						COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
 					</when>
 				</choose>
 			</if>
+		</trim>
+	</select>
+	
+	<select id="selectBoardTalkCount" parameterType="map">
+		<include refid="communityListSql" />
+		SELECT COUNT(*)
+		FROM BOARD
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="select != ''">
+				<choose>
+					<when test="select.equals('title')">
+						COMMUNITY_TITLE LIKE '%' || #{search} || '%'
+					</when>
+					<when test="select.equals('name')">
+						MEMBER_ID LIKE '%' || #{search} || '%'
+					</when>
+					<when test="select.equals('content')">
+						COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+					</when>
+				</choose>
+			</if>
+			AND COMMUNITY_CATEGORY IN ('[수다]', '[공지사항]')
+		</trim>
+	</select>
+	
+	<select id="selectBoardMypetCount" parameterType="map">
+		<include refid="communityListSql" />
+		SELECT COUNT(*)
+		FROM BOARD
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="select != ''">
+				<choose>
+					<when test="select.equals('title')">
+						COMMUNITY_TITLE LIKE '%' || #{search} || '%'
+					</when>
+					<when test="select.equals('name')">
+						MEMBER_ID LIKE '%' || #{search} || '%'
+					</when>
+					<when test="select.equals('content')">
+						COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+					</when>
+				</choose>
+			</if>
+			AND COMMUNITY_CATEGORY IN ('[마이펫 자랑]', '[공지사항]')
 		</trim>
 	</select>
 	
@@ -107,6 +153,7 @@
 		       COMMUNITY_NO,
 		       COMMUNITY_CATEGORY,
 		       COMMUNITY_TITLE,
+		       COMMUNITY_CONTENT,
 		       MEMBER_ID,
 		       COMMUNITY_COUNT,
 		       COMMUNITY_ED,
@@ -122,12 +169,86 @@
 						MEMBER_ID LIKE '%' || #{search} || '%'
 					</when>
 					<when test="select.equals('content')">
-						COMMUNITY_COUNT LIKE '%' || #{search} || '%'
+						COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
 					</when>
 				</choose>
 			</if>
 		</trim>
 		ORDER BY RNUM DESC
+	</select>
+	
+	<select id="selectBoardTalkList" resultMap="communityListResultMap" parameterType="map">
+		<include refid="communityListSql" />
+		SELECT RNUM,
+		       COMMUNITY_NO,
+		       COMMUNITY_CATEGORY,
+		       COMMUNITY_TITLE,
+		       COMMUNITY_CONTENT,
+		       MEMBER_ID,
+		       COMMUNITY_COUNT,
+		       COMMUNITY_ED,
+		       NOTICE_IMPORTANT_YN
+		FROM BOARD
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="select != ''">
+				<choose>
+					<when test="select.equals('title')">
+						COMMUNITY_TITLE LIKE '%' || #{search} || '%'
+					</when>
+					<when test="select.equals('name')">
+						MEMBER_ID LIKE '%' || #{search} || '%'
+					</when>
+					<when test="select.equals('content')">
+						COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+					</when>
+				</choose>
+			</if>
+			AND COMMUNITY_CATEGORY IN ('[수다]', '[공지사항]')
+		</trim>
+		ORDER BY RNUM DESC
+	</select>
+	
+	<select id="selectBoardMypetList" resultMap="communityListResultMap" parameterType="map">
+		<include refid="communityListSql" />
+		SELECT RNUM,
+		       COMMUNITY_NO,
+		       COMMUNITY_CATEGORY,
+		       COMMUNITY_TITLE,
+		       COMMUNITY_CONTENT,
+		       MEMBER_ID,
+		       COMMUNITY_COUNT,
+		       COMMUNITY_ED,
+		       NOTICE_IMPORTANT_YN
+		FROM BOARD
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="select != ''">
+				<choose>
+					<when test="select.equals('title')">
+						COMMUNITY_TITLE LIKE '%' || #{search} || '%'
+					</when>
+					<when test="select.equals('name')">
+						MEMBER_ID LIKE '%' || #{search} || '%'
+					</when>
+					<when test="select.equals('content')">
+						COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+					</when>
+				</choose>
+			</if>
+			AND COMMUNITY_CATEGORY IN ('[마이펫 자랑]', '[공지사항]')
+		</trim>
+		ORDER BY RNUM DESC
+	</select>
+	
+	<select id="selectBoardByNo" resultMap="communityListResultMap" parameterType="_int">
+		<include refid="communityListSql" />
+		SELECT COMMUNITY_CATEGORY, 
+		       COMMUNITY_TITLE,
+		       COMMUNITY_CONTENT,
+		       MEMBER_ID, 
+		       COMMUNITY_COUNT, 
+		       COMMUNITY_ED
+		FROM BOARD
+		WHERE COMMUNITY_NO = #{no}
 	</select>
 	
 	<!-- 추가 -->

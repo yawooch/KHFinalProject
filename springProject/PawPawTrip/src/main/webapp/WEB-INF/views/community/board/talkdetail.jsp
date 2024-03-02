@@ -35,21 +35,21 @@
 				<table border="1">
 					<tr>
 						<td style="background-color: #FDFAEF;">제목</td>
-						<td colspan="5" class="community-td-title" style="text-align: left;">[수다] 해상도 어떻게 하면
-							좋아지나요?</td>
+						<td colspan="5" class="community-td-title" style="text-align: left;">
+							${community.communityCategory } ${ community.communityTitle }
+						</td>
 					</tr>
 					<tr>
 						<td style="background-color: #FDFAEF;">작성자</td>
-						<td>comwang00</td>
+						<td>${ community.communityWriterId }</td>
 						<td style="background-color: #FDFAEF;">등록일</td>
-						<td>2023-10-30</td>
+						<td>${ community.communityEd }</td>
 						<td style="background-color: #FDFAEF;">조회수</td>
-						<td>11</td>
+						<td>${ community.communityCount }</td>
 					</tr>
 					<tr>
-						<td colspan="6" class="community-td-content"
-							style="text-align: left;">모니터가 이상한건지 컴퓨터가 이상한건지..<br>
-							해상도가 엉망이네요..<br> 스트레스 장난아닙니다 -_-;;
+						<td colspan="6" class="community-td-content" style="text-align: left;">
+							${ community.communityContent }
 						</td>
 					</tr>
 				</table>

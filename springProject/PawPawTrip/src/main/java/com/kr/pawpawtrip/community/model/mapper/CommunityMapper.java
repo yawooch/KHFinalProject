@@ -13,11 +13,25 @@ public interface CommunityMapper {
 	
 	int selectBoardCount(@Param("select") String select, @Param("search") String search);
 
+	int selectBoardTalkCount(@Param("select") String select, @Param("search") String search);
+	
+	int selectBoardMypetCount(@Param("select") String select, @Param("search") String search);
+	
 	List<Community> selectNoticeList();
 
 	List<Community> selectBoardList(RowBounds rowBounds, 
 			@Param("select") String select, 
 			@Param("search") String search);
+	
+	List<Community> selectBoardTalkList(RowBounds rowBounds, 
+			@Param("select") String select, 
+			@Param("search") String search);
+	
+	List<Community> selectBoardMypetList(RowBounds rowBounds, 
+			@Param("select") String select, 
+			@Param("search") String search);
+	
+	Community selectBoardByNo(@Param("no") int no);
 	
 	int insertBoard(Community community);
 	

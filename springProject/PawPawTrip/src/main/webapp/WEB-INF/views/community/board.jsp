@@ -45,7 +45,6 @@
 				<div>
 					<div>
 						<select name="communitySelect" id="communitySelect">
-							<!-- <c:if test="searchInfoMap"></c:if> -->
 							<option value="title" <c:if test="${searchInfoMap.select == 'title'}">selected</c:if>>제목</option>
 							<option value="name" <c:if test="${searchInfoMap.select == 'name'}">selected</c:if>>작성자</option>
 							<option value="content" <c:if test="${searchInfoMap.select == 'content'}">selected</c:if>>내용</option>
@@ -57,7 +56,6 @@
 					</div>
 					<div>
 						<button onclick=search()>검색</button>
-						<!--<button onclick="location.href='${path}/community/board'">검색</button>  -->
 					</div>
 				</div>
 			</div>
@@ -93,7 +91,7 @@
 									<td>${ board.communityRNUM }</td>
 									<c:if test="${ board.communityCategory eq '[수다]' }">
 										<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
-											<a href="${ path }/community/board/talkdetail" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
+											<a href="${ path }/community/board/talkdetail?no=${board.communityNo}" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
 										</td>
 									</c:if>
 									<c:if test="${ board.communityCategory eq '[마이펫 자랑]' }">
@@ -119,7 +117,12 @@
 				<ul>
 					<!-- 페이징 처리 -->
 					<!-- 이전 페이지 -->
-					<li><a href="${ path }/community/board?page=${ pageInfo.prevPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&lt;</a></li>
+					<c:if test="${ empty searchInfoMap.search }">
+						<li><a href="${ path }/community/board?page=${ pageInfo.prevPage }">&lt;</a></li>
+					</c:if>
+					<c:if test="${ not empty searchInfoMap.search }">
+						<li><a href="${ path }/community/board?page=${ pageInfo.prevPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&lt;</a></li>
+					</c:if>
 					<!-- 5개 페이지 목록 -->
 					<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
 						<c:choose>
@@ -127,16 +130,23 @@
 								<li class="disable"><a>${ current }</a></li>
 							</c:when>
 							<c:otherwise>
-								<!--  
-								<li><a href="${ path }/community/board?page=${ current }">${ current }</a></li>
-								-->
-								<li><a href="${ path }/community/board?page=${ current }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">${ current }</a></li>
+								<c:if test="${ empty searchInfoMap.search }">
+									<li><a href="${ path }/community/board?page=${ current }">${ current }</a></li>
+								</c:if>
+								<c:if test="${ not empty searchInfoMap.search }">
+									<li><a href="${ path }/community/board?page=${ current }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">${ current }</a></li>
+								</c:if>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 					
 					<!-- 다음페이지 -->
-					<li><a href="${ path }/community/board?page=${ pageInfo.nextPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&gt;</a></li>
+					<c:if test="${ empty searchInfoMap.search }">
+						<li><a href="${ path }/community/board?page=${ pageInfo.nextPage }">&gt;</a></li>
+					</c:if>
+					<c:if test="${ not empty searchInfoMap.search }">
+						<li><a href="${ path }/community/board?page=${ pageInfo.nextPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&gt;</a></li>
+					</c:if>
 				</ul>
 			</div>
 		</div>
@@ -148,7 +158,16 @@
 function search() {
     var selectValue = document.getElementById("communitySelect").value;
     var searchValue = document.getElementById("communitySearch").value;
-    var url = "${path}/community/board?select=" + selectValue + "&search=" + encodeURIComponent(searchValue);
+    
+    console.log(searchValue.trim() == '');
+    
+    if(searchValue.trim() != '') {
+    	var url = "${path}/community/board?select=" + selectValue + "&search=" + encodeURIComponent(searchValue);
+    }
+    else {
+    	var url = "${path}/community/board";
+    }
+    
     window.location.href = url;
 }
 </script>

@@ -24,6 +24,20 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityMapper.selectBoardCount(select, search);
 	}
 	
+	// 수다 게시글 수
+	@Override
+	public int getBoardTalkCount(String select, String search) {
+		
+		return communityMapper.selectBoardTalkCount(select, search);
+	}
+	
+	// 마이펫 게시글 수
+	@Override
+	public int getBoardMypetCount(String select, String search) {
+		
+		return communityMapper.selectBoardMypetCount(select, search);
+	}
+	
 	// 공지사항 리스트 조회
 	@Override
 	public List<Community> getNoticeList() {
@@ -40,6 +54,36 @@ public class CommunityServiceImpl implements CommunityService {
 		RowBounds rowBounds = new RowBounds(offset, limit);
 		
 		return communityMapper.selectBoardList(rowBounds, select, search);
+	}
+	
+	// 수다 리스트 조회(검색기능 포함)
+	@Override
+	public List<Community> getBoardTalkList(PageInfo pageInfo, String select, String search) {
+		
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return communityMapper.selectBoardTalkList(rowBounds, select, search);
+	}
+	
+	// 마이펫 리스트 조회(검색기능 포함)
+	@Override
+	public List<Community> getBoardMypetList(PageInfo pageInfo, String select, String search) {
+		
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return communityMapper.selectBoardMypetList(rowBounds, select, search);
+	}
+	
+	// 자유 게시판(수다) 상세
+	@Override
+	public Community getBoardNo(int no) {
+		
+		return communityMapper.selectBoardByNo(no);
 	}
 
 	// 게시글 작성
