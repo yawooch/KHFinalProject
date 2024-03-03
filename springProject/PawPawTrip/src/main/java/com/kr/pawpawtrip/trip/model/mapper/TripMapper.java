@@ -14,7 +14,7 @@ import com.kr.pawpawtrip.trip.model.vo.Stay;
 public interface TripMapper {
 	
 	// 여행지 전제 조회
-	List<Spot> selectAll();
+	List<Spot> selectSpotList();
 	
 	// 동물동반 정보 insert
     int insertPetInfo(PetInfo petInfo);

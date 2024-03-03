@@ -160,6 +160,8 @@ public class CommunityController {
 		
 		community = communityService.getBoardNo(no);
 		
+		log.info("Board TalkDetail - {}", community);
+		
 		modelAndView.addObject("community", community);
 		modelAndView.setViewName("community/board/talkdetail");
 		
@@ -174,6 +176,8 @@ public class CommunityController {
 		Community community = null;
 		
 		community = communityService.getBoardNo(no);
+		
+		log.info("Board MypetDetail - {}", community);
 		
 		modelAndView.addObject("community", community);
 		modelAndView.setViewName("community/board/mypetdetail");
@@ -253,6 +257,9 @@ public class CommunityController {
 		
 		return modelAndView;
 	}
+	
+//	파일 다운로드
+	
 	
 //	공지사항 상세
 	@GetMapping("community/noticedetail")
