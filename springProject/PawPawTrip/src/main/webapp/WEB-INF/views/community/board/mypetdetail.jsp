@@ -55,7 +55,7 @@
 					</tr>
 					<tr>
 						<td style="background-color: #FDFAEF;">첨부파일</td>
-						<td colspan="5" style="text-align: left;">KakaoTalk_20240215_211419884 1.png</td>
+						<td colspan="5" style="text-align: left;">${ community.communityOfileName }</td>
 					</tr>
 				</table>
 			</div>
