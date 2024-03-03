@@ -65,8 +65,7 @@ public class HomeController {
 		return "common/template" ;
 	}
 	@GetMapping("/common/error")
-	public ModelAndView error(ModelAndView modelAndView ,@RequestParam String errorCode) {
-		modelAndView.addObject("errorCode", errorCode) ;
+	public ModelAndView error(ModelAndView modelAndView) {
 		modelAndView.setViewName("common/error") ;
 		return modelAndView;
 	}

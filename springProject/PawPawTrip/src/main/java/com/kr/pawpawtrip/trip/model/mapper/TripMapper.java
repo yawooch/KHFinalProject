@@ -27,5 +27,5 @@ public interface TripMapper {
 
     int insertComm(Comm comm);
 
-    List<PetInfo> selectPetInfoByContentId(@Param("contentIdQuery") String contentIdQuery);
+    List<PetInfo> selectPetInfoByContentId(@Param("contentIdList") List<Integer> contentIdList);
 }

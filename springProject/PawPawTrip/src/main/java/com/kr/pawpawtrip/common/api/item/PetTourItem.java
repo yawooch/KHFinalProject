@@ -23,4 +23,6 @@ public class PetTourItem {
 	private String etcAcmpyInfo;     //기타동반정보 
 	private String acmpyNeedMtr;     //동반시필요사항
 	private String relaAcdntRiskMtr; //관련사고대비사항
+    private String dbExistYn;
+    private String dbAcmpyTypeCd;
 }

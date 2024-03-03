@@ -16,7 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
@@ -43,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @SessionAttributes(
 {
-        "petTourInfos", "petTourItem", "detailCommonItem"
+        "petTourInfos", "petTourDetail", "detailCommonItem"
 })
 public class AdminController
 {
@@ -76,24 +75,34 @@ public class AdminController
         // ApiClient로 API response 객체를 받아온다.
         PetTourResponse response = commonApiClient.apiDetailPetTour(pageNo, contentId);
 
-        // @SessionAttributes("petTourInfos") 에 설정한 이름으로 session에 저장한다. - Detail 페이지로 갈때
-        // 다시 Api 호출하면 느려지므로
-        ArrayList<PetTourItem> petTourItems = response.getPetTourItems();
+        // @SessionAttributes("petTourInfos") 에 설정한 이름으로 session에 저장한다. - Detail 페이지로 갈때 다시 Api 호출하면 느려지므로
+        ArrayList<PetTourItem> petTourInfos = response.getPetTourItems();
         
         //컨텐츠 아이디만 List<String>으로 만든다
-        List<String> listContentIds = petTourItems.stream().map(petTourItem -> petTourItem.getPetinfoContentid()).collect(Collectors.toList());
+        List<Integer> contentIdList = petTourInfos.stream().map(petTourItem -> Integer.parseInt(petTourItem.getPetinfoContentid())).collect(Collectors.toList());
+        //TODO: Comm 에서 데이터를 가져와야하는데 PetInfo에서 가져왔네
+        List<PetInfo> dbPetTours= tripService.getPetTourListByContentId(contentIdList);
+        
 
-        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ listContentIds : " + listContentIds);
-        
-        String contentIdQuery = listContentIds.stream().map(value -> "'" + value + "'" ).collect(Collectors.joining(","));
-       
-        System.out.println("***************************************  contentIdQuery: " + contentIdQuery);
-        
-        List<PetInfo> dbPetTours= tripService.getPetTourListByContentId(contentIdQuery);
-        
-        log.info("조회해온 infodbPetTours : {}", dbPetTours);
-        
-        session.setAttribute("petTourInfos", petTourItems);
+        //리스트에 보여줄 petInfo정보에 DB정보를 담아서 보내준다.
+        for(PetTourItem petTourItem : response.getPetTourItems()) 
+        {
+            petTourItem.setDbExistYn("미등록");
+            petTourItem.setDbAcmpyTypeCd(null);
+           
+            List<PetInfo> getDbPetToure =  dbPetTours.stream().filter(petTour -> petTour.getPetinfoContentid()== Integer.parseInt(petTourItem.getPetinfoContentid())).collect(Collectors.toList());
+            
+            //일치하는 DB정보가 있을때
+            if(!getDbPetToure.isEmpty())
+            {
+                PetInfo dbPetTour = getDbPetToure.get(0);
+                petTourItem.setDbExistYn("등록");
+                petTourItem.setDbAcmpyTypeCd(dbPetTour.getAcmpyTypeCd());
+            }
+        }
+
+        petTourInfos = response.getPetTourItems();
+        session.setAttribute("petTourInfos", petTourInfos);//detail화면을 위한 세션저장
 
         return ResponseEntity.ok(response);
     }
@@ -104,24 +113,19 @@ public class AdminController
             @RequestParam(defaultValue = "") String contentId, ModelAndView modelAndView, HttpSession session)
             throws RestClientException, URISyntaxException
     {
-        /*
-         * 1. 파라미터로 가져온 contentId 를 가지고 공통 API 객체를 받아온다(petTour쪽은 List<> 타입으로 세션에 저장
-         * 해놓음)
-         */
-        /* 2. 가져온 트립 객체를 세션에 저장한다(DB에 insert 할때는 세션에서 객체만 가져오도록) */
-        /* 3. List에서 contentId에 해당하는 객체만 세션에 저장한다. */
-        /* 4. 페이지 이동 */
-        PetTourItem selectedItem = null;
+        PetTourItem petTourDetail = new PetTourItem();
 
-        log.info("contentId : {}", contentId);
+        log.info("stayDetail contentId : {}", contentId);
 
-        selectedItem = petTourInfos.stream().filter(petTourItem -> petTourItem.getPetinfoContentid().equals(contentId))
-                .findFirst().get();
+        List<PetTourItem> selectedItems = petTourInfos.stream().filter(petTourInfo -> petTourInfo.getPetinfoContentid().equals(contentId)).collect(Collectors.toList());
+        
+        if(!selectedItems.isEmpty()) 
+        {
+            petTourDetail = selectedItems.get(0);
+            log.info("stayDetail ********************* : {}", petTourDetail.getDbExistYn());
+        }
 
-        System.out.println("contentId    : " + contentId);
-        System.out.println("selectedItem : " + selectedItem);
-
-        session.setAttribute("petTourItem", selectedItem);
+        session.setAttribute("petTourDetail", petTourDetail);
         modelAndView.addObject("contentId", contentId);
         modelAndView.setViewName("/admin/tripDetail");
 
@@ -131,14 +135,11 @@ public class AdminController
     /** 트립 매핑 - 상세 화면 ajax */
     @GetMapping("/admin/tripDetailAjax")
     @ResponseBody
-    public ResponseEntity<Map> tripDetailAjax(@SessionAttribute("petTourItem") PetTourItem petTourItem,
+    public ResponseEntity<Map<String, Object>> tripDetailAjax(@SessionAttribute("petTourDetail") PetTourItem petTourDetail,
             @RequestParam("contentId") String contentId, ModelAndView modelAndView, HttpSession session)
             throws RestClientException, URISyntaxException
     {
-        /*
-         * 1. 파라미터로 가져온 contentId 를 가지고 공통 API 객체를 받아온다(petTour쪽은 List<> 타입으로 세션에 저장
-         * 해놓음)
-         */
+        /* 1. 파라미터로 가져온 contentId 를 가지고 공통 API 객체를 받아온다(petTour쪽은 List<> 타입으로 세션에 저장 해놓음) */
         /* 2. 가져온 트립 객체를 세션에 저장한다(DB에 insert 할때는 세션에서 객체만 가져오도록) */
         /* 3. List에서 contentId에 해당하는 객체만 세션에 저장한다. */
         /* 4. 페이지 이동 */
@@ -151,15 +152,9 @@ public class AdminController
         DetailCommonItem detailCommonItem = response.getDetailCommonItems().get(0);
         session.setAttribute("detailCommonItem", detailCommonItem);// 일단은... 1개만 가져온다고 가정.
 
-        System.out.println("contentId    : " + contentId);
-        System.out.println("+*********************************************************************************");
-        System.out.println(detailCommonItem);
-        System.out.println("+*********************************************************************************");
-        System.out.println("petTourItem : " + petTourItem);
-
         resultMap.put("contentId", contentId);
         resultMap.put("detailCommonItem", detailCommonItem);
-        resultMap.put("petTourItem", petTourItem);
+        resultMap.put("petTourItem", petTourDetail);
 
         return ResponseEntity.ok(resultMap);
     }
@@ -167,11 +162,11 @@ public class AdminController
     /** 컨텐츠 등록 처리 */
     @PostMapping("/admin/tripDetail")
     @ResponseBody
-    public ModelAndView tripSave(ModelAndView modelAndView, @SessionAttribute("petTourItem") PetTourItem petTourItem,
-            @SessionAttribute("detailCommonItem") DetailCommonItem detailCommonItem)
+    public ModelAndView tripSave(ModelAndView modelAndView, @SessionAttribute("petTourDetail") PetTourItem petTourDetail,
+            @SessionAttribute("detailCommonItem") DetailCommonItem detailCommonItem, HttpSession session)
     {
 
-        log.info("petTourItem : {}, detailCommonItem : {}", petTourItem, detailCommonItem);
+        log.info("petTourDetail : {}, detailCommonItem : {}", petTourDetail, detailCommonItem);
         String contentTypeId = null;
         int petTripResult = 0;
         int petInfoResult = 0;
@@ -207,7 +202,7 @@ public class AdminController
         // 4. PetInfo를 저장처리한다.
         PetInfo petInfo = new PetInfo();
         // PetInfo와 PetTourItem객체를 매핑한다.
-        mappingPetTourItemVo(petTourItem, petInfo);
+        mappingPetTourItemVo(petTourDetail, petInfo);
 
         petInfoResult = tripService.savePetInfo(petInfo);
 
@@ -226,10 +221,9 @@ public class AdminController
             modelAndView.addObject("requestMsg", "일부 테이블만 저장되었습니다.");
             log.info("requestMsg : {}", "일부 테이블만 저장되었습니다.");
         }
-
         log.info("petInfoResult : {} ,petTripResult : {} ", petInfoResult, petTripResult);
-//        modelAndView.addObject("contentId"   , contentId);
-        modelAndView.setViewName("admin/tripList");
+        modelAndView.addObject("contentId"   , detailCommonItem.getContentid());
+        modelAndView.setViewName("admin/tripDetail");
 
         return modelAndView;
     }
@@ -346,7 +340,7 @@ public class AdminController
      */
     private void mappingPetTourItemVo(PetTourItem petTourItem, PetInfo petInfo)
     {
-        petInfo.setPetinfoContentid(petTourItem.getPetinfoContentid()); // 콘텐츠아이디
+        petInfo.setPetinfoContentid(Integer.parseInt(petTourItem.getPetinfoContentid())); // 콘텐츠아이디
         petInfo.setTourInfo(petTourItem.getTourInfo()); // 반려견관광정보
         petInfo.setAcmpyTypeCd(petTourItem.getAcmpyTypeCd()); // 동반구분
         petInfo.setRelaPosesFclty(petTourItem.getRelaPosesFclty()); // 관련구비시설

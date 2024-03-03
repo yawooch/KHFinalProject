@@ -23,6 +23,6 @@ public interface TripService {
 
     int saveComm(Comm comm);
 
-    List<PetInfo> getPetTourListByContentId(String contentIdQuery);
+    List<PetInfo> getPetTourListByContentId(List<Integer> contentIdList);
 
 }

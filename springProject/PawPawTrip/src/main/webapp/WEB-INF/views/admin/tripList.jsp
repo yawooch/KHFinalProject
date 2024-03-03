@@ -37,6 +37,8 @@ function showList(pageNo, contentId)
         data : data,
         success:function(data)
         {
+        	console.log(data);
+//         	console.log(sessionStorage.getItem('dbPetTours'));
             let result = '';
             let startRowNo = 0;
             let {pageNo, numOfRows, totalCount, petTourItems} = data;
@@ -59,9 +61,8 @@ function showList(pageNo, contentId)
                     result += '     <td><a href="${path}/admin/tripDetail?contentId=' + element.contentid + '">';
                     result += '         ' + element.contentid + '</a>';
                     result += '     </td>';
-                    result += '     <td>' + idx + 'N</td>';
-                    result += '     <td>' + idx + '여행</td>';
-                    result += '     <td>' + idx + '2024-02-28</td>';
+                    result += '     <td>' + element.dbExistYn     + '</td>';
+                    result += '     <td>' + (element.dbAcmpyTypeCd==null?'':element.dbAcmpyTypeCd) + '</td>';
                     result += '</tr>';
                 });
             }
@@ -75,6 +76,15 @@ function showList(pageNo, contentId)
         },
         error: function(error){
             console.log(`error : ${error}`);
+
+            let result = '';
+            result += '<tr>';
+            result += '    <td colspan="5">';
+            result += '        요청 오류입니다 다시 시도해 주세요';
+            result += '    </td>';
+            result += '</tr>';
+            $('.common-detail-list>table>tbody').empty();
+            $('.common-detail-list>table>tbody').append(result);
             $('#spinnerLoading').fadeOut();
         }
        });
@@ -88,12 +98,6 @@ $(document).ready(() => {
     });
 
     $('div.common-page-number>ul>li').on('click',  clickPaging);
-    
-    if('${requestMsg}'.length !== 0)
-    {
-	    alert('${requestMsg}');
-    }
-    
 });
 </script>
 <div class="content">
@@ -131,11 +135,10 @@ $(document).ready(() => {
                 </div>
                 <table>
                     <colgroup>
-                        <col width="45">
-                        <col width="222">
-                        <col width="222">
-                        <col width="222">
-                        <col width="100">
+                        <col width="60">
+                        <col width="250">
+                        <col width="250">
+                        <col width="250">
                     </colgroup>
                     <thead>
                     <tr>
@@ -143,7 +146,6 @@ $(document).ready(() => {
                         <th>콘텐츠 ID</tH>
                         <th>매핑여부</th>
                         <th>여행/숙박 구분</th>
-                        <th>등록일</th>
                     </tr>
                     </thead>
                     <tbody>

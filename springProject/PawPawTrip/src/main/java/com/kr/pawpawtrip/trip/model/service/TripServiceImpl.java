@@ -94,8 +94,8 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<PetInfo> getPetTourListByContentId(String contentIdQuery)
+    public List<PetInfo> getPetTourListByContentId(List<Integer> contentIdList)
     {
-        return tripMapper.selectPetInfoByContentId(contentIdQuery);
+        return tripMapper.selectPetInfoByContentId(contentIdList);
     }
 }

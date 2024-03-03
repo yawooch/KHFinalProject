@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PetInfo
 {
-    private String petinfoContentid;  //콘텐츠아이디  
+    private int    petinfoContentid;  //콘텐츠아이디  
     private String tourInfo;          //반려견관광정보
     private String acmpyTypeCd;       //동반구분      
     private String relaPosesFclty;    //관련구비시설  
