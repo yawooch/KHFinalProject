@@ -11,10 +11,14 @@ import com.kr.pawpawtrip.trip.model.vo.Stay;
 public interface TripService {
 	
 	// 여행지 전체 게시물 수 조회
-	int getSpotCount(String select, String search);
+	int getSpotCount();
 	
 	// 여행지 조회 
-	List<Spot> getSpotList(PageInfo pageInfo, String select, String search);
+	// List<Spot> getSpotList(PageInfo pageInfo, String select, String search);
+	List<Spot> getSpotList(PageInfo pageInfo);
+	
+	// 여행지 상세 조회
+	Spot getSpotById(int tripContentId);
 	
 	//반려동물 동반정보 수정/저장
     int savePetInfo(PetInfo petInfo);
@@ -30,4 +34,6 @@ public interface TripService {
     List<PetInfo> getPetTourListByContentIds(List<Integer> contentIdList);
     
     PetInfo getPetTourByContentId(int contentId);
+
+
 }
