@@ -2,7 +2,6 @@ package com.kr.pawpawtrip.trip.model.service;
 
 import java.util.List;
 
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,31 +22,19 @@ public class TripServiceImpl implements TripService {
 	
 	// 여행지 전체 게시물 수 조회
 	@Override
-//	public int getSpotCount(String select, String search) {
-	public int getSpotCount() {
+	public int getSpotCount(String select, String search) {
 		
-		return tripMapper.selectSpotCount();
+		return 0;
 	}
 	
 	
 	// 여행지 전체 조회(선택/검색 기능 포함)
 	@Override
-//	public List<Spot> getSpotList(PageInfo pageInfo, String select, String search) {
-	public List<Spot> getSpotList(PageInfo pageInfo) {
+	public List<Spot> getSpotList(PageInfo pageInfo, String select, String search) {
 		
-		int limit = pageInfo.getListLimit();
-		int offset = (pageInfo.getCurrentPage() - 1) * limit;
-		RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		return tripMapper.selectSpotList(rowBounds);
+		return tripMapper.selectSpotList();
 	}
 	
-	// 여행지 상세 조회
-	@Override
-	public Spot getSpotById(int tripContentId) {
-		
-		return null;
-	}
 	
     @Override
     @Transactional
@@ -73,12 +60,6 @@ public class TripServiceImpl implements TripService {
     {
         int result = 0;
         
-//        if (trip.getTripContentId() > 0) {
-//            // update
-//            result = petInfo.updateBoard(petInfo);
-//        } else {
-//            // insert
-//        }
         result = tripMapper.insertTrip(trip);
         
         return result;
@@ -91,12 +72,6 @@ public class TripServiceImpl implements TripService {
     {
         int result = 0;
         
-//        if (stay.getStayContentId() > 0) {
-//            // update
-//            result = petInfo.updateBoard(petInfo);
-//        } else {
-//            // insert
-//        }
         result = tripMapper.insertStay(stay);
         
         return result;
@@ -108,27 +83,21 @@ public class TripServiceImpl implements TripService {
     {
         int result = 0;
         
-//      if (stay.getStayContentId() > 0) {
-//          // update
-//          result = petInfo.updateBoard(petInfo);
-//      } else {
-//          // insert
-//      }
-      result = tripMapper.insertComm(comm);
+        result = tripMapper.insertComm(comm);
       
-      return result;
+        return result;
     }
     
     
     @Override
-    public List<PetInfo> getPetTourListByContentId(List<Integer> contentIdList)
+    public List<PetInfo> getPetTourListByContentIds(List<Integer> contentIdList)
     {
-        return tripMapper.selectPetInfoByContentId(contentIdList);
+        return tripMapper.selectPetInfoByContentIds(contentIdList);
     }
-
-
-
-
-
-
+    
+    @Override
+    public PetInfo getPetTourByContentId(int contentId)
+    {
+        return tripMapper.selectPetInfoByContentId(contentId);
+    }
 }

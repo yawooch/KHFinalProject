@@ -30,5 +30,7 @@ public interface TripMapper {
 
     int insertComm(Comm comm);
 
-    List<PetInfo> selectPetInfoByContentId(@Param("contentIdList") List<Integer> contentIdList);
+    List<PetInfo> selectPetInfoByContentIds(@Param("contentIdList") List<Integer> contentIdList);
+    
+    PetInfo selectPetInfoByContentId(@Param("contentId") int contentId);
 }

@@ -29,7 +29,7 @@ public class CommonApiClient
 
     /** detailPetTour1 API 사용 메소드 
      *  사용페이지 : 관리자 - 포포트립 매핑 화면 */
-    public PetTourResponse apiDetailPetTour(String pageNo, String contentId) throws RestClientException, URISyntaxException
+    public PetTourResponse apiDetailPetTour(String pageNo, int contentId) throws RestClientException, URISyntaxException
     {
         StringBuilder urlBuilder = new StringBuilder(baseURL + "detailPetTour1");
         //중요파라미터 입력
@@ -41,7 +41,7 @@ public class CommonApiClient
         urlBuilder.append("&_type="     ).append("json");
 
         //검색용 파라미터가 있을때
-        if (!contentId.isEmpty())
+        if (contentId != 0)
         {
             urlBuilder.append("&contentId=").append(contentId);
         }
@@ -53,7 +53,7 @@ public class CommonApiClient
 
     /** detailCommon1 API 사용 메소드 
      *  사용페이지 : 관리자 - 포포트립 매핑 상세 화면 */
-    public DetailCommonResponse apiDetailCommonToContentId(String contentId) throws RestClientException, URISyntaxException
+    public DetailCommonResponse apiDetailCommonToContentId(int contentId) throws RestClientException, URISyntaxException
     {
         StringBuilder urlBuilder = new StringBuilder(baseURL + "detailCommon1");
         //중요파라미터 입력

@@ -96,7 +96,7 @@
 									</c:if>
 									<c:if test="${ board.communityCategory eq '[마이펫 자랑]' }">
 										<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
-											<a href="${ path }/community/board/mypetdetail" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
+											<a href="${ path }/community/board/mypetdetail?no=${board.communityNo}" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
 										</td>
 									</c:if>
 									

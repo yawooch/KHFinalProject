@@ -1,10 +1,12 @@
 package com.kr.pawpawtrip.admin.controller;
 
+import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,12 +66,130 @@ public class AdminController
 
         return modelAndView;
     }
+    /** 트립 매핑 - 일괄등록 버튼 클릭시 */
+    @PostMapping("/admin/tripList")
+    @ResponseBody
+    public ResponseEntity<Map<String,String>> saveTripList(
+                                         @RequestParam(value="contentIdsArr[]") List<String>           contentIdsArr)
+                                         throws RestClientException, URISyntaxException
+    {
+        int petTripResult = 0;
+        int totalResult   = 0;
+        Map<String,String> resultMap = new HashMap<String, String>();
+        
+        System.out.println("****************************************************************************");
+        System.out.println("****************************** "+ (contentIdsArr) +" ************************************");
+        System.out.println("****************************************************************************");
+        
+        
+        //세션에 저장된 petTourInfos로 for문을 돌면서 데이터를 저장한다.
+        for (String contentIds : contentIdsArr)
+        {
+            int                  petInfoResult    = 0;
+            int                  contentId        = Integer.parseInt(contentIds);
+            DetailCommonResponse commonResponse   = commonApiClient.apiDetailCommonToContentId(contentId);
+            PetTourResponse      petTourResponse  = commonApiClient.apiDetailPetTour("1", contentId);// ApiClient로 API response 객체를 받아온다.
+            PetInfo              dbPetInfo        = tripService.getPetTourByContentId(contentId);
+            DetailCommonItem     detailCommonItem = commonResponse.getDetailCommonItems().get(0);
+            PetTourItem          petTourItem      = petTourResponse.getPetTourItems().get(0);
+            
+            String               contentTypeid    = detailCommonItem.getContenttypeid();
+
+
+            System.out.println("****************************************************************************");
+            log.info("commonResponse.getDetailCommonItems() : {}", commonResponse.getDetailCommonItems());
+//            System.out.println("****************************************************************************");
+//            log.info("dbPetInfo.getPetinfoContentid() : {}", dbPetInfo.getPetinfoContentid());
+            System.out.println("****************************************************************************");
+            log.info("dbPetInfo != null : {}", dbPetInfo != null);
+//            
+//            
+//            //DB에 이미 저장된 내용은 건너뛴다
+            if(dbPetInfo != null) 
+            {
+                System.out.println("****************************************************************************");
+                System.out.println("****************************** continue ************************************");
+                System.out.println("****************************************************************************");
+                continue;
+            }
+            
+            // 컨텐츠타입아이디로 VO를 선언 후 저장
+            if (contentTypeid.equals("12")) // 여행지- Trip
+            {
+                Spot spot = new Spot();
+                // Spot와 DetailCommonItem객체를 매핑한다.
+                mappingCommonItemVo(detailCommonItem, spot);
+
+                // VO로 save처리를 한다.
+                petTripResult = tripService.saveTrip(spot);
+                if(petTripResult == 1)
+                {
+                    System.out.println("****************************************************************************");
+                    System.out.println("************************ tripService.saveTrip ******************************");
+                    System.out.println("****************************************************************************");
+                }
+                
+                
+            }
+            else if (contentTypeid.equals("32")) // 숙소- Stay
+            {
+                Stay stay = new Stay();
+                // Stay와 DetailCommonItem객체를 매핑한다.
+                mappingCommonItemVo(detailCommonItem, stay);
+
+                // VO로 save처리를 한다.
+                petTripResult = tripService.saveStay(stay);
+                if(petTripResult == 1)
+                {
+                    System.out.println("****************************************************************************");
+                    System.out.println("************************ tripService.saveStay ******************************");
+                    System.out.println("****************************************************************************");
+                }
+            }
+            Comm comm = new Comm();
+            // Comm와 DetailCommonItem객체를 매핑한다.
+            mappingCommonItemVo(detailCommonItem, comm);
+
+            // VO로 save처리를 한다.
+            petTripResult += tripService.saveComm(comm);
+
+            if(petTripResult != 0)
+            {
+                System.out.println("****************************************************************************");
+                System.out.println("************************ tripService.saveComm ******************************");
+                System.out.println("****************************************************************************");
+            }
+            // VO로 save처리를 한다.
+            PetInfo petInfo = new PetInfo();
+            // PetInfo와 PetTourItem객체를 매핑한다.
+            mappingPetTourItemVo(petTourItem, petInfo);
+
+            petInfoResult = tripService.savePetInfo(petInfo);
+
+            if(petInfoResult == 1)
+            {
+                System.out.println("****************************************************************************");
+                System.out.println("************************ tripService.savePetInfo ******************************");
+                System.out.println("****************************************************************************");
+            }
+            
+            //petinfo 와 comm , stay, trip 테이블등이 모두 저장될경우 totalResult를 ++ 해서 반환한다.
+            if(petTripResult == 2 && petInfoResult == 1)
+            {
+                totalResult ++;
+            }
+        }
+
+        resultMap.put("totalResult", Integer.toString(totalResult));
+        return ResponseEntity.ok(resultMap);
+    }
 
     /** 트립 매핑 - 목록 조회 */
     @GetMapping("/admin/tripListApi")
     @ResponseBody
-    public ResponseEntity<PetTourResponse> tripListApi(HttpSession session,
-            @RequestParam(defaultValue = "1") String pageNo, @RequestParam(defaultValue = "") String contentId)
+    public ResponseEntity<PetTourResponse> tripListApi(      HttpSession session,
+                           @RequestParam(defaultValue = "1") String      pageNo,
+                           @RequestParam(defaultValue = "0") int         contentId)
             throws RestClientException, URISyntaxException
     {
         // ApiClient로 API response 객체를 받아온다.
@@ -78,26 +198,29 @@ public class AdminController
         // @SessionAttributes("petTourInfos") 에 설정한 이름으로 session에 저장한다. - Detail 페이지로 갈때 다시 Api 호출하면 느려지므로
         ArrayList<PetTourItem> petTourInfos = response.getPetTourItems();
         
-        //컨텐츠 아이디만 List<String>으로 만든다
+        //컨텐츠 아이디만 List<Integer>으로 만든다
         List<Integer> contentIdList = petTourInfos.stream().map(petTourItem -> Integer.parseInt(petTourItem.getPetinfoContentid())).collect(Collectors.toList());
-        //TODO: Comm 에서 데이터를 가져와야하는데 PetInfo에서 가져왔네
-        List<PetInfo> dbPetTours= tripService.getPetTourListByContentId(contentIdList);
         
-
+        //TODO: Comm 에서 데이터를 가져와야하는데 PetInfo에서 가져왔네
+        List<PetInfo> dbPetTours= tripService.getPetTourListByContentIds(contentIdList);
+        
+        log.info("petTourInfos : {} , petTourInfos : {}", petTourInfos.size(), dbPetTours.size());
+        
         //리스트에 보여줄 petInfo정보에 DB정보를 담아서 보내준다.
         for(PetTourItem petTourItem : response.getPetTourItems()) 
         {
             petTourItem.setDbExistYn("미등록");
             petTourItem.setDbAcmpyTypeCd(null);
-           
-            List<PetInfo> getDbPetToure =  dbPetTours.stream().filter(petTour -> petTour.getPetinfoContentid()== Integer.parseInt(petTourItem.getPetinfoContentid())).collect(Collectors.toList());
             
-            //일치하는 DB정보가 있을때
-            if(!getDbPetToure.isEmpty())
+            //DB에서 가져온 정보로 for문
+            for (PetInfo dbPetTour : dbPetTours)
             {
-                PetInfo dbPetTour = getDbPetToure.get(0);
-                petTourItem.setDbExistYn("등록");
-                petTourItem.setDbAcmpyTypeCd(dbPetTour.getAcmpyTypeCd());
+                //DB에서 가져온 contentId 가 있을때 
+                if(dbPetTour.getPetinfoContentid() == Integer.parseInt(petTourItem.getPetinfoContentid()))
+                {
+                    petTourItem.setDbExistYn("등록");
+                    petTourItem.setDbAcmpyTypeCd(dbPetTour.getAcmpyTypeCd());
+                }
             }
         }
 
@@ -106,25 +229,22 @@ public class AdminController
 
         return ResponseEntity.ok(response);
     }
-
     /** 트립 매핑 - 상세 화면으로 이동 */
     @GetMapping("/admin/tripDetail")
     public ModelAndView stayDetail(@SessionAttribute("petTourInfos") ArrayList<PetTourItem> petTourInfos,
-            @RequestParam(defaultValue = "") String contentId, ModelAndView modelAndView, HttpSession session)
+                                   @RequestParam(defaultValue = "")  int                    contentId,
+                                                                     ModelAndView           modelAndView,
+                                                                     HttpSession            session)
             throws RestClientException, URISyntaxException
     {
         PetTourItem petTourDetail = new PetTourItem();
 
-        log.info("stayDetail contentId : {}", contentId);
-
-        List<PetTourItem> selectedItems = petTourInfos.stream().filter(petTourInfo -> petTourInfo.getPetinfoContentid().equals(contentId)).collect(Collectors.toList());
+        List<PetTourItem> selectedItems = petTourInfos.stream().filter(petTourInfo -> Integer.parseInt(petTourInfo.getPetinfoContentid()) == contentId).collect(Collectors.toList());
         
         if(!selectedItems.isEmpty()) 
         {
             petTourDetail = selectedItems.get(0);
-            log.info("stayDetail ********************* : {}", petTourDetail.getDbExistYn());
         }
-
         session.setAttribute("petTourDetail", petTourDetail);
         modelAndView.addObject("contentId", contentId);
         modelAndView.setViewName("/admin/tripDetail");
@@ -135,26 +255,41 @@ public class AdminController
     /** 트립 매핑 - 상세 화면 ajax */
     @GetMapping("/admin/tripDetailAjax")
     @ResponseBody
-    public ResponseEntity<Map<String, Object>> tripDetailAjax(@SessionAttribute("petTourDetail") PetTourItem petTourDetail,
-            @RequestParam("contentId") String contentId, ModelAndView modelAndView, HttpSession session)
+    public ResponseEntity<Map<String, Object>> tripDetailAjax(ModelAndView           modelAndView,
+                           @RequestParam("contentId")         int                    contentId , 
+                           @SessionAttribute("petTourInfos")  ArrayList<PetTourItem> petTourInfos,
+                                                                                     HttpSession  session)
             throws RestClientException, URISyntaxException
     {
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        
         /* 1. 파라미터로 가져온 contentId 를 가지고 공통 API 객체를 받아온다(petTour쪽은 List<> 타입으로 세션에 저장 해놓음) */
         /* 2. 가져온 트립 객체를 세션에 저장한다(DB에 insert 할때는 세션에서 객체만 가져오도록) */
         /* 3. List에서 contentId에 해당하는 객체만 세션에 저장한다. */
-        /* 4. 페이지 이동 */
-        DetailCommonResponse response = commonApiClient.apiDetailCommonToContentId(contentId);
-        Map<String, Object> resultMap = new HashMap<String, Object>();
+        DetailCommonResponse commonResponse = commonApiClient.apiDetailCommonToContentId(contentId);
+        PetTourResponse petTourResponse     = commonApiClient.apiDetailPetTour("1", contentId);// ApiClient로 API response 객체를 받아온다.
+        DetailCommonItem detailCommonItem   = commonResponse.getDetailCommonItems().get(0);
+        PetTourItem petTourReponseItem      = petTourResponse.getPetTourItems().get(0);
 
-        log.info("contentId : {}", contentId);
-        log.info("response : {}", response);
+        log.info("tripDetailAjax petTourInfos : {}", petTourInfos);
+        
+        log.info("tripDetailAjax detailCommonItem : {}, petTourReponseItem : {}", detailCommonItem, petTourReponseItem);
 
-        DetailCommonItem detailCommonItem = response.getDetailCommonItems().get(0);
-        session.setAttribute("detailCommonItem", detailCommonItem);// 일단은... 1개만 가져온다고 가정.
-
-        resultMap.put("contentId", contentId);
+        petTourReponseItem.setDbExistYn("미등록");
+        petTourReponseItem.setDbAcmpyTypeCd(null);
+        
+        for (PetTourItem petTourInfo : petTourInfos)
+        {
+            if(Integer.parseInt(petTourInfo.getPetinfoContentid()) == contentId)
+            {
+                petTourReponseItem.setDbExistYn("등록");
+                petTourReponseItem.setDbAcmpyTypeCd(petTourInfo.getAcmpyTypeCd());
+            }
+        }
+        session.setAttribute("detailCommonItem", detailCommonItem  );
+        session.setAttribute("petTourDetail"   , petTourReponseItem);
         resultMap.put("detailCommonItem", detailCommonItem);
-        resultMap.put("petTourItem", petTourDetail);
+        resultMap.put("petTourDetailMap", petTourReponseItem);
 
         return ResponseEntity.ok(resultMap);
     }
@@ -162,14 +297,30 @@ public class AdminController
     /** 컨텐츠 등록 처리 */
     @PostMapping("/admin/tripDetail")
     @ResponseBody
-    public ModelAndView tripSave(ModelAndView modelAndView, @SessionAttribute("petTourDetail") PetTourItem petTourDetail,
-            @SessionAttribute("detailCommonItem") DetailCommonItem detailCommonItem, HttpSession session)
+    public ModelAndView tripSave(                             ModelAndView     modelAndView,
+                           @RequestParam("contentId")         int              contentId , 
+                                                              HttpSession      session)
+                           throws RestClientException, URISyntaxException
     {
-
-        log.info("petTourDetail : {}, detailCommonItem : {}", petTourDetail, detailCommonItem);
+        DetailCommonResponse commonResponse   = commonApiClient.apiDetailCommonToContentId(contentId);
+        PetTourResponse      petTourResponse  = commonApiClient.apiDetailPetTour("1", contentId);// ApiClient로 API response 객체를 받아온다.
+        PetInfo              dbPetInfo        = tripService.getPetTourByContentId(contentId);
+        DetailCommonItem     detailCommonItem = commonResponse.getDetailCommonItems().get(0);
+        PetTourItem          petTourItem      = petTourResponse.getPetTourItems().get(0);
         String contentTypeId = null;
         int petTripResult = 0;
         int petInfoResult = 0;
+        
+        //이미 저장되어 있는 컨텐츠라면 insert하지 않는다. TODO: 시간나면 수정기능 추가 예정
+        if(dbPetInfo !=null)
+        {
+            modelAndView.addObject("requestMsg", "이미 저장되어있는 컨텐츠입니다.");
+            modelAndView.addObject("contentId"   , detailCommonItem.getContentid());
+            modelAndView.setViewName("admin/tripDetail");
+    
+            return modelAndView;
+        }
+        
         // 1. DetailCommonItem 에서 컨텐츠타입아이디를 가져온다.
         contentTypeId = detailCommonItem.getContenttypeid();
 
@@ -202,7 +353,7 @@ public class AdminController
         // 4. PetInfo를 저장처리한다.
         PetInfo petInfo = new PetInfo();
         // PetInfo와 PetTourItem객체를 매핑한다.
-        mappingPetTourItemVo(petTourDetail, petInfo);
+        mappingPetTourItemVo(petTourItem, petInfo);
 
         petInfoResult = tripService.savePetInfo(petInfo);
 
@@ -210,18 +361,16 @@ public class AdminController
         {
             // 입력성공
             modelAndView.addObject("requestMsg", "성공적으로 저장되었습니다.");
-            log.info("requestMsg : {}", "성공적으로 처리되었습니다.");
-        } else if ((petInfoResult + petTripResult) == 0)
+        }
+        else if ((petInfoResult + petTripResult) == 0)
         {
             modelAndView.addObject("requestMsg", "저장에 실패하였습니다.");
-            log.info("requestMsg : {}", "저장에 실패하였습니다.");
-        } else
+        }
+        else
         {
             // 메인테이블 insert 실패
             modelAndView.addObject("requestMsg", "일부 테이블만 저장되었습니다.");
-            log.info("requestMsg : {}", "일부 테이블만 저장되었습니다.");
         }
-        log.info("petInfoResult : {} ,petTripResult : {} ", petInfoResult, petTripResult);
         modelAndView.addObject("contentId"   , detailCommonItem.getContentid());
         modelAndView.setViewName("admin/tripDetail");
 
@@ -266,6 +415,14 @@ public class AdminController
         spot.setTripCategory2(detailCommonItem.getCat2()); // 여행 카테고리 중분류
         spot.setTripCategory3(detailCommonItem.getCat3()); // 여행 카테고리 소분류
         spot.setTripContentTypeId(detailCommonItem.getContenttypeid()); // 여행 콘텐츠 타입 ID
+        if(detailCommonItem.getCreatedtime().length() ==12)
+        {
+            detailCommonItem.setCreatedtime(detailCommonItem.getCreatedtime()+"00");
+        }
+        if(detailCommonItem.getModifiedtime().length() ==12)
+        {
+            detailCommonItem.setModifiedtime(detailCommonItem.getModifiedtime()+"00");
+        }
         LocalDate createdtime = LocalDateTime
                 .parse(detailCommonItem.getCreatedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
         LocalDate modifiedtime = LocalDateTime
@@ -293,6 +450,14 @@ public class AdminController
         stay.setStayCategory2(detailCommonItem.getCat2()); // 숙소 카테고리 중분류
         stay.setStayCategory3(detailCommonItem.getCat3()); // 숙소 카테고리 소분류
         stay.setStayContentTypeId(detailCommonItem.getContenttypeid()); // 숙소 콘텐츠 타입 ID
+        if(detailCommonItem.getCreatedtime().length() ==12)
+        {
+            detailCommonItem.setCreatedtime(detailCommonItem.getCreatedtime()+"00");
+        }
+        if(detailCommonItem.getModifiedtime().length() ==12)
+        {
+            detailCommonItem.setModifiedtime(detailCommonItem.getModifiedtime()+"00");
+        }
         LocalDate createdtime = LocalDateTime
                 .parse(detailCommonItem.getCreatedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
         LocalDate modifiedtime = LocalDateTime

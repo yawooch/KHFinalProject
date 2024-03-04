@@ -188,13 +188,24 @@
         ORDER BY TRIP_CONTENTID ASC
     </select>
 
-    <!-- PetTour IN절조건 조회 -->
-    <select id="selectPetInfoByContentId" parameterType="map"  resultMap="petInfoResultMap" >
+    <!-- PetTour List IN절조건 조회 -->
+    <select id="selectPetInfoByContentIds" parameterType="map"  resultMap="petInfoResultMap" >
         <include refid="petInfoListSql"/>
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="contentIdList != ''">
             PETINFO_CONTENTID IN
             <foreach collection="contentIdList" item="contentId" index="index" separator="," open="(" close=")">#{contentId}</foreach>
+            </if>
+        </trim>
+    </select>
+    
+    
+    <!-- PetTour contentId 로 한건 조회 -->
+    <select id="selectPetInfoByContentId" parameterType="map"  resultMap="petInfoResultMap" >
+        <include refid="petInfoListSql"/>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="contentId != ''">
+            PETINFO_CONTENTID = #{contentId}
             </if>
         </trim>
     </select>
