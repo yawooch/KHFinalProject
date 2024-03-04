@@ -25,7 +25,7 @@ public class TripServiceImpl implements TripService {
 	@Override
 	public int getSpotCount() {
 		
-		return 0;
+		return tripMapper.selectSpotCount();
 	}
 	
 	
@@ -36,15 +36,14 @@ public class TripServiceImpl implements TripService {
 	      int offset = (pageInfo.getCurrentPage() - 1) * limit;
 	      RowBounds rowBounds = new RowBounds(offset, limit);		
 		
-		
 		return tripMapper.selectSpotList(rowBounds);
 	}
 	
 	// 여행지 상세 조회
 	@Override
-	public Spot getSpotById(int tripContentId) {
+	public Spot getSpotById(int id) {
 		
-		return null;
+		return tripMapper.selectSpotById(id);
 	}
 	
     @Override

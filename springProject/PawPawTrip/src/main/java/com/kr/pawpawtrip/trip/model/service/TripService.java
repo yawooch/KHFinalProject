@@ -18,7 +18,7 @@ public interface TripService {
 	List<Spot> getSpotList(PageInfo pageInfo);
 	
 	// 여행지 상세 조회
-	Spot getSpotById(int tripContentId);
+	Spot getSpotById(int id);
 	
 	//반려동물 동반정보 수정/저장
     int savePetInfo(PetInfo petInfo);

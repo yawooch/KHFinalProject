@@ -109,28 +109,35 @@ color: #FDFAEF;
                 <!-- 장소 정보 -->
                 <div class="tripDetail-mainInfo">
                     <div class="tripNameAndLike">
-                        <p class="tripName">강릉안반데기관광농원</p>
+                        <p class="tripName">${ spot.tripTitle }</p>
                         <!-- 관심등록 -->
                         <span class="material-icons" id="heart-icon">favorite_border</span>
                     </div>
 
-                    <div class="mainInfo" style="">
+                    <div class="mainInfo">
                         <img class="infoIcon" src="${ path }/img/trip/map_icon.png" alt="주소 아이콘">
                         <span>주소</span>
-                        <p>강원 강릉시 왕산면 안반데기 1길</p>
+                        <p>${ spot.tripAddress }</p>
                         <img class="infoIcon" src="${ path }/img/trip/tel_icon.png" alt="문의처 아이콘">
                         <span>문의처</span>
-                        <p>033-644-8552</p>
-
+                        <c:if test="${ spot.tripTel != '-' }">
+                        	<p>${ spot.tripTel }</p>
+                        </c:if>
+                        <c:if test="${ spot.tripTel == '-' }">
+                        	<p>* 해당 장소로 별도 문의</p>
+                        </c:if>
+						
+						<!--  
                         <img class="infoIcon" src="${ path }/img/trip/time_icon.png" alt="이용시간 아이콘">
                         <span>이용시간</span>
                         <p>11시 부터 14시까지(관광,견학)</p>
+						-->
 
                         <!-- 새 창으로 해당 홈페이지 열기! -->
                         <img class="infoIcon" src="${ path }/img/trip/homepage_icon.png" alt="홈페이지 아이콘">
                         <span>홈페이지</span>
-                        <a href="https://blog.naver.com/sanai4744" target="_blank">
-                        	<p>https://blog.naver.com/sanai4744</p>
+                        <a href="${ spot.homepage }" target="_blank">
+                        	<p>${ spot.homepage }</p>
                         </a>
                     </div>
                 </div>
