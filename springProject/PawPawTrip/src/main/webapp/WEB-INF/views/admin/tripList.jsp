@@ -48,11 +48,7 @@ function showList(pageNo, contentId)
 //          startRowNo = ((pageNo-1)*numOfRows) + 1;         //ASC  용
             
             if(petTourItems.length==0){
-                result += '<tr>';
-                result += '    <td colspan="5">';
-                result += '        조회된 게시글이 없습니다.';
-                result += '    </td>';
-                result += '</tr>';
+                result += '<tr><td colspan="5">조회된 게시글이 없습니다.</td></tr>';
             }
             else{
                 petTourItems.forEach((element, idx) => {
@@ -60,10 +56,8 @@ function showList(pageNo, contentId)
                     result += '<tr>';
                     result += '     <td>' + (startRowNo - idx) + '</td>';//DESC 용
 //                  result += '     <td>' + (startRowNo + idx) + '</td>';//ASC  용
-                    result += '     <td><a href="${path}/admin/tripDetail?contentId=' + element.contentid + '">';
-                    result += '         ' + element.contentid + '</a>';
-                    result += '     </td>';
-                    result += '     <td>' + element.dbExistYn     + '</td>';
+                    result += '     <td><a href="${path}/admin/tripDetail?contentId=' + element.contentid + '&pageNo='+ pageNo +'">'+ element.contentid + '</a></td>';
+                    result += '     <td ' + (element.dbExistYn=='등록'?'class="text-info"':'class="text-danger"') +'>' +   element.dbExistYn   + '</td>';
                     result += '     <td>' + (element.dbAcmpyTypeCd==null?'':element.dbAcmpyTypeCd) + '</td>';
                     result += '</tr>';
                 });
@@ -80,11 +74,7 @@ function showList(pageNo, contentId)
             console.log(`error : ${error}`);
 
             let result = '';
-            result += '<tr>';
-            result += '    <td colspan="5">';
-            result += '        요청 오류입니다 다시 시도해 주세요';
-            result += '    </td>';
-            result += '</tr>';
+            result += '<tr><td colspan="5">요청 오류입니다 다시 시도해 주세요</td></tr>';
             $('.common-detail-list>table>tbody').empty();
             $('.common-detail-list>table>tbody').append(result);
             $('#spinnerLoading').fadeOut();
@@ -109,13 +99,13 @@ function saveList()
         success : (data)=>
         {
             console.log(data);
-            if(data.totalResult == '0')
+            if(data.petInfoCount == 0)
             {
                 alert('일괄등록이 실패 하였습니다.');
             }
             else
             {
-                alert('일괄등록이 성공 하였습니다.');
+                alert('일괄등록 총'+ data.totalCount +'건 중, 여행/숙소가 '+ data.mainCount +'건,\n 공통 '+ data.commonCount +'건\n, 동반정보 '+ data.petInfoCount +'건\n저장 성공 하였습니다.');
             }
             $('#spinnerLoading').fadeOut();
             showList(1, $('#contentId').val());
@@ -129,8 +119,12 @@ function saveList()
     });
 };
 $(document).ready(() => {
+	
+	console.log(pageNo.detailNo);
     //리스트를 먼저 보여준다.
-    showList(1, $('#contentId').val());
+    showList($('#pageNo').val(), $('#contentId').val());
+//     $('#spinnerLoading>div.spinner-border').css('top' , '50%');
+//     $('#spinnerLoading>div.spinner-border').css('left', '50%');
     
     $('#contentId').on('change', (event) => {
         showList(1, $(event.target).val());
@@ -139,6 +133,7 @@ $(document).ready(() => {
     $('div.common-page-number>ul>li').on('click',  clickPaging);
 });
 </script>
+<input type="hidden" name="pageNo" id="pageNo" value="${pageNo}"/>
 <div class="content">
     <div class="container">
         <div class="common-title">
@@ -161,7 +156,7 @@ $(document).ready(() => {
                     <div></div>
                     <div style="width:200px;">
                         <img src="${ path }/img/community/search.png"> 
-                            <input type="text" name="contentId" id="contentId" placeholder="컨텐츠 ID를 입력해주세요."style="width:160px;">
+                            <input type="text" name="contentId" id="contentId" placeholder="컨텐츠 ID를 입력해주세요."style="width:160px;" value="${contentId}">
                     </div>
                     <div>
                         <button>검색</button>
@@ -169,8 +164,8 @@ $(document).ready(() => {
                 </div>
             </div>
             <div class="common-detail-list" style="position:relative;">
-                <div id="spinnerLoading" style="display:block;position:absolute;width:100%;height:100%;background-color:rgb(0 0 0 / 65%);">
-                    <div class="spinner-border text-warning" style="position: absolute;width: 100px; height: 100px; border: 16px solid currentcolor; border-right-color: transparent;margin-left: -50px; margin-top: -50px;"></div>
+                <div id="spinnerLoading" style="display:none;position:absolute;width:100%;height:100%;background-color:rgb(0 0 0 / 65%);">
+                    <div class="spinner-border text-warning" style="position: absolute;width: 80px; height: 80px; border: 16px solid currentcolor; border-right-color: transparent;margin-left: -40px; margin-top: -40px;"></div>
                 </div>
                 <table>
                     <colgroup>

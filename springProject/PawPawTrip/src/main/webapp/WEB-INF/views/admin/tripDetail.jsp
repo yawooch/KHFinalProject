@@ -64,29 +64,29 @@ function showDetail(contentId)
             result += '    <td>시군구</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ data.commonArea.areaName.split(' ')[1] +'</td></tr>';
             result += '<tr><td>대분류</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.category.bigCateName +'</td>';
+            result += '    <td class="common-text-left no-ellipsis">'+ (data.category != null?data.category.bigCateName:data.detailCommonItem.cat1) +'</td>';
             result += '    <td>중분류</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.category.midCateName +'</td></tr>';
+            result += '    <td class="common-text-left no-ellipsis">'+ (data.category != null?data.category.midCateName:data.detailCommonItem.cat2) +'</td></tr>';
             result += '<tr><td>소분류</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.category.smlCateName +'</td>';
+            result += '    <td class="common-text-left no-ellipsis">'+ (data.category != null?data.category.smlCateName:data.detailCommonItem.cat3) +'</td>';
             result += '    <td>저작권 유형</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ (data.detailCommonItem.cpyrhtDivCd==''?'':cpyrhtDivCd[data.detailCommonItem.cpyrhtDivCd]) +'</td></tr>';
             result += '<tr><td>주소</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.addr1 +'</td>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.addr1    +'</td>';
             result += '    <td>상세주소</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.addr2 +'</td></tr>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.addr2    +'</td></tr>';
             result += '<tr><td>GPS X좌표</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.mapx +'</td>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.mapx     +'</td>';
             result += '    <td>GPS Y좌표</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.mapy +'</td></tr>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.mapy     +'</td></tr>';
             result += '<tr><td>Map Level</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.mlevel +'</td>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.mlevel   +'</td>';
             result += '    <td>거리</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.dist +'</td></tr>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.dist     +'</td></tr>';
             result += '<tr><td>연관 URL 정보</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.homepage +'</td>';
             result += '    <td>우편번호</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.zipcode +'</td></tr>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.zipcode  +'</td></tr>';
             result += '<tr><td>개요설명</td>';
             result += '    <td  colspan="3" class="common-text-left no-ellipsis">'+ data.detailCommonItem.overview +'</td></tr>';
             result += '<tr><td colspan="10" class="no-ellipsis">반려견 동반 정보</td></tr>';
@@ -178,6 +178,7 @@ $(document).ready(() => {
 
 <form action="${path}/admin/tripDetail" name="tripSaveForm" method="POST">
 <input type="hidden" name="contentId" id="contentId" value="${contentId}"/>
+<input type="hidden" name="pageNo"    id="pageNo" value="${detailPageNo}"/>
 <div class="content">
     <div class="container">
         <div class="common-title">
@@ -194,7 +195,7 @@ $(document).ready(() => {
         <div class="common-list">
             <div class="common-detail-list no-margin-top" style="position:relative;">
                 <div id="spinnerLoading" style="display:block;position:absolute;width:100%;height:100%;background-color:rgb(0 0 0 / 65%);">
-                    <div class="spinner-border text-warning" style="position: absolute;width: 100px; height: 100px; border: 16px solid currentcolor; border-right-color: transparent;margin-left: -50px; margin-top: -50px;"></div>
+                    <div class="spinner-border text-warning" style="position: absolute;width: 80px; height: 80px; border: 16px solid currentcolor; border-right-color: transparent;margin-left: -40px; margin-top: -40px;"></div>
                 </div>
                 <table class="common-col-table" style="width: 100%;">
                     <tbody id="detailBody">
@@ -219,7 +220,7 @@ $(document).ready(() => {
             </div>
             <div class="btn-wrap">
                 <button type="submit" class="common-btn btn-filled">등록</button>
-                <button type="button" class="common-btn" onClick="location.href='${path}/admin/tripList';">목록</button>
+                <button type="button" class="common-btn" onClick="location.href='${path}/admin/tripList?pageNo=${pageNo}';">목록</button>
             </div>
         </div>
     </div>

@@ -63,8 +63,10 @@ public class AdminController
 
     /** 트립 매핑 - 목록 화면으로 이동 */
     @GetMapping("/admin/tripList")
-    public ModelAndView tripList(ModelAndView modelAndView)
+    public ModelAndView tripList(ModelAndView modelAndView,
+            @RequestParam(defaultValue = "1") int                    pageNo)
     {
+        modelAndView.addObject("pageNo", pageNo);
         modelAndView.setViewName("/admin/tripList");
 
         return modelAndView;
@@ -72,13 +74,15 @@ public class AdminController
     /** 트립 매핑 - 일괄등록 버튼 클릭시 */
     @PostMapping("/admin/tripList")
     @ResponseBody
-    public ResponseEntity<Map<String,String>> saveTripList(
+    public ResponseEntity<Map<String,Integer>> saveTripList(
                                          @RequestParam(value="contentIdsArr[]") List<String>           contentIdsArr)
                                          throws RestClientException, URISyntaxException
     {
         int petTripResult = 0;
-        int totalResult   = 0;
-        Map<String,String> resultMap = new HashMap<String, String>();
+        int mainCount     = 0;
+        int commonCount   = 0;
+        int petInfoCount  = 0;
+        Map<String,Integer> resultMap = new HashMap<String, Integer>();
         
         //세션에 저장된 petTourInfos로 for문을 돌면서 데이터를 저장한다.
         for (String contentIds : contentIdsArr)
@@ -118,12 +122,15 @@ public class AdminController
                 // VO로 save처리를 한다.
                 petTripResult = tripService.saveStay(stay);
             }
+            mainCount += petTripResult;
+            
             Comm comm = new Comm();
             // Comm와 DetailCommonItem객체를 매핑한다.
             mappingCommonItemVo(detailCommonItem, comm);
 
             // VO로 save처리를 한다.
-            petTripResult += tripService.saveComm(comm);
+            petTripResult = tripService.saveComm(comm);
+            commonCount += petTripResult;
 
             // VO로 save처리를 한다.
             PetInfo petInfo = new PetInfo();
@@ -131,15 +138,13 @@ public class AdminController
             mappingPetTourItemVo(petTourItem, petInfo);
 
             petInfoResult = tripService.savePetInfo(petInfo);
-
-            //petinfo 와 comm , stay, trip 테이블등이 모두 저장될경우 totalResult를 ++ 해서 반환한다.
-            if(petTripResult == 2 && petInfoResult == 1)
-            {
-                totalResult ++;
-            }
+            petInfoCount += petInfoResult;
         }
 
-        resultMap.put("totalResult", Integer.toString(totalResult));
+        resultMap.put("totalCount"  , contentIdsArr.size());
+        resultMap.put("mainCount"   , mainCount);
+        resultMap.put("commonCount" , commonCount);
+        resultMap.put("petInfoCount", petInfoCount);
         return ResponseEntity.ok(resultMap);
     }
 
@@ -192,6 +197,7 @@ public class AdminController
     @GetMapping("/admin/tripDetail")
     public ModelAndView stayDetail(@SessionAttribute("petTourInfos") ArrayList<PetTourItem> petTourInfos,
                                    @RequestParam(defaultValue = "")  int                    contentId,
+                                   @RequestParam(defaultValue = "1") int                    pageNo,
                                                                      ModelAndView           modelAndView,
                                                                      HttpSession            session)
             throws RestClientException, URISyntaxException
@@ -206,6 +212,7 @@ public class AdminController
         }
         session.setAttribute("petTourDetail", petTourDetail);
         modelAndView.addObject("contentId", contentId);
+        modelAndView.addObject("pageNo", pageNo);
         modelAndView.setViewName("/admin/tripDetail");
 
         return modelAndView;
@@ -216,7 +223,6 @@ public class AdminController
     @ResponseBody
     public ResponseEntity<Map<String, Object>> tripDetailAjax(ModelAndView           modelAndView,
                            @RequestParam("contentId")         int                    contentId , 
-                           @SessionAttribute("petTourInfos")  ArrayList<PetTourItem> petTourInfos,
                                                                                      HttpSession  session)
             throws RestClientException, URISyntaxException
     {
@@ -225,32 +231,24 @@ public class AdminController
         /* 1. 파라미터로 가져온 contentId 를 가지고 공통 API 객체를 받아온다(petTour쪽은 List<> 타입으로 세션에 저장 해놓음) */
         /* 2. 가져온 트립 객체를 세션에 저장한다(DB에 insert 할때는 세션에서 객체만 가져오도록) */
         /* 3. List에서 contentId에 해당하는 객체만 세션에 저장한다. */
-        DetailCommonResponse commonResponse = commonApiClient.apiDetailCommonToContentId(contentId);
-        PetTourResponse petTourResponse     = commonApiClient.apiDetailPetTour("1", contentId);// ApiClient로 API response 객체를 받아온다.
-        DetailCommonItem detailCommonItem   = commonResponse.getDetailCommonItems().get(0);
-        PetTourItem petTourReponseItem      = petTourResponse.getPetTourItems().get(0);
+        DetailCommonResponse commonResponse     = commonApiClient.apiDetailCommonToContentId(contentId);
+        PetTourResponse      petTourResponse    = commonApiClient.apiDetailPetTour("1", contentId);// ApiClient로 API response 객체를 받아온다.
+        PetInfo              dbPetInfo          = tripService.getPetTourByContentId(contentId);
+        DetailCommonItem     detailCommonItem   = commonResponse.getDetailCommonItems().get(0);
+        PetTourItem          petTourReponseItem = petTourResponse.getPetTourItems().get(0);
 
-        
-
-        Category category = commonService.getAllCategory(detailCommonItem.getCat3());
-        
+        Category   category   = commonService.getAllCategory(detailCommonItem.getCat3());
         CommonArea commonArea = commonService.getFullAreaName(detailCommonItem.getAreacode() + detailCommonItem.getSigungucode());
-
-        
-        log.info("tripDetailAjax petTourInfos : {}", petTourInfos);
         
         log.info("tripDetailAjax detailCommonItem : {}, petTourReponseItem : {}", detailCommonItem, petTourReponseItem);
 
         petTourReponseItem.setDbExistYn("미등록");
         petTourReponseItem.setDbAcmpyTypeCd(null);
         
-        for (PetTourItem petTourInfo : petTourInfos)
+        if(dbPetInfo != null)
         {
-            if(Integer.parseInt(petTourInfo.getPetinfoContentid()) == contentId)
-            {
-                petTourReponseItem.setDbExistYn("등록");
-                petTourReponseItem.setDbAcmpyTypeCd(petTourInfo.getAcmpyTypeCd());
-            }
+            petTourReponseItem.setDbExistYn("등록");
+            petTourReponseItem.setDbAcmpyTypeCd(dbPetInfo.getAcmpyTypeCd());
         }
         session.setAttribute("detailCommonItem", detailCommonItem  );
         session.setAttribute("petTourDetail"   , petTourReponseItem);
