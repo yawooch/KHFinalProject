@@ -91,14 +91,15 @@
                     <!-- c:forEach로 카드 반복 생성 -->
                     <c:forEach var="spot" items="${ spots }">
 	                    <div class="col-md-4">
-	                        <a href="${ path }/trip/spot/spotDetail" style="text-decoration: none;">
+	                        <a href="${ path }/trip/spot/spotDetail?id=${ spot.tripContentId }" style="text-decoration: none;">
+	                            
 	                            <!-- 카드 이미지 -->
 	                            <div class="card mb-4 product-wap rounded-0">
 	                                <div class="card rounded-0">
-	                                	<c:if test="${ empty spot.tripImage }">	                                		
+	                                	<c:if test="${ spot.tripImage == '-' }">	                                		
 		                                    <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">
 	                                	</c:if>
-	                                	<c:if test="${ not empty spot.tripImage }">
+	                                	<c:if test="${ spot.tripImage != '-' }">
 		                                    <img class="card-img rounded-0 img-fluid" src="${ spot.tripImage }">
 	                                	</c:if>
 	                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
@@ -116,12 +117,12 @@
 	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
 	                                        ${ spot.tripAddress }
 	                                    </p>
-	                                    <c:if test="${ empty spot.tripTel }">
+	                                    <c:if test="${ spot.tripTel == '-' }">
 		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-		                                        해당 장소로 별도 문의
+		                                        *해당 장소 별도 문의
 		                                    </p>	                                    	
 	                                    </c:if>
-	                                    <c:if test="${ not empty spot.tripTel }">
+	                                    <c:if test="${ spot.tripTel != '-' }">
 		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
 		                                        ${ spot.tripTel }
 		                                    </p>
@@ -137,21 +138,23 @@
             <!-- 페이징 -->
             <div class="common-page-number">
                 <ul>
-                	<!-- 이전 페이지 --> 
+                	<!-- 이전 페이지 
                 	<c:if test="${ empty searchInfoMap.search }">
 	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.prevPage }">&lt;</a></li>
                 	</c:if>
                 	<c:if test="${ not empty searchInfoMap.search }">
 	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.prevPage }&select=${ searchInfoMap.select }&search=${ searchInfoMap.search }">&lt;</a></li>
                 	</c:if>
+                	--> 
+	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.prevPage }">&lt;</a></li>
 	                    
                 	<!-- 현재 페이지 -->
                 	<!-- 첫 페이지부터 마지막페이지까지 반복(5페이지씩 보이게 설정함) -->
-                	<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
+                	<c:forEach var="currentPage" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
                 		<c:choose>
                 			<%-- 선택한 페이지와 pageInfo의 currentPage가 일치할 때 --%>
-                			<c:when test="${ current == pageInfo.currentPage }">
-				                <li class="disable"><a>${ current }</a></li>
+                			<c:when test="${ currentPage == pageInfo.currentPage }">
+				                <li class="disable"><a>${ currentPage }</a></li>
                 			</c:when>
                 			<%-- 선택하지 않은 나머지 페이지 
                 			<c:otherwise>
@@ -164,18 +167,20 @@
                 			</c:otherwise>
                 			--%>
                 			<c:otherwise>
-				                <li><a href="${ path }/trip/spot?page=${ current }">${ current }</a></li>                					
+				                <li><a href="${ path }/trip/spot?page=${ currentPage }">${ currentPage }</a></li>                					
                 			</c:otherwise>
                 		</c:choose>
                 	</c:forEach>
                 	
-                    <!-- 다음 페이지 -->
+                    <!-- 다음 페이지 
                 	<c:if test="${ empty searchInfoMap.search }">
 	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }">&gt;</a></li>
                 	</c:if>
                 	<c:if test="${ not empty searchInfoMap.search }">
 	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }&select=${ searchInfoMap.select }&search=${ searchInfoMap.search }">&gt;</a></li>
                 	</c:if>
+                    -->
+	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }">&gt;</a></li>
                 </ul>
             </div>
             <!-- </div> -->

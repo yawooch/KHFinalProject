@@ -26,9 +26,7 @@ public class TripController {
 	// 여행 조회 페이지
 	@GetMapping("/trip/spot")
 	public ModelAndView spot(ModelAndView modelAndView,
-							 @RequestParam(defaultValue = "1") int page,
-							 @RequestParam(defaultValue = "") String select,
-							 @RequestParam(defaultValue = "") String search) {
+							 @RequestParam(defaultValue = "1") int page) {
 		
 		// spot을 List객체(spots)로 담기
 		List<Spot> spots = null;
@@ -62,6 +60,7 @@ public class TripController {
 //		spots = tripService.getSpotList(pageInfo, select, search);
 		spots = tripService.getSpotList(pageInfo);
 		
+		log.info("Page Number : {}", page );
 		log.info(" Spot List : {}", spots);
 		
 //		modelAndView.addObject("searchInfoMap", map);
@@ -75,13 +74,13 @@ public class TripController {
 	// 여행 상세 페이지
 	@GetMapping("/trip/spot/spotDetail")
 	public ModelAndView spotDetail(ModelAndView modelAndView,
-								   @RequestParam int tripContentId) {
+								   @RequestParam int id) {
 		
 		Spot spot = null;
 		
-		log.info("view - {}", tripContentId);
+		log.info("view - {}", id);
 		
-		spot = tripService.getSpotById(tripContentId);
+		spot = tripService.getSpotById(id);
 		
 		modelAndView.addObject("spot", spot);
 		modelAndView.setViewName("trip/spotDetail");
