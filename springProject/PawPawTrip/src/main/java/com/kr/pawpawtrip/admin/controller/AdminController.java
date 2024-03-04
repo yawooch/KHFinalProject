@@ -1,12 +1,10 @@
 package com.kr.pawpawtrip.admin.controller;
 
-import java.lang.reflect.Array;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +28,9 @@ import com.kr.pawpawtrip.common.api.item.DetailCommonItem;
 import com.kr.pawpawtrip.common.api.item.PetTourItem;
 import com.kr.pawpawtrip.common.api.response.DetailCommonResponse;
 import com.kr.pawpawtrip.common.api.response.PetTourResponse;
+import com.kr.pawpawtrip.common.model.service.CommonService;
+import com.kr.pawpawtrip.common.model.vo.Category;
+import com.kr.pawpawtrip.common.model.vo.CommonArea;
 import com.kr.pawpawtrip.trip.model.service.TripService;
 import com.kr.pawpawtrip.trip.model.vo.Comm;
 import com.kr.pawpawtrip.trip.model.vo.PetInfo;
@@ -49,7 +50,9 @@ import lombok.extern.slf4j.Slf4j;
 public class AdminController
 {
     private final CommonApiClient commonApiClient;
-    private final TripService tripService;
+    private final CommonService   commonService;
+    private final TripService     tripService;
+
 
     /** 대시보드 화면 이동 */
     @GetMapping("/admin/dashboard")
@@ -77,11 +80,6 @@ public class AdminController
         int totalResult   = 0;
         Map<String,String> resultMap = new HashMap<String, String>();
         
-        System.out.println("****************************************************************************");
-        System.out.println("****************************** "+ (contentIdsArr) +" ************************************");
-        System.out.println("****************************************************************************");
-        
-        
         //세션에 저장된 petTourInfos로 for문을 돌면서 데이터를 저장한다.
         for (String contentIds : contentIdsArr)
         {
@@ -95,21 +93,9 @@ public class AdminController
             
             String               contentTypeid    = detailCommonItem.getContenttypeid();
 
-
-            System.out.println("****************************************************************************");
-            log.info("commonResponse.getDetailCommonItems() : {}", commonResponse.getDetailCommonItems());
-//            System.out.println("****************************************************************************");
-//            log.info("dbPetInfo.getPetinfoContentid() : {}", dbPetInfo.getPetinfoContentid());
-            System.out.println("****************************************************************************");
-            log.info("dbPetInfo != null : {}", dbPetInfo != null);
-//            
-//            
-//            //DB에 이미 저장된 내용은 건너뛴다
+            //DB에 이미 저장된 내용은 건너뛴다
             if(dbPetInfo != null) 
             {
-                System.out.println("****************************************************************************");
-                System.out.println("****************************** continue ************************************");
-                System.out.println("****************************************************************************");
                 continue;
             }
             
@@ -122,14 +108,6 @@ public class AdminController
 
                 // VO로 save처리를 한다.
                 petTripResult = tripService.saveTrip(spot);
-                if(petTripResult == 1)
-                {
-                    System.out.println("****************************************************************************");
-                    System.out.println("************************ tripService.saveTrip ******************************");
-                    System.out.println("****************************************************************************");
-                }
-                
-                
             }
             else if (contentTypeid.equals("32")) // 숙소- Stay
             {
@@ -139,12 +117,6 @@ public class AdminController
 
                 // VO로 save처리를 한다.
                 petTripResult = tripService.saveStay(stay);
-                if(petTripResult == 1)
-                {
-                    System.out.println("****************************************************************************");
-                    System.out.println("************************ tripService.saveStay ******************************");
-                    System.out.println("****************************************************************************");
-                }
             }
             Comm comm = new Comm();
             // Comm와 DetailCommonItem객체를 매핑한다.
@@ -153,12 +125,6 @@ public class AdminController
             // VO로 save처리를 한다.
             petTripResult += tripService.saveComm(comm);
 
-            if(petTripResult != 0)
-            {
-                System.out.println("****************************************************************************");
-                System.out.println("************************ tripService.saveComm ******************************");
-                System.out.println("****************************************************************************");
-            }
             // VO로 save처리를 한다.
             PetInfo petInfo = new PetInfo();
             // PetInfo와 PetTourItem객체를 매핑한다.
@@ -166,13 +132,6 @@ public class AdminController
 
             petInfoResult = tripService.savePetInfo(petInfo);
 
-            if(petInfoResult == 1)
-            {
-                System.out.println("****************************************************************************");
-                System.out.println("************************ tripService.savePetInfo ******************************");
-                System.out.println("****************************************************************************");
-            }
-            
             //petinfo 와 comm , stay, trip 테이블등이 모두 저장될경우 totalResult를 ++ 해서 반환한다.
             if(petTripResult == 2 && petInfoResult == 1)
             {
@@ -271,6 +230,13 @@ public class AdminController
         DetailCommonItem detailCommonItem   = commonResponse.getDetailCommonItems().get(0);
         PetTourItem petTourReponseItem      = petTourResponse.getPetTourItems().get(0);
 
+        
+
+        Category category = commonService.getAllCategory(detailCommonItem.getCat3());
+        
+        CommonArea commonArea = commonService.getFullAreaName(detailCommonItem.getAreacode() + detailCommonItem.getSigungucode());
+
+        
         log.info("tripDetailAjax petTourInfos : {}", petTourInfos);
         
         log.info("tripDetailAjax detailCommonItem : {}, petTourReponseItem : {}", detailCommonItem, petTourReponseItem);
@@ -288,8 +254,11 @@ public class AdminController
         }
         session.setAttribute("detailCommonItem", detailCommonItem  );
         session.setAttribute("petTourDetail"   , petTourReponseItem);
+        
         resultMap.put("detailCommonItem", detailCommonItem);
         resultMap.put("petTourDetailMap", petTourReponseItem);
+        resultMap.put("category"        , category);
+        resultMap.put("commonArea"      , commonArea);
 
         return ResponseEntity.ok(resultMap);
     }

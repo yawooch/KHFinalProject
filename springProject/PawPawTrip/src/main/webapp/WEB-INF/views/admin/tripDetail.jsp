@@ -14,6 +14,8 @@
 function showDetail(contentId)
 {               
     $('#spinnerLoading').fadeIn();
+    $('#spinnerLoading>div.spinner-border').css('top', '50%');
+    $('#spinnerLoading>div.spinner-border').css('left', '50%');
     $.ajax(
     {
         type : 'GET',
@@ -33,7 +35,7 @@ function showDetail(contentId)
             
             result += '<tr><td>콘텐츠ID</td>';
             result += '    <td class="common-text-left ml-1 no-ellipsis">'+ data.detailCommonItem.contentid +'</td>';
-            result += '    <td>콘텐츠타입ID</td>';
+            result += '    <td>콘텐츠타입</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ contenttypeid[data.detailCommonItem.contenttypeid] +'</td></tr>';
             result += '<tr><td>장소이름</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.title +'</td>';
@@ -57,16 +59,16 @@ function showDetail(contentId)
                 result += '<tr><td>대표이미지 (원본)</td>';
                 result += '    <td colspan="3" class="common-text-left no-ellipsis"><img src="'+ data.detailCommonItem.firstimage +'" style="width:100%;"/></td></tr>';
             }
-            result += '<tr><td>지역코드</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.areacode +'</td>';
-            result += '    <td>시군구코드</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.sigungucode +'</td></tr>';
+            result += '<tr><td>지역</td>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.commonArea.areaName.split(' ')[0] +'</td>';
+            result += '    <td>시군구</td>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.commonArea.areaName.split(' ')[1] +'</td></tr>';
             result += '<tr><td>대분류</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.cat1 +'</td>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.category.bigCateName +'</td>';
             result += '    <td>중분류</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.cat2 +'</td></tr>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.category.midCateName +'</td></tr>';
             result += '<tr><td>소분류</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.cat3 +'</td>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.category.smlCateName +'</td>';
             result += '    <td>저작권 유형</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ (data.detailCommonItem.cpyrhtDivCd==''?'':cpyrhtDivCd[data.detailCommonItem.cpyrhtDivCd]) +'</td></tr>';
             result += '<tr><td>주소</td>';
@@ -192,7 +194,7 @@ $(document).ready(() => {
         <div class="common-list">
             <div class="common-detail-list no-margin-top" style="position:relative;">
                 <div id="spinnerLoading" style="display:block;position:absolute;width:100%;height:100%;background-color:rgb(0 0 0 / 65%);">
-                    <div class="spinner-border text-warning" style="width: 100px; height: 100px; border: 16px solid currentcolor; border-right-color: transparent;"></div>
+                    <div class="spinner-border text-warning" style="position: absolute;width: 100px; height: 100px; border: 16px solid currentcolor; border-right-color: transparent;margin-left: -50px; margin-top: -50px;"></div>
                 </div>
                 <table class="common-col-table" style="width: 100%;">
                     <tbody id="detailBody">

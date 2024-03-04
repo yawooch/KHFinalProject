@@ -20,7 +20,6 @@ function showList(pageNo, contentId)
 {               
     let data = {};
     contentIdsArr = [];
-    console.log('contentId : '+ contentId);
     
     if(contentId ==''){
         data = {pageNo};
@@ -40,8 +39,7 @@ function showList(pageNo, contentId)
         data : data,
         success:function(data)
         {
-            console.log(data);
-//          console.log(sessionStorage.getItem('dbPetTours'));
+//             console.log(data);
             let result = '';
             let startRowNo = 0;
             let {pageNo, numOfRows, totalCount, petTourItems} = data;
@@ -75,8 +73,6 @@ function showList(pageNo, contentId)
             $('.common-detail-list>table>tbody').append(result);
             $('.common-search>div:nth-child(1)>span').text(totalCount)
             
-            console.log(contentIdsArr);
-            
             showPaging(pageNo , numOfRows, totalCount, pagingNum,clickPaging);
             $('#spinnerLoading').fadeOut();
         },
@@ -103,15 +99,14 @@ function saveList()
 		return false;
 	}
     $('#spinnerLoading').fadeIn();
-    $('#spinnerLoading>div.spinner-border').css('top', '50%');
+    $('#spinnerLoading>div.spinner-border').css('top' , '50%');
     $('#spinnerLoading>div.spinner-border').css('left', '50%');
     $.ajax(
     {
-        type : 'POST',
-        url  : '${path}/admin/tripList',
-        data : {contentIdsArr : contentIdsArr},
-//         async : false,// 동기화처리
-        success:function(data)
+        type    : 'POST',
+        url     : '${path}/admin/tripList',
+        data    : {contentIdsArr : contentIdsArr},
+        success : (data)=>
         {
             console.log(data);
             if(data.totalResult == '0')
@@ -122,7 +117,7 @@ function saveList()
             {
                 alert('일괄등록이 성공 하였습니다.');
             }
-//             $('#spinnerLoading').fadeOut();
+            $('#spinnerLoading').fadeOut();
             showList(1, $('#contentId').val());
         },
         error: function(error){
