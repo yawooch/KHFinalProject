@@ -12,6 +12,13 @@
 
 <link rel="stylesheet" href="${path}/css/community/mypetdetail.css">
 
+<style>
+	#fileDown {
+		font-size: 16px;
+		cursor: pointer;
+	}
+</style>
+
 <div class="content">
 	<div class="container">
 		<div class="common-title">
@@ -50,20 +57,46 @@
 					</tr>
 					<tr>
 						<td colspan="6" class="community-td-content" style="text-align: left;">
+							<p><img src="${ path }/resources/upload/community/${ community.communityRfileName }" alt="이미지가 없는데?"></p>
 							${ community.communityContent }
 						</td>
 					</tr>
 					<tr>
 						<td style="background-color: #FDFAEF;">첨부파일</td>
-						<td colspan="5" style="text-align: left;">${ community.communityOfileName }</td>
+						<c:if test="${ empty community.communityOfileName }">
+							<span> - </span>
+						</c:if>
+						<c:if test="${ not empty community.communityOfileName }">
+						<td colspan="5" style="text-align: left;">
+							<a id="fileDown">${ community.communityOfileName }</a>
+						</td>
+						</c:if>
 					</tr>
 				</table>
 			</div>
-			<div class="btn-wrap"">
+			<div class="btn-wrap">
 				<button class="community-btn" onclick="location.href='${ path }/community/board/mypet'">목록</button>
 			</div>
 		</div>
 	</div>
 </div>
 
+<script>
+
+	$(document).ready(() => {
+		$('#fileDown').on('click', () => {
+			let oname = encodeURIComponent('${ community.communityOfileName }');
+			let rname = encodeURIComponent('${ community.communityRfileName }');
+			
+			console.log(oname);
+			console.log(rname);
+			
+			location.assign(`${ path }/community/board/fileDown?oname=\${oname}&rname=\${rname}`);
+			
+		});
+		
+	});
+	
+</script>
+			
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

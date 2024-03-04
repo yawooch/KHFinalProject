@@ -1,14 +1,22 @@
 package com.kr.pawpawtrip.community.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -236,17 +244,21 @@ public class CommunityController {
 		result = communityService.save(community);
 		
 		if(result > 0) {
-			modelAndView.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
 			
 			if(community.getCommunityCategory().equals("분류")) {
+				System.out.println("분류 카테고리 : " + community.getCommunityCategory());
 				modelAndView.addObject("msg", "카테고리를 선택해주세요.");
 				modelAndView.addObject("location", "/community/boardwrite");
 			} else {
-				if(community.getCommunityCategory().equals("수다")) {
+				if(community.getCommunityCategory().equals("[수다]")) {
+					System.out.println("수다 카테고리 : " + community.getCommunityCategory());
 					// 수다 상세페이지로 이동해야 하지만 임시방편으로 "자유게시판>수다" 이동
+					modelAndView.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
 					modelAndView.addObject("location", "/community/board/talk");
-				} else if(community.getCommunityCategory().equals("마이펫 자랑")) {
+				} else if(community.getCommunityCategory().equals("[마이펫 자랑]")) {
+					System.out.println("마이펫 카테고리 : " + community.getCommunityCategory());
 					// 마이펫 자랑 상세페이지로 이동해야 하지만 임시방편으로 "자유게시판>마이펫 자랑" 이동
+					modelAndView.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
 					modelAndView.addObject("location", "/community/board/mypet");
 				}
 			}
@@ -259,7 +271,46 @@ public class CommunityController {
 	}
 	
 //	파일 다운로드
-	
+	@GetMapping("/community/board/fileDown")
+	public ResponseEntity<Resource> fileDown(
+			@RequestParam("oname") String oname, 
+			@RequestParam("rname") String rname,
+			@RequestHeader("user-agent") String userAgent) {
+		// userAgent: 브라우저별 인코딩 처리하기 위한 매개변수
+
+		Resource resource = null;
+		String downName = null;
+		
+		System.out.println("oname : " + oname);
+		System.out.println("rname : " + rname);
+
+		try {
+			// 1. 클라이언트로 전송할 파일을 가져온다.
+			resource = resourceLoader.getResource("resources/upload/community/" + rname);
+
+			// 2. 브라우저별 인코딩
+			boolean isMISE = userAgent.indexOf("MSIE") != -1 || userAgent.indexOf("Trident") != -1;
+
+			if (isMISE) {
+				downName = URLEncoder.encode(oname, "UTF-8").replaceAll("\\+", "%20");
+
+			} else {
+				downName = new String(oname.getBytes("UTF-8"), "ISO-8859-1");
+			}
+
+			// 3. 응답 메세지 작성 & 클라이언트로 출력(전송)
+			return ResponseEntity.ok()
+					.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE)
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + downName)
+					.body(resource);
+
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 에러가 발생하면 500에러(내부 서버 에러) 응답
+		}
+
+	}
 	
 //	공지사항 상세
 	@GetMapping("community/noticedetail")

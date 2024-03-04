@@ -55,7 +55,7 @@
 						<tr>
 							<td class="community-td-header">작성자</td>
 							<td class="community-td-name">
-								<input type="text" name="memberId" id="comunityName" value="ywlee0000" readonly />
+								<input type="text" name="memberId" id="comunityName" value="lee0101" readonly />
 							</td>
 						</tr>
 						<tr>
