@@ -15,20 +15,23 @@ function clickPaging(){
     showList(($(this).attr('pageno')*1), $('#contentId').val());
 };
 
+let contentIdsArr = [];
 function showList(pageNo, contentId)
 {               
-	let data = {};
-	
-	console.log('contentId : '+ contentId);
-	
-	if(contentId ==''){
-		data = {pageNo};
-	}
-	else
-	{
-		data = {pageNo, contentId};
-	}
+    let data = {};
+    contentIdsArr = [];
+    console.log('contentId : '+ contentId);
+    
+    if(contentId ==''){
+        data = {pageNo};
+    }
+    else
+    {
+        data = {pageNo, contentId};
+    }
     $('#spinnerLoading').fadeIn();
+    $('#spinnerLoading>div.spinner-border').css('top', '50%');
+    $('#spinnerLoading>div.spinner-border').css('left', '50%');
     let pagingNum = 5;
     $.ajax(
     {
@@ -37,8 +40,8 @@ function showList(pageNo, contentId)
         data : data,
         success:function(data)
         {
-        	console.log(data);
-//         	console.log(sessionStorage.getItem('dbPetTours'));
+            console.log(data);
+//          console.log(sessionStorage.getItem('dbPetTours'));
             let result = '';
             let startRowNo = 0;
             let {pageNo, numOfRows, totalCount, petTourItems} = data;
@@ -55,6 +58,7 @@ function showList(pageNo, contentId)
             }
             else{
                 petTourItems.forEach((element, idx) => {
+                	contentIdsArr.push(element.contentid);
                     result += '<tr>';
                     result += '     <td>' + (startRowNo - idx) + '</td>';//DESC 용
 //                  result += '     <td>' + (startRowNo + idx) + '</td>';//ASC  용
@@ -70,6 +74,8 @@ function showList(pageNo, contentId)
             $('.common-detail-list>table>tbody').empty();
             $('.common-detail-list>table>tbody').append(result);
             $('.common-search>div:nth-child(1)>span').text(totalCount)
+            
+            console.log(contentIdsArr);
             
             showPaging(pageNo , numOfRows, totalCount, pagingNum,clickPaging);
             $('#spinnerLoading').fadeOut();
@@ -87,8 +93,46 @@ function showList(pageNo, contentId)
             $('.common-detail-list>table>tbody').append(result);
             $('#spinnerLoading').fadeOut();
         }
-       });
-    };
+     });
+ };
+
+function saveList()
+{
+	if(!confirm('해당 페이지를 일괄 등록 하시겠습니까?'))
+	{
+		return false;
+	}
+    $('#spinnerLoading').fadeIn();
+    $('#spinnerLoading>div.spinner-border').css('top', '50%');
+    $('#spinnerLoading>div.spinner-border').css('left', '50%');
+    $.ajax(
+    {
+        type : 'POST',
+        url  : '${path}/admin/tripList',
+        data : {contentIdsArr : contentIdsArr},
+//         async : false,// 동기화처리
+        success:function(data)
+        {
+            console.log(data);
+            if(data.totalResult == '0')
+            {
+                alert('일괄등록이 실패 하였습니다.');
+            }
+            else
+            {
+                alert('일괄등록이 성공 하였습니다.');
+            }
+//             $('#spinnerLoading').fadeOut();
+            showList(1, $('#contentId').val());
+        },
+        error: function(error){
+            console.log(`error : ${error}`);
+
+            alert('일괄등록이 실패 하였습니다.');
+            $('#spinnerLoading').fadeOut();
+        }
+    });
+};
 $(document).ready(() => {
     //리스트를 먼저 보여준다.
     showList(1, $('#contentId').val());
@@ -130,8 +174,8 @@ $(document).ready(() => {
                 </div>
             </div>
             <div class="common-detail-list" style="position:relative;">
-                <div id="spinnerLoading" style="display:none;position:absolute;width:100%;height:100%;background-color:rgb(0 0 0 / 65%);">
-                    <div class="spinner-border text-warning" style="width: 100px; height: 100px; border: 16px solid currentcolor; border-right-color: transparent;"></div>
+                <div id="spinnerLoading" style="display:block;position:absolute;width:100%;height:100%;background-color:rgb(0 0 0 / 65%);">
+                    <div class="spinner-border text-warning" style="position: absolute;width: 100px; height: 100px; border: 16px solid currentcolor; border-right-color: transparent;margin-left: -50px; margin-top: -50px;"></div>
                 </div>
                 <table>
                     <colgroup>
@@ -145,7 +189,7 @@ $(document).ready(() => {
                         <th>번호</th>
                         <th>콘텐츠 ID</tH>
                         <th>매핑여부</th>
-                        <th>여행/숙박 구분</th>
+                        <th>동반가능여부</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -209,7 +253,7 @@ $(document).ready(() => {
                 </table>
             </div>
             <div class="btn-wrap">
-                <button class="common-btn" onClick="alert('구현 안했지롱~~');">일괄등록</button>
+                <button class="common-btn" onClick="saveList();">일괄등록</button>
             </div>
             
             <div class="common-page-number">

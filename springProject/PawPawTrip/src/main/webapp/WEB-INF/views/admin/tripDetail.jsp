@@ -22,11 +22,11 @@ function showDetail(contentId)
         {
             contentId
         },
-        success:function(data)
+        success:(data)=>
         {
-            let result = '';
+            let result        = '';
             let contenttypeid = {'12':'관광지', '14':'문화시설', '15':'축제공연행사', '25':'여행코스', '28':'레포츠', '32':'숙박', '38':'쇼핑', '39':'음식점'};
-            let cpyrhtDivCd = {'Type1':'제1유형(출처표시-권장)', 'Type3':'제3유형(제1유형+변경금지)'};
+            let cpyrhtDivCd   = {'Type1':'제1유형(출처표시-권장)', 'Type3':'제3유형(제1유형+변경금지)'};
             
             console.log(data);
             $('#spinnerLoading').fadeOut();
@@ -38,7 +38,7 @@ function showDetail(contentId)
             result += '<tr><td>장소이름</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.title +'</td>';
             result += '    <td>DB 등록여부</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.petTourItem.dbExistYn +'</td></tr>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.petTourDetailMap.dbExistYn +'</td></tr>';
             result += '<tr><td>수정일</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ (data.detailCommonItem.modifiedtime).replaceAll(/(20[0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})([0-9]{2})/gi, '$1-$2-$3 $4:$5:$6') +'</td>';
             result += '    <td>등록일</td>';
@@ -88,61 +88,62 @@ function showDetail(contentId)
             result += '<tr><td>개요설명</td>';
             result += '    <td  colspan="3" class="common-text-left no-ellipsis">'+ data.detailCommonItem.overview +'</td></tr>';
             result += '<tr><td colspan="10" class="no-ellipsis">반려견 동반 정보</td></tr>';
-            if(data.petTourItem.petTursmInfo != '')
+            if(data.petTourDetailMap.petTursmInfo != '')
             {
                 result += '<tr><td>반려견관광정보</td>';
-                result += '    <td colspan="3" class="common-text-left no-ellipsis">'+ data.petTourItem.petTursmInfo +'</td></tr>';
+                result += '    <td colspan="3" class="common-text-left no-ellipsis">'+ data.petTourDetailMap.petTursmInfo +'</td></tr>';
             }
-            if(data.petTourItem.relaAcdntRiskMtr != '')
+            if(data.petTourDetailMap.relaAcdntRiskMtr != '')
             {
                 result += '<tr><td>관련사고대비사항</td>';
-                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourItem.relaAcdntRiskMtr +'</td></tr>';
+                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourDetailMap.relaAcdntRiskMtr +'</td></tr>';
             }
-            if(data.petTourItem.acmpyTypeCd != '')
+            if(data.petTourDetailMap.acmpyTypeCd != '')
             {
                 result += '<tr><td>동반구분</td>';
-                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourItem.acmpyTypeCd +'</td></tr>';
+                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourDetailMap.acmpyTypeCd +'</td></tr>';
             }
-            if(data.petTourItem.relaPosesFclty != '')
+            if(data.petTourDetailMap.relaPosesFclty != '')
             {
                 result += '<tr><td>관련구비시설</td>';
-                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourItem.relaPosesFclty +'</td></tr>';
+                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourDetailMap.relaPosesFclty +'</td></tr>';
             }
-            if(data.petTourItem.acmpyPsblCpam != '')
+            if(data.petTourDetailMap.acmpyPsblCpam != '')
             {
                 result += '<tr><td>동반가능동물</td>';
-                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourItem.acmpyPsblCpam +'</td></tr>';
+                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourDetailMap.acmpyPsblCpam +'</td></tr>';
             }
-            if(data.petTourItem.relaFrnshPrdlst != '')
+            if(data.petTourDetailMap.relaFrnshPrdlst != '')
             {
                 result += '<tr><td>관련비치품목</td>';
-                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourItem.relaFrnshPrdlst +'</td></tr>';
+                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourDetailMap.relaFrnshPrdlst +'</td></tr>';
             }
-            if(data.petTourItem.etcAcmpyInfo != '')
+            if(data.petTourDetailMap.etcAcmpyInfo != '')
             {
                 result += '<tr><td>기타동반정보</td>';
-                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourItem.etcAcmpyInfo +'</td></tr>';
+                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourDetailMap.etcAcmpyInfo +'</td></tr>';
             }
-            if(data.petTourItem.relaPurcPrdlst != '')
+            if(data.petTourDetailMap.relaPurcPrdlst != '')
             {
                 result += '<tr><td>관련구매품목</td>';
-                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourItem.relaPurcPrdlst +'</td></tr>';
+                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourDetailMap.relaPurcPrdlst +'</td></tr>';
             }
-            if(data.petTourItem.relaRntlPrdlst != '')
+            if(data.petTourDetailMap.relaRntlPrdlst != '')
             {
                 result += '<tr><td>관련렌탈품목</td>';
-                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourItem.relaRntlPrdlst +'</td></tr>';
+                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourDetailMap.relaRntlPrdlst +'</td></tr>';
             }
-            if(data.petTourItem.acmpyNeedMtr != '')
+            if(data.petTourDetailMap.acmpyNeedMtr != '')
             {
                 result += '<tr><td>동반시필요사항</td>';
-                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourItem.acmpyNeedMtr +'</td></tr>';
+                result += '    <td colspan="3"  class="common-text-left no-ellipsis">'+ data.petTourDetailMap.acmpyNeedMtr +'</td></tr>';
             }
 
             $('#detailBody').empty();
             $('#detailBody').append(result);
         },
-        error: function(error){
+        error: (error)=>
+        {
             console.log(`error : ${error}`);
             $('#spinnerLoading').fadeOut();
 
@@ -152,8 +153,8 @@ function showDetail(contentId)
             $('#detailBody').empty();
             $('#detailBody').append(result);
         }
-       });
-    };
+    });
+};
 $(document).ready(() => {
     //상세를 먼저 보여준다.
     showDetail($('#contentId').val());

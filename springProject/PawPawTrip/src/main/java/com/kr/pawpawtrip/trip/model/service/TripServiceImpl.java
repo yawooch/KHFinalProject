@@ -60,12 +60,6 @@ public class TripServiceImpl implements TripService {
     {
         int result = 0;
         
-//        if (trip.getTripContentId() > 0) {
-//            // update
-//            result = petInfo.updateBoard(petInfo);
-//        } else {
-//            // insert
-//        }
         result = tripMapper.insertTrip(trip);
         
         return result;
@@ -78,12 +72,6 @@ public class TripServiceImpl implements TripService {
     {
         int result = 0;
         
-//        if (stay.getStayContentId() > 0) {
-//            // update
-//            result = petInfo.updateBoard(petInfo);
-//        } else {
-//            // insert
-//        }
         result = tripMapper.insertStay(stay);
         
         return result;
@@ -95,24 +83,21 @@ public class TripServiceImpl implements TripService {
     {
         int result = 0;
         
-//      if (stay.getStayContentId() > 0) {
-//          // update
-//          result = petInfo.updateBoard(petInfo);
-//      } else {
-//          // insert
-//      }
-      result = tripMapper.insertComm(comm);
+        result = tripMapper.insertComm(comm);
       
-      return result;
+        return result;
     }
     
     
     @Override
-    public List<PetInfo> getPetTourListByContentId(List<Integer> contentIdList)
+    public List<PetInfo> getPetTourListByContentIds(List<Integer> contentIdList)
     {
-        return tripMapper.selectPetInfoByContentId(contentIdList);
+        return tripMapper.selectPetInfoByContentIds(contentIdList);
     }
-
-
-
+    
+    @Override
+    public PetInfo getPetTourByContentId(int contentId)
+    {
+        return tripMapper.selectPetInfoByContentId(contentId);
+    }
 }

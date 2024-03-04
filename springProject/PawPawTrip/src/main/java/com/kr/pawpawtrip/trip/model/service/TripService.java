@@ -27,7 +27,7 @@ public interface TripService {
 
     int saveComm(Comm comm);
 
-    List<PetInfo> getPetTourListByContentId(List<Integer> contentIdList);
-
-
+    List<PetInfo> getPetTourListByContentIds(List<Integer> contentIdList);
+    
+    PetInfo getPetTourByContentId(int contentId);
 }
