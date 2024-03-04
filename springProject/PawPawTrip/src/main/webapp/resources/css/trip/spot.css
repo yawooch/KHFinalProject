@@ -40,9 +40,10 @@
 }
 
 /* 속소이름 */
-.text-center mb-4 {
+.card-body:nth-child(1) {
     font-weight: bold;
     font-size: 20px !important;
+    height: 54px !important;
 }
 
 .text-start mb-2 {

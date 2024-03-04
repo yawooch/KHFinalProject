@@ -2,6 +2,7 @@ package com.kr.pawpawtrip.trip.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,19 +23,31 @@ public class TripServiceImpl implements TripService {
 	
 	// 여행지 전체 게시물 수 조회
 	@Override
-	public int getSpotCount(String select, String search) {
+//	public int getSpotCount(String select, String search) {
+	public int getSpotCount() {
 		
-		return 0;
+		return tripMapper.selectSpotCount();
 	}
 	
 	
 	// 여행지 전체 조회(선택/검색 기능 포함)
 	@Override
-	public List<Spot> getSpotList(PageInfo pageInfo, String select, String search) {
+//	public List<Spot> getSpotList(PageInfo pageInfo, String select, String search) {
+	public List<Spot> getSpotList(PageInfo pageInfo) {
 		
-		return tripMapper.selectSpotList();
+		int limit = pageInfo.getListLimit();
+		int offset = (pageInfo.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return tripMapper.selectSpotList(rowBounds);
 	}
 	
+	// 여행지 상세 조회
+	@Override
+	public Spot getSpotById(int tripContentId) {
+		
+		return null;
+	}
 	
     @Override
     @Transactional
@@ -112,6 +125,9 @@ public class TripServiceImpl implements TripService {
     {
         return tripMapper.selectPetInfoByContentId(contentIdList);
     }
+
+
+
 
 
 

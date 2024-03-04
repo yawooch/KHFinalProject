@@ -23,8 +23,6 @@ import lombok.extern.slf4j.Slf4j;
 public class TripController {
 	private final TripService tripService;
 	
-	private final ResourceLoader resourceLoader;
-	
 	// 여행 조회 페이지
 	@GetMapping("/trip/spot")
 	public ModelAndView spot(ModelAndView modelAndView,
@@ -49,21 +47,24 @@ public class TripController {
 		int listCount = 0;
 		
 		// 검색할 때 전달되는 파라미터를 Hashmap객체에 담기 
-		Map<String, String> map = new HashMap<String, String>();
+//		Map<String, String> map = new HashMap<String, String>();
 		
-		map.put("select", select);	// 지역 선택
-		map.put("search", search);	// 검색 기능
+//		map.put("select", select);	// 지역 선택
+//		map.put("search", search);	// 검색 기능
 		
 		// select(지역선택)와 search(검색)를 매개변수로 하여 여행지 게시물 수 조회
-		listCount = tripService.getSpotCount(select, search);
+//		listCount = tripService.getSpotCount(select, search);
+		listCount = tripService.getSpotCount();
+		
 		pageInfo = new PageInfo(page, 5, listCount, 9);
 		
 		// 여행지 리스트 조회
-		spots = tripService.getSpotList(pageInfo, select, search);
+//		spots = tripService.getSpotList(pageInfo, select, search);
+		spots = tripService.getSpotList(pageInfo);
 		
 		log.info(" Spot List : {}", spots);
 		
-		modelAndView.addObject("searchInfoMap", map);
+//		modelAndView.addObject("searchInfoMap", map);
 		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("spots", spots);
 		modelAndView.setViewName("trip/spot");	// 이동할 view
@@ -73,9 +74,19 @@ public class TripController {
 	
 	// 여행 상세 페이지
 	@GetMapping("/trip/spot/spotDetail")
-	public String spotDetail() {
+	public ModelAndView spotDetail(ModelAndView modelAndView,
+								   @RequestParam int tripContentId) {
 		
-		return "trip/spotDetail";
+		Spot spot = null;
+		
+		log.info("view - {}", tripContentId);
+		
+		spot = tripService.getSpotById(tripContentId);
+		
+		modelAndView.addObject("spot", spot);
+		modelAndView.setViewName("trip/spotDetail");
+		
+		return modelAndView;
 	}
 	
 	// --------------------------------------------------------------------------------------------

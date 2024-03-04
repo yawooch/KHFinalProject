@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.session.RowBounds;
 
 import com.kr.pawpawtrip.trip.model.vo.Comm;
 import com.kr.pawpawtrip.trip.model.vo.PetInfo;
@@ -13,8 +14,10 @@ import com.kr.pawpawtrip.trip.model.vo.Stay;
 @Mapper
 public interface TripMapper {
 	
+	int selectSpotCount();
+	
 	// 여행지 전제 조회
-	List<Spot> selectSpotList();
+	List<Spot> selectSpotList(RowBounds rowBounds);
 	
 	// 동물동반 정보 insert
     int insertPetInfo(PetInfo petInfo);

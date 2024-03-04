@@ -13,6 +13,13 @@
 <link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
 <link rel="stylesheet" href="${path}/css/trip/spot.css">
 
+<style>
+	.disable {
+		pointer-events: none;
+		background-color: #B29254;
+		color: white;
+	}
+</style>
 
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
@@ -38,42 +45,41 @@
             <div class="common-search">
             	<!-- 조회된 게시물 건 수 -->
 				<div>
-					TOTAL <span>26</span>건
+					TOTAL <span>${ pageInfo.listCount }</span>건
 				</div>
 				<div>
 					<!-- 지역 선택 -->
 					<div>
-						<select name="communitySelect" id="communitySelect">
-							<option value="title" selected>지역</option>
+						<select name="tripSelect" id="tripSelect">
+							<option value="allArea" selected>지역</option>
 	                        <!-- areaCode -->
-	                        <option value="area-1">서울특별시</option>
-	                        <option value="area-2">인천광역시</option>
-	                        <option value="area-3">대전광역시</option>
-	                        <option value="area-4">대구광역시</option>
-	                        <option value="area-5">광주광역시</option>
-	                        <option value="area-6">부산광역시</option>
-	                        <option value="area-7">울산광역시</option>
-	                        <option value="area-8">세종특별자치시</option>
-	                        <option value="area-31">경기도</option>
-	                        <option value="area-32">강원특별자치도</option>
-	                        <option value="area-33">충청북도</option>
-	                        <option value="area-34">충청남도</option>
-	                        <option value="area-35">경상북도</option>
-	                        <option value="area-36">경상남도</option>
-	                        <option value="area-37">전북특별자치도</option>
-	                        <option value="area-38">전라남도</option>
-	                        <option value="area-39">제주특별자치도</option>
+	                        <option value="1">서울특별시</option>
+	                        <option value="2">인천광역시</option>
+	                        <option value="3">대전광역시</option>
+	                        <option value="4">대구광역시</option>
+	                        <option value="5">광주광역시</option>
+	                        <option value="6">부산광역시</option>
+	                        <option value="7">울산광역시</option>
+	                        <option value="8">세종특별자치시</option>
+	                        <option value="31">경기도</option>
+	                        <option value="32">강원특별자치도</option>
+	                        <option value="33">충청북도</option>
+	                        <option value="34">충청남도</option>
+	                        <option value="35">경상북도</option>
+	                        <option value="36">경상남도</option>
+	                        <option value="37">전북특별자치도</option>
+	                        <option value="38">전라남도</option>
+	                        <option value="39">제주특별자치도</option>
 						</select>
 					</div>
 					<!-- 검색어 입력 -->
 					<div>
 						<img src="${ path }/img/community/search.png"> 
-						<input type="text"
-							   name="communitySearch" id="communitySearch"
-							   placeholder="검색어를 입력해주세요.">
+						<input type="text" name="tripSearch" id="tripSearch" placeholder="검색어를 입력해주세요.">
 					</div>
 					<div>
-						<button>검색</button>
+						<!-- 검색버튼 클릭 시, search()함수 실행 -->
+						<button onclick=search()>검색</button>
 					</div>
 				</div>
 			</div>
@@ -89,8 +95,12 @@
 	                            <!-- 카드 이미지 -->
 	                            <div class="card mb-4 product-wap rounded-0">
 	                                <div class="card rounded-0">
-	                                    <img class="card-img rounded-0 img-fluid" 
-	                                    	 src="${ spot.tripImage }">
+	                                	<c:if test="${ empty spot.tripImage }">	                                		
+		                                    <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">
+	                                	</c:if>
+	                                	<c:if test="${ not empty spot.tripImage }">
+		                                    <img class="card-img rounded-0 img-fluid" src="${ spot.tripImage }">
+	                                	</c:if>
 	                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
 	                                        <p class="readMore" style="font-size: 14px !important;">
 	                                            +<br>
@@ -100,15 +110,22 @@
 	                                </div>
 	                                <!-- 카드 내용 -->
 	                                <div class="card-body">
-	                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
+	                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">
 	                                        ${ spot.tripTitle }
 	                                    </p>
 	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
 	                                        ${ spot.tripAddress }
 	                                    </p>
-	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-	                                        ${ spot.tripTel }
-	                                    </p>
+	                                    <c:if test="${ empty spot.tripTel }">
+		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+		                                        해당 장소로 별도 문의
+		                                    </p>	                                    	
+	                                    </c:if>
+	                                    <c:if test="${ not empty spot.tripTel }">
+		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+		                                        ${ spot.tripTel }
+		                                    </p>
+	                                    </c:if>
 	                                </div>
 	                            </div>
 	                        </a>
@@ -120,13 +137,45 @@
             <!-- 페이징 -->
             <div class="common-page-number">
                 <ul>
-                    <li><a href="#"><</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">></a></li>
+                	<!-- 이전 페이지 --> 
+                	<c:if test="${ empty searchInfoMap.search }">
+	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.prevPage }">&lt;</a></li>
+                	</c:if>
+                	<c:if test="${ not empty searchInfoMap.search }">
+	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.prevPage }&select=${ searchInfoMap.select }&search=${ searchInfoMap.search }">&lt;</a></li>
+                	</c:if>
+	                    
+                	<!-- 현재 페이지 -->
+                	<!-- 첫 페이지부터 마지막페이지까지 반복(5페이지씩 보이게 설정함) -->
+                	<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
+                		<c:choose>
+                			<%-- 선택한 페이지와 pageInfo의 currentPage가 일치할 때 --%>
+                			<c:when test="${ current == pageInfo.currentPage }">
+				                <li class="disable"><a>${ current }</a></li>
+                			</c:when>
+                			<%-- 선택하지 않은 나머지 페이지 
+                			<c:otherwise>
+                				<c:if test="${ empty searchInfoMap.search }">
+				                    <li><a href="${ path }/trip/spot?page=${ current }">${ current }</a></li>                					
+                				</c:if>
+                				<c:if test="${ not empty searchInfoMap.search }">
+				                    <li><a href="${ path }/trip/spot?page=${ current }&select=${ searchInfoMap.select }&search=${ searchInfoMap.search }">${ current }</a></li>                					                					
+                				</c:if>
+                			</c:otherwise>
+                			--%>
+                			<c:otherwise>
+				                <li><a href="${ path }/trip/spot?page=${ current }">${ current }</a></li>                					
+                			</c:otherwise>
+                		</c:choose>
+                	</c:forEach>
+                	
+                    <!-- 다음 페이지 -->
+                	<c:if test="${ empty searchInfoMap.search }">
+	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }">&gt;</a></li>
+                	</c:if>
+                	<c:if test="${ not empty searchInfoMap.search }">
+	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }&select=${ searchInfoMap.select }&search=${ searchInfoMap.search }">&gt;</a></li>
+                	</c:if>
                 </ul>
             </div>
             <!-- </div> -->
@@ -134,6 +183,20 @@
     </div>
 </section>
 
+<script>
+	// 검색바의 '검색버튼' 클릭시 실행할 함수
+	function search() {
+		var selectValue = document.getElementId("tripSelect").value;
+		var searchValue = document.getElementId("tripSearch").value;
+		
+		// trim() : 양쪽에 있는 공백을 제거
+		if (searchValue.trim() != '') {
+			
+		} else {
+			var url = "${path}/trip/spot";
+		}
+	}
+</script>
 
 <!-- 푸터 -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

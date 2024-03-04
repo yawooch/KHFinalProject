@@ -7,6 +7,31 @@
 <mapper namespace="com.kr.pawpawtrip.trip.model.mapper.TripMapper">
     <!-- 여행 SQL 구문 -->
     <sql id="spotListSql">
+		SELECT TRIP_CONTENTID
+		     , TRIP_ADDRESS || TRIP_DETAIL_ADDRESS AS TRIP_ADDRESS
+		     , TRIP_TITLE
+		     , (SELECT S.AREA_NAME FROM AREA S WHERE S.AREA_CODE = AREACODE AND S.SIGUNGU_CODE = 0) AS AREACODE
+		     , (SELECT S.AREA_NAME FROM AREA S WHERE S.AREA_CODE = AREACODE AND S.SIGUNGU_CODE = SIGUNGUCODE) AS SIGUNGUCODE
+		     , (SELECT S.BIG_CATE_NAME FROM BIGCATEGORY S WHERE S.BIG_CATE_CODE = TRIP_CATEGORY1 )AS TRIP_CATEGORY1
+		     , (SELECT S.MID_CATE_NAME FROM MIDCATEGORY S WHERE S.MID_CATE_CODE = TRIP_CATEGORY2 )AS TRIP_CATEGORY2
+		     , (SELECT S.SML_CATE_NAME FROM SMLCATEGORY S WHERE S.SML_CATE_CODE = TRIP_CATEGORY3 )AS TRIP_CATEGORY3
+		     , CASE TRIP_CONTENTTYPEID WHEN 12 THEN '관광지'
+		                               WHEN 14 THEN '문화시설'
+		                               WHEN 15 THEN '축제공연행사'
+		                               WHEN 25 THEN '여행코스'
+		                               WHEN 28 THEN '레포츠'
+		                               WHEN 32 THEN '숙박'
+		                               WHEN 38 THEN '쇼핑'
+		                               WHEN 39 THEN '음식점'
+		        END AS TRIP_CONTENTTYPEID
+		     , NVL(TRIP_IMAGE, '-') AS TRIP_IMAGE
+		     , NVL(TRIP_TEL, '-') AS TRIP_TEL
+		     , HOMEPAGE
+		     , OVERVIEW
+		FROM TRIP
+		<!-- WHERE AREACODE = 32 -->
+		
+		<!--  
         SELECT TRIP_CONTENTID,
                TRIP_ADDRESS,
                TRIP_TITLE,
@@ -26,6 +51,7 @@
                HOMEPAGE,
                OVERVIEW
           FROM TRIP
+		-->
     </sql>
 
     <!-- 숙소 SQL 구문 -->
@@ -75,21 +101,15 @@
         <!-- 기본키 -->
         <id     property="tripContentId"     column="TRIP_CONTENTID"     />
         <result property="tripAddress"       column="TRIP_ADDRESS"       />
-        <result property="tripDetailAddress" column="TRIP_DETAIL_ADDRESS"/>
         <result property="tripTitle"         column="TRIP_TITLE"         />
         <result property="areaCode"          column="AREACODE"           />
+        <result property="sigunguCode"       column="SIGUNGUCODE"        />
         <result property="tripCategory1"     column="TRIP_CATEGORY1"     />
         <result property="tripCategory2"     column="TRIP_CATEGORY2"     />
         <result property="tripCategory3"     column="TRIP_CATEGORY3"     />
         <result property="tripContentTypeId" column="TRIP_CONTENTTYPEID" />
-        <result property="tripCreateTime"    column="TRIP_CREATETIME"    />
-        <result property="tripModifyTime"    column="TRIP_MODIFYTIME"    />
         <result property="tripImage"         column="TRIP_IMAGE"         />
-        <result property="mapX"              column="MAPX"               />
-        <result property="mapY"              column="MAPY"               />
-        <result property="mapLevel"          column="MAPLEVEL"           />
         <result property="tripTel"           column="TRIP_TEL"           />
-        <result property="sigunguCode"       column="SIGUNGUCODE"        />
         <result property="homepage"          column="HOMEPAGE"           />
         <result property="overview"          column="OVERVIEW"           />
     </resultMap>
@@ -156,8 +176,13 @@
         <result property="etcAcmpyInfo"      column="ETC_ACMPY_INFO"   />
         <result property="acmpyNeedMtr"      column="ACMPY_NEED_MTR"   />
     </resultMap>
-
-    <!-- 여행지 전체 조회 -->
+	
+	<!-- 여행지 게시물 수 조회 -->
+	<select id="selectSpotCount" resultType="_int">
+		SELECT COUNT(*) FROM TRIP
+	</select>
+	
+    <!-- 여행지 목록 전체 조회 -->
     <select id="selectSpotList" resultMap="spotListResultMap">
         <include refid="spotListSql"/>
         ORDER BY TRIP_CONTENTID ASC
