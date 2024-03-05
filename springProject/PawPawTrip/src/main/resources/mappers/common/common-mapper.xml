@@ -17,7 +17,7 @@
     </resultMap>
     
     <!-- 지역 정보테이블 ResultMap -->
-    <resultMap id="commonAreaResultMap" type="CommonArea">
+     <resultMap id="commonAreaResultMap" type="CommonArea">
         <!-- 기본키 -->
         <id     property="areaCode"   column="AREA_CODE"/>
         <result property="areaName"   column="AREA_NAME"/>
@@ -47,7 +47,7 @@
 
     <!-- 지역 이름 조회 -->
     <select id="selectCommonArea" parameterType="string" resultMap="commonAreaResultMap">
-        SELECT CITY.AREA_CODE||AREA.SIGUNGU_CODE AS AREA_CODE
+        SELECT CITY.AREA_CODE || AREA.SIGUNGU_CODE AS AREA_CODE
              , CITY.AREA_NAME || ' ' || DECODE(AREA.SIGUNGU_CODE, 0, '', AREA.AREA_NAME)     AS AREA_NAME
           FROM AREA CITY
          RIGHT OUTER JOIN
@@ -56,7 +56,8 @@
            AND CITY.SIGUNGU_CODE = 0
         <trim prefix="WHERE" prefixOverrides="AND|OR">
             <if test="areaCode != ''">
-               CITY.AREA_CODE||AREA.SIGUNGU_CODE = #{areaCode}
+               CITY.AREA_CODE    = #{areaCode}
+               AREA.SIGUNGU_CODE = #{sigunguCode}
             </if>
         </trim>
     </select>

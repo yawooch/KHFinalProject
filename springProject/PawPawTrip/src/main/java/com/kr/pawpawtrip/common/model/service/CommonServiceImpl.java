@@ -20,8 +20,8 @@ public class CommonServiceImpl implements CommonService
     }
 
     @Override
-    public CommonArea getFullAreaName(String areaCode)
+    public CommonArea getFullAreaName(String areaCode,String sigunguCode)
     {
-        return commonMapper.selectCommonArea(areaCode);
+        return commonMapper.selectCommonArea(areaCode, sigunguCode);
     }
 }

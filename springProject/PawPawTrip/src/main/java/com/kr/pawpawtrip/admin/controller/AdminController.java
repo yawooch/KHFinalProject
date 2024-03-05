@@ -246,7 +246,7 @@ public class AdminController
         PetTourItem          petTourReponseItem = petTourResponse.getPetTourItems().get(0);
 
         Category   category   = commonService.getAllCategory(detailCommonItem.getCat3());
-        CommonArea commonArea = commonService.getFullAreaName(detailCommonItem.getAreacode() + detailCommonItem.getSigungucode());
+        CommonArea commonArea = commonService.getFullAreaName(detailCommonItem.getAreacode(), (detailCommonItem.getSigungucode().isEmpty()?"0":detailCommonItem.getSigungucode()));
         
         log.info("tripDetailAjax detailCommonItem : {}, petTourReponseItem : {}", detailCommonItem, petTourReponseItem);
 
@@ -434,15 +434,15 @@ public class AdminController
      */
     private void mappingCommonItemVo(DetailCommonItem detailCommonItem, Spot spot)
     {
-        spot.setTripContentId(Integer.parseInt(detailCommonItem.getContentid())); // 여행 콘텐츠 ID (기본키)
-        spot.setTripAddress(detailCommonItem.getAddr1()); // 여행지 주소
-        spot.setTripDetailAddress(detailCommonItem.getAddr2()); // 여행지 상세주소
-        spot.setTripTitle(detailCommonItem.getTitle()); // 여행지 이름
-        spot.setAreaCode(detailCommonItem.getAreacode()); // 지역 코드
-        spot.setTripCategory1(detailCommonItem.getCat1()); // 여행 카테고리 대분류
-        spot.setTripCategory2(detailCommonItem.getCat2()); // 여행 카테고리 중분류
-        spot.setTripCategory3(detailCommonItem.getCat3()); // 여행 카테고리 소분류
-        spot.setTripContentTypeId(detailCommonItem.getContenttypeid()); // 여행 콘텐츠 타입 ID
+        spot.setTripContentId(Integer.parseInt(detailCommonItem.getContentid()));    // 여행 콘텐츠 ID (기본키)
+        spot.setTripAddress(                   detailCommonItem.getAddr1());         // 여행지 주소
+        spot.setTripDetailAddress(             detailCommonItem.getAddr2());         // 여행지 상세주소
+        spot.setTripTitle(                     detailCommonItem.getTitle());         // 여행지 이름
+        spot.setAreaCode(                      detailCommonItem.getAreacode());      // 지역 코드
+        spot.setTripCategory1(                 detailCommonItem.getCat1());          // 여행 카테고리 대분류
+        spot.setTripCategory2(                 detailCommonItem.getCat2());          // 여행 카테고리 중분류
+        spot.setTripCategory3(                 detailCommonItem.getCat3());          // 여행 카테고리 소분류
+        spot.setTripContentTypeId(             detailCommonItem.getContenttypeid()); // 여행 콘텐츠 타입 ID
         if(detailCommonItem.getCreatedtime().length() ==12)
         {
             detailCommonItem.setCreatedtime(detailCommonItem.getCreatedtime()+"00");
@@ -455,29 +455,29 @@ public class AdminController
                 .parse(detailCommonItem.getCreatedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
         LocalDate modifiedtime = LocalDateTime
                 .parse(detailCommonItem.getModifiedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
-        spot.setTripCreateTime(createdtime); // 등록일
+        spot.setTripCreateTime(createdtime);  // 등록일
         spot.setTripModifyTime(modifiedtime); // 수정일
-        spot.setTripImage(detailCommonItem.getFirstimage()); // 여행 이미지
-        spot.setMapX(detailCommonItem.getMapx()); // x좌표
-        spot.setMapY(detailCommonItem.getMapy()); // y좌표
-        spot.setMapLevel(detailCommonItem.getMlevel()); // 축척
-        spot.setTripTel(detailCommonItem.getTel()); // 여행 전화번호
+        spot.setTripImage(  detailCommonItem.getFirstimage());  // 여행 이미지
+        spot.setMapX(       detailCommonItem.getMapx());        // x좌표
+        spot.setMapY(       detailCommonItem.getMapy());        // y좌표
+        spot.setMapLevel(   detailCommonItem.getMlevel());      // 축척
+        spot.setTripTel(    detailCommonItem.getTel());         // 여행 전화번호
         spot.setSigunguCode(detailCommonItem.getSigungucode()); // 시군구 코드
-        spot.setHomepage(detailCommonItem.getHomepage()); // 홈페이지주소
-        spot.setOverview(detailCommonItem.getOverview()); // 소개설명
+        spot.setHomepage(   detailCommonItem.getHomepage());    // 홈페이지주소
+        spot.setOverview(   detailCommonItem.getOverview());    // 소개설명
     }
 
     private void mappingCommonItemVo(DetailCommonItem detailCommonItem, Stay stay)
     {
-        stay.setStayContentId(Integer.parseInt(detailCommonItem.getContentid())); // 숙소 콘텐츠 ID (기본키)
-        stay.setStayAddress(detailCommonItem.getAddr1()); // 숙소 주소
-        stay.setStayDetailAddress(detailCommonItem.getAddr2()); // 숙소 상세주소
-        stay.setStayTitle(detailCommonItem.getTitle()); // 숙소 이름
-        stay.setAreaCode(detailCommonItem.getAreacode()); // 숙소 코드
-        stay.setStayCategory1(detailCommonItem.getCat1()); // 숙소 카테고리 대분류
-        stay.setStayCategory2(detailCommonItem.getCat2()); // 숙소 카테고리 중분류
-        stay.setStayCategory3(detailCommonItem.getCat3()); // 숙소 카테고리 소분류
-        stay.setStayContentTypeId(detailCommonItem.getContenttypeid()); // 숙소 콘텐츠 타입 ID
+        stay.setStayContentId(Integer.parseInt(detailCommonItem.getContentid()));    // 숙소 콘텐츠 ID (기본키)
+        stay.setStayAddress(                   detailCommonItem.getAddr1());         // 숙소 주소
+        stay.setStayDetailAddress(             detailCommonItem.getAddr2());         // 숙소 상세주소
+        stay.setStayTitle(                     detailCommonItem.getTitle());         // 숙소 이름
+        stay.setAreaCode(                      detailCommonItem.getAreacode());      // 숙소 코드
+        stay.setStayCategory1(                 detailCommonItem.getCat1());          // 숙소 카테고리 대분류
+        stay.setStayCategory2(                 detailCommonItem.getCat2());          // 숙소 카테고리 중분류
+        stay.setStayCategory3(                 detailCommonItem.getCat3());          // 숙소 카테고리 소분류
+        stay.setStayContentTypeId(             detailCommonItem.getContenttypeid()); // 숙소 콘텐츠 타입 ID
         if(detailCommonItem.getCreatedtime().length() ==12)
         {
             detailCommonItem.setCreatedtime(detailCommonItem.getCreatedtime()+"00");
@@ -490,39 +490,39 @@ public class AdminController
                 .parse(detailCommonItem.getCreatedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
         LocalDate modifiedtime = LocalDateTime
                 .parse(detailCommonItem.getModifiedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
-        stay.setStayCreateTime(createdtime); // 등록일
+        stay.setStayCreateTime(createdtime);  // 등록일
         stay.setStayModifyTime(modifiedtime); // 수정일
-        stay.setStayImage(detailCommonItem.getFirstimage()); // 숙소 이미지
-        stay.setMapX(detailCommonItem.getMapx()); // x좌표
-        stay.setMapY(detailCommonItem.getMapy()); // y좌표
-        stay.setMapLevel(detailCommonItem.getMlevel()); // 축척
-        stay.setStayTel(detailCommonItem.getTel()); // 숙소 전화번호
-        stay.setSigunguCode(detailCommonItem.getSigungucode()); // 시군구 코드
-        stay.setHomepage(detailCommonItem.getHomepage()); // 홈페이지주소
-        stay.setOverview(detailCommonItem.getOverview()); // 소개설명
+        stay.setStayImage(     detailCommonItem.getFirstimage());  // 숙소 이미지
+        stay.setMapX(          detailCommonItem.getMapx());        // x좌표
+        stay.setMapY(          detailCommonItem.getMapy());        // y좌표
+        stay.setMapLevel(      detailCommonItem.getMlevel());      // 축척
+        stay.setStayTel(       detailCommonItem.getTel());         // 숙소 전화번호
+        stay.setSigunguCode(   detailCommonItem.getSigungucode()); // 시군구 코드
+        stay.setHomepage(      detailCommonItem.getHomepage());    // 홈페이지주소
+        stay.setOverview(      detailCommonItem.getOverview());    // 소개설명
     }
 
     private void mappingCommonItemVo(DetailCommonItem detailCommonItem, Comm comm)
     {
-        comm.setCommContentId(Integer.parseInt(detailCommonItem.getContentid())); // 공통 콘텐츠 ID (기본키)
-        comm.setCommAddress(detailCommonItem.getAddr1()); // 공통컨텐츠 주소
-        comm.setCommDetailAddress(detailCommonItem.getAddr2()); // 공통컨텐츠 상세주소
-        comm.setCommTitle(detailCommonItem.getTitle()); // 공통컨텐츠 이름
-        comm.setAreaCode(detailCommonItem.getAreacode()); // 지역 코드
-        comm.setCommCategory1(detailCommonItem.getCat1()); // 공통 카테고리 대분류
-        comm.setCommCategory2(detailCommonItem.getCat2()); // 공통 카테고리 중분류
-        comm.setCommCategory3(detailCommonItem.getCat3()); // 공통 카테고리 소분류
-        comm.setCommContentTypeId(detailCommonItem.getContenttypeid()); // 공통 콘텐츠 타입 ID
-        comm.setCommCreateTime(detailCommonItem.getCreatedtime()); // 등록일
-        comm.setCommModifyTime(detailCommonItem.getModifiedtime()); // 수정일
-        comm.setCommImage(detailCommonItem.getFirstimage()); // 공통 이미지
-        comm.setMapX(detailCommonItem.getMapx()); // x좌표
-        comm.setMapY(detailCommonItem.getMapy()); // y좌표
-        comm.setMapLevel(detailCommonItem.getMlevel()); // 축척
-        comm.setCommTel(detailCommonItem.getTel()); // 공통 전화번호
-        comm.setSigunguCode(detailCommonItem.getSigungucode()); // 시군구 코드
-        comm.setHomepage(detailCommonItem.getHomepage()); // 홈페이지주소
-        comm.setOverview(detailCommonItem.getOverview()); // 소개설명
+        comm.setCommContentId(Integer.parseInt(detailCommonItem.getContentid()));   // 공통 콘텐츠 ID (기본키)
+        comm.setCommAddress(                   detailCommonItem.getAddr1());        // 공통컨텐츠 주소
+        comm.setCommDetailAddress(             detailCommonItem.getAddr2());        // 공통컨텐츠 상세주소
+        comm.setCommTitle(                     detailCommonItem.getTitle());        // 공통컨텐츠 이름
+        comm.setAreaCode(                      detailCommonItem.getAreacode());     // 지역 코드
+        comm.setCommCategory1(                 detailCommonItem.getCat1());         // 공통 카테고리 대분류
+        comm.setCommCategory2(                 detailCommonItem.getCat2());         // 공통 카테고리 중분류
+        comm.setCommCategory3(                 detailCommonItem.getCat3());         // 공통 카테고리 소분류
+        comm.setCommContentTypeId(             detailCommonItem.getContenttypeid());// 공통 콘텐츠 타입 ID
+        comm.setCommCreateTime(                detailCommonItem.getCreatedtime());  // 등록일
+        comm.setCommModifyTime(                detailCommonItem.getModifiedtime()); // 수정일
+        comm.setCommImage(                     detailCommonItem.getFirstimage());   // 공통 이미지
+        comm.setMapX(                          detailCommonItem.getMapx());         // x좌표
+        comm.setMapY(                          detailCommonItem.getMapy());         // y좌표
+        comm.setMapLevel(                      detailCommonItem.getMlevel());       // 축척
+        comm.setCommTel(                       detailCommonItem.getTel());          // 공통 전화번호
+        comm.setSigunguCode(                   detailCommonItem.getSigungucode());  // 시군구 코드
+        comm.setHomepage(                      detailCommonItem.getHomepage());     // 홈페이지주소
+        comm.setOverview(                      detailCommonItem.getOverview());     // 소개설명
     }
 
     /**
@@ -534,14 +534,14 @@ public class AdminController
     private void mappingPetTourItemVo(PetTourItem petTourItem, PetInfo petInfo)
     {
         petInfo.setPetinfoContentid(Integer.parseInt(petTourItem.getPetinfoContentid())); // 콘텐츠아이디
-        petInfo.setTourInfo(petTourItem.getTourInfo()); // 반려견관광정보
-        petInfo.setAcmpyTypeCd(petTourItem.getAcmpyTypeCd()); // 동반구분
-        petInfo.setRelaPosesFclty(petTourItem.getRelaPosesFclty()); // 관련구비시설
-        petInfo.setRelaFrnshPrdlst(petTourItem.getRelaFrnshPrdlst()); // 관련비치품목
-        petInfo.setRelaPurcPrdlst(petTourItem.getRelaPurcPrdlst()); // 관련구매품목
-        petInfo.setRelaRntlPrdlst(petTourItem.getRelaRntlPrdlst()); // 관련렌탈품목
-        petInfo.setAcmpyPsblCpam(petTourItem.getAcmpyPsblCpam()); // 동반가능동물
-        petInfo.setEtcAcmpyInfo(petTourItem.getEtcAcmpyInfo()); // 기타동반정보
-        petInfo.setAcmpyNeedMtr(petTourItem.getAcmpyNeedMtr()); // 동반시필요사항
+        petInfo.setTourInfo(                         petTourItem.getTourInfo());          // 반려견관광정보
+        petInfo.setAcmpyTypeCd(                      petTourItem.getAcmpyTypeCd());       // 동반구분
+        petInfo.setRelaPosesFclty(                   petTourItem.getRelaPosesFclty());    // 관련구비시설
+        petInfo.setRelaFrnshPrdlst(                  petTourItem.getRelaFrnshPrdlst());   // 관련비치품목
+        petInfo.setRelaPurcPrdlst(                   petTourItem.getRelaPurcPrdlst());    // 관련구매품목
+        petInfo.setRelaRntlPrdlst(                   petTourItem.getRelaRntlPrdlst());    // 관련렌탈품목
+        petInfo.setAcmpyPsblCpam(                    petTourItem.getAcmpyPsblCpam());     // 동반가능동물
+        petInfo.setEtcAcmpyInfo(                     petTourItem.getEtcAcmpyInfo());      // 기타동반정보
+        petInfo.setAcmpyNeedMtr(                     petTourItem.getAcmpyNeedMtr());      // 동반시필요사항
     }
 }

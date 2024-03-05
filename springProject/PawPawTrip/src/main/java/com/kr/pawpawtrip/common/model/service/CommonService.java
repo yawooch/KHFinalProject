@@ -7,5 +7,5 @@ public interface CommonService
 {
     Category getAllCategory(String smlCategory);
     
-    CommonArea getFullAreaName(String areaCode);
+    CommonArea getFullAreaName(String areaCode, String sigunguCode);
 }

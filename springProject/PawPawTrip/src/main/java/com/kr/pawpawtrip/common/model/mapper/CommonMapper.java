@@ -11,5 +11,5 @@ public interface CommonMapper
 {
     Category selectCategoryGroupBySml(@Param("smlCategory") String smlCategory);
 
-    CommonArea selectCommonArea(@Param("areaCode") String areaCode);
+    CommonArea selectCommonArea(@Param("areaCode") String areaCode, @Param("sigunguCode") String sigunguCode);
 }
