@@ -39,7 +39,7 @@
 		</div>
 		<div class="common-list">
 			<div class="community-detail-list">
-				<form action="${ path }/community/boardwrite" method="post" enctype="multipart/form-data">
+				<form action="${ path }/community/boardwrite" method="post" enctype="multipart/form-data" id="submitCheck">
 					<table border="1">
 						<tr>
 							<td class="community-td-header">제목</td>
@@ -66,7 +66,7 @@
 						</tr>
 						<tr>
 							<td class="community-td-file community-td-header">첨부파일<br>
-								※ 30MB까지 첨부 가능
+								(10MB까지 첨부 가능)
 							</td>
 							<td>
 								<input type="file" name="talkWriteFile" id="talkWriteFile">
@@ -85,41 +85,74 @@
 </div>
 
 <script>
-	$(document).ready(
-			function() {
-				$("#summernote")
-						.summernote(
-								{
-									width : 650,
-									// height: 100,
-									maxHeight : 500,
-									minHeight : 500,
-									placeholder : '내용을 입력해주세요.',
-									lang : 'ko-KR',
-									toolbar : [
-											[ 'Font Style', [ 'fontname' ] ],
-											[
-													'style',
-													[ 'bold', 'italic',
-															'underline' ] ],
-											[ 'font', [ 'strikethrough' ] ],
-											[ 'fontsize', [ 'fontsize' ] ],
-											[ 'color', [ 'color' ] ],
-											[ 'para', [ 'paragraph' ] ],
-											[ 'height', [ 'height' ] ],
-											[ 'Insert', [ 'picture' ] ],
-											[ 'Insert', [ 'link' ] ],
-											[ 'Misc', [ 'fullscreen' ] ] ],
-									fontNames : [ 'Arial', 'Arial Black',
-											'Comic Sans MS', 'Courier New',
-											'맑은 고딕', '궁서', '굴림체', '굴림', '돋움체',
-											'바탕체' ],
-									fontSizes : [ '8', '9', '10', '11', '12',
-											'14', '16', '18', '20', '22', '24',
-											'28', '30', '36', '50', '72' ]
-								});
+$(document).ready(function() 
+{
+	$('#submitCheck').on('submit', (event) => {
+		let category = $('#comunityCate').val();
+		let title = $('#communityTitle').val();
+		let content = $('#summernote').val();
+		let file = $('#talkWriteFile').val().split('.').pop();
+		
+		console.log(file);
+		
+		if(category === '분류') {
+			alert('카테고리를 선택해주세요.');
+			return false;
+		}
+		
+		if(title === '') {
+			alert('제목을 입력해주세요.');
+			return false;
+		}
+		
+		if(content === '') {
+			alert('내용을 입력해주세요.');
+			return false;
+		}
+		
+		if(!(file === 'jpg' || file === 'png' || file === 'gif' || file === '')) {
+			alert('이미지 파일을 등록해주세요.');
+			return false;
+		}
+		
+	});
+	
+    $("#summernote").summernote(
+    {
+        width     : 650,
+        // height: 100,
+        maxHeight : 500,
+        minHeight : 500,
+        placeholder : '내용을 입력해주세요.',
+        lang        : 'ko-KR',
+        toolbar   : [
+                    [ 'Font Style', [ 'fontname'      ] ],
+                    [ 'style'     , [ 'bold', 'italic', 'underline' ] ],
+                    [ 'font'      , [ 'strikethrough' ] ],
+                    [ 'fontsize'  , [ 'fontsize'      ] ],
+                    [ 'color'     , [ 'color'         ] ],
+                    [ 'para'      , [ 'paragraph'     ] ],
+                    [ 'height'    , [ 'height'        ] ],
+                    [ 'Insert'    , [ 'picture'       ] ],
+                    [ 'Insert'    , [ 'link'          ] ],
+                    [ 'Misc'      , [ 'fullscreen'    ] ] ],
+        fontNames : [ 'Arial', 
+                      'Arial Black',
+                      'Comic Sans MS',
+                      'Courier New',
+                      '맑은 고딕',
+                      '궁서',
+                      '굴림체',
+                      '굴림',
+                      '돋움체',
+                      '바탕체' 
+                    ],
+        fontSizes : [ '8', '9' , '10', '11', '12',
+                     '14', '16', '18', '20', '22',
+                     '24', '28', '30', '36', '50', '72' ]
+    });
 
-			});
+});
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

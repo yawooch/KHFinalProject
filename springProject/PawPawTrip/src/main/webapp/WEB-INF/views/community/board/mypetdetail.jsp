@@ -57,14 +57,14 @@
 					</tr>
 					<tr>
 						<td colspan="6" class="community-td-content" style="text-align: left;">
-							<p><img src="${ path }/resources/upload/community/${ community.communityRfileName }" alt="이미지가 없는데?"></p>
+							<p><img src="${ path }/resources/upload/community/${ community.communityRfileName }" alt=""></p>
 							${ community.communityContent }
 						</td>
 					</tr>
 					<tr>
 						<td style="background-color: #FDFAEF;">첨부파일</td>
 						<c:if test="${ empty community.communityOfileName }">
-							<span> - </span>
+							<td colspan="5" style="text-align: left;"><a> - </a></td>
 						</c:if>
 						<c:if test="${ not empty community.communityOfileName }">
 						<td colspan="5" style="text-align: left;">

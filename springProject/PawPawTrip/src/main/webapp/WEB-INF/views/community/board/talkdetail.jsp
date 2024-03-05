@@ -52,6 +52,17 @@
 							${ community.communityContent }
 						</td>
 					</tr>
+					<tr>
+						<td style="background-color: #FDFAEF;">첨부파일</td>
+						<c:if test="${ empty community.communityOfileName }">
+							<td colspan="5" style="text-align: left;"><a> - </a></td>
+						</c:if>
+						<c:if test="${ not empty community.communityOfileName }">
+						<td colspan="5" style="text-align: left;">
+							<a id="fileDown">${ community.communityOfileName }</a>
+						</td>
+						</c:if>
+					</tr>
 				</table>
 			</div>
 			<div class="btn-wrap"">

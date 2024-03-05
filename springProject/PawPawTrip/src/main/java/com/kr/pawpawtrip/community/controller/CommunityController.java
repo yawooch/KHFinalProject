@@ -144,7 +144,7 @@ public class CommunityController {
 		map.put("search", search);
 		
 		listCount = communityService.getBoardMypetCount(select, search);
-		pageInfo = new PageInfo(1, 5, listCount, 15);
+		pageInfo = new PageInfo(page, 5, listCount, 15);
 		
 		// 마이펫 리스트 조회
 		boardMypetList = communityService.getBoardMypetList(pageInfo, select, search);
@@ -244,23 +244,14 @@ public class CommunityController {
 		result = communityService.save(community);
 		
 		if(result > 0) {
+			modelAndView.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
 			
-			if(community.getCommunityCategory().equals("분류")) {
-				System.out.println("분류 카테고리 : " + community.getCommunityCategory());
-				modelAndView.addObject("msg", "카테고리를 선택해주세요.");
-				modelAndView.addObject("location", "/community/boardwrite");
-			} else {
-				if(community.getCommunityCategory().equals("[수다]")) {
-					System.out.println("수다 카테고리 : " + community.getCommunityCategory());
-					// 수다 상세페이지로 이동해야 하지만 임시방편으로 "자유게시판>수다" 이동
-					modelAndView.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-					modelAndView.addObject("location", "/community/board/talk");
-				} else if(community.getCommunityCategory().equals("[마이펫 자랑]")) {
-					System.out.println("마이펫 카테고리 : " + community.getCommunityCategory());
-					// 마이펫 자랑 상세페이지로 이동해야 하지만 임시방편으로 "자유게시판>마이펫 자랑" 이동
-					modelAndView.addObject("msg", "게시글이 정상적으로 등록되었습니다.");
-					modelAndView.addObject("location", "/community/board/mypet");
-				}
+			if(community.getCommunityCategory().equals("[수다]")) {
+				modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
+			} 
+			
+			if(community.getCommunityCategory().equals("[마이펫 자랑]")) {
+				modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
 			}
 			
 		}

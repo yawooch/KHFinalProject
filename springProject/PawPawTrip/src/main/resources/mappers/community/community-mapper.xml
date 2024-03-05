@@ -277,7 +277,7 @@
         INSERT
           INTO COMMUNITY
              (
-             , COMMUNITY_NO
+               COMMUNITY_NO
              , COMMUNITY_CATEGORY
              , COMMUNITY_TITLE
              , COMMUNITY_CONTENT
@@ -287,7 +287,7 @@
              )
         VALUES
              (
-             , SEQ_COMM_NO.NEXTVAL
+               SEQ_COMM_NO.NEXTVAL
              , #{communityCategory}
              , #{communityTitle}
              , #{communityContent}
