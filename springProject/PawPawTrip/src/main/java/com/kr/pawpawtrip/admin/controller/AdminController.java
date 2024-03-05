@@ -247,6 +247,7 @@ public class AdminController
 
         Category   category   = commonService.getAllCategory(detailCommonItem.getCat3());
         CommonArea commonArea = commonService.getFullAreaName(detailCommonItem.getAreacode(), (detailCommonItem.getSigungucode().isEmpty()?"0":detailCommonItem.getSigungucode()));
+        log.info(detailCommonItem.getAreacode(), (detailCommonItem.getSigungucode().isEmpty()?"0":detailCommonItem.getSigungucode()));
         
         log.info("tripDetailAjax detailCommonItem : {}, petTourReponseItem : {}", detailCommonItem, petTourReponseItem);
 

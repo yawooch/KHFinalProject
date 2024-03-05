@@ -60,9 +60,9 @@ function showDetail(contentId)
                 result += '    <td colspan="3" class="common-text-left no-ellipsis"><img src="'+ data.detailCommonItem.firstimage +'" style="width:100%;"/></td></tr>';
             }
             result += '<tr><td>지역</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.commonArea.areaName.split(' ')[0] +'</td>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.commonArea.cityName +'</td>';
             result += '    <td>시군구</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.commonArea.areaName.split(' ')[1] +'</td></tr>';
+            result += '    <td class="common-text-left no-ellipsis">'+ data.commonArea.areaName +'</td></tr>';
             result += '<tr><td>대분류</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ (data.category != null?data.category.bigCateName:data.detailCommonItem.cat1) +'</td>';
             result += '    <td>중분류</td>';
