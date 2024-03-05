@@ -1,5 +1,6 @@
 package com.kr.pawpawtrip.admin.controller;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestClientException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kr.pawpawtrip.common.api.CommonApiClient;
@@ -31,6 +34,9 @@ import com.kr.pawpawtrip.common.api.response.PetTourResponse;
 import com.kr.pawpawtrip.common.model.service.CommonService;
 import com.kr.pawpawtrip.common.model.vo.Category;
 import com.kr.pawpawtrip.common.model.vo.CommonArea;
+import com.kr.pawpawtrip.common.util.MultipartFileUtil;
+import com.kr.pawpawtrip.community.model.service.CommunityService;
+import com.kr.pawpawtrip.community.model.vo.Community;
 import com.kr.pawpawtrip.trip.model.service.TripService;
 import com.kr.pawpawtrip.trip.model.vo.Comm;
 import com.kr.pawpawtrip.trip.model.vo.PetInfo;
@@ -49,9 +55,11 @@ import lombok.extern.slf4j.Slf4j;
 })
 public class AdminController
 {
-    private final CommonApiClient commonApiClient;
-    private final CommonService   commonService;
-    private final TripService     tripService;
+    private final CommonApiClient  commonApiClient;
+    private final CommonService    commonService;
+    private final CommunityService communityService;
+    private final TripService      tripService;
+    private final ResourceLoader   resourceLoader;
 
 
     /** 대시보드 화면 이동 */
@@ -301,7 +309,8 @@ public class AdminController
             // 3. VO로 save처리를 한다.
             petTripResult = tripService.saveTrip(spot);
 
-        } else if (contentTypeId.equals("32")) // 숙소- Stay
+        }
+        else if (contentTypeId.equals("32")) // 숙소- Stay
         {
             Stay stay = new Stay();
             // Stay와 DetailCommonItem객체를 매핑한다.
@@ -326,7 +335,6 @@ public class AdminController
 
         if ((petInfoResult + petTripResult) == 3)
         {
-            // 입력성공
             modelAndView.addObject("requestMsg", "성공적으로 저장되었습니다.");
         }
         else if ((petInfoResult + petTripResult) == 0)
@@ -335,20 +343,12 @@ public class AdminController
         }
         else
         {
-            // 메인테이블 insert 실패
             modelAndView.addObject("requestMsg", "일부 테이블만 저장되었습니다.");
         }
         modelAndView.addObject("contentId"   , detailCommonItem.getContentid());
         modelAndView.setViewName("admin/tripDetail");
 
         return modelAndView;
-    }
-
-    /** 숙소수정 화면 이동 */
-    @GetMapping("/admin/stayUpdate")
-    public String stayUpdate()
-    {
-        return "admin/stayUpdate";
     }
 
     /** 공지사항입력 화면 이동 */
@@ -358,9 +358,70 @@ public class AdminController
         return "admin/noticeWrite";
     }
 
+
+    /** 공지사항 저장 처리 */
+    @PostMapping("/admin/noticeWrite")
+    public ModelAndView write(             ModelAndView  modelAndView, 
+                                           Community     community,
+            @RequestParam("talkWriteFile") MultipartFile talkWriteFile) 
+    {
+        int result = 0;
+        
+        // 1. 파일 업로드 확인 후 파일 저장
+        // 파일을 업로드하지 않으면 로그에 true, 업로드하면 false
+        log.info("isEmpty: {}", talkWriteFile.isEmpty());
+        
+        // 파일을 업로드하지 않으면 ""(빈문자), 업로드하면 "파일명"
+        log.info("File Name : {}", talkWriteFile.getOriginalFilename());
+        
+        if(talkWriteFile != null && !talkWriteFile.isEmpty())
+        {
+            String location        = null;
+            String renamedFileName = null;
+            
+            try
+            {
+                location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
+                
+                renamedFileName = MultipartFileUtil.save(talkWriteFile, location);
+                
+                if(renamedFileName != null)
+                {
+                    community.setCommunityOfileName(talkWriteFile.getOriginalFilename());
+                    community.setCommunityRfileName(renamedFileName);
+                }
+            } 
+            catch (IOException e) 
+            {
+                e.printStackTrace();
+            }
+        }
+        community.setCommunityWriterNo(2);
+        
+        result = communityService.save(community);
+
+        if(result > 0) 
+        {
+            modelAndView.addObject("writeRstMsg","저장되었습니다.");
+            modelAndView.setViewName("community/notice");
+        }
+        else 
+        {
+            modelAndView.addObject("writeRstMsg","저장중에 문제가 발생했습니다. 다시 시도해 주세요");
+            modelAndView.setViewName("admin/noticeWrite");
+        }
+        return modelAndView;
+    }
+
     /** 공지사항수정 화면 이동 */
     @GetMapping("/admin/noticeUpdate")
     public String noticeUpdate()
+    {
+        return "admin/noticeUpdate";
+    }
+    /** 공지사항 수정 처리 */
+    @PostMapping("/admin/noticeUpdate")
+    public String updateNotice()
     {
         return "admin/noticeUpdate";
     }
@@ -402,7 +463,7 @@ public class AdminController
         spot.setMapLevel(detailCommonItem.getMlevel()); // 축척
         spot.setTripTel(detailCommonItem.getTel()); // 여행 전화번호
         spot.setSigunguCode(detailCommonItem.getSigungucode()); // 시군구 코드
-        spot.setHomepage(detailCommonItem.getZipcode()); // 홈페이지주소
+        spot.setHomepage(detailCommonItem.getHomepage()); // 홈페이지주소
         spot.setOverview(detailCommonItem.getOverview()); // 소개설명
     }
 
@@ -437,7 +498,7 @@ public class AdminController
         stay.setMapLevel(detailCommonItem.getMlevel()); // 축척
         stay.setStayTel(detailCommonItem.getTel()); // 숙소 전화번호
         stay.setSigunguCode(detailCommonItem.getSigungucode()); // 시군구 코드
-        stay.setHomepage(detailCommonItem.getZipcode()); // 홈페이지주소
+        stay.setHomepage(detailCommonItem.getHomepage()); // 홈페이지주소
         stay.setOverview(detailCommonItem.getOverview()); // 소개설명
     }
 
@@ -460,7 +521,7 @@ public class AdminController
         comm.setMapLevel(detailCommonItem.getMlevel()); // 축척
         comm.setCommTel(detailCommonItem.getTel()); // 공통 전화번호
         comm.setSigunguCode(detailCommonItem.getSigungucode()); // 시군구 코드
-        comm.setHomepage(detailCommonItem.getZipcode()); // 홈페이지주소
+        comm.setHomepage(detailCommonItem.getHomepage()); // 홈페이지주소
         comm.setOverview(detailCommonItem.getOverview()); // 소개설명
     }
 

@@ -31,7 +31,9 @@ function showList(pageNo, contentId)
     $('#spinnerLoading').fadeIn();
     $('#spinnerLoading>div.spinner-border').css('top', '50%');
     $('#spinnerLoading>div.spinner-border').css('left', '50%');
+    
     let pagingNum = 5;
+    
     $.ajax(
     {
         type : 'GET',
