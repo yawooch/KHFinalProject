@@ -112,6 +112,8 @@
         <result property="tripTel"           column="TRIP_TEL"           />
         <result property="homepage"          column="HOMEPAGE"           />
         <result property="overview"          column="OVERVIEW"           />
+        <!-- 매핑하려는 객체가 여러개(List)일 경우 collection 사용, 하나일 경우 association 사용 -->
+    	<association property="petInfo" columnPrefix="P_" resultMap="petInfoResultMap"/>
     </resultMap>
 
     <!-- 숙박 페이지 ResultMap -->
@@ -196,8 +198,24 @@
     
     <!-- 여행 콘텐츠 아이디로 여행지 상세페이지 조회 -->
 	<select id="selectSpotById" parameterType="_int" resultMap="spotListResultMap">
-        <include refid="spotListSql"/>
-		WHERE TRIP_CONTENTID = #{id}
+        SELECT T.TRIP_CONTENTID,
+		       T.TRIP_ADDRESS || T.TRIP_DETAIL_ADDRESS AS TRIP_ADDRESS,
+		       T.TRIP_TITLE,
+		       NVL(T.TRIP_IMAGE, '-') AS TRIP_IMAGE,
+		       NVL(T.TRIP_TEL, '-')   AS TRIP_TEL,
+		       T.HOMEPAGE,
+		       T.OVERVIEW,
+		       P.ACMPY_TYPE_CD 	      AS "P_ACMPY_TYPE_CD",
+		       P.RELA_RNTL_PRDLST     AS "P_RELA_RNTL_PRDLST",
+		       P.RELA_PURC_PRDLST     AS "P_RELA_PURC_PRDLST",
+		       P.RELA_POSES_FCLTY     AS "P_RELA_POSES_FCLTY",
+		       P.RELA_FRNSH_PRDLST    AS "P_RELA_FRNSH_PRDLST",
+		       P.ETC_ACMPY_INFO       AS "P_ETC_ACMPY_INFO",
+		       P.ACMPY_PSBL_CPAM      AS "P_ACMPY_PSBL_CPAM",
+		       P.ACMPY_NEED_MTR       AS "P_ACMPY_NEED_MTR"
+		  FROM TRIP T
+		  INNER JOIN PETINFO P ON (T.TRIP_CONTENTID = P.PETINFO_CONTENTID)
+		  WHERE P.ACMPY_TYPE_CD IN('동반가능','전용') AND T.TRIP_CONTENTID = #{id}
 	</select>
 	
 	
@@ -300,7 +318,7 @@
         )
        VALUES
        (
-               #{stayContentId}
+               #{stayContentId} 
              , #{stayAddress}
              , #{stayDetailAddress}
              , #{stayTitle}

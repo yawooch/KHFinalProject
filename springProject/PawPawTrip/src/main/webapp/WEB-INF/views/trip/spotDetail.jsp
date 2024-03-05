@@ -152,7 +152,7 @@ color: #FDFAEF;
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>소개</span>
                     </div>
-                    <p>해발1,100m 구름위의 땅 강릉 안반데기 치유 체험 관광 휴양지, 강원도 민간정원2호, 강릉시 민간정원 1호</p>
+                    <p>${ spot.overview }</p>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">

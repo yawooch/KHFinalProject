@@ -1,6 +1,7 @@
 package com.kr.pawpawtrip.trip.model.vo;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -68,4 +69,7 @@ public class Spot
     
     // 소개설명
     private String overview;
+    
+    // 반려동물 동반 정보
+    private PetInfo petInfo;
 }
