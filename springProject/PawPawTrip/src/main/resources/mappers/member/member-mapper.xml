@@ -3,9 +3,80 @@
 <!DOCTYPE mapper 
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-
 <mapper namespace="com.kr.pawpawtrip.member.model.mapper.MemberMapper">
+
+	<!-- 중복되는 쿼리를 재사용하기 위한 SQL 조각으로 사용하려는 요소보다 항상 위에 있어야 한다. -->
+	<sql id="selectMemberSql">
+		SELECT MEMBER_NO,
+		       MEMBER_ID,
+		       MEMBER_PW,
+		       MEMBER_ROLE,
+		       MEMBER_PHONE,
+		       MEMBER_EMAIL,
+		       MEMBER_BIRTH,
+		       MEMBER_PET_NAME,
+		       MEMBER_PET_TYPE,
+		       MEMBER_STATUS,
+		       MEMBER_ED,
+		       MEMBER_MD,
+		       MRKT_AGREE_YN,
+		       RECV_AGREE_YN,
+		       LOCA_AGREE_YN
+		FROM MEMBER
+	</sql>
+	
+	<resultMap id="memberResultMap" type="Member">
+		<id property="memberNo" column="MEMBER_NO"/>
+		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberPw" column="MEMBER_PW"/>
+		<result property="memberRole" column="MEMBER_ROLE"/>
+		<result property="memberPhone" column="MEMBER_PHONE"/>
+		<result property="memberEmail" column="MEMBER_EMAIL"/>
+		<result property="memberBirth" column="MEMBER_BIRTH"/>
+		<result property="memberPetName" column="MEMBER_PET_NAME"/>
+		<result property="memberPetType" column="MEMBER_PET_TYPE"/>
+		<result property="memberStatus" column="MEMBER_STATUS"/>
+		<result property="memberEd" column="MEMBER_ED"/>
+		<result property="memberMd" column="MEMBER_MD"/>
+		<result property="mrktAgreeYn" column="MRKT_AGREE_YN"/>
+		<result property="recvAgreeYn" column="RECV_AGREE_YN"/>
+		<result property="locaAgreeYn" column="LOCA_AGREE_YN"/>
+	</resultMap>
+	
+	<!-- 회원 수 조회 -->
 	<select id="selectCount" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER
 	</select>
+	
+	
+	<select id="selectMemberById" parameterType="string" resultMap="memberResultMap">
+		<include refid="selectMemberSql" />
+		WHERE MEMBER_STATUS = 'Y' AND MEMBER_ID = #{memberId}
+	</select>
+	
+	<!-- 회원 가입 -->
+	<insert id="insertMember" parameterType="Member"
+		useGeneratedKeys="true" keyColumn="MEMBER_NO" keyProperty="memberNo">
+		INSERT INTO MEMBER (
+			MEMBER_NO, 
+			MEMBER_ID, 
+			MEMBER_PW, 
+			MEMBER_PHONE, 
+			MEMBER_EMAIL, 
+			MEMBER_BIRTH, 
+			MEMBER_PET_NAME, 
+			MEMBER_PET_TYPE
+		) 
+		VALUES (
+			SEQ_MEM_NO.NEXTVAL,
+			#{memberId},
+			#{memberPw},
+			#{memberPhone},
+			#{memberEmail},
+			#{memberBirth},
+			#{memberPetName},
+			#{memberPetType}
+		)
+	</insert>
+	
 </mapper>

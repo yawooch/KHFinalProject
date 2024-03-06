@@ -101,7 +101,7 @@ h3 {
 	margin-right: 10px;
 }
 
-.e-mail > select {
+.e-mail > input:nth-child(3) {
 	margin-left: 10px;
 }
 
@@ -198,7 +198,17 @@ input[type="checkbox"]{
     margin-top: 8px;
 }
 
+/* 유효성 검사 문구 */
+.hide {
+    display: none;
+}
+
+
+
+
+
 /*
+
 .info > * {
     border: 1px solid #c0c0c0;
     border-radius: none;

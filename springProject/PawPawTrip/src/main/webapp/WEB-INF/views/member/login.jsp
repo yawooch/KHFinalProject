@@ -26,9 +26,9 @@
 		        <!--로그인 창-->
 		        <div class="first_div">
 		            <div class="login-box">
-		                <input type="text" name="input_id" id="input_id" placeholder="아이디" />
+		                <input type="text" name="memberId" id="input_id" placeholder="아이디" />
 		                <br />
-		                <input type="password" name="input_pass" id="input_pass" placeholder="비밀번호" />
+		                <input type="password" name="memberPw" id="input_pass" placeholder="비밀번호" />
 		                <div class="login_info_save">
 		                    <input type="checkbox" name="" id="login_info_save"/>
 		                    <label for="login_info_save">아이디 저장</label>
@@ -53,7 +53,7 @@
 		                <br>
 		                <div class="kakao_btn">
 		                    <img src="https://madangs.com/re_public/images/social/kakao_symbol.svg" alt="" width="20px">
-		                    <span>카카오톡 간편로그인</span>
+		                    <span>카카오 로그인</span>
 		                </div>
 		            </div>
 		        </div>

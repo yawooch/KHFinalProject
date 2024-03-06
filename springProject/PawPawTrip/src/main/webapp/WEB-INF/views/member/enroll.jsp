@@ -10,6 +10,7 @@
 
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
+
 <link rel="stylesheet" href="${path}/css/member/enroll.css">
 <link rel="stylesheet" href="${path}/css/member/member.css">
 
@@ -28,34 +29,34 @@
 	    	<!-- 약관동의 -->
 	         <h3>약관 동의</h3>
 	         <div class="inner_top_div">
-	             <input type="checkbox" name="" id="all_Agree" />
+	             <input type="checkbox" name="all_Agree" id="all_Agree" />
 	             <label for="all_Agree">전체 동의하기</label> <br />
-	             <input type="checkbox" name="" id="required_option1" />
+	             <input type="checkbox" class="options" id="required_option1" />
 	             <label for="required_option1"
 	                 ><span class="required_option">(필수)</span> 만 15세 이상입니다. <span class="manual"><a href="#">(약관보기)</a></span></label
 	             >
 	             <br />
-	             <input type="checkbox" name="" id="required_option2" />
+	             <input type="checkbox" class="options" id="required_option2" />
 	             <label for="required_option2"
 	                 ><span class="required_option">(필수)</span> 서비스 이용약관동의 <span class="manual"><a href="#">(약관보기)</a></span></label
 	             >
 	             <br />
-	             <input type="checkbox" name="" id="required_option3" />
+	             <input type="checkbox" class="options" id="required_option3" />
 	             <label for="required_option3"
 	                 ><span class="required_option">(필수)</span> 개인정보 수집 및 이용 동의 <span class="manual"><a href="#">(약관보기)</a></span></label
 	             >
 	             <br />
-	             <input type="checkbox" name="" id="select_option1" />
+	             <input type="checkbox" class="options" id="select_option1" />
 	             <label for="select_option1"
 	                 ><span class="select_option">(선택)</span> 개인정보수집 및 이용 동의 - 마케팅 <span class="manual"><a href="#">(약관보기)</a></span></label
 	             >
 	             <br />
-	             <input type="checkbox" name="" id="select_option2" />
+	             <input type="checkbox" class="options" id="select_option2" />
 	             <label for="select_option2"
 	                 ><span class="select_option">(선택)</span> 광고성 정보 이메일/SMS 수신 동의 <span class="manual"><a href="#">(약관보기)</a></span></label
 	             >
 	             <br />
-	             <input type="checkbox" name="" id="select_option3" />
+	             <input type="checkbox" class="options" id="select_option3" />
 	             <label for="select_option3"
 	                 ><span class="select_option">(선택)</span> 위치 정보 수집 및 이용 동의 <span class="manual"><a href="#">(약관보기)</a></span></label
 	             >
@@ -65,26 +66,26 @@
 	         <div class="enroll-table">
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">이름</div>
-	                 <div class="col-lg-9"><input type="text" /></div>
+	                 <div class="col-lg-9"><input type="text"/></div>
 	             </div>
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">생년월일</div>
-	                 <div class="info enroll-contain col-lg-9" id="info_birth">
-	                     <select name="" id="">
-	                         <option value="">출생 연도</option>
+	                 <div class="info enroll-contain col-lg-9" id="info__birth">
+	                     <select name="yy" id="birth-year">
+	                         <option disabled selected>출생 연도</option>
 	                     </select>
-	                     <select name="" id="">
-	                         <option value="">월</option>
+	                     <select name="mm" id="birth-month">
+	                         <option disabled selected>월</option>
 	                     </select>
-	                     <select name="" id="">
-	                         <option value="">일</option>
+	                     <select name="dd" id="birth-day">
+	                         <option disabled selected>일</option>
 	                     </select>
 	                 </div>
 	             </div>
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">아이디</div>
 	                 <div class="col-lg-9 enroll-contain">
-	                 	<input type="text" placeholder="5~12자 영문, 숫자 포함" />
+	                 	<input type="text" id="memberId" placeholder="5~12자 영문, 숫자 포함" />
 	                 	<button type="button" class="col-12 enroll-btn">중복확인</button>
 	                	
 	                 </div>
@@ -92,15 +93,17 @@
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">비밀번호</div>
 	                 <div class="col-lg-9">
-	                 	<input type="text" placeholder="8~15자 영문, 숫자 포함" />
+	                 	<input type="password" id="password" placeholder="8~15자 영문, 숫자 포함" />
 	                 </div>
 	             </div>
+	             <p class="strongPassword-message hide" style="color:red; font-size: 12px; margin-top: -15px;">8~15자 영문, 숫자를 포함하여 입력하세요.</p>
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">비밀번호 확인</div>
 	                 <div class="col-lg-9">
-	                 	<input type="text" placeholder="8~15자 영문, 숫자 포함" />
+	                 	<input type="password" id="password-retype" placeholder="8~15자 영문, 숫자 포함" />
 	                 </div>
-	             </div> 
+	             </div>
+	             <p class="mismatch-message hide" style="color:red; font-size: 12px; margin-top: -15px;">비밀번호가 일치하지 않습니다.</p>
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">휴대폰 번호</div>
 	                 <div class="col-lg-9 enroll-contain">
@@ -120,9 +123,14 @@
 	                 <div class="e-mail enroll-contain col-lg-9">
 	                     <input type="text" />
 	                     <span>@</span>
-	                     <select name="" id="">
-	                         <option value="">직접 입력</option>
-	                         <option value="">naver.com</option>
+	                     <input id="domain-txt" type="text"/>
+	                     <select name="" id="domain-list">
+	                         <option value="type">직접 입력</option>
+	                         <option value="naver.com">naver.com</option>
+	                         <option value="google.com">google.com</option>
+	                         <option value="hanmail.net">hanmail.net</option>
+	                         <option value="nate.com">nate.com</option>
+	                         <option value="kakao.com">kakao.com</option>
 	                     </select>
 	                 </div>
 	             </div>
@@ -149,20 +157,6 @@
 	                    <button type="button" class="col-12 enroll-btn" style="visibility: hidden;">숨기기</button>
 	                 </div>
 	             </div>
-	             <!-- <tr>
-	                 <th>이메일</th>
-	                 <td>
-	                     <input type="text" class="user_info_input_tag1"/>
-	                     <input class="box" id="domain-txt" type="text"/>
-	                     <select class="box" id="domain-list">
-	                     <option value="naver.com">naver.com</option>
-	                     <option value="google.com">google.com</option>
-	                     <option value="hanmail.net">hanmail.net</option>
-	                     <option value="nate.com">nate.com</option>
-	                     <option value="kakao.com">kakao.com</option>
-	                     </select>
-	                 </td>
-	             </tr> -->
 	         </div>
 	     </div>
 	     <div class="signInBtn">
@@ -175,4 +169,7 @@
 
 <!-- 푸터 -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
+
+<!-- js 추가 -->
+<script type="text/javascript" src="${path}/js/member/enroll.js"></script>
 

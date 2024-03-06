@@ -75,22 +75,21 @@
                     <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
                     </div>
 					<c:if test="${empty loginMember}">
-<%-- 	                    <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/login">로그인</a> --%>
-<%-- 	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/enroll">회원가입</a> --%>
-	                    <a class="nav-icon d-lg-inline text-decoration-none common"       href="${path}/logout">로그아웃</a>
-	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/admin/dashboard">관리자</a>
+ 	                    <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/login">로그인</a> 
+ 	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/enroll">회원가입</a>
+<%-- 	                    <a class="nav-icon d-lg-inline text-decoration-none common"       href="${path}/logout">로그아웃</a>--%>
+<%--	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/admin/dashboard">관리자</a>--%>
 					</c:if>
-					<c:if test="${not empty loginMember}">
+					<c:if test="${not empty loginMember and loginMember.memberRole == 'ROLE_USER'}">
 	                    <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/logout">로그아웃</a>
 	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/member/mypage/my-info">마이페이지</a>
 					</c:if>
-					<c:if test="${not empty loginMember and loginMember.userRole == 'ADMIN'}">
+					<c:if test="${not empty loginMember and loginMember.memberRole == 'ROLE_ADMIN'}">
 	                    <a class="nav-icon d-lg-inline text-decoration-none common"       href="${path}/logout">로그아웃</a>
 	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/admin/dashboard">관리자</a>
 					</c:if>
                 </div>
             </div>
-
         </div>
     </nav>
     <!-- Close Header -->
