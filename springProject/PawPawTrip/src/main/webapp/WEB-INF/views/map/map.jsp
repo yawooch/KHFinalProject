@@ -51,7 +51,7 @@
                     </div>
                     <div class="col-4" id="zoomInfo" style="height:100%;background-color: aquamarine;">
                     </div>
-                    <div class="col-4" style="height:100%;background-color: bisque;">
+                    <div class="col-4" id="addressInfo" style="height:100%;background-color: bisque;">
                     </div>
                 </div>
             </div>
