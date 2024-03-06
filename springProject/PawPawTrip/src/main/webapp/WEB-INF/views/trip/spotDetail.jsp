@@ -120,11 +120,11 @@ color: #FDFAEF;
                         <p>${ spot.tripAddress }</p>
                         <img class="infoIcon" src="${ path }/img/trip/tel_icon.png" alt="문의처 아이콘">
                         <span>문의처</span>
+                        <c:if test="${ spot.tripTel == '-' || empty spot.tripTel }">
+                        	<p>- 별도 문의</p>
+                        </c:if>
                         <c:if test="${ spot.tripTel != '-' }">
                         	<p>${ spot.tripTel }</p>
-                        </c:if>
-                        <c:if test="${ spot.tripTel == '-' }">
-                        	<p>* 해당 장소로 별도 문의</p>
                         </c:if>
 						
 						<!--  
@@ -136,9 +136,12 @@ color: #FDFAEF;
                         <!-- 새 창으로 해당 홈페이지 열기! -->
                         <img class="infoIcon" src="${ path }/img/trip/homepage_icon.png" alt="홈페이지 아이콘">
                         <span>홈페이지</span>
-                        <a href="${ spot.homepage }" target="_blank">
-                        	<p>${ spot.homepage }</p>
-                        </a>
+                        <c:if test="${ empty spot.homepage }">
+                        	<p>- 별도 문의</p>
+                        </c:if>
+                        <c:if test="${ not empty spot.homepage }">
+	                        <p>${ spot.homepage }</p>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -152,14 +155,24 @@ color: #FDFAEF;
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>소개</span>
                     </div>
-                    <p>${ spot.overview }</p>
+                    <c:if test="${ empty spot.overview }">
+                    	<p>-</p>
+                    </c:if>
+                    <c:if test="${ not empty spot.overview }">
+	                    <p>${ spot.overview }</p>
+                    </c:if>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>주요시설</span>
                     </div>
-                    <p>관리사, 화장실, 개수대, 주차장, 체험장, 치유길</p>
+                    <c:if test="${ empty petInfo.relaPosesFclty }">
+	                    <p>-</p>                	
+                    </c:if>
+                    <c:if test="${ not empty petInfo.relaPosesFclty }">
+	                    <p>${ petInfo.relaPosesFclty }</p>
+                    </c:if>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">

@@ -18,7 +18,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TripServiceImpl implements TripService {
-	
 	private final TripMapper tripMapper;
 	
 	// 여행지 전체 게시물 수 조회
@@ -28,8 +27,7 @@ public class TripServiceImpl implements TripService {
 		return tripMapper.selectSpotCount();
 	}
 	
-	
-	// 여행지 전체 조회(선택/검색 기능 포함)
+	// 여행지 리스트 조회
 	@Override
 	public List<Spot> getSpotList(PageInfo pageInfo) {
 	      int limit = pageInfo.getListLimit();
@@ -39,12 +37,33 @@ public class TripServiceImpl implements TripService {
 		return tripMapper.selectSpotList(rowBounds);
 	}
 	
-	// 여행지 상세 조회
+	// 콘텐츠 ID로 여행지 상세 조회
 	@Override
 	public Spot getSpotById(int id) {
 		
 		return tripMapper.selectSpotById(id);
 	}
+	
+	// -------------------------------------------------------------------------
+	
+	// 숙박 전체 게시물 수 조회
+	@Override
+	public int getStayCount() {
+		
+		return tripMapper.selectStayCount();
+	}
+	
+	// 숙박 리스트 조회
+	@Override
+	public List<Stay> getStayList(PageInfo pageInfo) {
+	      int limit = pageInfo.getListLimit();
+	      int offset = (pageInfo.getCurrentPage() - 1) * limit;
+	      RowBounds rowBounds = new RowBounds(offset, limit);
+	      
+		return null;
+	}
+	
+	// -------------------------------------------------------------------------
 	
     @Override
     @Transactional
@@ -110,8 +129,5 @@ public class TripServiceImpl implements TripService {
     {
         return tripMapper.selectPetInfoByContentId(contentId);
     }
-
-
-
 
 }
