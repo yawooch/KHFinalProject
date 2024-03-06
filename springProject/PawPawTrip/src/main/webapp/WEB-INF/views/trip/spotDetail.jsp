@@ -167,19 +167,19 @@ color: #FDFAEF;
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>주요시설</span>
                     </div>
-                    <c:if test="${ empty petInfo.relaPosesFclty }">
+                    <c:if test="${ empty spot.petInfo.relaPosesFclty }">
 	                    <p>-</p>                	
                     </c:if>
-                    <c:if test="${ not empty petInfo.relaPosesFclty }">
-	                    <p>${ petInfo.relaPosesFclty }</p>
+                    <c:if test="${ not empty spot.petInfo.relaPosesFclty }">
+	                    <p>${ spot.petInfo.relaPosesFclty }</p>
                     </c:if>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
-                        <span>이용요금</span>
+                        <span>이용안내</span>
                     </div>
-                    <p>관광 체험 - 30,000원 <br> 관광 휴식(카크닉) - 40,000원(소형 차량1대) <br> 관광 휴양(별 보기 차박 체험 - 60,000원 (차량1대, 2인 기준, 산나물 2통 제공) 14시 ~ 11시,</p>
+                    <p>비치 품목 : ${ spot.petInfo.relaFrnshPrdlst }<br> 구매 품목 : ${ spot.petInfo.relaPurcPrdlst } <br> 렌탈 품목 : ${ spot.petInfo.relaRntlPrdlst }</p>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">

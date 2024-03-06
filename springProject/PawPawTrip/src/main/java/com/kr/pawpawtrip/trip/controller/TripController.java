@@ -54,14 +54,11 @@ public class TripController {
 	@GetMapping("/trip/spot/spotDetail")
 	public ModelAndView spotDetail(ModelAndView modelAndView,
 								   @RequestParam int id) {
-		
-		Spot spot = null;
-		
+				
+		Spot spot = tripService.getSpotById(id);
+
 		// log.info("view - {}", id);
-		
-		spot = tripService.getSpotById(id);
-		
-		log.info("spot - {}", spot);
+		// log.info("spot - {}", spot);
 			
 		modelAndView.addObject("spot", spot);
 		modelAndView.setViewName("trip/spotDetail");
