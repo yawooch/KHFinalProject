@@ -7,7 +7,6 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=d3729bf88f29d9ac1dd719a6bcd5fd14"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d3729bf88f29d9ac1dd719a6bcd5fd14&libraries=services,clusterer,drawing"></script>
 
 <script type="text/javascript" src="${path}/js/map/map.js"></script>
@@ -22,10 +21,11 @@
                 </div>
                 <div>
                     <div>
-                        <select name="communitySelect" id="communitySelect">
-                            <option value="title" selected>제목</option>
-                            <option value="name">작성자</option>
-                            <option value="content">내용</option>
+                        <select name="searchArea" id="searchArea">
+                            <option value="">전체</option>
+                            <c:forEach var="searchAreaOption" items="${searchAreaOptions}">
+                            <option value="${searchAreaOption.cityCode}">${searchAreaOption.areaName}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div>
@@ -45,11 +45,11 @@
             <div class="container-fluid" style="width:100%; height:400px; background-color:#FDFAEF;margin-bottom:50px;">
                 <div class="row" style="height: 100%;">
                     <div class="col-4" style="height:100%;background-color: aliceblue;">
-                        <div class="row" id="clickLatlng">
+                        <div class="row" id="clickLatlng" style="font-size:18px;">
 
                         </div>
                     </div>
-                    <div class="col-4" style="height:100%;background-color: aquamarine;">
+                    <div class="col-4" id="zoomInfo" style="height:100%;background-color: aquamarine;">
                     </div>
                     <div class="col-4" style="height:100%;background-color: bisque;">
                     </div>
@@ -58,6 +58,5 @@
         </div>
     </div>
 </div>
-
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
