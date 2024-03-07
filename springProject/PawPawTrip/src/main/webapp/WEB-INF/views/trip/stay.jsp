@@ -91,7 +91,12 @@
 	                            <!-- 카드 이미지 -->
 	                            <div class="card mb-4 product-wap rounded-0">
 	                                <div class="card rounded-0">
-	                                    <img class="card-img rounded-0 img-fluid" src="${ stay.stayImage }">
+	                                	<c:if test="${ stay.stayImage == '-' }">	                                	
+		                                    <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/9tKP6gJ/image.jpg">
+	                                	</c:if>
+	                                	<c:if test="${ stay.stayImage != '-' }">
+		                                    <img class="card-img rounded-0 img-fluid" src="${ stay.stayImage }">
+	                                	</c:if>
 	                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
 	                                        <p class="readMore" style="font-size: 14px !important;">+<br>READ MORE</p>
 	                                    </div>
@@ -105,7 +110,7 @@
 	                                        ${ stay.stayAddress } 
 	                                    </p>
 	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-	                                        ${ stay.stayTel }
+	                                        ${ stay.homepage }
 	                                    </p>
 	                                </div>
 	                            </div>

@@ -7,7 +7,7 @@
 	prefix="security"%>
 	
 <% 
-	pageContext.setAttribute("newLineChar", "\n"); 
+	pageContext.setAttribute("LF", "\n");
 %>
 	
 <c:set var="path" value="${pageContext.request.contextPath}" />
@@ -155,14 +155,14 @@ color: #FDFAEF;
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>소개</span>
                     </div>
-	                <p>${ fn:replace(spot.overview, newLineChar, "<br>") }</p>
+	                <p>${ fn:replace(spot.overview, LF, "<br>") }</p>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>주요시설</span>
                     </div>
-	                <p>${ fn:replace(spot.petInfo.relaPosesFclty, newLineChar, "<br>") }</p>
+	                <p>${ fn:replace(spot.petInfo.relaPosesFclty, LF, "<br>") }</p>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
@@ -179,8 +179,8 @@ color: #FDFAEF;
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>동반정보 및 주의사항</span>
                     </div>
-                    <p>${ fn:replace(spot.petInfo.etcAcmpyInfo, newLineChar, "<br>") }<br><br>
-                       ${ fn:replace(spot.petInfo.acmpyPsblCpam, newLineChar, "<br>") }
+                    <p>${ fn:replace(spot.petInfo.etcAcmpyInfo, LF, "<br>") }<br><br>
+                       ${ fn:replace(spot.petInfo.acmpyPsblCpam, LF, "<br>") }
                     </p>
                 </div>
                 <div class="subInfo-div">
@@ -189,7 +189,7 @@ color: #FDFAEF;
                         <span>기타</span>
                     </div>
                     <p style="color: red; font-size: 16px;">
-                    ${ fn:replace(spot.petInfo.acmpyNeedMtr, newLineChar, "<br>") }
+                    ${ fn:replace(spot.petInfo.acmpyNeedMtr, LF, "<br>") }
                     </p>
                 </div>
             </div>
