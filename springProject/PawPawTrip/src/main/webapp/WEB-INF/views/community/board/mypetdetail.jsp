@@ -75,7 +75,14 @@
 				</table>
 			</div>
 			<div class="btn-wrap">
-				<button class="community-btn" onclick="location.href='${ path }/community/board/mypet'">목록</button>
+				<c:if test="${ loginMember.memberId != community.communityWriterId }">
+					<button class="community-btn" onclick="location.href='${ path }/community/board/mypet'">목록</button>
+				</c:if>
+				<c:if test="${ loginMember.memberId == community.communityWriterId }">
+					<button class="community-btn" id="updateBtn">수정</button>
+					<button class="community-btn" id="deleteBtn">삭제</button>
+					<button class="community-btn" onclick="location.href='${ path }/community/board/mypet'">목록</button>
+				</c:if>
 			</div>
 		</div>
 	</div>
@@ -84,6 +91,7 @@
 <script>
 
 	$(document).ready(() => {
+		// 파일 다운로드
 		$('#fileDown').on('click', () => {
 			let oname = encodeURIComponent('${ community.communityOfileName }');
 			let rname = encodeURIComponent('${ community.communityRfileName }');
@@ -93,6 +101,24 @@
 			
 			location.assign(`${ path }/community/board/fileDown?oname=\${oname}&rname=\${rname}`);
 			
+		});
+		
+		// 수정
+		$('#updateBtn').on('click', () => {
+			if(confirm('게시글을 수정하시겠습니까?')) {
+				location.href=`${path}/community/boardupdate?no=${community.communityNo}`;
+			} else {
+				location.reload();
+			}
+		});
+		
+		// 삭제
+		$('#deleteBtn').on('click', () => {
+			if(confirm('게시글을 삭제하시겠습니까?')) {
+				alert('삭제가 완료되었습니다.');
+			} else {
+				location.reload();
+			}
 		});
 		
 	});

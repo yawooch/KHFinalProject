@@ -258,9 +258,10 @@
                RNUM DESC
      </select>
     
-       <select id="selectBoardByNo" resultMap="communityListResultMap" parameterType="_int">
+     <select id="selectBoardByNo" resultMap="communityListResultMap" parameterType="_int">
       <include refid="communityListSql" />
-        SELECT COMMUNITY_CATEGORY 
+        SELECT COMMUNITY_NO
+             , COMMUNITY_CATEGORY 
              , COMMUNITY_TITLE
              , COMMUNITY_CONTENT
              , MEMBER_ID 
@@ -296,5 +297,27 @@
              , #{communityWriterNo}
              )
      </insert>
+     
+     <update id="updateBoard" parameterType="Community">
+      UPDATE COMMUNITY
+      <trim prefix="SET" suffixOverrides=",">
+        <if test="communityCategory != null">
+            COMMUNITY_CATEGORY=#{communityCategory},
+        </if>
+        <if test="communityTitle != null">
+            COMMUNITY_TITLE=#{communityTitle},
+        </if>
+        <if test="communityContent != null">
+            COMMUNITY_CONTENT = #{communityContent},
+        </if>
+        <if test="communityOfileName != null">
+            COMMUNITY_O_FILENAME = #{communityOfileName},
+        </if>
+        <if test="communityRfileName != null">
+            COMMUNITY_R_FILENAME = #{communityRfileName},
+        </if>
+      </trim>
+      WHERE COMMUNITY_NO = #{communityNo}
+     </update>
     
 </mapper>

@@ -35,4 +35,6 @@ public interface CommunityMapper {
 	
 	int insertBoard(Community community);
 	
+	int updateBoard(Community community);
+	
 }

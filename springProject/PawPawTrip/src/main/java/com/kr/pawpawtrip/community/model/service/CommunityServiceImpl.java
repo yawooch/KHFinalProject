@@ -95,6 +95,7 @@ public class CommunityServiceImpl implements CommunityService {
 		
 		if(community.getCommunityNo() > 0) {
 			// 업데이트
+			result = communityMapper.updateBoard(community);
 		} else {
 			// 인서트
 			result = communityMapper.insertBoard(community);

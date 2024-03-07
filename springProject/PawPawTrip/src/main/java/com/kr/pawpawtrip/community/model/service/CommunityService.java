@@ -31,7 +31,7 @@ public interface CommunityService {
 	// 자유 게시판(수다) 상세 조회
 	Community getBoardNo(int no);
 	
-	// 게시글 작성
+	// 게시글 작성,수정
 	int save(Community community);
 
 }

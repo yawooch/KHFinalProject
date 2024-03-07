@@ -11,13 +11,26 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <link rel="stylesheet" href="${path}/css/community/boardwrite.css">
-<!--  
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
--->
 <link rel="stylesheet" href="${path}/css/community/summernote-lite.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+
+<style>
+	.talkWriteFile {
+	    width: 90px;
+	    height: 35px;
+	    margin-left: 10px;
+	    margin-right: 10px;
+    	padding-top: 7px;
+	    background-color: #B29254;
+	    border: 1px solid #B29254;
+	    border-radius: 5px;
+	    cursor: pointer;
+	    color: white;
+	    font-size: 14px;
+	    text-align: center;
+	}
+</style>
 
 <div class="content">
 	<div class="container">
@@ -39,7 +52,9 @@
 		</div>
 		<div class="common-list">
 			<div class="community-detail-list">
-				<form action="${ path }/community/boardwrite" method="post" enctype="multipart/form-data" id="submitCheck">
+				<form action="${ path }/community/boardupdate" method="post" enctype="multipart/form-data" id="submitCheck">
+					<input type="hidden" name="communityNo" value="${ community.communityNo }">
+				
 					<table border="1">
 						<tr>
 							<td class="community-td-header">제목</td>
@@ -49,7 +64,7 @@
 										<option value="[수다]">수다</option>
 										<option value="[마이펫 자랑]">마이펫 자랑</option>
 								</select> 
-								<input type="text" name="communityTitle" id="communityTitle" placeholder="제목을 입력해주세요." />
+								<input type="text" name="communityTitle" id="communityTitle" value="${ community.communityTitle }" placeholder="제목을 입력해주세요." />
 							</td>
 						</tr>
 						<tr>
@@ -61,7 +76,7 @@
 						<tr>
 							<td class="community-td-header">내용</td>
 							<td>
-								<textarea resize="none" name="communityContent" id="summernote" class="summernote" cols="30" rows="10"></textarea>
+								<textarea resize="none" name="communityContent" id="summernote" class="summernote" cols="30" rows="10">${ community.communityContent }</textarea>
 							</td>
 						</tr>
 						<tr>
@@ -69,14 +84,23 @@
 								(10MB까지 첨부 가능)
 							</td>
 							<td>
-								<input type="file" name="talkWriteFile" id="talkWriteFile">
+								<c:if test="${ community.communityOfileName == null }">
+									<label for="talkWriteFile" class="talkWriteFile">파일선택</label>
+									<input type="file" name="talkWriteFile" id="talkWriteFile" style="display: none;">
+									<span id="fileNameDisplay">선택 된 파일 없음</span>
+								</c:if>
+								
+								<c:if test="${ community.communityOfileName != null }">
+									<label for="talkWriteFile">파일선택</label>
+									<input type="file" name="talkWriteFile" id="talkWriteFile" style="display: none;">
+									<span id="fileNameDisplay">${ community.communityOfileName }</span>
+								</c:if>
 							</td>
 						</tr>
 					</table>
 					<div class="btn-wrap">
-						<button type="submit" class="community-add-btn">등록</button>
-						<button type="button" class="community-list-btn"
-							onclick="location.href='${ path }/community/board'">목록</button>
+						<button type="submit" class="community-add-btn">수정</button>
+						<button type="button" class="community-list-btn" onclick="location.href='${ path }/community/board'">목록</button>
 					</div>
 				</form>
 			</div>
@@ -86,8 +110,18 @@
 
 <script>
 $(document).ready(function() 
-{
-	$('#submitCheck').on('submit', (event) => {
+{	
+	$('#talkWriteFile').on('change', () => {
+		var fileNameDisplay = $('#fileNameDisplay');
+		
+		var fileValue = $("#talkWriteFile").val().split("\\");
+		var fileName = fileValue[fileValue.length-1];
+		
+		fileNameDisplay.text(fileName);
+	})
+	
+	
+	$('#submitCheck').on('submit', () => {
 		let category = $('#comunityCate').val();
 		let title = $('#communityTitle').val();
 		let content = $('#summernote').val();
