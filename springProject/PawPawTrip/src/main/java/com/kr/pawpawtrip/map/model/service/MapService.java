@@ -7,6 +7,6 @@ import com.kr.pawpawtrip.map.model.vo.PositionInfo;
 public interface MapService
 {
 
-    List<PositionInfo> getPoisitions();
+    List<PositionInfo> getPoisitions(String contentType, String keyword);
 
 }

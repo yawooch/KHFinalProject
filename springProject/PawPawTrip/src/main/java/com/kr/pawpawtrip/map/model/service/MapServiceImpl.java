@@ -15,9 +15,9 @@ public class MapServiceImpl implements MapService
 {
     private final MapMapper mapMapper; 
     @Override
-    public List<PositionInfo> getPoisitions()
+    public List<PositionInfo> getPoisitions(String contentType, String keyword)
     {
-        return mapMapper.selectAllPositions();
+        return mapMapper.selectAllPositions(contentType, keyword);
     }
 
 }

@@ -35,7 +35,6 @@
              , COM.MAPY
              , COM.MAPLEVEL
              , COM.COMM_TEL
-             , COM.SIGUNGUCODE
              , PET.ACMPY_TYPE_CD
           FROM COMM                    COM
          INNER JOIN                    
@@ -43,6 +42,11 @@
             ON PET.PETINFO_CONTENTID   = COM.COMM_CONTENTID
            AND COM.COMM_CONTENTTYPEID  IN('12', '32')
            AND PET.ACMPY_TYPE_CD       IN('동반가능', '전용')
+         WHERE COM.COMM_CONTENTTYPEID  = DECODE(#{contentType}, '12','12', '32', '32',COM.COMM_CONTENTTYPEID)
+           AND (
+               COM.COMM_ADDRESS LIKE '%' || #{keyword} ||'%'
+            OR COM.COMM_TITLE   LIKE '%' || #{keyword} ||'%'
+               )
 	</select>
 	
 </mapper>
