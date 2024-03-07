@@ -70,7 +70,7 @@
 		</div>
 		<div class="common-list">
 			<div class="community-detail-list">
-				<form action="${ path }/community/boardupdate" method="post" enctype="multipart/form-data" id="submitCheck">
+				<form action="${ path }/community/board/update" method="post" enctype="multipart/form-data" id="submitCheck">
 					<input type="hidden" name="communityNo" value="${ community.communityNo }">
 				
 					<table border="1">

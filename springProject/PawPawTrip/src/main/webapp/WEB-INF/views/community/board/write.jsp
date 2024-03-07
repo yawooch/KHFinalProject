@@ -39,7 +39,7 @@
 		</div>
 		<div class="common-list">
 			<div class="community-detail-list">
-				<form action="${ path }/community/boardwrite" method="post" enctype="multipart/form-data" id="submitCheck">
+				<form action="${ path }/community/board/write" method="post" enctype="multipart/form-data" id="submitCheck">
 					<table border="1">
 						<tr>
 							<td class="community-td-header">제목</td>

@@ -104,4 +104,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return result;
 	}
 
+	// 게시글 삭제
+	@Override
+	@Transactional
+	public int delete(int no) {
+		
+		return communityMapper.updateStatus(no, "N");
+	}
+
 }

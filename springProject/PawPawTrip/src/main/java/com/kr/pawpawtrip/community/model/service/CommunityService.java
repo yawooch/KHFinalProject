@@ -34,4 +34,7 @@ public interface CommunityService {
 	// 게시글 작성,수정
 	int save(Community community);
 
+	// 게시글 삭제
+	int delete(int no);
+
 }

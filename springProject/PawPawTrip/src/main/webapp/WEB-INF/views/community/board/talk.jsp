@@ -111,8 +111,7 @@
 				</table>
 			</div>
 			<div class="btn-wrap">
-				<button class="community-btn"
-					onclick="location.href='${ path }/community/boardwrite'">글쓰기</button>
+				<button class="community-btn" id="writeBtn">글쓰기</button>
 			</div>
 			<div class="common-page-number">
 				<ul>
@@ -170,6 +169,14 @@ function search() {
     
     window.location.href = url;
 }
+
+$('#writeBtn').on('click', () => {
+	if(${loginMember == null}) {
+		alert('로그인 후 작성 가능합니다.');
+	} else {
+		location.href='${ path }/community/board/write';
+	}
+});
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

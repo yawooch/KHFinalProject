@@ -12,6 +12,13 @@
 
 <link rel="stylesheet" href="${path}/css/community/talkdetail.css">
 
+<style>
+	#fileDown {
+		font-size: 16px;
+		cursor: pointer;
+	}
+</style>
+
 <div class="content">
 	<div class="container">
 		<div class="common-title">
@@ -104,7 +111,7 @@
 		// 수정
 		$('#updateBtn').on('click', () => {
 			if(confirm('게시글을 수정하시겠습니까?')) {
-				location.href=`${path}/community/boardupdate?no=${community.communityNo}`;
+				location.href=`${path}/community/board/update?no=${community.communityNo}`;
 			} else {
 				location.reload();
 			}
@@ -113,7 +120,7 @@
 		// 삭제
 		$('#deleteBtn').on('click', () => {
 			if(confirm('게시글을 삭제하시겠습니까?')) {
-				alert('삭제가 완료되었습니다.');
+				location.href=`${path}/community/board/delete?no=${community.communityNo}`;
 			} else {
 				location.reload();
 			}

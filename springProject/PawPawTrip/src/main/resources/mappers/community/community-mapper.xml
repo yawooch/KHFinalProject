@@ -320,5 +320,12 @@
       </trim>
       WHERE COMMUNITY_NO = #{communityNo}
      </update>
+     
+     <!-- 삭제 -->
+     <update id="updateStatus" parameterType="map">
+      UPDATE COMMUNITY
+      SET COMMUNITY_STATUS = #{status}
+      WHERE COMMUNITY_NO = #{no}
+     </update>
     
 </mapper>

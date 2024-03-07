@@ -37,4 +37,6 @@ public interface CommunityMapper {
 	
 	int updateBoard(Community community);
 	
+	int updateStatus(@Param("no") int no, @Param("status") String status);
+	
 }
