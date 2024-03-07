@@ -87,11 +87,11 @@
                     <!-- 카드 (반복 생성) -->
                     <c:forEach var="stay" items="${ stays }">
 	                    <div class="col-md-4">
-	                        <a href="${ path }/trip/stay/stayDetail" style="text-decoration: none;">
+	                        <a href="${ path }/trip/stay/stayDetail?id=${stay.stayContentId}" style="text-decoration: none;">
 	                            <!-- 카드 이미지 -->
 	                            <div class="card mb-4 product-wap rounded-0">
 	                                <div class="card rounded-0">
-	                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0472/thumb/list/C0472_F20211210134433001.jpg">
+	                                    <img class="card-img rounded-0 img-fluid" src="${ stay.stayImage }">
 	                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
 	                                        <p class="readMore" style="font-size: 14px !important;">+<br>READ MORE</p>
 	                                    </div>
@@ -99,13 +99,13 @@
 	                                <!-- 카드 내용 -->
 	                                <div class="card-body">
 	                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
-	                                        숙소 이름
+	                                        ${ stay.stayTitle }
 	                                    </p>
 	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-	                                        숙소 주소
+	                                        ${ stay.stayAddress } 
 	                                    </p>
 	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-	                                        숙소 문의처
+	                                        ${ stay.stayTel }
 	                                    </p>
 	                                </div>
 	                            </div>

@@ -88,10 +88,13 @@ public class TripController {
 	
 	// 숙박 상세 페이지
 	@GetMapping("/trip/stay/stayDetail")
-	public ModelAndView stayDetail(ModelAndView modelAndView) {
+	public ModelAndView stayDetail(ModelAndView modelAndView,
+								   @RequestParam int id) {
 		
+		Stay stay = tripService.getStayById(id);
 		
-		
+		//modelAndView.addObject("stay", stay);
+		modelAndView.addObject(stay);
 		modelAndView.setViewName("trip/stayDetail");
 		
 		return modelAndView;

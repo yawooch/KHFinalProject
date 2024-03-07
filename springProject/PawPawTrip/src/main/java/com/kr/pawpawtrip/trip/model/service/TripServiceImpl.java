@@ -37,7 +37,7 @@ public class TripServiceImpl implements TripService {
 		return tripMapper.selectSpotList(rowBounds);
 	}
 	
-	// 콘텐츠 ID로 여행지 상세 조회
+	// 여행지 상세 조회(반려동물 동반 정보 확인)
 	@Override
 	public Spot getSpotById(int id) {
 		
@@ -61,6 +61,13 @@ public class TripServiceImpl implements TripService {
 	      RowBounds rowBounds = new RowBounds(offset, limit);
 	      
 		return tripMapper.selectStaytList(rowBounds);
+	}
+	
+	// 숙박 상세 조회(반려동물 동반 정보 확인)
+	@Override
+	public Stay getStayById(int id) {
+		
+		return tripMapper.selectStayById(id);
 	}
 	
 	// -------------------------------------------------------------------------
@@ -129,5 +136,4 @@ public class TripServiceImpl implements TripService {
     {
         return tripMapper.selectPetInfoByContentId(contentId);
     }
-
 }

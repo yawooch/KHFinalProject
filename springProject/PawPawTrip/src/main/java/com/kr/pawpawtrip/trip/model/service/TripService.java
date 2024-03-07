@@ -17,7 +17,7 @@ public interface TripService {
 	// List<Spot> getSpotList(PageInfo pageInfo, String select, String search);
 	List<Spot> getSpotList(PageInfo pageInfo);
 	
-	// 여행지 상세 조회
+	// 여행지 상세 조회(여행지 ID 사용)
 	Spot getSpotById(int id);
 	
 	// 숙박 전체 게시물 수 조회
@@ -26,7 +26,8 @@ public interface TripService {
 	// 숙박 리스트 조회
 	List<Stay> getStayList(PageInfo pageInfo);
 	
-	// 
+	// 숙박 상세 조회(숙박 ID 사용) 
+	Stay getStayById(int id);
 	
 	//반려동물 동반정보 수정/저장
     int savePetInfo(PetInfo petInfo);
@@ -42,6 +43,7 @@ public interface TripService {
     List<PetInfo> getPetTourListByContentIds(List<Integer> contentIdList);
     
     PetInfo getPetTourByContentId(int contentId);
+
 
 	
 

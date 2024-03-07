@@ -29,6 +29,9 @@ public interface TripMapper {
 	// 숙박 리스트 조회
 	List<Stay> selectStaytList(RowBounds rowBounds);
 	
+	// 숙박 상세 조회
+	Stay selectStayById(@Param("id") int id);
+	
 	// 동물동반 정보 insert
     int insertPetInfo(PetInfo petInfo);
 
