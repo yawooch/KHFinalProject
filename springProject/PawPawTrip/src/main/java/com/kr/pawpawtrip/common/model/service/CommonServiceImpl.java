@@ -1,5 +1,7 @@
 package com.kr.pawpawtrip.common.model.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.kr.pawpawtrip.common.model.mapper.CommonMapper;
@@ -23,5 +25,11 @@ public class CommonServiceImpl implements CommonService
     public CommonArea getFullAreaName(String areaCode,String sigunguCode)
     {
         return commonMapper.selectCommonArea(areaCode, sigunguCode);
+    }
+
+    @Override
+    public List<CommonArea> getAreaByCode(String areaCode)
+    {
+        return commonMapper.selectAreaByCode(areaCode);
     }
 }

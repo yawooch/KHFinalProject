@@ -29,53 +29,23 @@
 		     , HOMEPAGE
 		     , OVERVIEW
 		FROM TRIP
-		<!-- WHERE AREACODE = 32 -->
-		
-		<!--  
-        SELECT TRIP_CONTENTID,
-               TRIP_ADDRESS,
-               TRIP_TITLE,
-               AREACODE,
-               TRIP_CATEGORY1,
-               TRIP_CATEGORY2,
-               TRIP_CATEGORY3,
-               TRIP_CONTENTTYPEID,
-               TRIP_CREATETIME,
-               TRIP_MODIFYTIME,
-               TRIP_IMAGE,
-               MAPX,
-               MAPY,
-               MAPLEVEL,
-               TRIP_TEL,
-               SIGUNGUCODE,
-               HOMEPAGE,
-               OVERVIEW
-          FROM TRIP
-		-->
     </sql>
 
     <!-- 숙소 SQL 구문 -->
     <sql id="stayListSql">
         SELECT STAY_CONTENTID,
-               STAY_ADDRESS,
-               STAY_DETAIL_ADDRESS,
+               STAY_ADDRESS || STAY_DETAIL_ADDRESS AS "STAY_ADDRESS",
                STAY_TITLE,
-               AREACODE,
-               STAY_CATEGORY1,
-               STAY_CATEGORY2,
-               STAY_CATEGORY3,
-               STAY_CONTENTTYPEID,
-               STAY_CREATETIME,
-               STAY_MODIFYTIME,
+               (SELECT S.AREA_NAME FROM AREA S WHERE S.AREA_CODE = AREACODE AND S.SIGUNGU_CODE = 0) AS AREACODE,
+               (SELECT S.AREA_NAME FROM AREA S WHERE S.AREA_CODE = AREACODE AND S.SIGUNGU_CODE = SIGUNGUCODE) AS SIGUNGUCODE,
+               (SELECT S.BIG_CATE_NAME FROM BIGCATEGORY S WHERE S.BIG_CATE_CODE = STAY_CATEGORY1 )AS STAY_CATEGORY1,
+               (SELECT S.MID_CATE_NAME FROM MIDCATEGORY S WHERE S.MID_CATE_CODE = STAY_CATEGORY2 )AS STAY_CATEGORY2,
+               (SELECT S.SML_CATE_NAME FROM SMLCATEGORY S WHERE S.SML_CATE_CODE = STAY_CATEGORY3 )AS STAY_CATEGORY3,
                STAY_IMAGE,
-               MAPX,
-               MAPY,
-               MAPLEVEL,
-               STAY_TEL,
-               SIGUNGUCODE,
-               HOMEPAGE,
-               OVERVIEW
-          FROM STAY
+		       STAY_TEL,
+		       HOMEPAGE,
+		       OVERVIEW
+        FROM STAY
     </sql>
     
     
@@ -179,9 +149,7 @@
         <result property="acmpyNeedMtr"      column="ACMPY_NEED_MTR"   />
     </resultMap>
 	
-	
-	<!-- ******************************************************************************** -->
-	
+	<!-- ************************************************************************************** -->
 	
 	<!-- 여행지 게시물 수 조회 -->
 	<select id="selectSpotCount" resultType="_int">
@@ -192,7 +160,7 @@
     <!-- 여행지 목록 전체 조회 -->
     <select id="selectSpotList" resultMap="spotListResultMap">
         <include refid="spotListSql"/>
-        ORDER BY TRIP_CONTENTID ASC
+        ORDER BY TRIP_TITLE ASC
     </select>
     
     
@@ -215,9 +183,25 @@
 		       P.ACMPY_NEED_MTR       AS "P_ACMPY_NEED_MTR"
 		  FROM TRIP T
 		  INNER JOIN PETINFO P ON (T.TRIP_CONTENTID = P.PETINFO_CONTENTID)
-		  WHERE P.ACMPY_TYPE_CD IN('동반가능','전용') AND T.TRIP_CONTENTID = #{id}
+		  WHERE T.TRIP_CONTENTID = #{id}
 	</select>
+
+
+	<!-- 숙박 게시물 수 조회 -->
+	<select id="selectStayCount" resultType="_int">
+		SELECT COUNT(*) FROM STAY
+	</select>	
 	
+	
+    <!-- 숙박 목록 전체 조회 
+    <select id="selectStaytList" resultMap="stayListResultMap">
+        <include refid="stayListSql"/>
+        ORDER BY STAY_CONTENTID ASC
+    </select>
+    -->
+    
+    	
+	<!-- ************************************************************************************* -->
 	
     <!-- PetTour List IN절조건 조회 -->
     <select id="selectPetInfoByContentIds" parameterType="map"  resultMap="petInfoResultMap" >

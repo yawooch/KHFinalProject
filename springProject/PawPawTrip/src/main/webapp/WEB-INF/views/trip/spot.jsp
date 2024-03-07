@@ -119,12 +119,12 @@
 	                                    </p>
 	                                    <c:if test="${ spot.tripTel == '-' }">
 		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-		                                        *해당 장소 별도 문의
+		                                         별도 문의
 		                                    </p>	                                    	
 	                                    </c:if>
 	                                    <c:if test="${ spot.tripTel != '-' }">
 		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-		                                        ${ spot.tripTel }
+		                                         ${ spot.tripTel }
 		                                    </p>
 	                                    </c:if>
 	                                </div>
@@ -180,7 +180,7 @@
 	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }&select=${ searchInfoMap.select }&search=${ searchInfoMap.search }">&gt;</a></li>
                 	</c:if>
                     -->
-	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }">&gt;</a></li>
+	                <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }">&gt;</a></li>
                 </ul>
             </div>
             <!-- </div> -->

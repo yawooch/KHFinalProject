@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.kr.pawpawtrip.map.model.mapper.MapMapper">
+    
+    <!-- 포포맵 페이지 ResultMap -->
+    <resultMap id="positionsResultMap" type="Position">
+        <!-- 기본키 -->
+        <id     property="contentId"         column="COMM_CONTENTID"/>
+        <result property="titleName"         column="COMM_TITLE"    />
+        <result property="mapX"              column="MAPX"          />
+        <result property="mapY"              column="MAPY"          />
+        <result property="mapLevel"          column="MAPLEVEL"      />
+    </resultMap>
+	
+	<!-- ******************************************************************************** -->
+	
+	
+	<!-- 포포맵 전체 좌표 조회 -->
+	<select id="selectAllPositions" resultMap="positionsResultMap">
+		SELECT COMM_CONTENTID
+             , COMM_TITLE
+             , MAPX
+             , MAPY
+             , MAPLEVEL
+          FROM COMM
+	</select>
+	
+</mapper>

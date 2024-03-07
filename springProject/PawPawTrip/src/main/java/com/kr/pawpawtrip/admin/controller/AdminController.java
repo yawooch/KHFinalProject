@@ -104,6 +104,7 @@ public class AdminController
             PetTourItem          petTourItem      = petTourResponse.getPetTourItems().get(0);
             
             String               contentTypeid    = detailCommonItem.getContenttypeid();
+            String               acmpyTypeCd      = petTourItem.getAcmpyTypeCd();
 
             //DB에 이미 저장된 내용은 건너뛴다
             if(dbPetInfo != null) 
@@ -112,7 +113,7 @@ public class AdminController
             }
             
             // 컨텐츠타입아이디로 VO를 선언 후 저장
-            if (contentTypeid.equals("12")) // 여행지- Trip
+            if (contentTypeid.equals("12") && (acmpyTypeCd.equals("전용")||acmpyTypeCd.equals("동반가능"))) // 여행지- Trip
             {
                 Spot spot = new Spot();
                 // Spot와 DetailCommonItem객체를 매핑한다.
@@ -121,7 +122,7 @@ public class AdminController
                 // VO로 save처리를 한다.
                 petTripResult = tripService.saveTrip(spot);
             }
-            else if (contentTypeid.equals("32")) // 숙소- Stay
+            else if (contentTypeid.equals("32") && (acmpyTypeCd.equals("전용")||acmpyTypeCd.equals("동반가능"))) // 숙소- Stay
             {
                 Stay stay = new Stay();
                 // Stay와 DetailCommonItem객체를 매핑한다.

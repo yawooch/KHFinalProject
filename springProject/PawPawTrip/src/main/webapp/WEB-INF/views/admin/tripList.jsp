@@ -60,7 +60,7 @@ function showList(pageNo, contentId)
 //                  result += '     <td>' + (startRowNo + idx) + '</td>';//ASC  용
                     result += '     <td><a href="${path}/admin/tripDetail?contentId=' + element.contentid + '&pageNo='+ pageNo +'">'+ element.contentid + '</a></td>';
                     result += '     <td ' + (element.dbExistYn=='등록'?'class="text-info"':'class="text-danger"') +'>' +   element.dbExistYn   + '</td>';
-                    result += '     <td>' + (element.dbAcmpyTypeCd==null?'':element.dbAcmpyTypeCd) + '</td>';
+                    result += '     <td>' + (element.acmpyTypeCd==null?'':element.acmpyTypeCd) + '</td>';
                     result += '</tr>';
                 });
             }
@@ -107,7 +107,7 @@ function saveList()
             }
             else
             {
-                alert('일괄등록 총'+ data.totalCount +'건 중, 여행/숙소가 '+ data.mainCount +'건,\n 공통 '+ data.commonCount +'건\n, 동반정보 '+ data.petInfoCount +'건\n저장 성공 하였습니다.');
+                alert('일괄등록 총'+ data.totalCount +'건 중,\n여행/숙소 : '+ data.mainCount +'건,\n공통 : '+ data.commonCount +'건,\n동반정보 : '+ data.petInfoCount +'건\n저장 성공 하였습니다.');
             }
             $('#spinnerLoading').fadeOut();
             showList(1, $('#contentId').val());

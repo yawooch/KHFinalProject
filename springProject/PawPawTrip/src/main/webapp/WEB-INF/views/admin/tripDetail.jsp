@@ -82,7 +82,7 @@ function showDetail(contentId)
             result += '<tr><td>Map Level</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.mlevel   +'</td>';
             result += '    <td>거리</td>';
-            result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.dist     +'</td></tr>';
+            result += '    <td class="common-text-left no-ellipsis">'+ (data.detailCommonItem.dist==null?'':data.detailCommonItem.dist)     +'</td></tr>';
             result += '<tr><td>연관 URL 정보</td>';
             result += '    <td class="common-text-left no-ellipsis">'+ data.detailCommonItem.homepage +'</td>';
             result += '    <td>우편번호</td>';

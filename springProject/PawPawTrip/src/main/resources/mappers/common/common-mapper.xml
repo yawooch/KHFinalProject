@@ -47,9 +47,9 @@
         </trim>
     </select>
 
-    <!-- 지역 이름 조회 -->
+    <!-- 지역 이름 단일 조회 -->
     <select id="selectCommonArea" parameterType="string" resultMap="commonAreaResultMap">
-        SELECT CITY.AREA_CODE      AS CITY_CODE
+        SELECT CITY.SIGUNGU_CODE   AS CITY_CODE
              , CITY.AREA_NAME      AS CITY_NAME
              , AREA.SIGUNGU_CODE   AS SIGUNGU_CODE
              , AREA.AREA_NAME      AS AREA_NAME
@@ -60,6 +60,25 @@
            AND CITY.SIGUNGU_CODE   = 0
          WHERE CITY.AREA_CODE    = #{areaCode}
            AND AREA.SIGUNGU_CODE = #{sigunguCode}
+    </select>
+
+    <!-- 지역 이름 다 건 조회 -->
+    <select id="selectAreaByCode" parameterType="string" resultMap="commonAreaResultMap">
+        SELECT CITY.SIGUNGU_CODE   AS CITY_CODE
+             , CITY.AREA_NAME      AS CITY_NAME
+             , AREA.SIGUNGU_CODE   AS SIGUNGU_CODE
+             , AREA.AREA_NAME      AS AREA_NAME
+          FROM AREA                CITY
+         RIGHT OUTER JOIN
+               AREA                AREA
+            ON CITY.AREA_CODE      = AREA.AREA_CODE
+           AND CITY.SIGUNGU_CODE   = 0
+            <if test="areaCode != '00'">
+         WHERE CITY.AREA_CODE || AREA.SIGUNGU_CODE   = #{areaCode}
+            </if>
+            <if test="areaCode == '00'">
+         WHERE AREA.SIGUNGU_CODE   = '0'
+            </if>
     </select>
 
 </mapper>

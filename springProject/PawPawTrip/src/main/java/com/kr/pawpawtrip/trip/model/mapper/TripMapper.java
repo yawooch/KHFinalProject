@@ -23,6 +23,9 @@ public interface TripMapper {
 	// 여행지 상세 조회
 	Spot selectSpotById(@Param("id") int id);
 	
+	// 숙박 게시글 수 조회
+	int selectStayCount();
+	
 	// 동물동반 정보 insert
     int insertPetInfo(PetInfo petInfo);
 
