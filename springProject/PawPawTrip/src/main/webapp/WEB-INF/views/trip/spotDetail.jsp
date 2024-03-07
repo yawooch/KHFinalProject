@@ -5,6 +5,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
+	
+<% 
+	pageContext.setAttribute("newLineChar", "\n"); 
+%>
+	
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <!-- css 파일 연결 -->
@@ -118,6 +123,7 @@ color: #FDFAEF;
                         <img class="infoIcon" src="${ path }/img/trip/map_icon.png" alt="주소 아이콘">
                         <span>주소</span>
                         <p>${ spot.tripAddress }</p>
+                        
                         <img class="infoIcon" src="${ path }/img/trip/tel_icon.png" alt="문의처 아이콘">
                         <span>문의처</span>
                         <c:if test="${ spot.tripTel == '-' || empty spot.tripTel }">
@@ -127,12 +133,6 @@ color: #FDFAEF;
                         	<p>${ spot.tripTel }</p>
                         </c:if>
 						
-						<!--  
-                        <img class="infoIcon" src="${ path }/img/trip/time_icon.png" alt="이용시간 아이콘">
-                        <span>이용시간</span>
-                        <p>11시 부터 14시까지(관광,견학)</p>
-						-->
-
                         <!-- 새 창으로 해당 홈페이지 열기! -->
                         <img class="infoIcon" src="${ path }/img/trip/homepage_icon.png" alt="홈페이지 아이콘">
                         <span>홈페이지</span>
@@ -155,45 +155,42 @@ color: #FDFAEF;
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>소개</span>
                     </div>
-                    <c:if test="${ empty spot.overview }">
-                    	<p>-</p>
-                    </c:if>
-                    <c:if test="${ not empty spot.overview }">
-	                    <p>${ spot.overview }</p>
-                    </c:if>
+	                <p>${ fn:replace(spot.overview, newLineChar, "<br>") }</p>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>주요시설</span>
                     </div>
-                    <c:if test="${ empty spot.petInfo.relaPosesFclty }">
-	                    <p>-</p>                	
-                    </c:if>
-                    <c:if test="${ not empty spot.petInfo.relaPosesFclty }">
-	                    <p>${ spot.petInfo.relaPosesFclty }</p>
-                    </c:if>
+	                <p>${ fn:replace(spot.petInfo.relaPosesFclty, newLineChar, "<br>") }</p>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>이용안내</span>
                     </div>
-                    <p>비치 품목 : ${ spot.petInfo.relaFrnshPrdlst }<br> 구매 품목 : ${ spot.petInfo.relaPurcPrdlst } <br> 렌탈 품목 : ${ spot.petInfo.relaRntlPrdlst }</p>
+                    <p>비치 품목: ${ spot.petInfo.relaFrnshPrdlst }<br> 
+                       구매 품목: ${ spot.petInfo.relaPurcPrdlst } <br> 
+                       렌탈 품목: ${ spot.petInfo.relaRntlPrdlst }
+                    </p>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
-                        <span>애견 정책 및 주의사항</span>
+                        <span>동반정보 및 주의사항</span>
                     </div>
-                    <p>배변 관리 철저</p>
+                    <p>${ fn:replace(spot.petInfo.etcAcmpyInfo, newLineChar, "<br>") }<br><br>
+                       ${ fn:replace(spot.petInfo.acmpyPsblCpam, newLineChar, "<br>") }
+                    </p>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>기타</span>
                     </div>
-                    <p>일반 쓰레기는 가져가셔야 함, 준비해온 음식물 반입 가능</p>
+                    <p style="color: red; font-size: 16px;">
+                    ${ fn:replace(spot.petInfo.acmpyNeedMtr, newLineChar, "<br>") }
+                    </p>
                 </div>
             </div>
 

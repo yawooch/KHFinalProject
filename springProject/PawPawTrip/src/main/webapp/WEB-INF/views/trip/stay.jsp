@@ -93,10 +93,7 @@
 	                                <div class="card rounded-0">
 	                                    <img class="card-img rounded-0 img-fluid" src="https://dangdangmap.net/upload/mapdata/C0472/thumb/list/C0472_F20211210134433001.jpg">
 	                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-	                                        <p class="readMore" style="font-size: 14px !important;">
-	                                            +<br>
-	                                            READ MORE
-	                                        </p>
+	                                        <p class="readMore" style="font-size: 14px !important;">+<br>READ MORE</p>
 	                                    </div>
 	                                </div>
 	                                <!-- 카드 내용 -->

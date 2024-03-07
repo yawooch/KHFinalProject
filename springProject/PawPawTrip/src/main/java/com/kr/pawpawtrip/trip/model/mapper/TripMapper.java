@@ -14,17 +14,20 @@ import com.kr.pawpawtrip.trip.model.vo.Stay;
 @Mapper
 public interface TripMapper {
 	
-	// 여행지 게시글 수 조회
+	// 여행지 게시물 수 조회
 	int selectSpotCount();
 	
-	// 여행지 전제 조회
+	// 여행지 리스트 조회
 	List<Spot> selectSpotList(RowBounds rowBounds);
 	
-	// 여행지 상세 조회
+	// 여행지 상세 조회(콘텐츠 ID 사용)
 	Spot selectSpotById(@Param("id") int id);
 	
-	// 숙박 게시글 수 조회
+	// 숙박 게시물 수 조회
 	int selectStayCount();
+	
+	// 숙박 리스트 조회
+	List<Stay> selectStaytList(RowBounds rowBounds);
 	
 	// 동물동반 정보 insert
     int insertPetInfo(PetInfo petInfo);

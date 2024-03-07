@@ -88,8 +88,12 @@ public class TripController {
 	
 	// 숙박 상세 페이지
 	@GetMapping("/trip/stay/stayDetail")
-	public String stayDetail() {
+	public ModelAndView stayDetail(ModelAndView modelAndView) {
 		
-		return "trip/stayDetail";
+		
+		
+		modelAndView.setViewName("trip/stayDetail");
+		
+		return modelAndView;
 	}
 }

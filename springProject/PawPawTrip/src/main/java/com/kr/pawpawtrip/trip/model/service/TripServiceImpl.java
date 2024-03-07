@@ -60,7 +60,7 @@ public class TripServiceImpl implements TripService {
 	      int offset = (pageInfo.getCurrentPage() - 1) * limit;
 	      RowBounds rowBounds = new RowBounds(offset, limit);
 	      
-		return null;
+		return tripMapper.selectStaytList(rowBounds);
 	}
 	
 	// -------------------------------------------------------------------------

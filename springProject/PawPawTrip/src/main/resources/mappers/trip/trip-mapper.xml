@@ -26,8 +26,8 @@
 		        END AS TRIP_CONTENTTYPEID
 		     , NVL(TRIP_IMAGE, '-') AS TRIP_IMAGE
 		     , NVL(TRIP_TEL, '-') AS TRIP_TEL
-		     , HOMEPAGE
-		     , OVERVIEW
+		     , NVL(HOMEPAGE, '-') AS HOMEPAGE
+		     , NVL(OVERVIEW, '-') AS OVERVIEW
 		FROM TRIP
     </sql>
 
@@ -41,10 +41,10 @@
                (SELECT S.BIG_CATE_NAME FROM BIGCATEGORY S WHERE S.BIG_CATE_CODE = STAY_CATEGORY1 )AS STAY_CATEGORY1,
                (SELECT S.MID_CATE_NAME FROM MIDCATEGORY S WHERE S.MID_CATE_CODE = STAY_CATEGORY2 )AS STAY_CATEGORY2,
                (SELECT S.SML_CATE_NAME FROM SMLCATEGORY S WHERE S.SML_CATE_CODE = STAY_CATEGORY3 )AS STAY_CATEGORY3,
-               STAY_IMAGE,
-		       STAY_TEL,
-		       HOMEPAGE,
-		       OVERVIEW
+               NVL(STAY_IMAGE, '-') AS STAY_IMAGE,
+		       NVL(STAY_TEL, '-') AS STAY_TEL,
+		       NVL(HOMEPAGE, '-') AS HOMEPAGE,
+		       NVL(OVERVIEW, '-') AS OVERVIEW
         FROM STAY
     </sql>
     
@@ -68,7 +68,6 @@
 
     <!-- 여행 페이지 ResultMap -->
     <resultMap id="spotListResultMap" type="Spot">
-        <!-- 기본키 -->
         <id     property="tripContentId"     column="TRIP_CONTENTID"     />
         <result property="tripAddress"       column="TRIP_ADDRESS"       />
         <result property="tripTitle"         column="TRIP_TITLE"         />
@@ -88,26 +87,20 @@
 
     <!-- 숙박 페이지 ResultMap -->
     <resultMap id="stayListResultMap" type="Stay">
-        <!-- 기본키 -->
         <id     property="stayContentId"     column="STAY_CONTENTID"     />
         <result property="stayAddress"       column="STAY_ADDRESS"       />
-        <result property="stayDetailAddress" column="STAY_DETAIL_ADDRESS"/>
         <result property="stayTitle"         column="STAY_TITLE"         />
         <result property="areaCode"          column="AREACODE"           />
         <result property="stayCategory1"     column="STAY_CATEGORY1"     />
         <result property="stayCategory2"     column="STAY_CATEGORY2"     />
         <result property="stayCategory3"     column="STAY_CATEGORY3"     />
         <result property="stayContentTypeId" column="STAY_CONTENTTYPEID" />
-        <result property="stayCreateTime"    column="STAY_CREATETIME"    />
-        <result property="stayModifyTime"    column="STAY_MODIFYTIME"    />
         <result property="stayImage"         column="STAY_IMAGE"         />
-        <result property="mapX"              column="MAPX"               />
-        <result property="mapY"              column="MAPY"               />
-        <result property="mapLevel"          column="MAPLEVEL"           />
         <result property="stayTel"           column="STAY_TEL"           />
         <result property="sigunguCode"       column="SIGUNGUCODE"        />
         <result property="homepage"          column="HOMEPAGE"           />
         <result property="overview"          column="OVERVIEW"           />
+        <association property="petInfo" columnPrefix="P_" resultMap="petInfoResultMap"/>
     </resultMap>
 
     <!-- 공통컨텐츠 페이지 ResultMap -->
@@ -169,18 +162,17 @@
         SELECT T.TRIP_CONTENTID,
 		       T.TRIP_ADDRESS || T.TRIP_DETAIL_ADDRESS AS TRIP_ADDRESS,
 		       T.TRIP_TITLE,
-		       NVL(T.TRIP_IMAGE, '-') AS TRIP_IMAGE,
-		       NVL(T.TRIP_TEL, '-')   AS TRIP_TEL,
-		       T.HOMEPAGE,
-		       T.OVERVIEW,
-		       P.ACMPY_TYPE_CD 	      AS "P_ACMPY_TYPE_CD",
-		       P.RELA_RNTL_PRDLST     AS "P_RELA_RNTL_PRDLST",
-		       P.RELA_PURC_PRDLST     AS "P_RELA_PURC_PRDLST",
-		       P.RELA_POSES_FCLTY     AS "P_RELA_POSES_FCLTY",
-		       P.RELA_FRNSH_PRDLST    AS "P_RELA_FRNSH_PRDLST",
-		       P.ETC_ACMPY_INFO       AS "P_ETC_ACMPY_INFO",
-		       P.ACMPY_PSBL_CPAM      AS "P_ACMPY_PSBL_CPAM",
-		       P.ACMPY_NEED_MTR       AS "P_ACMPY_NEED_MTR"
+		       NVL(T.TRIP_IMAGE, '-') 		           AS TRIP_IMAGE,
+		       NVL(T.TRIP_TEL, '-')   		           AS TRIP_TEL,
+		       NVL(T.HOMEPAGE, '-')   		           AS HOMEPAGE,
+		       NVL(T.OVERVIEW, '-')   		           AS OVERVIEW,
+		       NVL(P.RELA_POSES_FCLTY, '-')            AS P_RELA_POSES_FCLTY,
+		       NVL(P.ETC_ACMPY_INFO, '-') 	           AS P_ETC_ACMPY_INFO,
+		       NVL(P.RELA_RNTL_PRDLST, '없음')          AS P_RELA_RNTL_PRDLST,
+		       NVL(P.RELA_PURC_PRDLST, '없음')          AS P_RELA_PURC_PRDLST,
+		       NVL(P.RELA_FRNSH_PRDLST, '없음')         AS P_RELA_FRNSH_PRDLST,
+		       NVL(P.ACMPY_PSBL_CPAM, '동반 동물 별도 제한 없음')    AS P_ACMPY_PSBL_CPAM,
+		       NVL(P.ACMPY_NEED_MTR, '-') 	           AS P_ACMPY_NEED_MTR
 		  FROM TRIP T
 		  INNER JOIN PETINFO P ON (T.TRIP_CONTENTID = P.PETINFO_CONTENTID)
 		  WHERE T.TRIP_CONTENTID = #{id}
@@ -193,12 +185,11 @@
 	</select>	
 	
 	
-    <!-- 숙박 목록 전체 조회 
+    <!-- 숙박 목록 전체 조회 -->
     <select id="selectStaytList" resultMap="stayListResultMap">
         <include refid="stayListSql"/>
-        ORDER BY STAY_CONTENTID ASC
+        ORDER BY STAY_TITLE ASC
     </select>
-    -->
     
     	
 	<!-- ************************************************************************************* -->
