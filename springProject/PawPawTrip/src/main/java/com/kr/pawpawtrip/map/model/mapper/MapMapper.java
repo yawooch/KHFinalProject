@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.kr.pawpawtrip.map.model.vo.Position;
+import com.kr.pawpawtrip.map.model.vo.PositionInfo;
 
 @Mapper
 public interface MapMapper
 {
-    List<Position> selectAllPositions();
+    List<PositionInfo> selectAllPositions();
 }

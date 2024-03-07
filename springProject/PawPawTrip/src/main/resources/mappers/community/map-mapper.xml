@@ -7,13 +7,18 @@
 <mapper namespace="com.kr.pawpawtrip.map.model.mapper.MapMapper">
     
     <!-- 포포맵 페이지 ResultMap -->
-    <resultMap id="positionsResultMap" type="Position">
+    <resultMap id="positionsResultMap" type="PositionInfo">
         <!-- 기본키 -->
-        <id     property="contentId"         column="COMM_CONTENTID"/>
-        <result property="titleName"         column="COMM_TITLE"    />
-        <result property="mapX"              column="MAPX"          />
-        <result property="mapY"              column="MAPY"          />
-        <result property="mapLevel"          column="MAPLEVEL"      />
+        <id     property="contentid"     column="COMM_CONTENTID"     />
+        <result property="address"       column="COMM_ADDRESS"       />
+        <result property="title"         column="COMM_TITLE"         />
+        <result property="contenttypeid" column="COMM_CONTENTTYPEID" />
+        <result property="image"         column="COMM_IMAGE"         />
+        <result property="mapx"          column="MAPX"               />
+        <result property="mapy"          column="MAPY"               />
+        <result property="maplevel"      column="MAPLEVEL"           />
+        <result property="tel"           column="COMM_TEL"           />
+        <result property="acmpyTypeCd"   column="ACMPY_TYPE_CD"      />
     </resultMap>
 	
 	<!-- ******************************************************************************** -->
@@ -21,12 +26,23 @@
 	
 	<!-- 포포맵 전체 좌표 조회 -->
 	<select id="selectAllPositions" resultMap="positionsResultMap">
-		SELECT COMM_CONTENTID
-             , COMM_TITLE
-             , MAPX
-             , MAPY
-             , MAPLEVEL
-          FROM COMM
+		SELECT COM.COMM_CONTENTID
+             , COM.COMM_ADDRESS  || ' '|| COM.COMM_DETAIL_ADDRESS  AS COMM_ADDRESS
+             , COM.COMM_TITLE
+             , COM.COMM_CONTENTTYPEID
+             , COM.COMM_IMAGE
+             , COM.MAPX
+             , COM.MAPY
+             , COM.MAPLEVEL
+             , COM.COMM_TEL
+             , COM.SIGUNGUCODE
+             , PET.ACMPY_TYPE_CD
+          FROM COMM                    COM
+         INNER JOIN                    
+               PETINFO                 PET
+            ON PET.PETINFO_CONTENTID   = COM.COMM_CONTENTID
+           AND COM.COMM_CONTENTTYPEID  IN('12', '32')
+           AND PET.ACMPY_TYPE_CD       IN('동반가능', '전용')
 	</select>
 	
 </mapper>

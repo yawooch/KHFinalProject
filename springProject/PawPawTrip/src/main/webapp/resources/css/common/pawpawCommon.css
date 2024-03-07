@@ -1,4 +1,21 @@
 @charset "UTF-8";
+@-webkit-keyframes hue {
+    from {
+        filter: hue-rotate(0deg);
+        -webkit-filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(-360deg);
+        -webkit-filter: hue-rotate(-360deg);
+    }
+}
+/*     color:black; */
+/*     background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a); */
+/*     animation: hue 2s infinite linear; */
+/*     background-clip: text; */
+/*     -webkit-background-clip: text; */
+/*     -webkit-text-fill-color: transparent; */
+/*     -webkit-animation: hue 2s infinite linear;   */
 
 /* 모바일처럼 보이게 할때 */
 @media (min-width: 500px) 

@@ -1,5 +1,14 @@
 @charset "UTF-8";
-
+@-webkit-keyframes hue {
+    from {
+        filter: hue-rotate(0deg);
+        -webkit-filter: hue-rotate(0deg);
+    }
+    to {
+        filter: hue-rotate(-360deg);
+        -webkit-filter: hue-rotate(-360deg);
+    }
+}
 input::placeholder {
     color: gray;
 }

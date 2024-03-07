@@ -9,6 +9,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d3729bf88f29d9ac1dd719a6bcd5fd14&libraries=services,clusterer,drawing"></script>
 
+<link rel="stylesheet" href="${path}/css/map/map.css"></link>
 <script type="text/javascript" src="${path}/js/map/map.js"></script>
 <div class="content">
     <div class="container">
@@ -42,16 +43,16 @@
                 <div id="map" style="width:100%;height:400px;"></div>
             
             </div>
-            <div class="container-fluid" style="width:100%; height:400px; background-color:#FDFAEF;margin-bottom:50px;">
-                <div class="row" style="height: 100%;">
-                    <div class="col-4" style="height:100%;background-color: aliceblue;">
+            <div class="container-fluid" style="width:100%; background-color:#FDFAEF;margin-bottom:50px;">
+                <div class="row" style="">
+                    <div class="col-lg-4" style="background-color: aliceblue;">
                         <div class="row" id="clickLatlng" style="font-size:18px;">
 
                         </div>
                     </div>
-                    <div class="col-4" id="zoomInfo" style="height:100%;background-color: aquamarine;">
+                    <div class="col-lg-4" id="zoomInfo" style="background-color: aquamarine;">
                     </div>
-                    <div class="col-4" id="addressInfo" style="height:100%;background-color: bisque;">
+                    <div class="col-lg-4" id="addressInfo" style="background-color: bisque;">
                     </div>
                 </div>
             </div>

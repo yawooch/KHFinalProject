@@ -11,8 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kr.pawpawtrip.common.model.service.CommonService;
 import com.kr.pawpawtrip.common.model.vo.CommonArea;
-import com.kr.pawpawtrip.map.model.vo.Position;
 import com.kr.pawpawtrip.map.model.service.MapService;
+import com.kr.pawpawtrip.map.model.vo.PositionInfo;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +42,7 @@ public class MapController
 	    
 	    Map<String, Object> map = new HashMap<String, Object>();
 	    
-	    List<Position> positions = mapService.getPoisitions();
+	    List<PositionInfo> positions = mapService.getPoisitions();
 	    
 	    map.put("positions", positions);
 	    
