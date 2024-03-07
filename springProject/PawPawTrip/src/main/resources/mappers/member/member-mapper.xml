@@ -28,6 +28,7 @@
 	<resultMap id="memberResultMap" type="Member">
 		<id property="memberNo" column="MEMBER_NO"/>
 		<result property="memberId" column="MEMBER_ID"/>
+		<result property="memberName" column="MEMBER_NAME"/>
 		<result property="memberPw" column="MEMBER_PW"/>
 		<result property="memberRole" column="MEMBER_ROLE"/>
 		<result property="memberPhone" column="MEMBER_PHONE"/>
@@ -58,7 +59,8 @@
 	<insert id="insertMember" parameterType="Member"
 		useGeneratedKeys="true" keyColumn="MEMBER_NO" keyProperty="memberNo">
 		INSERT INTO MEMBER (
-			MEMBER_NO, 
+			MEMBER_NO,
+			MEMBER_NAME,
 			MEMBER_ID, 
 			MEMBER_PW, 
 			MEMBER_PHONE, 
@@ -70,6 +72,7 @@
 		VALUES (
 			SEQ_MEM_NO.NEXTVAL,
 			#{memberId},
+			#{memberName},
 			#{memberPw},
 			#{memberPhone},
 			#{memberEmail},

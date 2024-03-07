@@ -7,5 +7,7 @@ public interface MemberService {
 	Member login(String memberId, String memberPw);
 
 	int save(Member member);
+
+	Boolean isDuplicateId(String memberId);
 	
 }

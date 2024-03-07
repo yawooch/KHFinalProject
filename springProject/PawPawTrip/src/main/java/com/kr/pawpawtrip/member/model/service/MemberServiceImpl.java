@@ -4,6 +4,8 @@ import javax.management.RuntimeErrorException;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,14 +19,21 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberMapper mapper;
 	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	
 	@Override
 	public Member login(String memberId, String memberPw) {
-		Member member = null;
+		Member member = mapper.selectMemberById(memberId);
 		
-		member = mapper.selectMemberById(memberId);
+		// 매번 다른 값으로 암호화
+		System.out.println("encoder : " + encoder.encode(memberPw));
 		
-		if (member == null || !member.getMemberPw().equals(memberPw)) {
+		System.out.println(encoder.matches(memberPw, member.getMemberPw()));
+		
+											// 사용자가 입력한 비밀번호, db에 저장된 번호 비교 
+		if (member == null || !encoder.matches(memberPw, member.getMemberPw())) {
 			return null;
 		}
 		
@@ -41,14 +50,20 @@ public class MemberServiceImpl implements MemberService {
 			// update
 		} else {
 			// insert
+			member.setMemberPw(encoder.encode(member.getMemberPw())); // insert 전 암호화 된 패스워드를 객체에 set해줌
+			
 			result = mapper.insertMember(member);
 		}
 		
-//		if(true) {
-//			throw new RuntimeException("에러 발생");
-//		}
-		
 		return result;
+	}
+
+
+	@Override
+	public Boolean isDuplicateId(String memberId) {
+
+		// null이 아니면 true 리턴 = 아이디 중복
+		return mapper.selectMemberById(memberId) != null;
 	}
 	
 }

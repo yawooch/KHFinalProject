@@ -13,7 +13,7 @@ public class Member {
 	private int memberNo;
 	
 	private String memberId;
-	
+		
 	private String memberPw;
 	
 	private String memberRole;
@@ -22,7 +22,7 @@ public class Member {
 	
 	private String memberEmail;
 	
-	private int memberBirth;
+	private String memberBirth;
 	
 	private String memberPetName;
 	
@@ -40,5 +40,7 @@ public class Member {
 	private String recvAgreeYn;
 	
 	private String locaAgreeYn;
+	
+	private String memberName;
 	
 }

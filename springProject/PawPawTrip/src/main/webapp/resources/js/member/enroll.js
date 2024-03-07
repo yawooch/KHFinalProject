@@ -18,6 +18,19 @@ window.onload = function(){
 		}
 	 });
 	 
+	 // 이메일 합치기
+	 $('#enroll-form').on('submit', () => {
+		 let emailId     = $('#email-id').val();
+		 let domainId    = $('#domain-txt').val();
+		 let memberEmail = "";
+		 
+	 	 memberEmail     = emailId + "@" + domainId;
+	 	
+	 	$('#memberEmail').val(memberEmail);
+	 });
+	 
+	 	 
+	 
 	// '출생 연도' 셀렉트 박스 option 목록 동적 생성
 	let birthYearEl = document.querySelector('#birth-year')
 	// option 목록 생성 여부 확인
@@ -73,6 +86,21 @@ window.onload = function(){
 	      this.appendChild(DayOption);
 	    }
 	  }
+	});
+	
+	// 생년월일 합치기
+	$('#enroll-form').on('submit', () => {
+		let year = $('#birth-year').val();
+		let month = $('#birth-month').val();
+		let day = $('#birth-day').val();
+		let memberBirth = "";
+		
+		month = month < 10 ? '0' + month : month;
+		day = day < 10 ? '0' + day : day; 
+		
+		memberBirth = year + month + day;
+		
+		$('#memberBrith').val(memberBirth);
 	});
 
 
@@ -131,6 +159,7 @@ window.onload = function(){
 		$(".options").prop("checked", false);
 	}
 	});
+	
 	
 	
 	

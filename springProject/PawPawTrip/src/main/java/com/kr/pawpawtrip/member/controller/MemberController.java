@@ -1,5 +1,8 @@
 package com.kr.pawpawtrip.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -131,7 +135,7 @@ public class MemberController {
 	// 회원가입
 	@PostMapping("/enroll")
 	public ModelAndView enroll(ModelAndView modelAndView, Member member) {
-		log.info("enroll() 호출 - 회원 가입 페이지 호출");
+//		log.info("enroll() 호출 - 회원 가입 페이지 호출");
 		
 		int result = service.save(member);
 		
@@ -153,5 +157,18 @@ public class MemberController {
 	public String enrollComplete() {
 		
 		return "member/enrollComplete";
+	}
+	
+	// 아이디 중복확인
+	@GetMapping("/member/idCheck")
+	@ResponseBody
+	public Map<String, Boolean> idCheck(@RequestParam String memberId) {
+		Map<String, Boolean> map = new HashMap<>();
+		
+		log.info("MemberId : {}", memberId);
+		
+		map.put("duplicate", service.isDuplicateId(memberId));
+		
+		return map;
 	}
 }
