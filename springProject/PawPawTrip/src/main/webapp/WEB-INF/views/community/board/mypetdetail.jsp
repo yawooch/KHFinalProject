@@ -57,8 +57,13 @@
 					</tr>
 					<tr>
 						<td colspan="6" class="community-td-content" style="text-align: left;">
-							<p><img src="${ path }/resources/upload/community/${ community.communityRfileName }" alt=""></p>
-							${ community.communityContent }
+							<c:if test="${ community.communityRfileName == null }">
+								${ community.communityContent }
+							</c:if>
+							<c:if test="${ community.communityRfileName != null }">
+								<p><img style="max-width: 800px; max-height: 800px;" src="${ path }/resources/upload/community/${ community.communityRfileName }" alt=""></p>
+								${ community.communityContent }
+							</c:if>
 						</td>
 					</tr>
 					<tr>
@@ -91,6 +96,7 @@
 <script>
 
 	$(document).ready(() => {
+		// console.log('${community.communityRfileName}');
 		// 파일 다운로드
 		$('#fileDown').on('click', () => {
 			let oname = encodeURIComponent('${ community.communityOfileName }');

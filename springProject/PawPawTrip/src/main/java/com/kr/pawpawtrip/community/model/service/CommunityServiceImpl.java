@@ -86,7 +86,7 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityMapper.selectBoardByNo(no);
 	}
 
-	// 게시글 작성
+	// 게시글 작성, 수정
 	@Override
 	@Transactional
 	public int save(Community community) {

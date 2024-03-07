@@ -298,6 +298,7 @@
              )
      </insert>
      
+     <!-- 수정 -->
      <update id="updateBoard" parameterType="Community">
       UPDATE COMMUNITY
       <trim prefix="SET" suffixOverrides=",">

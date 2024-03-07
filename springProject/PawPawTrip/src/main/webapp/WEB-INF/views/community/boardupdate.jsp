@@ -30,6 +30,24 @@
 	    font-size: 14px;
 	    text-align: center;
 	}
+	
+	#deleteFile {
+		width: 90px;
+		height: 35px;
+		margin-left: 10px;
+		padding: 0;
+		background-color: white;
+	    border: 1px solid #B29254;
+	    border-radius: 5px;
+		cursor: pointer;
+	    color: #B29254;
+	    font-size: 14px;
+	    text-align: center;
+	}
+	
+	#deleteFile:hover {
+		border: 2px solid #B29254;
+	}
 </style>
 
 <div class="content">
@@ -91,9 +109,10 @@
 								</c:if>
 								
 								<c:if test="${ community.communityOfileName != null }">
-									<label for="talkWriteFile">파일선택</label>
+									<label for="talkWriteFile" class="talkWriteFile">파일선택</label>
 									<input type="file" name="talkWriteFile" id="talkWriteFile" style="display: none;">
 									<span id="fileNameDisplay">${ community.communityOfileName }</span>
+									<input type="button" id="deleteFile" value="삭제" />
 								</c:if>
 							</td>
 						</tr>
@@ -111,6 +130,14 @@
 <script>
 $(document).ready(function() 
 {	
+	$('#deleteFile').on('click', () => {
+		$('#talkWriteFile').val('');
+		
+		$('#fileNameDisplay').text('선택된 파일 없음');
+		
+		$('#deleteFile').css('display', 'none');
+	});
+	
 	$('#talkWriteFile').on('change', () => {
 		var fileNameDisplay = $('#fileNameDisplay');
 		
@@ -118,6 +145,8 @@ $(document).ready(function()
 		var fileName = fileValue[fileValue.length-1];
 		
 		fileNameDisplay.text(fileName);
+		
+		$('#deleteFile').css('display', 'inline');
 	})
 	
 	
@@ -144,7 +173,7 @@ $(document).ready(function()
 			return false;
 		}
 		
-		if(!(file === 'jpg' || file === 'png' || file === 'gif' || file === '')) {
+		if(!(file === 'jpg' || file === 'png' || file === 'gif' || file === 'jpeg' || file === '')) {
 			alert('이미지 파일을 등록해주세요.');
 			return false;
 		}

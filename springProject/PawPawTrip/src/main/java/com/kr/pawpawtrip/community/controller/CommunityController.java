@@ -296,6 +296,7 @@ public class CommunityController {
 	@PostMapping("/community/boardupdate")
 	public ModelAndView boardUpdate(
 			ModelAndView modelAndView, 
+//			Community community,
 			@RequestParam int communityNo,
 			@RequestParam String communityCategory,
 			@RequestParam String communityTitle,
@@ -303,18 +304,20 @@ public class CommunityController {
 			@RequestParam MultipartFile talkWriteFile,
 			@SessionAttribute Member loginMember) {
 		
+//		System.out.println(communityNo);
+//		System.out.println(communityCategory);
+//		System.out.println(communityTitle);
+//		System.out.println(communityContent);
+//		System.out.println(talkWriteFile);
+		
 		int result = 0;
-		Community community = null;
 		
-		community = communityService.getBoardNo(communityNo);
-		
-		System.out.println(community);
-		System.out.println(community != null && community.getCommunityWriterId().equals(loginMember.getMemberId()));
+		Community community = communityService.getBoardNo(communityNo);
 		
 		if(community != null && community.getCommunityWriterId().equals(loginMember.getMemberId())) {
+			String location = null;
+			String renamedFileName = null;
 			if(talkWriteFile != null && !talkWriteFile.isEmpty()) {
-				String location = null;
-				String renamedFileName = null;
 				
 				try {
 					
@@ -335,7 +338,24 @@ public class CommunityController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			} else {
+				
+				try {
+					location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
+					
+					if(community.getCommunityRfileName() != null) {
+						MultipartFileUtil.delete(location + "/" + community.getCommunityRfileName());
+					}
+					
+					community.setCommunityOfileName("");
+					community.setCommunityRfileName("");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
 			}
+			
+			System.out.println(community);
 			
 			community.setCommunityCategory(communityCategory);
 			community.setCommunityTitle(communityTitle);
@@ -364,6 +384,7 @@ public class CommunityController {
 			modelAndView.addObject("location", "/community/boardupdate?no=" + community.getCommunityNo());
 		}
 		
+		log.info("Board Update(게시글 수정 성공) - {}", community);
 		modelAndView.setViewName("common/msg");
 		
 		return modelAndView;
