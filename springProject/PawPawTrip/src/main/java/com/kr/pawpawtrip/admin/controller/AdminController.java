@@ -37,6 +37,7 @@ import com.kr.pawpawtrip.common.model.vo.CommonArea;
 import com.kr.pawpawtrip.common.util.MultipartFileUtil;
 import com.kr.pawpawtrip.community.model.service.CommunityService;
 import com.kr.pawpawtrip.community.model.vo.Community;
+import com.kr.pawpawtrip.member.model.vo.Member;
 import com.kr.pawpawtrip.trip.model.service.TripService;
 import com.kr.pawpawtrip.trip.model.vo.Comm;
 import com.kr.pawpawtrip.trip.model.vo.PetInfo;
@@ -51,7 +52,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @SessionAttributes(
 {
-        "petTourInfos", "petTourDetail", "detailCommonItem"
+        "petTourInfos", "petTourDetail", "detailCommonItem", "loginMember"
 })
 public class AdminController
 {
@@ -360,15 +361,13 @@ public class AdminController
         return "admin/noticeWrite";
     }
 
-
     /** 공지사항 저장 처리 */
     @PostMapping("/admin/noticeWrite")
-    public ModelAndView write(             ModelAndView  modelAndView, 
+    public ModelAndView noticeWrite(       ModelAndView  modelAndView, 
                                            Community     community,
             @RequestParam("talkWriteFile") MultipartFile talkWriteFile) 
     {
         int result = 0;
-        
         // 1. 파일 업로드 확인 후 파일 저장
         // 파일을 업로드하지 않으면 로그에 true, 업로드하면 false
         log.info("isEmpty: {}", talkWriteFile.isEmpty());
@@ -380,7 +379,6 @@ public class AdminController
         {
             String location        = null;
             String renamedFileName = null;
-            
             try
             {
                 location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
@@ -417,17 +415,158 @@ public class AdminController
 
     /** 공지사항수정 화면 이동 */
     @GetMapping("/admin/noticeUpdate")
-    public String noticeUpdate()
+    public ModelAndView noticeUpdate(       ModelAndView modelAndView, 
+                          @RequestParam     int          no,
+                          @SessionAttribute Member       loginMember)
     {
-        return "admin/noticeUpdate";
-    }
-    /** 공지사항 수정 처리 */
-    @PostMapping("/admin/noticeUpdate")
-    public String updateNotice()
-    {
-        return "admin/noticeUpdate";
+        Community community = communityService.getBoardNo(no);
+    
+        log.info("Board Update - {}", community);
+    
+        if (community != null && community.getCommunityWriterId().equals(loginMember.getMemberId()))
+        {
+            modelAndView.addObject("community", community);
+            modelAndView.setViewName("admin/noticeUpdate?no="+ community.getCommunityNo());
+        } 
+        else
+        {
+            modelAndView.addObject("msg", "잘못된 접근입니다.");
+            modelAndView.addObject("location", "/community/notice");
+            modelAndView.setViewName("common/msg");
+        }
+    
+        return modelAndView;
     }
 
+    /** 공지사항 수정 처리 */
+    @PostMapping("/admin/noticeUpdate")
+    public ModelAndView updateNotice(ModelAndView  modelAndView,
+                   @RequestParam     int           communityNo, 
+                   @RequestParam     String        communityCategory, 
+                   @RequestParam     String        communityTitle,
+                   @RequestParam     String        communityContent, 
+                   @RequestParam     String        noticeImportantYn, 
+                   @RequestParam     MultipartFile talkWriteFile,
+                   @SessionAttribute Member        loginMember)
+    {
+        int result = 0;
+    
+        Community community = communityService.getBoardNo(communityNo);
+    
+        if (community != null && community.getCommunityWriterId().equals(loginMember.getMemberId()))
+        {
+            String location = null;
+            String renamedFileName = null;
+            if (talkWriteFile != null && !talkWriteFile.isEmpty())
+            {
+                try
+                {
+                    // workspace에 저장되어 있는 파일 경로
+                    location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
+    
+                    if (community.getCommunityRfileName() != null)
+                    {
+                        MultipartFileUtil.delete(location + "/" + community.getCommunityRfileName());
+                    }
+                    renamedFileName = MultipartFileUtil.save(talkWriteFile, location);
+                    if (renamedFileName != null)
+                    {
+                        community.setCommunityOfileName(talkWriteFile.getOriginalFilename());
+                        community.setCommunityRfileName(renamedFileName);
+                    }
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                try
+                {
+                    location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
+    
+                    if (community.getCommunityRfileName() != null)
+                    {
+                        MultipartFileUtil.delete(location + "/" + community.getCommunityRfileName());
+                    }
+                    community.setCommunityOfileName("");
+                    community.setCommunityRfileName("");
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+    
+            }
+    
+            System.out.println(community);
+    
+            community.setCommunityCategory(communityCategory);
+            community.setCommunityTitle(communityTitle);
+            community.setCommunityContent(communityContent);
+    
+            result = communityService.save(community);
+    
+            if (result > 0)
+            {
+                modelAndView.addObject("msg", "게시글 수정 성공");
+                modelAndView.addObject("location", "/community/noticedetail?no=" + community.getCommunityNo());
+            } 
+            else
+            {
+                modelAndView.addObject("msg", "게시글 수정 실패");
+                modelAndView.addObject("location", "/community/notice");
+            }
+        } else
+        {
+            modelAndView.addObject("msg", "잘못된 접근입니다.");
+            modelAndView.addObject("location", "/admin/noticeUpdate?no=" + community.getCommunityNo());
+        }
+        modelAndView.setViewName("common/msg");
+    
+        return modelAndView;
+    }
+
+    // 게시글 삭제
+    @GetMapping("/admin/delete")
+    public ModelAndView delete(        ModelAndView modelAndView, 
+                     @RequestParam     int          no, 
+                     @SessionAttribute Member       loginMember)
+    {
+    
+        Community community = communityService.getBoardNo(no);
+        int       result    = communityService.delete(no);
+    
+        if (result > 0)
+        {
+            modelAndView.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
+    
+            if (community.getCommunityCategory().equals("[수다]"))
+            {
+                modelAndView.addObject("location", "/community/board/talk");
+            }
+            if (community.getCommunityCategory().equals("[마이펫 자랑]"))
+            {
+                modelAndView.addObject("location", "/community/board/mypet");
+            }
+        } 
+        else
+        {
+            modelAndView.addObject("msg", "게시글이 정상적으로 삭제되지 않았습니다.");
+    
+            if (community.getCommunityCategory().equals("[수다]"))
+            {
+                modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
+            }
+            if (community.getCommunityCategory().equals("[마이펫 자랑]"))
+            {
+                modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
+            }
+        }
+        modelAndView.setViewName("common/msg");
+        return modelAndView;
+    }
+  
     /**
      * DetailCommonItem 을 다른 VO로 매핑해준다.
      * 
@@ -436,95 +575,93 @@ public class AdminController
      */
     private void mappingCommonItemVo(DetailCommonItem detailCommonItem, Spot spot)
     {
-        spot.setTripContentId(Integer.parseInt(detailCommonItem.getContentid()));    // 여행 콘텐츠 ID (기본키)
-        spot.setTripAddress(                   detailCommonItem.getAddr1());         // 여행지 주소
-        spot.setTripDetailAddress(             detailCommonItem.getAddr2());         // 여행지 상세주소
-        spot.setTripTitle(                     detailCommonItem.getTitle());         // 여행지 이름
-        spot.setAreaCode(                      detailCommonItem.getAreacode());      // 지역 코드
-        spot.setTripCategory1(                 detailCommonItem.getCat1());          // 여행 카테고리 대분류
-        spot.setTripCategory2(                 detailCommonItem.getCat2());          // 여행 카테고리 중분류
-        spot.setTripCategory3(                 detailCommonItem.getCat3());          // 여행 카테고리 소분류
-        spot.setTripContentTypeId(             detailCommonItem.getContenttypeid()); // 여행 콘텐츠 타입 ID
+        spot.setTripContentId(Integer.parseInt(      detailCommonItem.getContentid()));    // 여행 콘텐츠 ID (기본키)
+        spot.setTripAddress(                         detailCommonItem.getAddr1());         // 여행지 주소
+        spot.setTripDetailAddress(                   detailCommonItem.getAddr2());         // 여행지 상세주소
+        spot.setTripTitle(                           detailCommonItem.getTitle());         // 여행지 이름
+        spot.setAreaCode(                            detailCommonItem.getAreacode());      // 지역 코드
+        spot.setTripCategory1(                       detailCommonItem.getCat1());          // 여행 카테고리 대분류
+        spot.setTripCategory2(                       detailCommonItem.getCat2());          // 여행 카테고리 중분류
+        spot.setTripCategory3(                       detailCommonItem.getCat3());          // 여행 카테고리 소분류
+        spot.setTripContentTypeId(                   detailCommonItem.getContenttypeid()); // 여행 콘텐츠 타입 ID
         if(detailCommonItem.getCreatedtime().length() ==12)
         {
-            detailCommonItem.setCreatedtime(detailCommonItem.getCreatedtime()+"00");
+            detailCommonItem.setCreatedtime(         detailCommonItem.getCreatedtime()+"00");
         }
         if(detailCommonItem.getModifiedtime().length() ==12)
         {
-            detailCommonItem.setModifiedtime(detailCommonItem.getModifiedtime()+"00");
+            detailCommonItem.setModifiedtime(        detailCommonItem.getModifiedtime()+"00");
         }
-        LocalDate createdtime = LocalDateTime
-                .parse(detailCommonItem.getCreatedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
-        LocalDate modifiedtime = LocalDateTime
-                .parse(detailCommonItem.getModifiedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
-        spot.setTripCreateTime(createdtime);  // 등록일
-        spot.setTripModifyTime(modifiedtime); // 수정일
-        spot.setTripImage(  detailCommonItem.getFirstimage());  // 여행 이미지
-        spot.setMapX(       detailCommonItem.getMapx());        // x좌표
-        spot.setMapY(       detailCommonItem.getMapy());        // y좌표
-        spot.setMapLevel(   detailCommonItem.getMlevel());      // 축척
-        spot.setTripTel(    detailCommonItem.getTel());         // 여행 전화번호
-        spot.setSigunguCode(detailCommonItem.getSigungucode()); // 시군구 코드
-        spot.setHomepage(   detailCommonItem.getHomepage());    // 홈페이지주소
-        spot.setOverview(   detailCommonItem.getOverview());    // 소개설명
+        LocalDate createdtime = LocalDateTime.parse( detailCommonItem.getCreatedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
+        LocalDate modifiedtime = LocalDateTime.parse(detailCommonItem.getModifiedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
+        spot.setTripCreateTime(                      createdtime);  // 등록일
+        spot.setTripModifyTime(                      modifiedtime); // 수정일
+        spot.setTripImage(                           detailCommonItem.getFirstimage());  // 여행 이미지
+        spot.setMapX(                                detailCommonItem.getMapx());        // x좌표
+        spot.setMapY(                                detailCommonItem.getMapy());        // y좌표
+        spot.setMapLevel(                            detailCommonItem.getMlevel());      // 축척
+        spot.setTripTel(                             detailCommonItem.getTel());         // 여행 전화번호
+        spot.setSigunguCode(                         detailCommonItem.getSigungucode()); // 시군구 코드
+        spot.setHomepage(                            detailCommonItem.getHomepage());    // 홈페이지주소
+        spot.setOverview(                            detailCommonItem.getOverview());    // 소개설명
     }
 
     private void mappingCommonItemVo(DetailCommonItem detailCommonItem, Stay stay)
     {
-        stay.setStayContentId(Integer.parseInt(detailCommonItem.getContentid()));    // 숙소 콘텐츠 ID (기본키)
-        stay.setStayAddress(                   detailCommonItem.getAddr1());         // 숙소 주소
-        stay.setStayDetailAddress(             detailCommonItem.getAddr2());         // 숙소 상세주소
-        stay.setStayTitle(                     detailCommonItem.getTitle());         // 숙소 이름
-        stay.setAreaCode(                      detailCommonItem.getAreacode());      // 숙소 코드
-        stay.setStayCategory1(                 detailCommonItem.getCat1());          // 숙소 카테고리 대분류
-        stay.setStayCategory2(                 detailCommonItem.getCat2());          // 숙소 카테고리 중분류
-        stay.setStayCategory3(                 detailCommonItem.getCat3());          // 숙소 카테고리 소분류
-        stay.setStayContentTypeId(             detailCommonItem.getContenttypeid()); // 숙소 콘텐츠 타입 ID
+        stay.setStayContentId(Integer.parseInt(      detailCommonItem.getContentid()));    // 숙소 콘텐츠 ID (기본키)
+        stay.setStayAddress(                         detailCommonItem.getAddr1());         // 숙소 주소
+        stay.setStayDetailAddress(                   detailCommonItem.getAddr2());         // 숙소 상세주소
+        stay.setStayTitle(                           detailCommonItem.getTitle());         // 숙소 이름
+        stay.setAreaCode(                            detailCommonItem.getAreacode());      // 숙소 코드
+        stay.setStayCategory1(                       detailCommonItem.getCat1());          // 숙소 카테고리 대분류
+        stay.setStayCategory2(                       detailCommonItem.getCat2());          // 숙소 카테고리 중분류
+        stay.setStayCategory3(                       detailCommonItem.getCat3());          // 숙소 카테고리 소분류
+        stay.setStayContentTypeId(                   detailCommonItem.getContenttypeid()); // 숙소 콘텐츠 타입 ID
         if(detailCommonItem.getCreatedtime().length() ==12)
         {
-            detailCommonItem.setCreatedtime(detailCommonItem.getCreatedtime()+"00");
+            detailCommonItem.setCreatedtime(         detailCommonItem.getCreatedtime()+"00");
         }
         if(detailCommonItem.getModifiedtime().length() ==12)
         {
-            detailCommonItem.setModifiedtime(detailCommonItem.getModifiedtime()+"00");
+            detailCommonItem.setModifiedtime(        detailCommonItem.getModifiedtime()+"00");
         }
         LocalDate createdtime = LocalDateTime
-                .parse(detailCommonItem.getCreatedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
-        LocalDate modifiedtime = LocalDateTime
-                .parse(detailCommonItem.getModifiedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
-        stay.setStayCreateTime(createdtime);  // 등록일
-        stay.setStayModifyTime(modifiedtime); // 수정일
-        stay.setStayImage(     detailCommonItem.getFirstimage());  // 숙소 이미지
-        stay.setMapX(          detailCommonItem.getMapx());        // x좌표
-        stay.setMapY(          detailCommonItem.getMapy());        // y좌표
-        stay.setMapLevel(      detailCommonItem.getMlevel());      // 축척
-        stay.setStayTel(       detailCommonItem.getTel());         // 숙소 전화번호
-        stay.setSigunguCode(   detailCommonItem.getSigungucode()); // 시군구 코드
-        stay.setHomepage(      detailCommonItem.getHomepage());    // 홈페이지주소
-        stay.setOverview(      detailCommonItem.getOverview());    // 소개설명
+                                        .parse(      detailCommonItem.getCreatedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
+        LocalDate modifiedtime = LocalDateTime       
+                                        .parse(      detailCommonItem.getModifiedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
+        stay.setStayCreateTime(                      createdtime);                       // 등록일
+        stay.setStayModifyTime(                      modifiedtime);                      // 수정일
+        stay.setStayImage(                           detailCommonItem.getFirstimage());  // 숙소 이미지
+        stay.setMapX(                                detailCommonItem.getMapx());        // x좌표
+        stay.setMapY(                                detailCommonItem.getMapy());        // y좌표
+        stay.setMapLevel(                            detailCommonItem.getMlevel());      // 축척
+        stay.setStayTel(                             detailCommonItem.getTel());         // 숙소 전화번호
+        stay.setSigunguCode(                         detailCommonItem.getSigungucode()); // 시군구 코드
+        stay.setHomepage(                            detailCommonItem.getHomepage());    // 홈페이지주소
+        stay.setOverview(                            detailCommonItem.getOverview());    // 소개설명
     }
 
     private void mappingCommonItemVo(DetailCommonItem detailCommonItem, Comm comm)
     {
-        comm.setCommContentId(Integer.parseInt(detailCommonItem.getContentid()));   // 공통 콘텐츠 ID (기본키)
-        comm.setCommAddress(                   detailCommonItem.getAddr1());        // 공통컨텐츠 주소
-        comm.setCommDetailAddress(             detailCommonItem.getAddr2());        // 공통컨텐츠 상세주소
-        comm.setCommTitle(                     detailCommonItem.getTitle());        // 공통컨텐츠 이름
-        comm.setAreaCode(                      detailCommonItem.getAreacode());     // 지역 코드
-        comm.setCommCategory1(                 detailCommonItem.getCat1());         // 공통 카테고리 대분류
-        comm.setCommCategory2(                 detailCommonItem.getCat2());         // 공통 카테고리 중분류
-        comm.setCommCategory3(                 detailCommonItem.getCat3());         // 공통 카테고리 소분류
-        comm.setCommContentTypeId(             detailCommonItem.getContenttypeid());// 공통 콘텐츠 타입 ID
-        comm.setCommCreateTime(                detailCommonItem.getCreatedtime());  // 등록일
-        comm.setCommModifyTime(                detailCommonItem.getModifiedtime()); // 수정일
-        comm.setCommImage(                     detailCommonItem.getFirstimage());   // 공통 이미지
-        comm.setMapX(                          detailCommonItem.getMapx());         // x좌표
-        comm.setMapY(                          detailCommonItem.getMapy());         // y좌표
-        comm.setMapLevel(                      detailCommonItem.getMlevel());       // 축척
-        comm.setCommTel(                       detailCommonItem.getTel());          // 공통 전화번호
-        comm.setSigunguCode(                   detailCommonItem.getSigungucode());  // 시군구 코드
-        comm.setHomepage(                      detailCommonItem.getHomepage());     // 홈페이지주소
-        comm.setOverview(                      detailCommonItem.getOverview());     // 소개설명
+        comm.setCommContentId(Integer.parseInt(      detailCommonItem.getContentid()));   // 공통 콘텐츠 ID (기본키)
+        comm.setCommAddress(                         detailCommonItem.getAddr1());        // 공통컨텐츠 주소
+        comm.setCommDetailAddress(                   detailCommonItem.getAddr2());        // 공통컨텐츠 상세주소
+        comm.setCommTitle(                           detailCommonItem.getTitle());        // 공통컨텐츠 이름
+        comm.setAreaCode(                            detailCommonItem.getAreacode());     // 지역 코드
+        comm.setCommCategory1(                       detailCommonItem.getCat1());         // 공통 카테고리 대분류
+        comm.setCommCategory2(                       detailCommonItem.getCat2());         // 공통 카테고리 중분류
+        comm.setCommCategory3(                       detailCommonItem.getCat3());         // 공통 카테고리 소분류
+        comm.setCommContentTypeId(                   detailCommonItem.getContenttypeid());// 공통 콘텐츠 타입 ID
+        comm.setCommCreateTime(                      detailCommonItem.getCreatedtime());  // 등록일
+        comm.setCommModifyTime(                      detailCommonItem.getModifiedtime()); // 수정일
+        comm.setCommImage(                           detailCommonItem.getFirstimage());   // 공통 이미지
+        comm.setMapX(                                detailCommonItem.getMapx());         // x좌표
+        comm.setMapY(                                detailCommonItem.getMapy());         // y좌표
+        comm.setMapLevel(                            detailCommonItem.getMlevel());       // 축척
+        comm.setCommTel(                             detailCommonItem.getTel());          // 공통 전화번호
+        comm.setSigunguCode(                         detailCommonItem.getSigungucode());  // 시군구 코드
+        comm.setHomepage(                            detailCommonItem.getHomepage());     // 홈페이지주소
+        comm.setOverview(                            detailCommonItem.getOverview());     // 소개설명
     }
 
     /**

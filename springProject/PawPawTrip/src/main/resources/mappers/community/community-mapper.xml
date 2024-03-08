@@ -7,6 +7,7 @@
 <mapper namespace="com.kr.pawpawtrip.community.model.mapper.CommunityMapper">
     <sql id="noticeListSql">
         SELECT COMMUNITY_NO
+             , RNUM
              , COMMUNITY_CATEGORY
              , COMMUNITY_TITLE
              , COMMUNITY_CONTENT
@@ -17,7 +18,31 @@
              , COMMUNITY_R_FILENAME
              , NOTICE_IMPORTANT_YN
              , COMMUNITY_WRITER_NO
-          FROM COMMUNITY
+             , MEMBER_ID
+          FROM (
+               SELECT ROWNUM                   AS RNUM
+                    , C.COMMUNITY_NO
+                    , C.COMMUNITY_CATEGORY
+                    , C.COMMUNITY_TITLE
+                    , C.COMMUNITY_CONTENT
+                    , C.COMMUNITY_ED
+                    , C.COMMUNITY_STATUS
+                    , C.COMMUNITY_COUNT
+                    , C.COMMUNITY_O_FILENAME
+                    , C.COMMUNITY_R_FILENAME
+                    , C.NOTICE_IMPORTANT_YN
+                    , C.COMMUNITY_WRITER_NO
+                    , M.MEMBER_ID
+                 FROM COMMUNITY                  C
+                INNER JOIN
+                      MEMBER                     M
+                   ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+                WHERE C.COMMUNITY_CATEGORY   = '[공지사항]'
+                  AND C.COMMUNITY_STATUS     = 'Y'
+                ORDER BY
+                      C.NOTICE_IMPORTANT_YN      ASC
+                    , C.COMMUNITY_ED             ASC
+               ) NOTICE
     </sql>
     
     <sql id="communityListSql">
@@ -110,6 +135,31 @@
                </if>
        </trim>
      </select>
+     
+       <select id="selectNoticeCount" parameterType="map">
+        SELECT COUNT(*)
+          FROM COMMUNITY                  C
+         INNER JOIN
+               MEMBER                     M
+            ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+               COMMUNITY_TITLE   LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+               MEMBER_ID         LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+               COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+               </if>
+           AND COMMUNITY_CATEGORY   = '[공지사항]'
+           AND COMMUNITY_STATUS     = 'Y'
+       </trim>
+     </select>
     
        <select id="selectBoardTalkCount" parameterType="map">
       <include refid="communityListSql" />
@@ -155,10 +205,22 @@
        </trim>
      </select>
     
-       <select id="selectNoticeList" resultMap="communityListResultMap">
+       <select id="selectNoticeList" resultMap="communityListResultMap" parameterType="map">
       <include refid="noticeListSql" />
-         WHERE COMMUNITY_STATUS   = 'Y'
-           AND COMMUNITY_CATEGORY = '[공지사항]'
+         WHERE 1 = 1
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+           AND COMMUNITY_TITLE   LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+           AND MEMBER_ID         LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+           AND COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+         </if>
          ORDER BY 
                COMMUNITY_ED       DESC
      </select>
@@ -221,6 +283,7 @@
                </choose>
          </if>
            AND COMMUNITY_CATEGORY   IN ('[수다]', '[공지사항]')
+           AND COMMUNITY_STATUS     = 'Y'
        </trim>
          ORDER BY 
                RNUM DESC
@@ -259,17 +322,7 @@
      </select>
     
      <select id="selectBoardByNo" resultMap="communityListResultMap" parameterType="_int">
-      <include refid="communityListSql" />
-        SELECT COMMUNITY_NO
-             , COMMUNITY_CATEGORY 
-             , COMMUNITY_TITLE
-             , COMMUNITY_CONTENT
-             , MEMBER_ID 
-             , COMMUNITY_COUNT
-             , COMMUNITY_O_FILENAME
-             , COMMUNITY_R_FILENAME
-             , COMMUNITY_ED
-          FROM BOARD
+      <include refid="noticeListSql" />
          WHERE COMMUNITY_NO = #{no}
     </select>
     
