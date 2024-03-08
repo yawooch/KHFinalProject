@@ -6,18 +6,43 @@
     
 <mapper namespace="com.kr.pawpawtrip.community.model.mapper.CommunityMapper">
     <sql id="noticeListSql">
-        SELECT COMMUNITY_NO
-             , COMMUNITY_CATEGORY
-             , COMMUNITY_TITLE
-             , COMMUNITY_CONTENT
-             , COMMUNITY_ED
-             , COMMUNITY_STATUS
-             , COMMUNITY_COUNT
-             , COMMUNITY_O_FILENAME
-             , COMMUNITY_R_FILENAME
-             , NOTICE_IMPORTANT_YN
-             , COMMUNITY_WRITER_NO
-          FROM COMMUNITY
+        WITH BOARD AS 
+		(  
+		    SELECT ROWNUM AS RNUM, COMMUNITY_NO, COMMUNITY_CATEGORY, COMMUNITY_TITLE, COMMUNITY_CONTENT, COMMUNITY_O_FILENAME, COMMUNITY_R_FILENAME, MEMBER_ID, COMMUNITY_COUNT, COMMUNITY_ED, NOTICE_IMPORTANT_YN
+		    FROM (
+		        SELECT C.COMMUNITY_NO,
+		               C.COMMUNITY_CATEGORY,
+		               C.COMMUNITY_TITLE,
+		               C.COMMUNITY_CONTENT,
+		               M.MEMBER_ID,
+		               C.COMMUNITY_COUNT,
+		               C.COMMUNITY_O_FILENAME,
+		               C.COMMUNITY_R_FILENAME,
+		               C.COMMUNITY_ED,
+		               C.NOTICE_IMPORTANT_YN
+		        FROM COMMUNITY C
+		        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+		        WHERE C.COMMUNITY_STATUS = 'Y'
+		        
+		        UNION
+		        
+		        SELECT C.COMMUNITY_NO,
+		               C.COMMUNITY_CATEGORY,
+		               C.COMMUNITY_TITLE,
+		               C.COMMUNITY_CONTENT,
+		               M.MEMBER_ID,
+		               C.COMMUNITY_COUNT,
+		               C.COMMUNITY_O_FILENAME,
+		               C.COMMUNITY_R_FILENAME,
+		               C.COMMUNITY_ED,
+		               C.NOTICE_IMPORTANT_YN
+		        FROM COMMUNITY C
+		        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+		        WHERE C.COMMUNITY_STATUS = 'Y'
+		        AND C.NOTICE_IMPORTANT_YN = 'Y'
+		        ORDER BY NOTICE_IMPORTANT_YN ASC, COMMUNITY_ED ASC
+		    )
+		 )
     </sql>
     
     <sql id="communityListSql">
@@ -90,6 +115,29 @@
   </resultMap>    
 
      <!-- 조회 -->
+       <select id="selectNoticeCount" parameterType="map">
+        SELECT COUNT(*)
+          FROM COMMUNITY C
+          JOIN MEMBER    M 
+          ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+         <trim prefix="WHERE" prefixOverrides="AND|OR">
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+               COMMUNITY_TITLE   LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+               MEMBER_ID         LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+               COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+               </if>
+         AND   COMMUNITY_CATEGORY = '[공지사항]'
+       </trim> 
+      </select>
+     
        <select id="selectBoardCount" parameterType="map">
       <include refid="communityListSql" />
         SELECT COUNT(*)
@@ -156,11 +204,35 @@
      </select>
     
        <select id="selectNoticeList" resultMap="communityListResultMap">
-      <include refid="noticeListSql" />
-         WHERE COMMUNITY_STATUS   = 'Y'
-           AND COMMUNITY_CATEGORY = '[공지사항]'
-         ORDER BY 
-               COMMUNITY_ED       DESC
+        <include refid="noticeListSql" />
+		SELECT RNUM,
+		       COMMUNITY_NO,
+		       COMMUNITY_CATEGORY,
+		       COMMUNITY_TITLE,
+		       COMMUNITY_CONTENT,
+		       MEMBER_ID,
+		       COMMUNITY_COUNT,
+		       COMMUNITY_ED,
+		       NOTICE_IMPORTANT_YN
+		  FROM BOARD
+       <trim prefix="WHERE" prefixOverrides="AND|OR">
+           <if test="select != ''">
+               <choose>
+               <when test="select.equals('title')">
+               COMMUNITY_TITLE   LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('name')">
+               MEMBER_ID         LIKE '%' || #{search} || '%'
+               </when>
+               <when test="select.equals('content')">
+               COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+               </when>
+               </choose>
+         </if>
+		   AND COMMUNITY_CATEGORY = '[공지사항]'
+       </trim>
+		ORDER BY 
+              RNUM DESC
      </select>
     
        <select id="selectBoardList" resultMap="communityListResultMap" parameterType="map">

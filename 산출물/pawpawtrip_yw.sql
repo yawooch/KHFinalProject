@@ -50,10 +50,62 @@ FROM (
         AND M.MEMBER_ID != 'admin'
         ORDER BY C.COMMUNITY_ED ASC
     )
-) ORDER BY RNUM DESC
+) ORDER BY RNUM DESC;
 
+-----------------------------------------------------------------------------------
+-- 공지사항 수 조회
+SELECT COUNT(*)
+FROM COMMUNITY C
+JOIN MEMBER M 
+ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+WHERE COMMUNITY_CATEGORY = '[공지사항]'
+AND MEMBER_ID = 'admin';
 
-
+-----------------------------------------------------------------------------------
+-- 공지사항 조회(중요 공지사항 포함)
+WITH BOARD AS 
+(  
+    SELECT ROWNUM AS RNUM, COMMUNITY_NO, COMMUNITY_CATEGORY, COMMUNITY_TITLE, MEMBER_ID, COMMUNITY_COUNT, COMMUNITY_ED, NOTICE_IMPORTANT_YN
+    FROM (
+        SELECT C.COMMUNITY_NO,
+               C.COMMUNITY_CATEGORY,
+               C.COMMUNITY_TITLE,
+               M.MEMBER_ID,
+               C.COMMUNITY_COUNT,
+               C.COMMUNITY_ED,
+               C.NOTICE_IMPORTANT_YN
+        FROM COMMUNITY C
+        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+        WHERE C.COMMUNITY_STATUS = 'Y'
+        
+        UNION
+        
+        SELECT C.COMMUNITY_NO,
+               C.COMMUNITY_CATEGORY,
+               C.COMMUNITY_TITLE,
+               M.MEMBER_ID,
+               C.COMMUNITY_COUNT,
+               C.COMMUNITY_ED,
+               C.NOTICE_IMPORTANT_YN
+        FROM COMMUNITY C
+        JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+        WHERE C.COMMUNITY_STATUS = 'Y'
+        AND C.NOTICE_IMPORTANT_YN = 'Y'
+        ORDER BY NOTICE_IMPORTANT_YN ASC, COMMUNITY_ED ASC
+    )
+    
+)
+SELECT RNUM,
+       COMMUNITY_NO,
+       COMMUNITY_CATEGORY,
+       COMMUNITY_TITLE,
+       MEMBER_ID,
+       COMMUNITY_COUNT,
+       COMMUNITY_ED,
+       NOTICE_IMPORTANT_YN
+FROM BOARD
+WHERE COMMUNITY_CATEGORY = '[공지사항]'
+ORDER BY RNUM DESC;
 
 -----------------------------------------------------------------------------------
 -- 자유 게시판 조회(중요 공지사항 포함)

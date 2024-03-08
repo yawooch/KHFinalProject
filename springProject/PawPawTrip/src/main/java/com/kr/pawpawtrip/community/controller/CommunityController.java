@@ -41,15 +41,50 @@ public class CommunityController {
 
 //	공지사항
 	@GetMapping("/community/notice")
-	public ModelAndView notice(ModelAndView modelAndView) {
+	public ModelAndView notice(
+			ModelAndView modelAndView,
+			@RequestParam(defaultValue = "1") int page,
+			@RequestParam(name = "select", defaultValue = "") String select,
+			@RequestParam(name = "search", defaultValue = "") String search) {
 		
+		System.out.println(select);
+		System.out.println(search);
+		
+		// 공지사항 조회
 		List<Community> noticeList = null;
+		// 페이징 처리
+		PageInfo pageInfo = null;
+		// 공지사항 수
+		int listCount = 0;
+		// 검색 파라미터 request scope에 저장하기 위한 HashMap
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("select", select);
+		map.put("search", search);
+		
+		listCount = communityService.getNoticeCount(select, search);
+		
+		if(listCount == 0) {
+			pageInfo = new PageInfo(1, 1, listCount, 1);
+		} else {
+			pageInfo = new PageInfo(page, 5, listCount, 15);
+		}
+		
+		log.info("Notice limitCont - {}", listCount);
 		
 		// 공지사항 리스트 조회
-		noticeList = communityService.getNoticeList();
+		noticeList = communityService.getNoticeList(pageInfo, select, search);
 		
-//		System.out.println(noticeList);
+		log.info("Notice List - {}", noticeList);
+		log.info("Notice List null - {}", noticeList == null);
+		log.info("Notice List empty - {}", noticeList.isEmpty());
 		
+		System.out.println(pageInfo.getCurrentPage());
+		System.out.println(pageInfo.getStartPage());
+		System.out.println(pageInfo.getEndPage());
+		
+		modelAndView.addObject("searchInfoMap", map);
+		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("noticeList", noticeList);
 		modelAndView.setViewName("community/notice");
 		
@@ -58,7 +93,8 @@ public class CommunityController {
 	
 //	자유 게시판
 	@GetMapping("/community/board")
-	public ModelAndView board(ModelAndView modelAndView, 
+	public ModelAndView board(
+			ModelAndView modelAndView, 
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "") String select,
 			@RequestParam(defaultValue = "") String search) {
@@ -76,7 +112,12 @@ public class CommunityController {
 		map.put("search", search);
 		
 		listCount = communityService.getBoardCount(select, search);
-		pageInfo = new PageInfo(page, 5, listCount, 15);
+		
+		if(listCount == 0) {
+			pageInfo = new PageInfo(1, 1, listCount, 1);
+		} else {
+			pageInfo = new PageInfo(page, 5, listCount, 15);
+		}
 		
 		// 자유게시판 리스트 조회(수다, 마이펫 자랑 포함)
 		boardList = communityService.getBoardList(pageInfo, select, search);
@@ -93,7 +134,8 @@ public class CommunityController {
 	
 //	자유 게시판 > 수다
 	@GetMapping("/community/board/talk")
-	public ModelAndView talk(ModelAndView modelAndView,
+	public ModelAndView talk(
+			ModelAndView modelAndView,
 			@RequestParam(defaultValue = "1") int page,
 			@RequestParam(defaultValue = "") String select,
 			@RequestParam(defaultValue = "") String search) {
@@ -111,7 +153,12 @@ public class CommunityController {
 		map.put("search", search);
 		
 		listCount = communityService.getBoardTalkCount(select, search);
-		pageInfo = new PageInfo(page, 5, listCount, 15);
+		
+		if(listCount == 0) {
+			pageInfo = new PageInfo(1, 1, listCount, 1);
+		} else {
+			pageInfo = new PageInfo(page, 5, listCount, 15);
+		}
 		
 		// 수다 리스트 조회
 		boardTalkList = communityService.getBoardTalkList(pageInfo, select, search);
@@ -147,7 +194,12 @@ public class CommunityController {
 		map.put("search", search);
 		
 		listCount = communityService.getBoardMypetCount(select, search);
-		pageInfo = new PageInfo(page, 5, listCount, 15);
+		
+		if(listCount == 0) {
+			pageInfo = new PageInfo(1, 1, listCount, 1);
+		} else {
+			pageInfo = new PageInfo(page, 5, listCount, 15);
+		}
 		
 		// 마이펫 리스트 조회
 		boardMypetList = communityService.getBoardMypetList(pageInfo, select, search);
@@ -158,6 +210,21 @@ public class CommunityController {
 		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("boardMypetList", boardMypetList);
 		modelAndView.setViewName("community/board/mypet");
+		
+		return modelAndView;
+	}
+	
+//	공지사항 상세
+	@GetMapping("community/noticedetail")
+	public ModelAndView noticeDetail(
+			ModelAndView modelAndView,
+			@RequestParam("no") int no) {
+		
+		Community community = null;
+		
+		
+		
+		modelAndView.setViewName("community/noticeDetail");
 		
 		return modelAndView;
 	}
@@ -479,13 +546,6 @@ public class CommunityController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // 에러가 발생하면 500에러(내부 서버 에러) 응답
 		}
 
-	}
-	
-//	공지사항 상세
-	@GetMapping("community/noticedetail")
-	public String noticeDetail() {
-		
-		return "community/noticedetail";
 	}
 
 }

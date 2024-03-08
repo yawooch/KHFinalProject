@@ -7,6 +7,9 @@ import com.kr.pawpawtrip.community.model.vo.Community;
 
 public interface CommunityService {
 	
+	// 공지사항 수
+	int getNoticeCount(String select, String search);
+	
 	// 전체 게시글 수
 	int getBoardCount(String select, String search);
 	
@@ -17,7 +20,7 @@ public interface CommunityService {
 	int getBoardMypetCount(String select, String search);
 
 	// 공지사항 리스트 조회
-	List<Community> getNoticeList();
+	List<Community> getNoticeList(PageInfo pageInfo, String select, String search);
 
 	// 전체 리스트 조회(검색기능 포함)
 	List<Community> getBoardList(PageInfo pageInfo, String select, String search);

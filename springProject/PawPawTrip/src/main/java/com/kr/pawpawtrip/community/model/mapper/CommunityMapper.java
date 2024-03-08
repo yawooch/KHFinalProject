@@ -11,13 +11,17 @@ import com.kr.pawpawtrip.community.model.vo.Community;
 @Mapper
 public interface CommunityMapper {
 	
+	int selectNoticeCount(@Param("select") String select, @Param("search") String search);
+	
 	int selectBoardCount(@Param("select") String select, @Param("search") String search);
 
 	int selectBoardTalkCount(@Param("select") String select, @Param("search") String search);
 	
 	int selectBoardMypetCount(@Param("select") String select, @Param("search") String search);
 	
-	List<Community> selectNoticeList();
+	List<Community> selectNoticeList(RowBounds rowBounds,
+			@Param("select") String select,
+			@Param("search") String search);
 
 	List<Community> selectBoardList(RowBounds rowBounds, 
 			@Param("select") String select, 
