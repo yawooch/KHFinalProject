@@ -125,6 +125,9 @@
 						<li><a href="${ path }/community/board/mypet?page=${ pageInfo.prevPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&lt;</a></li>
 					</c:if>
 					<!-- 5개 페이지 목록 -->
+					<c:if test="${ empty boardMypetList }">
+						<li class="disable"><a>1</a></li>
+					</c:if>
 					<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
 						<c:choose>
 							<c:when test="${ current == pageInfo.currentPage }">

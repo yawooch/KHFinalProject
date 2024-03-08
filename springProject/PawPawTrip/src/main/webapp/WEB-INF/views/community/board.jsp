@@ -123,6 +123,9 @@
 						<li><a href="${ path }/community/board?page=${ pageInfo.prevPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&lt;</a></li>
 					</c:if>
 					<!-- 5개 페이지 목록 -->
+					<c:if test="${ empty boardList }">
+						<li class="disable"><a>1</a></li>
+					</c:if>
 					<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
 						<c:choose>
 							<c:when test="${ current == pageInfo.currentPage }">
@@ -154,29 +157,29 @@
 </div>
 
 <script>
-function search() {
-    var selectValue = document.getElementById("communitySelect").value;
-    var searchValue = document.getElementById("communitySearch").value;
-    
-    console.log(searchValue.trim() == '');
-    
-    if(searchValue.trim() != '') {
-    	var url = "${path}/community/board?select=" + selectValue + "&search=" + encodeURIComponent(searchValue);
-    }
-    else {
-    	var url = "${path}/community/board";
-    }
-    
-    window.location.href = url;
-}
-
-$('#writeBtn').on('click', () => {
-	if(${loginMember == null}) {
-		alert('로그인 후 작성 가능합니다.');
-	} else {
-		location.href='${ path }/community/board/write';
+	function search() {
+	    var selectValue = document.getElementById("communitySelect").value;
+	    var searchValue = document.getElementById("communitySearch").value;
+	    
+	    console.log(searchValue.trim() == '');
+	    
+	    if(searchValue.trim() != '') {
+	    	var url = "${path}/community/board?select=" + selectValue + "&search=" + encodeURIComponent(searchValue);
+	    }
+	    else {
+	    	var url = "${path}/community/board";
+	    }
+	    
+	    window.location.href = url;
 	}
-});
+	
+	$('#writeBtn').on('click', () => {
+		if(${loginMember == null}) {
+			alert('로그인 후 작성 가능합니다.');
+		} else {
+			location.href='${ path }/community/board/write';
+		}
+	});
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

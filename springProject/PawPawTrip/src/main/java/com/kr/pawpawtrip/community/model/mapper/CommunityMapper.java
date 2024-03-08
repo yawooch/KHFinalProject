@@ -9,23 +9,38 @@ import org.apache.ibatis.session.RowBounds;
 import com.kr.pawpawtrip.community.model.vo.Community;
 
 @Mapper
-public interface CommunityMapper
-{
-    int selectBoardCount(     @Param("select") String select, @Param("search") String search);
-    int selectNoticeCount(    @Param("select") String select, @Param("search") String search);
-    int selectBoardTalkCount( @Param("select") String select, @Param("search") String search);
-    int selectBoardMypetCount(@Param("select") String select, @Param("search") String search);
+public interface CommunityMapper {
+	
+	int selectNoticeCount(@Param("select") String select, @Param("search") String search);
+	
+	int selectBoardCount(@Param("select") String select, @Param("search") String search);
 
+	int selectBoardTalkCount(@Param("select") String select, @Param("search") String search);
+	
+	int selectBoardMypetCount(@Param("select") String select, @Param("search") String search);
+	
+	List<Community> selectNoticeList(RowBounds rowBounds,
+			@Param("select") String select,
+			@Param("search") String search);
 
-    List<Community> selectBoardList(     RowBounds rowBounds, @Param("select") String select, @Param("search") String search);
-    List<Community> selectBoardTalkList( RowBounds rowBounds, @Param("select") String select, @Param("search") String search);
-    List<Community> selectBoardMypetList(RowBounds rowBounds, @Param("select") String select, @Param("search") String search);
-    List<Community> selectNoticeList(    RowBounds rowBounds, @Param("select") String select, @Param("search") String search);
-
-    Community selectBoardByNo(@Param("no") int no);
-
-    int insertBoard(Community community);
-    int updateBoard(Community community);
-    
-    int updateStatus(@Param("no") int no, @Param("status") String status);
+	List<Community> selectBoardList(RowBounds rowBounds, 
+			@Param("select") String select, 
+			@Param("search") String search);
+	
+	List<Community> selectBoardTalkList(RowBounds rowBounds, 
+			@Param("select") String select, 
+			@Param("search") String search);
+	
+	List<Community> selectBoardMypetList(RowBounds rowBounds, 
+			@Param("select") String select, 
+			@Param("search") String search);
+	
+	Community selectBoardByNo(@Param("no") int no);
+	
+	int insertBoard(Community community);
+	
+	int updateBoard(Community community);
+	
+	int updateStatus(@Param("no") int no, @Param("status") String status);
+	
 }

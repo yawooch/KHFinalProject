@@ -434,6 +434,9 @@ tr {
     background-color: white;
     border: 1px solid #B29254;
 }
+.common-btn:hover {
+	border: 2px solid #B29254;
+}
 .common-btn.btn-filled{
     background-color: #B29254;
     color: #FFF;
