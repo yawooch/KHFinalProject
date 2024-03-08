@@ -160,6 +160,13 @@ color: #FDFAEF;
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
+                        <span>장소 이용 가이드</span>
+                    </div>
+                    <p>${ fn:replace(spot.petInfo.etcAcmpyInfo, LF, "<br>") }</p>
+                </div>
+                <div class="subInfo-div">
+                    <div class="iconAndInfo">
+                        <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>주요시설</span>
                     </div>
 	                <p>${ fn:replace(spot.petInfo.relaPosesFclty, LF, "<br>") }</p>
@@ -167,29 +174,21 @@ color: #FDFAEF;
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
-                        <span>이용안내</span>
+                        <span>비품 정보</span>
                     </div>
-                    <p>비치 품목: ${ spot.petInfo.relaFrnshPrdlst }<br> 
-                       구매 품목: ${ spot.petInfo.relaPurcPrdlst } <br> 
-                       렌탈 품목: ${ spot.petInfo.relaRntlPrdlst }
+                    <p>비치 품목 : ${ spot.petInfo.relaFrnshPrdlst }<br> 
+                       구매 품목 : ${ spot.petInfo.relaPurcPrdlst } <br> 
+                       렌탈 품목 : ${ spot.petInfo.relaRntlPrdlst }
                     </p>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
-                        <span>동반정보 및 주의사항</span>
+                        <span>반려동물 동반 정보</span>
                     </div>
-                    <p>${ fn:replace(spot.petInfo.etcAcmpyInfo, LF, "<br>") }<br><br>
-                       ${ fn:replace(spot.petInfo.acmpyPsblCpam, LF, "<br>") }
-                    </p>
-                </div>
-                <div class="subInfo-div">
-                    <div class="iconAndInfo">
-                        <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
-                        <span>기타</span>
-                    </div>
+                    <p>${ fn:replace(spot.petInfo.acmpyPsblCpam, LF, "<br>") }</p>
                     <p style="color: red; font-size: 16px;">
-                    ${ fn:replace(spot.petInfo.acmpyNeedMtr, LF, "<br>") }
+                    	* ${ fn:replace(spot.petInfo.acmpyNeedMtr, LF, "<br>") }
                     </p>
                 </div>
             </div>

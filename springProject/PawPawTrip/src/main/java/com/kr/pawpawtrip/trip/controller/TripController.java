@@ -1,12 +1,16 @@
 package com.kr.pawpawtrip.trip.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kr.pawpawtrip.common.model.service.CommonService;
+import com.kr.pawpawtrip.common.model.vo.CommonArea;
 import com.kr.pawpawtrip.common.util.PageInfo;
 import com.kr.pawpawtrip.trip.model.service.TripService;
 import com.kr.pawpawtrip.trip.model.vo.Spot;
@@ -20,31 +24,42 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class TripController {
 	private final TripService tripService;
+	private final CommonService commonService;
 	
 	// 여행 조회 페이지(게시물 갯수 조회, 리스트 조회)
 	@GetMapping("/trip/spot")
 	public ModelAndView spot(ModelAndView modelAndView,
-							 @RequestParam(defaultValue = "1") int page) {
-		
-		// spot을 List객체(spots)로 담기
-		List<Spot> spots = null;
-		
-		// 페이징처리
-		PageInfo pageInfo = null;
+							 @RequestParam(defaultValue = "1") int page,
+							 @RequestParam(defaultValue = "") String selectArea,
+							 @RequestParam(defaultValue = "") String searchKeyword) {
 		
 		// 전체 게시물 수 조회
-		int listCount = tripService.getSpotCount();
+		int listCount = tripService.getSpotCount(selectArea, searchKeyword);
 		
-		pageInfo = new PageInfo(page, 5, listCount, 9);
+		// 페이징처리
+		PageInfo pageInfo = new PageInfo(page, 5, listCount, 9);
 		
-		// 여행지 리스트 조회
-		spots = tripService.getSpotList(pageInfo);
+		// spot을 List객체(spots)로 담아 여행지 리스트 조회
+		List<Spot> spots = tripService.getSpotList(pageInfo, selectArea, searchKeyword);
 		
+		// 지역 선택
+		List<CommonArea> searchAreaOptions = commonService.getAreaByCode("00");
+		
+		// 검색 (지역, 키워드)
+		Map<String, String> map = new HashMap<String, String>();
+		
+		map.put("searchKeyword", searchKeyword);
+		map.put("selectArea", selectArea);
+		
+		// log.info("Area Option Values : {}", searchAreaOptions);
 		// log.info("Page Number : {}", page );
 		// log.info(" Spot List : {}", spots);
 		
+		
 		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("spots", spots);
+		modelAndView.addObject("searchAreaOptions", searchAreaOptions);
+		modelAndView.addObject("selectAndSearch", map);
 		modelAndView.setViewName("trip/spot");
 		
 		return modelAndView;
@@ -79,6 +94,9 @@ public class TripController {
 		
 		List<Stay> stays = tripService.getStayList(pageInfo);
 		
+		List<CommonArea> searchAreaOptions = commonService.getAreaByCode("00");
+		
+		modelAndView.addObject("searchAreaOptions", searchAreaOptions);
 		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("stays", stays);
 		modelAndView.setViewName("trip/stay");		

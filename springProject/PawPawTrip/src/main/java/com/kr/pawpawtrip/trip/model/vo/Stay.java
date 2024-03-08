@@ -3,6 +3,8 @@ package com.kr.pawpawtrip.trip.model.vo;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.kr.pawpawtrip.common.model.vo.CommonArea;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -71,4 +73,6 @@ public class Stay
     
     // 반려동물 동반 정보
     private PetInfo petInfo;
+    
+    private CommonArea commonArea;
 }

@@ -44,42 +44,44 @@
             <!-- 검색바 -->
             <div class="common-search">
             	<!-- 조회된 게시물 건 수 -->
-				<div>
-					TOTAL <span>${ pageInfo.listCount }</span>건
-				</div>
+				<div>TOTAL <span>${ pageInfo.listCount }</span>건</div>
 				<div>
 					<!-- 지역 선택 -->
 					<div>
-						<select name="tripSelect" id="tripSelect">
-							<option value="allArea" selected>지역</option>
-	                        <!-- areaCode -->
-	                        <option value="1">서울특별시</option>
-	                        <option value="2">인천광역시</option>
-	                        <option value="3">대전광역시</option>
-	                        <option value="4">대구광역시</option>
-	                        <option value="5">광주광역시</option>
-	                        <option value="6">부산광역시</option>
-	                        <option value="7">울산광역시</option>
-	                        <option value="8">세종특별자치시</option>
-	                        <option value="31">경기도</option>
-	                        <option value="32">강원특별자치도</option>
-	                        <option value="33">충청북도</option>
-	                        <option value="34">충청남도</option>
-	                        <option value="35">경상북도</option>
-	                        <option value="36">경상남도</option>
-	                        <option value="37">전북특별자치도</option>
-	                        <option value="38">전라남도</option>
-	                        <option value="39">제주특별자치도</option>
+						<select name="selectArea" id="selectArea">
+							<option value="" selected>지역</option>
+							<c:forEach var="area" items="${ searchAreaOptions }">							
+		                        <option value="${ area.cityCode }">${ area.areaName }</option>
+							</c:forEach>
+<!-- 	                        <option value="2">인천광역시</option> -->
+<!-- 	                        <option value="3">대전광역시</option> -->
+<!-- 	                        <option value="4">대구광역시</option> -->
+<!-- 	                        <option value="5">광주광역시</option> -->
+<!-- 	                        <option value="6">부산광역시</option> -->
+<!-- 	                        <option value="7">울산광역시</option> -->
+<!-- 	                        <option value="8">세종특별자치시</option> -->
+<!-- 	                        <option value="31">경기도</option> -->
+<!-- 	                        <option value="32">강원특별자치도</option> -->
+<!-- 	                        <option value="33">충청북도</option> -->
+<!-- 	                        <option value="34">충청남도</option> -->
+<!-- 	                        <option value="35">경상북도</option> -->
+<!-- 	                        <option value="36">경상남도</option> -->
+<!-- 	                        <option value="37">전북특별자치도</option> -->
+<!-- 	                        <option value="38">전라남도</option> -->
+<!-- 	                        <option value="39">제주특별자치도</option> -->
 						</select>
 					</div>
 					<!-- 검색어 입력 -->
 					<div>
 						<img src="${ path }/img/community/search.png"> 
-						<input type="text" name="tripSearch" id="tripSearch" placeholder="검색어를 입력해주세요.">
+						<input type="text" 
+							   name="searchKeyword" 
+							   id=  "searchKeyword" 
+							   placeholder="장소를 입력해주세요.">
 					</div>
 					<div>
 						<!-- 검색버튼 클릭 시, search()함수 실행 -->
-						<button onclick=search()>검색</button>
+						<button id="btnSearch" onclick=search()>검색</button>
 					</div>
 				</div>
 			</div>

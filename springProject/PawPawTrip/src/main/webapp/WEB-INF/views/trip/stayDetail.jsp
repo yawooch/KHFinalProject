@@ -5,6 +5,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
 	prefix="security"%>
+	
+<% 
+	pageContext.setAttribute("LF", "\n");
+	pageContext.setAttribute("NL1", ".\\n");
+%>
+
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <!-- css 파일 연결 -->
@@ -115,7 +121,7 @@
                 <div class="tripDetail-mainInfo">
                     <div class="tripNameAndLike">
                         <!-- 숙소 이름 -->
-                        <p class="tripName">헤이춘천</p>
+                        <p class="tripName">${ stay.stayTitle }</p>
                         <!-- 관심등록 -->
                         <span class="material-icons" id="heart-icon">favorite_border</span>
                     </div>
@@ -123,19 +129,26 @@
                     <div class="mainInfo">
                         <img class="infoIcon" src="${ path }/img/trip/map_icon.png" alt="주소 아이콘">
                         <span>주소</span>
-                        <p>강원 춘천시 남춘로 49</p>
+                        <p>${ stay.stayAddress }</p>
                         <img class="infoIcon" src="${ path }/img/trip/tel_icon.png" alt="문의처 아이콘">
                         <span>문의처</span>
-                        <p>033-243-5566</p>
-
+                        <c:if test="${ stay.stayTel == '-' }">
+                        	<p>별도 문의</p>
+                        </c:if>
+                        <c:if test="${ stay.stayTel != '-' }">
+	                        <p>${ stay.stayTel }</p>
+                        </c:if>
+						
+						<!--  
                         <img class="infoIcon" src="${ path }/img/trip/time_icon.png" alt="이용시간 아이콘">
                         <span>이용시간</span>
                         <p>15:00 ~ 다음날 12:00</p>
+						-->
 
                         <!-- 새 창으로 해당 홈페이지 열기! -->
                         <img class="infoIcon" src="${ path }/img/trip/homepage_icon.png" alt="홈페이지 아이콘">
                         <span>홈페이지</span>
-                        <a href="http://heyy.kr" target="_blank"><p>http://heyy.kr</p></a>
+                        <p>${ stay.homepage }</p>
                     </div>
                 </div>
             </div>
@@ -149,53 +162,49 @@
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>소개</span>
                     </div>
-                    <p>heyy는 당신의 취향과 목적에 어울리는 여가에 관한 새로운 라이프스타일을 제안합니다.<br>
-                        일상의 틈을 풍요롭게 채우고 싶을 때,
-                        자신에게 꼭 맞는 여가를 누리고 싶을 때,<br>
-                        짧은 휴식을 최대한 만끽하고 싶을 때,
-                        자연스럽게 떠오르는 브랜드, 지금 heyy가 당신에게 대답합니다.<br>
-                        잔잔한 공지천과 맞닿아 있는 heyy, chuncheon 호텔은 충분히 경험하며 느끼는 로컬 기반의 여가를 제안하는 공간으로 반려견 동반이 가능합니다.</p>
+                    <p>${ fn:replace(stay.overview, LF, "<br>") }</p>
                 </div>
+                <div class="subInfo-div">
+                    <div class="iconAndInfo">
+                        <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
+                        <span>이용 가이드 & 동반 정보</span>
+                    </div>
+                    <p>${ fn:replace(stay.petInfo.etcAcmpyInfo, LF, "<br>") }<br><br>
+                       ${ fn:replace(stay.petInfo.acmpyPsblCpam, LF, "<br>") }
+                    </p>
+                </div>                
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>주요시설</span>
                     </div>
-                    <p>- 주차장</p>
+                    <p>${ fn:replace(stay.petInfo.relaPosesFclty, LF, "<br>") }</p>
                 </div>
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
-                        <span>이용요금</span>
+                        <span>비품 정보</span>
                     </div>
-                    <p>- 펫룸 요금은 호텔로 문의 필요 <br> * 반려견 동반 시 추가 요금</p>
-                </div>
+                    <p>비치 품목 : ${ stay.petInfo.relaFrnshPrdlst }<br> 
+                       구매 품목 : ${ stay.petInfo.relaPurcPrdlst } <br> 
+                       렌탈 품목 : ${ stay.petInfo.relaRntlPrdlst }
+                    </p>
+                </div>                
                 <div class="subInfo-div">
                     <div class="iconAndInfo">
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
-                        <span>애견 정책 및 주의사항</span>
+                        <span>필수</span>
                     </div>
-                    <p> - 8kg이하 반려견 동반 가능합니다.<br>
-                        - 동반 반려견은 객실당 최대 2마리까지 입실 가능합니다.<br>
-                        - 1마리당 배변패드 최대 2장 프런트에서 제공해드리니 필요하신 분은 체크인시 문의 바랍니다.<br>
-                        - 체크인 시 애견 확인 필수, 산책시 리드줄 착용 필수 및 관리해주셔야 합니다.<br>
-                        - 부주의로 인한 사고발생시 견주 책임입니다.<br>
-                        - 1객실 당 성인 최대 2명, 반려견 2마리까지 가능합니다.<br>
-                        
-                        * 반려견 동반 운영정책은 현지 사정에 따라 변동될 수 있습니다.</p>
+                    <p style="color: red; font-size: 16px;">
+                    	${ fn:replace(stay.petInfo.acmpyNeedMtr, LF, "<br>") }
+                    </p>
                 </div>
-                <div class="subInfo-div">
-                    <div class="iconAndInfo">
-                        <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
-                        <span>비품제공</span>
-                    </div>
-                    <p>- 배변패드</p>
-                </div>
+
             </div>
 
             <!-- 목록으로 가는 버튼 -->
             <div class="btn-wrap">
-            	<button onclick="location.href='${path}/trip/spot'" class="btnList">목록으로</button>
+            	<button onclick="location.href='${path}/trip/stay'" class="btnList">목록으로</button>
             </div>
         </div>
     </div>

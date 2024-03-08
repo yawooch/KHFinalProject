@@ -11,11 +11,10 @@ import com.kr.pawpawtrip.trip.model.vo.Stay;
 public interface TripService {
 	
 	// 여행지 전체 게시물 수 조회
-	int getSpotCount();
+	int getSpotCount(String selectArea, String searchKeyword);
 	
 	// 여행지 리스트 조회 
-	// List<Spot> getSpotList(PageInfo pageInfo, String select, String search);
-	List<Spot> getSpotList(PageInfo pageInfo);
+	List<Spot> getSpotList(PageInfo pageInfo, String selectArea, String searchKeyword);
 	
 	// 여행지 상세 조회(여행지 ID 사용)
 	Spot getSpotById(int id);

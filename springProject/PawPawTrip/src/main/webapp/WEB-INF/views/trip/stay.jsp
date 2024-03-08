@@ -41,42 +41,46 @@
         </div>
         <!-- 내부 콘텐츠 -->
         <div class="common-list">
-            <!-- 검색바 -->
+            <!-- ***************************** 검색바 *********************************** -->
             <div class="common-search">
 				<div>
 					TOTAL <span>${ pageInfo.listCount }</span>건
 				</div>
 				<div>
 					<div>
-						<select name="communitySelect" id="communitySelect">
-							<option value="title" selected>지역</option>
-	                        <!-- areaCode -->
-	                        <option value="area-1">서울특별시</option>
-	                        <option value="area-2">인천광역시</option>
-	                        <option value="area-3">대전광역시</option>
-	                        <option value="area-4">대구광역시</option>
-	                        <option value="area-5">광주광역시</option>
-	                        <option value="area-6">부산광역시</option>
-	                        <option value="area-7">울산광역시</option>
-	                        <option value="area-8">세종특별자치시</option>
-	                        <option value="area-31">경기도</option>
-	                        <option value="area-32">강원특별자치도</option>
-	                        <option value="area-33">충청북도</option>
-	                        <option value="area-34">충청남도</option>
-	                        <option value="area-35">경상북도</option>
-	                        <option value="area-36">경상남도</option>
-	                        <option value="area-37">전북특별자치도</option>
-	                        <option value="area-38">전라남도</option>
-	                        <option value="area-39">제주특별자치도</option>
+						<select name="selectArea" id="selectArea">
+							<option value="" selected>지역</option>
+								<c:forEach var="area" items="${ searchAreaOptions }">							
+			                        <option value="${ area.cityCode }">${ area.areaName }</option>
+								</c:forEach>
+<!-- 	                        <option value="area-1">서울특별시</option> -->
+<!-- 	                        <option value="area-2">인천광역시</option> -->
+<!-- 	                        <option value="area-3">대전광역시</option> -->
+<!-- 	                        <option value="area-4">대구광역시</option> -->
+<!-- 	                        <option value="area-5">광주광역시</option> -->
+<!-- 	                        <option value="area-6">부산광역시</option> -->
+<!-- 	                        <option value="area-7">울산광역시</option> -->
+<!-- 	                        <option value="area-8">세종특별자치시</option> -->
+<!-- 	                        <option value="area-31">경기도</option> -->
+<!-- 	                        <option value="area-32">강원특별자치도</option> -->
+<!-- 	                        <option value="area-33">충청북도</option> -->
+<!-- 	                        <option value="area-34">충청남도</option> -->
+<!-- 	                        <option value="area-35">경상북도</option> -->
+<!-- 	                        <option value="area-36">경상남도</option> -->
+<!-- 	                        <option value="area-37">전북특별자치도</option> -->
+<!-- 	                        <option value="area-38">전라남도</option> -->
+<!-- 	                        <option value="area-39">제주특별자치도</option> -->
 						</select>
 					</div>
 					<div>
-						<img src="${ path }/img/community/search.png"> <input type="text"
-							name="communitySearch" id="communitySearch"
-							placeholder="검색어를 입력해주세요.">
+						<img src="${ path }/img/community/search.png"> 
+						<input type="text"
+							   name="searchKeyword" 
+							   id=  "searchKeyword"
+							   placeholder="장소를 입력해주세요.">
 					</div>
 					<div>
-						<button>검색</button>
+						<button id="btnSearch">검색</button>
 					</div>
 				</div>
 			</div>
@@ -103,15 +107,22 @@
 	                                </div>
 	                                <!-- 카드 내용 -->
 	                                <div class="card-body">
-	                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242;">
+	                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">
 	                                        ${ stay.stayTitle }
 	                                    </p>
-	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
+	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
 	                                        ${ stay.stayAddress } 
 	                                    </p>
-	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 16px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-	                                        ${ stay.homepage }
-	                                    </p>
+	                                    <c:if test="${ stay.stayTel == '-' }">
+		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+		                                         별도 문의
+		                                    </p>	                                    	
+	                                    </c:if>
+	                                    <c:if test="${ stay.stayTel != '-' }">
+		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
+		                                         ${ stay.stayTel }
+		                                    </p>
+	                                    </c:if>	                                    
 	                                </div>
 	                            </div>
 	                        </a>

@@ -146,7 +146,8 @@
 	
 	<!-- 여행지 게시물 수 조회 -->
 	<select id="selectSpotCount" resultType="_int">
-		SELECT COUNT(*) FROM TRIP
+		SELECT COUNT(*) 
+		FROM TRIP
 	</select>
 	
 	
@@ -181,7 +182,8 @@
 
 	<!-- 숙박 게시물 수 조회 -->
 	<select id="selectStayCount" resultType="_int">
-		SELECT COUNT(*) FROM STAY
+		SELECT COUNT(*) 
+		FROM STAY
 	</select>	
 	
 	

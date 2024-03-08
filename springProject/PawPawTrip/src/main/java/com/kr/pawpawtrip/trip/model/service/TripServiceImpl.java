@@ -22,14 +22,14 @@ public class TripServiceImpl implements TripService {
 	
 	// 여행지 전체 게시물 수 조회
 	@Override
-	public int getSpotCount() {
+	public int getSpotCount(String selectArea, String searchKeyword) {
 		
 		return tripMapper.selectSpotCount();
 	}
 	
 	// 여행지 리스트 조회
 	@Override
-	public List<Spot> getSpotList(PageInfo pageInfo) {
+	public List<Spot> getSpotList(PageInfo pageInfo, String selectArea, String searchKeyword) {
 	      int limit = pageInfo.getListLimit();
 	      int offset = (pageInfo.getCurrentPage() - 1) * limit;
 	      RowBounds rowBounds = new RowBounds(offset, limit);		
