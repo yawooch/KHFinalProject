@@ -5,6 +5,26 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
     
 <mapper namespace="com.kr.pawpawtrip.community.model.mapper.CommunityMapper">
+	<sql id="communitySelectNo">
+			SELECT C.COMMUNITY_NO
+			     , C.COMMUNITY_CATEGORY
+			     , C.COMMUNITY_TITLE
+			     , C.COMMUNITY_CONTENT
+			     , C.COMMUNITY_ED
+			     , C.COMMUNITY_STATUS
+			     , C.COMMUNITY_COUNT
+			     , C.COMMUNITY_O_FILENAME
+			     , C.COMMUNITY_R_FILENAME
+			     , C.NOTICE_IMPORTANT_YN
+			     , C.COMMUNITY_WRITER_NO
+			     , M.MEMBER_ID
+			  FROM COMMUNITY                  C
+			 INNER JOIN
+			       MEMBER                     M
+			    ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+			   WHERE C.COMMUNITY_STATUS     = 'Y'
+	</sql>
+
     <sql id="noticeListSql">
         SELECT COMMUNITY_NO
              , RNUM
@@ -283,7 +303,6 @@
                </choose>
          </if>
            AND COMMUNITY_CATEGORY   IN ('[수다]', '[공지사항]')
-           AND COMMUNITY_STATUS     = 'Y'
        </trim>
          ORDER BY 
                RNUM DESC
@@ -322,8 +341,8 @@
      </select>
     
      <select id="selectBoardByNo" resultMap="communityListResultMap" parameterType="_int">
-      <include refid="noticeListSql" />
-         WHERE COMMUNITY_NO = #{no}
+      <include refid="communitySelectNo" />
+         AND COMMUNITY_NO = #{no}
     </select>
     
      <!-- 추가 -->

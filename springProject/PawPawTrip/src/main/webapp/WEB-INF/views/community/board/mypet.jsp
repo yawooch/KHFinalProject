@@ -83,7 +83,7 @@
 										<img src="${ path }/img/community/ant-design_sound-filled.png" alt="">
 									</td>
 									<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
-										<a href="${ path }/community/noticedetail" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
+										<a href="${ path }/community/noticedetail?no=${board.communityNo}" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
 									</td>
 									<td>${ board.communityWriterId }</td>
 									<td class="common-text-right">${ board.communityCount }</td>
