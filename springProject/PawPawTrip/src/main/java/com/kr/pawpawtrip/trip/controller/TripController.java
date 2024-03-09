@@ -46,20 +46,23 @@ public class TripController {
 		List<CommonArea> searchAreaOptions = commonService.getAreaByCode("00");
 		
 		// 검색 (지역, 키워드)
-		Map<String, String> map = new HashMap<String, String>();
-		
-		map.put("searchKeyword", searchKeyword);
+		Map<String, String> map = new HashMap<>();
 		map.put("selectArea", selectArea);
+		map.put("searchKeyword", searchKeyword);
 		
 		// log.info("Area Option Values : {}", searchAreaOptions);
 		// log.info("Page Number : {}", page );
 		// log.info(" Spot List : {}", spots);
-		
+		log.info("searchKeyword : {}", searchKeyword);
+		log.info("selectArea : {}", selectArea);
+		log.info("searchAreaOptions : {}", searchAreaOptions);
+		log.info("pageInfo : {} ", pageInfo);
+		log.info("listCount : {} ", listCount);
 		
 		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("spots", spots);
-		modelAndView.addObject("searchAreaOptions", searchAreaOptions);
 		modelAndView.addObject("selectAndSearch", map);
+		modelAndView.addObject("searchAreaOptions", searchAreaOptions);
 		modelAndView.setViewName("trip/spot");
 		
 		return modelAndView;

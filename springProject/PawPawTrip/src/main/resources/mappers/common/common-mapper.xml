@@ -64,7 +64,7 @@
 
     <!-- 지역 이름 다 건 조회 -->
     <select id="selectAreaByCode" parameterType="string" resultMap="commonAreaResultMap">
-        SELECT CITY.SIGUNGU_CODE   AS CITY_CODE
+        SELECT CITY.AREA_CODE      AS CITY_CODE
              , CITY.AREA_NAME      AS CITY_NAME
              , AREA.SIGUNGU_CODE   AS SIGUNGU_CODE
              , AREA.AREA_NAME      AS AREA_NAME

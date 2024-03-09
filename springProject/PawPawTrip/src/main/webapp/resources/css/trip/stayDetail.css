@@ -243,6 +243,10 @@
     margin: 35px auto;
 }
 
+.subInfo-div > p {
+	padding-left: 25px !important;
+}
+
 .iconAndInfo {
     height: 50;
     border-bottom: 1px solid #e8e8e8;

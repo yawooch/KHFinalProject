@@ -29,6 +29,10 @@
 	padding-top: 7px
 }
 
+#searchKeyword {
+	width: auto !important;
+}
+
 /* 카드 */
 .col-md-4 {
 	transition: 0.2s ease-in-out !important;

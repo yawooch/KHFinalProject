@@ -145,16 +145,31 @@
 	<!-- ************************************************************************************** -->
 	
 	<!-- 여행지 게시물 수 조회 -->
-	<select id="selectSpotCount" resultType="_int">
-		SELECT COUNT(*) 
-		FROM TRIP
+	<select id="selectSpotCount" resultType="_int" parameterType="string">
+		SELECT COUNT(*)
+		  FROM TRIP
+	  <where>
+	    <if test="selectArea != ''">
+	      AND AREACODE = #{selectArea}
+	    </if>
+	 	  AND (TRIP_TITLE   LIKE '%' || #{searchKeyword} ||'%'
+	       OR  TRIP_ADDRESS LIKE '%' || #{searchKeyword} ||'%')
+	  </where>
+	  	ORDER BY TRIP_TITLE
 	</select>
 	
 	
     <!-- 여행지 목록 전체 조회 -->
-    <select id="selectSpotList" resultMap="spotListResultMap">
+    <select id="selectSpotList" resultMap="spotListResultMap" parameterType="string">
         <include refid="spotListSql"/>
-        	ORDER BY TRIP_TITLE ASC
+		  <where>
+		    <if test="selectArea != ''">
+		      AND AREACODE = #{selectArea}
+		    </if>
+		 	  AND (TRIP_TITLE   LIKE '%' || #{searchKeyword} ||'%'
+		       OR  TRIP_ADDRESS LIKE '%' || #{searchKeyword} ||'%')
+		  </where>
+		  ORDER BY TRIP_TITLE
     </select>
     
     

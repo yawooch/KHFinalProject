@@ -15,10 +15,13 @@ import com.kr.pawpawtrip.trip.model.vo.Stay;
 public interface TripMapper {
 	
 	// 여행지 게시물 수 조회
-	int selectSpotCount();
+	int selectSpotCount(@Param("selectArea")    String selectArea,
+						@Param("searchKeyword") String searchKeyword);
 	
 	// 여행지 리스트 조회
-	List<Spot> selectSpotList(RowBounds rowBounds);
+	List<Spot> selectSpotList(RowBounds               rowBounds,
+							  @Param("selectArea")    String selectArea, 
+							  @Param("searchKeyword") String searchKeyword);
 	
 	// 여행지 상세 조회(콘텐츠 ID 사용)
 	Spot selectSpotById(@Param("id") int id);

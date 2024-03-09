@@ -24,7 +24,7 @@ public class TripServiceImpl implements TripService {
 	@Override
 	public int getSpotCount(String selectArea, String searchKeyword) {
 		
-		return tripMapper.selectSpotCount();
+		return tripMapper.selectSpotCount(selectArea, searchKeyword);
 	}
 	
 	// 여행지 리스트 조회
@@ -34,7 +34,7 @@ public class TripServiceImpl implements TripService {
 	      int offset = (pageInfo.getCurrentPage() - 1) * limit;
 	      RowBounds rowBounds = new RowBounds(offset, limit);		
 		
-		return tripMapper.selectSpotList(rowBounds);
+		return tripMapper.selectSpotList(rowBounds, selectArea, searchKeyword);
 	}
 	
 	// 여행지 상세 조회(반려동물 동반 정보 확인)

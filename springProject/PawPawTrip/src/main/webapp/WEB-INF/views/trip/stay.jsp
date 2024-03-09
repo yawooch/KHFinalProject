@@ -72,12 +72,13 @@
 <!-- 	                        <option value="area-39">제주특별자치도</option> -->
 						</select>
 					</div>
-					<div>
+					<div style="width: auto;">
 						<img src="${ path }/img/community/search.png"> 
 						<input type="text"
 							   name="searchKeyword" 
 							   id=  "searchKeyword"
-							   placeholder="장소를 입력해주세요.">
+							   placeholder="주소 또는 장소를 입력해주세요."
+							   value="${ selectAndSearch.searchKeyword }">
 					</div>
 					<div>
 						<button id="btnSearch">검색</button>

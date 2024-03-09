@@ -49,10 +49,12 @@
 					<!-- 지역 선택 -->
 					<div>
 						<select name="selectArea" id="selectArea">
-							<option value="" selected>지역</option>
-							<c:forEach var="area" items="${ searchAreaOptions }">							
-		                        <option value="${ area.cityCode }">${ area.areaName }</option>
-							</c:forEach>
+							<option value="" >지역</option>
+								<c:forEach var="area" items="${ searchAreaOptions }">							
+			                        <option value="${ area.cityCode }" <c:if test="${ selectAndSearch.selectArea == area.cityCode }" >selected</c:if>>
+			                        ${ area.areaName }
+			                        </option>
+								</c:forEach>
 <!-- 	                        <option value="2">인천광역시</option> -->
 <!-- 	                        <option value="3">대전광역시</option> -->
 <!-- 	                        <option value="4">대구광역시</option> -->
@@ -72,16 +74,17 @@
 						</select>
 					</div>
 					<!-- 검색어 입력 -->
-					<div>
+					<div style="width: auto;">
 						<img src="${ path }/img/community/search.png"> 
 						<input type="text" 
 							   name="searchKeyword" 
 							   id=  "searchKeyword" 
-							   placeholder="장소를 입력해주세요.">
+							   placeholder="주소 또는 장소를 입력해주세요."
+							   value="${ selectAndSearch.searchKeyword }">
 					</div>
 					<div>
 						<!-- 검색버튼 클릭 시, search()함수 실행 -->
-						<button id="btnSearch" onclick=search()>검색</button>
+						<button id="btnSearch" onclick="search();">검색</button>
 					</div>
 				</div>
 			</div>
@@ -140,49 +143,39 @@
             <!-- 페이징 -->
             <div class="common-page-number">
                 <ul>
-                	<!-- 이전 페이지 
-                	<c:if test="${ empty searchInfoMap.search }">
+                	<!-- 이전 페이지 --> 
+					<c:if test="${ empty selectAndSearch.selectArea  and empty selectAndSearch.searchKeyword }">
 	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.prevPage }">&lt;</a></li>
-                	</c:if>
-                	<c:if test="${ not empty searchInfoMap.search }">
-	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.prevPage }&select=${ searchInfoMap.select }&search=${ searchInfoMap.search }">&lt;</a></li>
-                	</c:if>
-                	--> 
-	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.prevPage }">&lt;</a></li>
-	                    
+					</c:if>
+					<c:if test="${ not empty selectAndSearch.selectArea or not empty selectAndSearch.searchKeyword}">
+						<li><a href="${ path }/trip/spot?page=${ pageInfo.prevPage }&selectArea=${selectAndSearch.selectArea}&searchKeyword=${selectAndSearch.searchKeyword}">&lt;</a></li>
+					</c:if>
+						                    
                 	<!-- 현재 페이지 -->
                 	<!-- 첫 페이지부터 마지막페이지까지 반복(5페이지씩 보이게 설정함) -->
                 	<c:forEach var="currentPage" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
                 		<c:choose>
-                			<%-- 선택한 페이지와 pageInfo의 currentPage가 일치할 때 --%>
                 			<c:when test="${ currentPage == pageInfo.currentPage }">
 				                <li class="disable"><a>${ currentPage }</a></li>
                 			</c:when>
-                			<%-- 선택하지 않은 나머지 페이지 
                 			<c:otherwise>
-                				<c:if test="${ empty searchInfoMap.search }">
-				                    <li><a href="${ path }/trip/spot?page=${ current }">${ current }</a></li>                					
+                				<c:if test="${ empty selectAndSearch.selectArea and empty selectAndSearch.searchKeyword }">
+				                    <li><a href="${ path }/trip/spot?page=${ currentPage }">${ currentPage }</a></li>                					
                 				</c:if>
-                				<c:if test="${ not empty searchInfoMap.search }">
-				                    <li><a href="${ path }/trip/spot?page=${ current }&select=${ searchInfoMap.select }&search=${ searchInfoMap.search }">${ current }</a></li>                					                					
+                				<c:if test="${ not empty selectAndSearch.selectArea or not empty selectAndSearch.search }">
+				                    <li><a href="${ path }/trip/spot?page=${ currentPage }&selectArea=${ selectAndSearch.selectArea }&searchKeyword=${ selectAndSearch.searchKeyword }">${ currentPage }</a></li>                					                					
                 				</c:if>
-                			</c:otherwise>
-                			--%>
-                			<c:otherwise>
-				                <li><a href="${ path }/trip/spot?page=${ currentPage }">${ currentPage }</a></li>                					
                 			</c:otherwise>
                 		</c:choose>
                 	</c:forEach>
                 	
-                    <!-- 다음 페이지 
-                	<c:if test="${ empty searchInfoMap.search }">
+                    <!-- 다음 페이지 -->
+					<c:if test="${ empty selectAndSearch.selectArea and empty selectAndSearch.searchKeyword }">
 	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }">&gt;</a></li>
-                	</c:if>
-                	<c:if test="${ not empty searchInfoMap.search }">
-	                    <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }&select=${ searchInfoMap.select }&search=${ searchInfoMap.search }">&gt;</a></li>
-                	</c:if>
-                    -->
-	                <li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }">&gt;</a></li>
+					</c:if>
+					<c:if test="${ not empty selectAndSearch.selectArea or not empty selectAndSearch.searchKeyword }">
+						<li><a href="${ path }/trip/spot?page=${ pageInfo.nextPage }&selectArea=${selectAndSearch.selectArea}&searchKeyword=${selectAndSearch.searchKeyword}">&gt;</a></li>
+					</c:if>                    
                 </ul>
             </div>
             <!-- </div> -->
@@ -193,16 +186,19 @@
 <script>
 	// 검색바의 '검색버튼' 클릭시 실행할 함수
 	function search() {
-		var selectValue = document.getElementId("tripSelect").value;
-		var searchValue = document.getElementId("tripSearch").value;
-		
+	    var selectArea = document.getElementById("selectArea").value;
+	    var searchKeyword = document.getElementById("searchKeyword").value;
+	    
+	    console.log(selectArea, searchKeyword);
+	    
 		// trim() : 양쪽에 있는 공백을 제거
-		if (searchValue.trim() != '') {
-			
+		if (searchKeyword.trim() != ''||selectArea.trim() != '') {
+			var url = "${path}/trip/spot?selectArea=" + selectArea + "&searchKeyword=" + encodeURIComponent(searchKeyword);
 		} else {
 			var url = "${path}/trip/spot";
 		}
-	}
+	    window.location.href = url;		
+	}	
 </script>
 
 <!-- 푸터 -->
