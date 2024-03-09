@@ -393,6 +393,13 @@
       WHERE COMMUNITY_NO = #{communityNo}
      </update>
      
+     <!-- 조회수 업데이트 -->
+     <update id="updateCommunityCount" parameterType="map">
+      UPDATE COMMUNITY
+      SET COMMUNITY_COUNT = #{viewsCount}
+      WHERE COMMUNITY_NO = #{no}
+     </update>
+     
      <!-- 삭제 -->
      <update id="updateStatus" parameterType="map">
       UPDATE COMMUNITY

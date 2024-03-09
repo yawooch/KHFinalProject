@@ -37,6 +37,10 @@ public interface CommunityService
     // 게시글 작성,수정
     int save(Community community);
 
+    // 조회수 업데이트
+	int updateCommunityCount(int no, int viewsCount);
+    
     // 게시글 삭제
     int delete(int no);
+
 }

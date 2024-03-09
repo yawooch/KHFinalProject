@@ -113,6 +113,14 @@ public class CommunityServiceImpl implements CommunityService {
         
         return result;
     }
+    
+    // 조회수 업데이트
+	@Override
+	@Transactional
+	public int updateCommunityCount(int no, int viewsCount) {
+		
+		return communityMapper.updateCommunityCount(no, viewsCount);
+	}
 
     // 게시글 삭제
     @Override
@@ -121,6 +129,5 @@ public class CommunityServiceImpl implements CommunityService {
         
         return communityMapper.updateStatus(no, "N");
     }
-
 
 }

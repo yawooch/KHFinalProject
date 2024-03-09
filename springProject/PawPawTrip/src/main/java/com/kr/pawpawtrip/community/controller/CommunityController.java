@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.HttpHeaders;
@@ -189,13 +191,37 @@ public class CommunityController
 
 //    자유 게시판(수다) 상세
     @GetMapping("/board/talkdetail")
-    public ModelAndView talkDetail(ModelAndView modelAndView, @RequestParam int no)
+    public ModelAndView talkDetail(ModelAndView modelAndView, @RequestParam int no, HttpSession session)
     {
-
-        Community community = null;
-
+    	Community community = null;
+    	
+    	Member loginMember = (Member) session.getAttribute("loginMember");
+    	
+//    	if(loginMember == null) {
+//    		loginMember = new Member();
+//    		loginMember.setMemberRole("ROLE_USER");
+//    	}
+    	
+    	// 조회수 카운트 되기 전
+    	community = communityService.getBoardNo(no);
+        
+        int viewsCount =  community.getCommunityCount();
+        
+        // 조회수 업데이트
+        System.out.println("로그인 멤버 : " + loginMember);
+        System.out.println("로그인 멤버 : " + (loginMember == null));
+//        System.out.println("로그인 멤버 : " + loginMember.getMemberRole().equals("ROLE_USER"));
+        if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
+        	viewsCount ++;
+        	
+        	System.out.println("들어왔뜨아!!!!!!!!!!!!");
+        	
+        	communityService.updateCommunityCount(no, viewsCount);
+        } 
+        
+        // 조회수 카운트 되고 난 후
         community = communityService.getBoardNo(no);
-
+        
         log.info("Board TalkDetail - {}", community);
 
         modelAndView.addObject("community", community);

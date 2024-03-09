@@ -27,5 +27,7 @@ public interface CommunityMapper
     int insertBoard(Community community);
     int updateBoard(Community community);
     
+    int updateCommunityCount(@Param("no") int no, @Param("viewsCount") int viewsCount);
+    
     int updateStatus(@Param("no") int no, @Param("status") String status);
 }
