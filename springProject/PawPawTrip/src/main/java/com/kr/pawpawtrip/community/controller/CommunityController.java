@@ -4,9 +4,13 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.core.io.Resource;
@@ -188,33 +192,61 @@ public class CommunityController
 
         return modelAndView;
     }
-
+    public String getCookie(HttpServletRequest request, String cookieName) {
+		Cookie[] list = request.getCookies();
+		for(Cookie cookie:list) {
+			if(cookie.getName().equals(cookieName)) {
+				return cookie.getValue();
+			}
+		}
+		return "";
+	}
 //    자유 게시판(수다) 상세
     @GetMapping("/board/talkdetail")
-    public ModelAndView talkDetail(ModelAndView modelAndView, @RequestParam int no, HttpSession session)
+    public ModelAndView talkDetail(ModelAndView modelAndView, @RequestParam int no, HttpSession session, HttpServletRequest request, HttpServletResponse response)
     {
+    	
     	Community community = null;
-    	
     	Member loginMember = (Member) session.getAttribute("loginMember");
+    	String ipAddr = request.getRemoteAddr();
+    	String communityNo = "";
+    	Cookie[] cookies = request.getCookies();;
+    	Cookie cookie = null;
+    	Cookie cookie2 = null;
     	
-//    	if(loginMember == null) {
-//    		loginMember = new Member();
-//    		loginMember.setMemberRole("ROLE_USER");
-//    	}
+    	System.out.println("가져온 ip 주소 : " + ipAddr);
     	
     	// 조회수 카운트 되기 전
     	community = communityService.getBoardNo(no);
+    	
+    	communityNo = String.valueOf(community.getCommunityNo());
+
+    	cookie = new Cookie("communityNo" + communityNo, ipAddr);
+//    	cookie2 = new Cookie("communityNos", getCookie(request, "communityNos")+"@"+communityNo);
+    	
+//    	String[] arr = getCookie(request, "communityNos").split("@");
+//    	for (String string : arr) {
+//			System.out.println(string);
+//		}
+    	
+    	response.addCookie(cookie);
+//    	response.addCookie(cookie2);
+//    	System.out.println(getCookie(request, "communityNo" + communityNo));
+//    	System.out.println(getCookie(request, "communityNos"));
+//    	for (Cookie c : cookies) {
+//			System.out.println(c.getName());
+//			System.out.println(c.getValue());
+//		}
+    	
         
         int viewsCount =  community.getCommunityCount();
         
         // 조회수 업데이트
         System.out.println("로그인 멤버 : " + loginMember);
         System.out.println("로그인 멤버 : " + (loginMember == null));
-//        System.out.println("로그인 멤버 : " + loginMember.getMemberRole().equals("ROLE_USER"));
+        
         if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
         	viewsCount ++;
-        	
-        	System.out.println("들어왔뜨아!!!!!!!!!!!!");
         	
         	communityService.updateCommunityCount(no, viewsCount);
         } 
@@ -232,11 +264,29 @@ public class CommunityController
 
 //    자유 게시판(마이펫 자랑) 상세
     @GetMapping("/board/mypetdetail")
-    public ModelAndView mypetDetail(ModelAndView modelAndView, @RequestParam int no)
+    public ModelAndView mypetDetail(ModelAndView modelAndView, @RequestParam int no, HttpSession session)
     {
 
         Community community = null;
+        
+        Member loginMember = (Member) session.getAttribute("loginMember");
 
+        // 조회수 카운트 되기 전
+        community = communityService.getBoardNo(no);
+        
+        int viewsCount =  community.getCommunityCount();
+        
+        // 조회수 업데이트
+        System.out.println("로그인 멤버 : " + loginMember);
+        System.out.println("로그인 멤버 : " + (loginMember == null));
+        
+        if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
+        	viewsCount ++;
+        	
+        	communityService.updateCommunityCount(no, viewsCount);
+        } 
+        
+        // 조회수 카운트 되고 난 후
         community = communityService.getBoardNo(no);
 
         log.info("Board MypetDetail - {}", community);
