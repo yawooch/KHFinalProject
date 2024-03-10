@@ -14,14 +14,11 @@
 
 <!-- css 파일 연결 -->
 <link rel="stylesheet" href="${path}/css/trip/spotDetail.css">
-
 <!-- 아이콘 -->
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 <!-- 슬라이드 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <style>
@@ -89,9 +86,12 @@ color: #FDFAEF;
                 <!-- 장소 이미지(슬라이드) -->
                 <div class="swiper Swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="http://tong.visitkorea.or.kr/cms/resource/37/2596337_image2_1.jpg" alt="안반데기 예시">
-                        </div>
+                    	<c:forEach var="detailImageItem" items="${ detailImageItems }">
+	                        <div class="swiper-slide">
+	                            <img src="${ detailImageItem.originimgurl }">
+	                        </div>
+                    	</c:forEach>
+                    	<!--  
                         <div class="swiper-slide">
                             <img src="https://dangdangmap.net/upload/mapdata/C0517/thumb/content/C0517_F20221201111723002.jpg" alt="안반데기 예시">
                         </div>
@@ -104,6 +104,7 @@ color: #FDFAEF;
                         <div class="swiper-slide">
                             <img src="https://dangdangmap.net/upload/mapdata/C0517/thumb/content/C0517_F20221201111724005.jpg" alt="안반데기 예시">
                         </div>
+                    	-->
                     </div>
                     <div class="swiper-pagination"></div>
                     <div class="swiper-button-prev"></div>
