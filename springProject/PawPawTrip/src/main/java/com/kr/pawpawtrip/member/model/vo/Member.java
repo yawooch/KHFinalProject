@@ -22,7 +22,7 @@ public class Member {
 	
 	private String memberEmail;
 	
-	private String memberBirth;
+	private int memberBirth;
 	
 	private String memberPetName;
 	

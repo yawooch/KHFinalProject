@@ -21,7 +21,7 @@
 	    <!-- navi -->
 	    <div class="navi">
 	        <div class="findbyid">
-	            <a href="#" style="color: #FFF;">회원가입</a>
+	            <a href="${ path }/enroll" style="color: #FFF;">회원가입</a>
 	        </div>
 	    </div>
 	    <form action="${ path }/enroll" method="POST" id="enroll-form">
@@ -46,18 +46,18 @@
 	                 ><span class="required_option">(필수)</span> 개인정보 수집 및 이용 동의 <span class="manual"><a href="#">(약관보기)</a></span></label
 	             >
 	             <br />
-	             <input type="checkbox" class="options" id="select_option1" />
-	             <label for="select_option1"
+	             <input type="checkbox" class="options" id="select_option1" name="mrktAgreeYn" value="Y" />
+	             <label for="mrktAgreeYn"
 	                 ><span class="select_option">(선택)</span> 개인정보수집 및 이용 동의 - 마케팅 <span class="manual"><a href="#">(약관보기)</a></span></label
 	             >
 	             <br />
-	             <input type="checkbox" class="options" id="select_option2" />
-	             <label for="select_option2"
+	             <input type="checkbox" class="options" id="select_option2" name="recvAgreeYn" value="Y"/>
+	             <label for="recvAgreeYn"
 	                 ><span class="select_option">(선택)</span> 광고성 정보 이메일/SMS 수신 동의 <span class="manual"><a href="#">(약관보기)</a></span></label
 	             >
 	             <br />
-	             <input type="checkbox" class="options" id="select_option3" />
-	             <label for="select_option3"
+	             <input type="checkbox" class="options" id="select_option3" name="locaAgreeYn" value="Y" />
+	             <label for="locaAgreeYn"
 	                 ><span class="select_option">(선택)</span> 위치 정보 수집 및 이용 동의 <span class="manual"><a href="#">(약관보기)</a></span></label
 	             >
 	             <br />
@@ -66,11 +66,11 @@
 	         <div class="enroll-table">
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">이름</div>
-	                 <div class="col-lg-9"><input type="text" name="memberName"/></div>
+	                 <div class="col-lg-9"><input type="text" id="memberName" name="memberName" maxlength='10'/></div>
 	             </div>
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">생년월일</div>
-	                 <input type="hidden" id="memberBrith" name="memberBrith" value="">
+	                 <input type="hidden" id="memberBirth" name="memberBirth" value="">
 	                 <div class="info enroll-contain col-lg-9" id="info__birth">
 	                     <select name="yy" id="birth-year">
 	                         <option disabled selected>출생 연도</option>
@@ -88,7 +88,6 @@
 	                 <div class="col-lg-9 enroll-contain">
 	                 	<input type="text" name="memberId" id="memberId" placeholder="5~12자 영문, 숫자 포함" />
 	                 	<button type="button" id="checkDuplicate" class="col-12 enroll-btn">중복확인</button>
-	                	
 	                 </div>
 	             </div>
 	             <div class="enroll-tr row">
@@ -108,17 +107,18 @@
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">휴대폰 번호</div>
 	                 <div class="col-lg-9 enroll-contain">
-	                 	<input type="text" name="memberPhone" placeholder="휴대폰 번호 '-' 제외하고 입력" />
-	                 	<button type="button" class="col-12 enroll-btn">인증받기</button>
+	                 	<input type="text" id="phoneNumber" name="memberPhone" placeholder="휴대폰 번호 '-' 제외하고 입력" />
+	                 	<button type="button" class="col-12 enroll-btn" id="sendVerificationCodeBtn">인증받기</button>
 	                 </div>
 	             </div>
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3"></div>
 	                 <div class="col-lg-9 enroll-contain">
-	                 	<input type="text" placeholder="인증번호 입력" />
-	                 	<button type="button" class="col-12 enroll-btn">확인</button>
+	                 	<input type="text" id="verificationCode" placeholder="인증번호 입력" />
+	                 	<button type="button" class="col-12 enroll-btn" id="verifyCodeBtn">확인</button>
 	                 </div>
 	             </div>
+	             <div id="verificationResult"></div>
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">이메일</div>
 	                 <input type="hidden" id="memberEmail" name="memberEmail" value="">
@@ -139,13 +139,13 @@
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">마이펫 이름</div>
 	                 <div class="col-lg-9">
-	                 	<input type="text" name="memberPetName"/>
+	                 	<input type="text" name="memberPetName" id="memberPetName" minlength="1" maxlength="10"/>
 	                 </div>
 	             </div>
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3">마이펫 타입</div>
 	                 <div class="pet-type col-lg-9 enroll-contain">
-	                 	<select name="memberPetType" id="">
+	                 	<select name="memberPetType" id="memberPetType">
 	                         <option value="골든 리트리버">골든 리트리버</option>
 	                         <option value="포메라니안">포메라니안</option>
 	                         <option value="프렌치 불도그">프렌치 불도그</option>
@@ -154,6 +154,7 @@
 	                         <option value="푸들">푸들</option>
 	                         <option value="시츄">시츄</option>
 	                         <option value="요크셔 테리어">요크셔 테리어</option>
+	                         <option value="믹스견">믹스견</option>
 	                         <option value="기타">기타</option>
 	                    </select>
 	                    <button type="button" class="col-12 enroll-btn" style="visibility: hidden;">숨기기</button>
@@ -162,7 +163,8 @@
 	         </div>
 	     </div>
 	     <div class="signInBtn">
-			 <button type="submit" class="bottom-btn">회원가입</button>
+			 <button type="submit" id="bottom-btn" class="bottom-btn">회원가입</button>
+			 <button type="reset">작성하기</button>
 	     </div>
 	    </form>
 		</div>
@@ -176,40 +178,8 @@
 <script type="text/javascript" src="${path}/js/member/enroll.js"></script>
 
 <script>
-	// 아이디 중복 확인
-	$(document).ready(() => {
-		$('#checkDuplicate').on('click', () => {
-			let memberId = $('#memberId').val().trim();
-			
-			if(memberId === '') {
-				alert('아이디를 입력해 주세요.');
-			} else {
-				$.ajax({
-					type: 'GET',
-					url: '${ path }/member/idCheck',
-					dataType: 'json',
-					data : {
-						memberId
-					},
-					success : (obj) => {
-						console.log(obj);
-						
-						if(obj.duplicate) {
-							alert('이미 사용중인 아이디 입니다.');
-						} else {
-							alert('사용 가능한 아이디 입니다.');
-						}
-					},
-					error: (error) => {
-						console.log(error);	
-					}
-				});
-			}
 
-			
-		});
-	});
-	
-	
+
+
 </script>
 

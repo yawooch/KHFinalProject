@@ -1,178 +1,292 @@
-window.onload = function(){
-	// 도메인 직접 입력 or domain option 선택
-	let domainList = document.getElementById('domain-list');
-	let domainTxt = document.getElementById('domain-txt');
-	
-	// select 옵션 변경시
-	domainList.addEventListener('change', (event) => {
-		// option에 있는 도메인 선택 시
-		if(event.target.value !== "type") {
-			// 선택한 도메인을 input에 입력하고 disabled
-			domainTxt.value = event.target.value;
-			domainTxt.disabled = true;
-			// 직접 입력 시
-		} else {
-			// input 내용 초기화 & 입력 가능하도록 변경
-			domainTxt.value = "";
-			domainTxt.disabled = false;
-		}
-	 });
-	 
-	 // 이메일 합치기
-	 $('#enroll-form').on('submit', () => {
-		 let emailId     = $('#email-id').val();
-		 let domainId    = $('#domain-txt').val();
-		 let memberEmail = "";
-		 
-	 	 memberEmail     = emailId + "@" + domainId;
-	 	
-	 	$('#memberEmail').val(memberEmail);
-	 });
-	 
-	 	 
-	 
-	// '출생 연도' 셀렉트 박스 option 목록 동적 생성
-	let birthYearEl = document.querySelector('#birth-year')
-	// option 목록 생성 여부 확인
-	isYearOptionExisted = false;
-	birthYearEl.addEventListener('focus', function () {
-	  // year 목록 생성되지 않았을 때 (최초 클릭 시)
-	  if(!isYearOptionExisted) {
-	    isYearOptionExisted = true
-	    for(var i = 1940; i <= 2024; i++) {
-	      // option element 생성
-	      let YearOption = document.createElement('option')
-	      YearOption.setAttribute('value', i)
-	      YearOption.innerText = i
-	      // birthYearEl의 자식 요소로 추가
-	      this.appendChild(YearOption);
-	    }
-	  }
-	});
-	
-	// '출생 연도' 셀렉트 박스 option 목록 동적 생성
-	let birthMonthEl = document.querySelector('#birth-month')
-	// option 목록 생성 여부 확인
-	isMonthOptionExisted = false;
-	birthMonthEl.addEventListener('focus', function () {
-	  // year 목록 생성되지 않았을 때 (최초 클릭 시)
-	  if(!isMonthOptionExisted) {
-	    isMonthOptionExisted = true
-	    for(var i = 1; i <= 12; i++) {
-	      // option element 생성
-	      let MonthOption = document.createElement('option')
-	      MonthOption.setAttribute('value', i)
-	      MonthOption.innerText = i
-	      // birthYearEl의 자식 요소로 추가
-	      this.appendChild(MonthOption);
-	    }
-	  }
-	});
-	
-	// '출생 연도' 셀렉트 박스 option 목록 동적 생성
-	let birthDayEl = document.querySelector('#birth-day')
-	// option 목록 생성 여부 확인
-	isDayOptionExisted = false;
-	birthDayEl.addEventListener('focus', function () {
-	  // year 목록 생성되지 않았을 때 (최초 클릭 시)
-	  if(!isDayOptionExisted) {
-	    isDayOptionExisted = true
-	    for(var i = 1; i <= 31; i++) {
-	      // option element 생성
-	      let DayOption = document.createElement('option')
-	      DayOption.setAttribute('value', i)
-	      DayOption.innerText = i
-	      // birthYearEl의 자식 요소로 추가
-	      this.appendChild(DayOption);
-	    }
-	  }
-	});
-	
-	// 생년월일 합치기
-	$('#enroll-form').on('submit', () => {
-		let year = $('#birth-year').val();
-		let month = $('#birth-month').val();
-		let day = $('#birth-day').val();
-		let memberBirth = "";
-		
-		month = month < 10 ? '0' + month : month;
-		day = day < 10 ? '0' + day : day; 
-		
-		memberBirth = year + month + day;
-		
-		$('#memberBrith').val(memberBirth);
-	});
 
+// 전체 동의하기
+function allAgree(event) {
+    var isChecked = $(this).prop("checked");
+    $(".options").prop("checked", isChecked).val(isChecked ? 'Y' : 'N');
+}
 
-	// 1. 비밀번호 입력창 정보 가져오기
-    let elInputPassword = document.querySelector('#password');
-    // 2. 비밀번호 확인 입력창 정보 가져오기
-    let elInputPasswordRetype = document.querySelector('#password-retype');
-    // 3. 실패 메시지 정보 가져오기 (비밀번호 불일치)
-    let elMismatchMessage = document.querySelector('.mismatch-message ');
-    // 4. 실패 메시지 정보 가져오기 (8글자 이상, 영문, 숫자 미사용)
-    let elStrongPasswordMessage = document.querySelector('.strongPassword-message');
+// 체크박스 선택 시 value 값 부여
+function valueChange() {
+    var value = $(this).is(':checked') ? 'Y' : 'N';
+    $(this).val(value);
+}
 
-	// 비번 정규식 체크
-    function strongPassword(str) {
-        return /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,15}$/.test(str);
-    }
-    // 비번 일치 확인
-    function isMatch(password1, password2) {
+// 비밀번호 정규식 체크
+function strongPassword(str) {
+    return /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{8,15}$/.test(str);
+}
+
+// 비번 일치 확인
+function isMatch(password1, password2) {
 	return password1 === password2;
+}
+
+// 핸드폰 인증 번호 발송
+function phoneCode() {
+    generatedCode = Math.floor(100000 + Math.random() * 900000);
+    alert("휴대폰으로 전송된 인증번호 : " + generatedCode);
+}
+
+// 인증 번호 확인
+function verifyCode() {
+    var inputCode = $("#verificationCode").val();
+    
+    if (parseInt(inputCode) === generatedCode) {
+        alert("인증에 성공하였습니다.");
+    } else {
+        alert("인증에 실패하였습니다. 올바른 인증번호를 입력하세요.");
     }
-    
-    // 비번 조건에 맞게 입력했는지 체크
-	elInputPassword.onkeyup = function() {
-		if (elInputPassword.value.length !== 0) {
-			if (strongPassword(elInputPassword.value)) {
-				elStrongPasswordMessage.classList.add("hide"); // 실패 메시지가 가려져야 함
-			} else {
-				elStrongPasswordMessage.classList.remove("hide"); // 실패 메시지가 보여야 함
-			}
-		}
-		else {
-			elStrongPasswordMessage.classList.add("hide");
-		}
-	};
+}
+
+// 모든 필드가 채워져 있는지 확인하는 함수
+
+function allcheck(event) {
+    // 필드가 모두 채워져 있는지 확인
+    if (!validateForm()) {
+        // 필드가 모두 채워지지 않았을 경우 폼 제출 막기
+        event.preventDefault();
+        // 경고창 표시
+        alert('모든 항목을 작성해주세요.');
+    }
+}
 	
-	// 비번, 비번확인 일치여부 체크
-	elInputPasswordRetype.onkeyup = function() {
-		if (elInputPasswordRetype.value.length !== 0) {
-			if (isMatch(elInputPassword.value, elInputPasswordRetype.value)) {
-				elMismatchMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
-			}
-			else {
-				elMismatchMessage.classList.remove('hide'); // 실패 메시지가 보여야 함
-			}
-		}
-		else {
-			elMismatchMessage.classList.add('hide'); // 실패 메시지가 가려져야 함
-		}
-	};
-	
-	// 전체 동의하기
-	$("#all_Agree").on("click", (event) => {
-	if (event.target.checked == true) {
-		$(".options").prop("checked", true);
-	} else {
-		$(".options").prop("checked", false);
-	}
-	});
-	
-	
-	
-	
-    
-    
-    
-    
+// 모든 필드가 채워져 있는지 확인하는 함수
+function validateForm() {
+    let option1 = $('#required_option1').prop('checked');
+    let option2 = $('#required_option2').prop('checked');
+    let option3 = $('#required_option3').prop('checked');
+    let memberName = $('#memberName').val();
+    let year = $('#birth-year').val();
+    let month = $('#birth-month').val();
+    let day = $('#birth-day').val();
+    let memberId = $('#memberId').val();
+    let memberPw = $('#password').val();
+    let memberPwCheck = $('#password-retype').val();
+    let memberPhone = $('#phoneNumber').val();
+    let phoneCheck = $('#verificationCode').val();
+    let inputEmail = $('#email-id').val();
+    let selectDomain = $('#domain-txt').val();
+    let memberPetName = $('#memberPetName').val();
+    let memberPetType = $('#memberPetType').val();
+
+    // 필드가 모두 채워져 있는지 확인
+    if (option1 && 
+        option2 && 
+        option3 && 
+        memberName &&
+        year &&
+        month &&
+        day &&
+        memberId && 
+        memberPw && 
+        memberPwCheck && 
+        memberPhone &&
+        phoneCheck && 
+        inputEmail && 
+        selectDomain &&  
+        memberPetName && 
+        memberPetType
+    ) {
+        // 모든 필드가 채워져 있으면 true 반환
+        return true;
+    } else {
+        // 하나라도 비어있으면 false 반환
+        return false;
+    }
 }
 
 
 
+$(document).ready(function() {
+/************************* 약관동의 *************************/
+    // 전체 동의하기
+    $("#all_Agree").on("click", allAgree);
+    
+    // 체크박스 선택 시 value 값 부여
+    $('.options').change(valueChange);
+    
+/************************* 이메일 *************************/
+	// 도메인 직접 입력 or domain option 선택
+    $('#domain-list').on('change', function(event) {
+        // option에 있는 도메인 선택 시
+        if ($(this).val() !== "type") {
+            // 선택한 도메인을 input에 입력하고 disabled
+            $('#domain-txt').val($(this).val());
+            $('#domain-txt').prop('disabled', true);
+        } else {
+            // input 내용 초기화 & 입력 가능하도록 변경
+            $('#domain-txt').val("");
+            $('#domain-txt').prop('disabled', false);
+        }
+    });
+    
+    // 이메일 합치기
+    $('#enroll-form').on('submit', () => {
+        let emailId     = $('#email-id').val();
+        let domainId    = $('#domain-txt').val();
+        let memberEmail = "";
+        
+        memberEmail     = emailId + "@" + domainId;
+        
+        $('#memberEmail').val(memberEmail);
+    });
+    
+/************************* 생년월일 *************************/
+    // '출생 연도' 셀렉트 박스 option 목록 동적 생성
+    let birthYearEl = $('#birth-year');
+    // option 목록 생성 여부 확인
+    let isYearOptionExisted = false;
+    birthYearEl.on('focus', function () {
+      // year 목록 생성되지 않았을 때 (최초 클릭 시)
+      if(!isYearOptionExisted) {
+        isYearOptionExisted = true;
+        for(var i = 1940; i <= 2024; i++) {
+          // option element 생성
+          let YearOption = $('<option>').attr('value', i).text(i);
+          // birthYearEl의 자식 요소로 추가
+          $(this).append(YearOption);
+        }
+      }
+    });
+    
+    // '출생 월' 셀렉트 박스 option 목록 동적 생성
+    let birthMonthEl = $('#birth-month');
+    // option 목록 생성 여부 확인
+    let isMonthOptionExisted = false;
+    birthMonthEl.on('focus', function () {
+      // month 목록 생성되지 않았을 때 (최초 클릭 시)
+      if(!isMonthOptionExisted) {
+        isMonthOptionExisted = true;
+        for(var i = 1; i <= 12; i++) {
+          // option element 생성
+          let MonthOption = $('<option>').attr('value', i).text(i);
+          // birthMonthEl의 자식 요소로 추가
+          $(this).append(MonthOption);
+        }
+      }
+    });
+    
+    // '출생 일' 셀렉트 박스 option 목록 동적 생성
+    let birthDayEl = $('#birth-day');
+    // option 목록 생성 여부 확인
+    let isDayOptionExisted = false;
+    birthDayEl.on('focus', function () {
+      // day 목록 생성되지 않았을 때 (최초 클릭 시)
+      if(!isDayOptionExisted) {
+        isDayOptionExisted = true;
+        for(var i = 1; i <= 31; i++) {
+          // option element 생성
+          let DayOption = $('<option>').attr('value', i).text(i);
+          // birthDayEl의 자식 요소로 추가
+          $(this).append(DayOption);
+        }
+      }
+    });
+ 
+    // 생년월일 합치기
+    $('#enroll-form').on('submit', () => {
+        let year = $('#birth-year').val();
+        let month = $('#birth-month').val();
+        let day = $('#birth-day').val();
+        let memberBirth = "";
+        
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day; 
+        
+        memberBirth = year + month + day;
+        
+        $('#memberBirth').val(memberBirth);
+    });
 
+/************************* 비밀번호/비밀번호 확인 *************************/
+    // 1. 비밀번호 입력창 정보 가져오기
+    let elInputPassword = $('#password');
+    // 2. 비밀번호 확인 입력창 정보 가져오기
+    let elInputPasswordRetype = $('#password-retype');
+    // 3. 실패 메시지 정보 가져오기 (비밀번호 불일치)
+    let elMismatchMessage = $('.mismatch-message');
+    // 4. 실패 메시지 정보 가져오기 (8글자 이상, 영문, 숫자 미사용)
+    let elStrongPasswordMessage = $('.strongPassword-message');
+    
+	// 비밀번호 조건에 맞게 입력했는지 체크
+	elInputPassword.on('keyup', function() {
+	    if (elInputPassword.val().length !== 0) {
+	        if (strongPassword(elInputPassword.val())) {
+	            elStrongPasswordMessage.addClass("hide"); // 실패 메시지가 가려져야 함
+	        } else {
+	            elStrongPasswordMessage.removeClass("hide"); // 실패 메시지가 보여야 함
+	        }
+	    }
+	    else {
+	        elStrongPasswordMessage.addClass("hide");
+	    }
+	});
+	
+	// 비밀번호, 비밀번호 확인 일치여부 체크
+	elInputPasswordRetype.on('keyup', function() {
+	    if (elInputPasswordRetype.val().length !== 0) {
+	        if (isMatch(elInputPassword.val(), elInputPasswordRetype.val())) {
+	            elMismatchMessage.addClass('hide'); // 실패 메시지가 가려져야 함
+	        }
+	        else {
+	            elMismatchMessage.removeClass('hide'); // 실패 메시지가 보여야 함
+	        }
+	    }
+	    else {
+	        elMismatchMessage.addClass('hide'); // 실패 메시지가 가려져야 함
+	    }
+	});
+	
+/************************* 아이디 *************************/		    
+	// 아이디 중복체크 & 정규식 확인
+	$('#checkDuplicate').on('click', function() {
+	    let memberId = $('#memberId').val().trim();
+	    const exp = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{5,12}$/;
+	    const result = exp.test($("#memberId").val());
+	    
+	    if (memberId === '') {
+	        alert('아이디를 입력해 주세요.');
+	    } else if (!result) {
+	        alert('아이디는 영문, 숫자를 포함하여 5~12자 이내로 입력하세요.');
+	    } else {
+	        $.ajax({
+	            type: 'GET',
+	            url: '/pawpawtrip/member/idCheck',
+	            dataType: 'json',
+	            data : {
+	                memberId
+	            },
+	            success : function(obj) {
+	                console.log(obj);
+	                
+	                if (obj.duplicate) {
+	                    alert('이미 사용중인 아이디 입니다.');
+	                } else {
+	                    alert('사용 가능한 아이디 입니다.');
+	                }
+	            },
+	            error: function(error) {
+	                console.log(error);    
+	            }
+	        });
+	    }   
+	}); 
+	
+/************************* 휴대폰 번호 인증(랜덤 6자리 수 생성) / 인증번호 일치 확인 *************************/
+	// 랜덤 수 생성 변수 선언   
+	var generatedCode = null;
+	
+	// 인증하기 버튼 클릭 시
+	$("#sendVerificationCodeBtn").on('click', phoneCode);
+
+	// 확인 버튼 클릭 시   
+	$("#verifyCodeBtn").on('click', verifyCode);
+	
+	
+/************************* 회원가입 활성화 *************************/
+	// 회원가입 버튼 클릭 시
+	$('#bottom-btn').on('click', allcheck);
 	
 
-
+});	
 
