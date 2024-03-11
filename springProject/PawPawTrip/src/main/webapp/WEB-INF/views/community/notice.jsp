@@ -9,7 +9,7 @@
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<link rel="stylesheet" href="${path}/css/community/board.css">
+<link rel="stylesheet" href="${path}/css/community/notice.css">
 
 <style>
     .disable {
@@ -26,9 +26,9 @@
         </div>
         <div class="common-sideMenu">
             <ul>
-                <li class="">커뮤니티</li>
-                <li class="on"><a href="${path}/community/notice">공지사항</a></li>
-                <li class="">  <a href="${path}/community/board">자유 게시판</a>
+                <li class="community-text">커뮤니티</li>
+                <li class="on notice-text"><a href="${path}/community/notice">공지사항</a></li>
+                <li class="board-text">  <a href="${path}/community/board">자유 게시판</a>
                     <ul class="community-detail-sideMenu">
                         <li><a href="${ path }/community/board/talk">수다</a></li>
                         <li><a href="${ path }/community/board/mypet">마이펫 자랑</a></li>

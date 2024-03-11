@@ -28,8 +28,8 @@
 			<ul>
 				<li class="community-text">커뮤니티</li>
 				<li class="notice-text"><a href="${path}/community/notice">공지사항</a></li>
-				<li class="board-text"><a href="${path}/community/board">자유
-						게시판</a>
+				<li class="board-text">
+					<a href="${path}/community/board">자유게시판</a>
 
 					<ul class="community-detail-sideMenu">
 						<li><a href="${ path }/community/board/talk">수다</a></li>

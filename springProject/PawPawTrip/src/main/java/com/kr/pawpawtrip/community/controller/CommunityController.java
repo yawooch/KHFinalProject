@@ -72,7 +72,7 @@ public class CommunityController
         log.info("|||||||||||||||||||||||||||||||   listCount : {} ", listCount);
         
         listCount = communityService.getNoticeCount(select, search);
-        pageInfo = new PageInfo(page, 5, listCount, 10);
+        pageInfo = new PageInfo(page, 5, listCount, 15);
 
         // 공지사항 리스트 조회
         noticeList = communityService.getNoticeList(pageInfo, select, search);
@@ -192,6 +192,72 @@ public class CommunityController
         modelAndView.addObject("pageInfo", pageInfo);
         modelAndView.addObject("boardMypetList", boardMypetList);
         modelAndView.setViewName("community/board/mypet");
+
+        return modelAndView;
+    }
+    
+    // 공지사항 상세
+    @GetMapping("/noticedetail")
+    public ModelAndView noticeDetail(ModelAndView modelAndView, @RequestParam int no, HttpSession session, HttpServletRequest request, HttpServletResponse response)
+    {
+        Community community = null;
+        Member loginMember = (Member) session.getAttribute("loginMember");
+    	String ipAddr = request.getRemoteAddr();
+    	String communityNo = "";
+    	String cNo = "";
+    	Cookie[] cookies = request.getCookies();;
+    	Cookie cookie = null;
+    	boolean cookieCheck = false;
+
+    	System.out.println("가져온 ip 주소 : " + ipAddr);
+    	
+    	// 조회수 카운트 되기 전
+        community = communityService.getBoardNo(no);
+        
+        // 게시글 번호를 cookie에 저장하기 위해 int -> String 변경
+    	communityNo = String.valueOf(community.getCommunityNo());
+    	
+    	cNo = "community_no" + communityNo;
+    	
+    	System.out.println(cNo);
+
+    	// cookie 정보에 동일한 게시글 번호 && ip 주소 중복 체크
+    	for (Cookie c : cookies) {
+			if(cNo.equals(c.getName()) && ipAddr.equals(c.getValue())) {
+				cookieCheck = true;
+			}
+    		
+		}
+    	
+    	// 중복되지 않으면 cookie에 값을 저장 후 조회수 카운트
+    	if(!cookieCheck) {
+    		// name : 게시글 번호, value : 접속 IP cookie에 저장
+        	cookie = new Cookie("community_no" + communityNo, ipAddr);
+        	
+        	cookie.setMaxAge(3600);
+        	
+        	int viewsCount =  community.getCommunityCount();
+        	
+        	if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
+            	viewsCount ++;
+            	
+            	communityService.updateCommunityCount(no, viewsCount);
+            }
+        	
+        	response.addCookie(cookie);
+    	}
+        
+        // 조회수 업데이트
+        System.out.println("로그인 멤버 : " + loginMember);
+        System.out.println("로그인 멤버 : " + (loginMember == null));
+        
+        // 조회수 카운트 되고 난 후
+        community = communityService.getBoardNo(no);
+
+        log.info("Notice Detail - {}", community);
+
+        modelAndView.addObject("community", community);
+        modelAndView.setViewName("community/noticedetail");
 
         return modelAndView;
     }
@@ -630,19 +696,4 @@ public class CommunityController
         }
     }
 
-    // 공지사항 상세
-    @GetMapping("/noticedetail")
-    public ModelAndView noticeDetail(ModelAndView modelAndView, @RequestParam int no)
-    {
-        Community community = null;
-
-        community = communityService.getBoardNo(no);
-
-        log.info("Notice Detail - {}", community);
-
-        modelAndView.addObject("community", community);
-        modelAndView.setViewName("community/noticedetail");
-
-        return modelAndView;
-    }
 }

@@ -106,6 +106,7 @@
 									<label for="talkWriteFile" class="talkWriteFile">파일선택</label>
 									<input type="file" name="talkWriteFile" id="talkWriteFile" style="display: none;">
 									<span id="fileNameDisplay">선택 된 파일 없음</span>
+									<input type="button" id="deleteFile" value="삭제" />
 								</c:if>
 								
 								<c:if test="${ community.communityOfileName != null }">
@@ -130,7 +131,12 @@
 <script>
 $(document).ready(function() 
 {	
-	console.log($('#talkWriteFile').val);
+	
+	console.log($('#fileNameDisplay').text());
+	
+	if($('#fileNameDisplay').text() === '선택 된 파일 없음') {
+		$('#deleteFile').css('display', 'none');
+	}
 	
 	$('#deleteFile').on('click', () => {
 		$('#talkWriteFile').val('');
@@ -141,14 +147,12 @@ $(document).ready(function()
 	});
 	
 	$('#talkWriteFile').on('change', () => {
-		var fileNameDisplay = $('#fileNameDisplay');
+		let fileNameDisplay = $('#fileNameDisplay');
 		
-		var fileValue = $("#talkWriteFile").val().split("\\");
-		var fileName = fileValue[fileValue.length-1];
+		let fileValue = $("#talkWriteFile").val().split("\\");
+		let fileName = fileValue[fileValue.length-1];
 		
 		fileNameDisplay.text(fileName);
-		
-		console.log(fileValue);
 		
 		$('#deleteFile').css('display', 'inline');
 	})
