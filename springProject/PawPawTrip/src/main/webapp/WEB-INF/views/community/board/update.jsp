@@ -130,10 +130,12 @@
 <script>
 $(document).ready(function() 
 {	
+	console.log($('#talkWriteFile').val);
+	
 	$('#deleteFile').on('click', () => {
 		$('#talkWriteFile').val('');
 		
-		$('#fileNameDisplay').text('선택된 파일 없음');
+		$('#fileNameDisplay').text('선택 된 파일 없음');
 		
 		$('#deleteFile').css('display', 'none');
 	});
@@ -145,6 +147,8 @@ $(document).ready(function()
 		var fileName = fileValue[fileValue.length-1];
 		
 		fileNameDisplay.text(fileName);
+		
+		console.log(fileValue);
 		
 		$('#deleteFile').css('display', 'inline');
 	})

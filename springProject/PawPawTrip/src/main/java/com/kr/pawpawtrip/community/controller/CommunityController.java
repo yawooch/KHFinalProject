@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -192,15 +191,7 @@ public class CommunityController
 
         return modelAndView;
     }
-    public String getCookie(HttpServletRequest request, String cookieName) {
-		Cookie[] list = request.getCookies();
-		for(Cookie cookie:list) {
-			if(cookie.getName().equals(cookieName)) {
-				return cookie.getValue();
-			}
-		}
-		return "";
-	}
+    
 //    자유 게시판(수다) 상세
     @GetMapping("/board/talkdetail")
     public ModelAndView talkDetail(ModelAndView modelAndView, @RequestParam int no, HttpSession session, HttpServletRequest request, HttpServletResponse response)
@@ -210,46 +201,52 @@ public class CommunityController
     	Member loginMember = (Member) session.getAttribute("loginMember");
     	String ipAddr = request.getRemoteAddr();
     	String communityNo = "";
+    	String cNo = "";
     	Cookie[] cookies = request.getCookies();;
     	Cookie cookie = null;
-    	Cookie cookie2 = null;
+    	boolean cookieCheck = false;
     	
     	System.out.println("가져온 ip 주소 : " + ipAddr);
     	
     	// 조회수 카운트 되기 전
     	community = communityService.getBoardNo(no);
     	
+    	// 게시글 번호를 cookie에 저장하기 위해 int -> String 변경
     	communityNo = String.valueOf(community.getCommunityNo());
+    	
+    	cNo = "community_no" + communityNo;
+    	
+    	System.out.println(cNo);
 
-    	cookie = new Cookie("communityNo" + communityNo, ipAddr);
-//    	cookie2 = new Cookie("communityNos", getCookie(request, "communityNos")+"@"+communityNo);
+    	// cookie 정보에 동일한 게시글 번호 && ip 주소 중복 체크
+    	for (Cookie c : cookies) {
+			if(cNo.equals(c.getName()) && ipAddr.equals(c.getValue())) {
+				cookieCheck = true;
+			}
+    		
+		}
     	
-//    	String[] arr = getCookie(request, "communityNos").split("@");
-//    	for (String string : arr) {
-//			System.out.println(string);
-//		}
-    	
-    	response.addCookie(cookie);
-//    	response.addCookie(cookie2);
-//    	System.out.println(getCookie(request, "communityNo" + communityNo));
-//    	System.out.println(getCookie(request, "communityNos"));
-//    	for (Cookie c : cookies) {
-//			System.out.println(c.getName());
-//			System.out.println(c.getValue());
-//		}
-    	
-        
-        int viewsCount =  community.getCommunityCount();
+    	// 중복되지 않으면 cookie에 값을 저장 후 조회수 카운트
+    	if(!cookieCheck) {
+    		// name : 게시글 번호, value : 접속 IP cookie에 저장
+        	cookie = new Cookie("community_no" + communityNo, ipAddr);
+        	
+        	cookie.setMaxAge(3600);
+        	
+        	int viewsCount =  community.getCommunityCount();
+        	
+        	if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
+            	viewsCount ++;
+            	
+            	communityService.updateCommunityCount(no, viewsCount);
+            }
+        	
+        	response.addCookie(cookie);
+    	}
         
         // 조회수 업데이트
         System.out.println("로그인 멤버 : " + loginMember);
         System.out.println("로그인 멤버 : " + (loginMember == null));
-        
-        if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
-        	viewsCount ++;
-        	
-        	communityService.updateCommunityCount(no, viewsCount);
-        } 
         
         // 조회수 카운트 되고 난 후
         community = communityService.getBoardNo(no);
@@ -264,27 +261,58 @@ public class CommunityController
 
 //    자유 게시판(마이펫 자랑) 상세
     @GetMapping("/board/mypetdetail")
-    public ModelAndView mypetDetail(ModelAndView modelAndView, @RequestParam int no, HttpSession session)
+    public ModelAndView mypetDetail(ModelAndView modelAndView, @RequestParam int no, HttpSession session, HttpServletRequest request, HttpServletResponse response)
     {
 
         Community community = null;
-        
         Member loginMember = (Member) session.getAttribute("loginMember");
+    	String ipAddr = request.getRemoteAddr();
+    	String communityNo = "";
+    	String cNo = "";
+    	Cookie[] cookies = request.getCookies();;
+    	Cookie cookie = null;
+    	boolean cookieCheck = false;
 
         // 조회수 카운트 되기 전
         community = communityService.getBoardNo(no);
         
-        int viewsCount =  community.getCommunityCount();
+        // 게시글 번호를 cookie에 저장하기 위해 int -> String 변경
+    	communityNo = String.valueOf(community.getCommunityNo());
+    	
+    	cNo = "community_no" + communityNo;
+    	
+    	System.out.println(cNo);
+
+    	// cookie 정보에 동일한 게시글 번호 && ip 주소 중복 체크
+    	for (Cookie c : cookies) {
+			if(cNo.equals(c.getName()) && ipAddr.equals(c.getValue())) {
+				cookieCheck = true;
+			}
+    		
+		}
+    	
+    	// 중복되지 않으면 cookie에 값을 저장 후 조회수 카운트
+    	if(!cookieCheck) {
+    		// name : 게시글 번호, value : 접속 IP cookie에 저장
+        	cookie = new Cookie("community_no" + communityNo, ipAddr);
+        	
+        	cookie.setMaxAge(3600);
+        	
+        	int viewsCount =  community.getCommunityCount();
+        	
+        	if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
+            	viewsCount ++;
+            	
+            	communityService.updateCommunityCount(no, viewsCount);
+            }
+        	
+        	response.addCookie(cookie);
+    	}
+        
         
         // 조회수 업데이트
         System.out.println("로그인 멤버 : " + loginMember);
         System.out.println("로그인 멤버 : " + (loginMember == null));
-        
-        if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
-        	viewsCount ++;
-        	
-        	communityService.updateCommunityCount(no, viewsCount);
-        } 
         
         // 조회수 카운트 되고 난 후
         community = communityService.getBoardNo(no);
@@ -399,7 +427,7 @@ public class CommunityController
         return modelAndView;
     }
 
-    @PostMapping("/community/board/update")
+    @PostMapping("/board/update")
     public ModelAndView boardUpdate(ModelAndView  modelAndView,
 //            Community community,
                   @RequestParam     int           communityNo, 
@@ -495,7 +523,7 @@ public class CommunityController
         } else
         {
             modelAndView.addObject("msg", "잘못된 접근입니다.");
-            modelAndView.addObject("location", "/community/boardupdate?no=" + community.getCommunityNo());
+            modelAndView.addObject("location", "/community/board/update?no=" + community.getCommunityNo());
         }
         log.info("Board Update(게시글 수정 성공) - {}", community);
 
@@ -505,7 +533,7 @@ public class CommunityController
     }
 
 //    게시글 삭제
-    @GetMapping("community/board/delete")
+    @GetMapping("/board/delete")
     public ModelAndView delete(        ModelAndView modelAndView, 
                      @RequestParam     int          no, 
                      @SessionAttribute Member       loginMember)
