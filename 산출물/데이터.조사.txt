@@ -373,3 +373,116 @@ response{
     accomcountlodging         string    숙박(32)          : 수용가능인원
     benikia                   string    숙박(32)          : 베니키아여부
 
+
+
+API - 공통정보 조회
+
+contentid
+contenttypeid
+title
+createdtime
+modifiedtime
+tel
+booktour
+firstimage
+firstimage2
+cpyrhtDivCd
+areacode
+sigungucode
+cat1
+cat2
+cat3
+addr1
+addr2
+mapx
+mapy
+mlevel
+
+telname
+homepage             연관 URL 정보(html태그)
+zipcode              우편번호
+overview             개요설명
+
+
+API - responseData 설명 - locationBasedList1_response
+contentid            콘텐츠ID
+contenttypeid        콘텐츠타입ID
+title                제목
+createdtime          등록일
+modifiedtime         수정일
+tel                  전화번호
+booktour             교과서속여행지 여부
+firstimage           대표이미지(원본)
+firstimage2          대표이미지(썸네일)
+cpyrhtDivCd          저작권 유형 (Type1:제1유형(출처표시-권장), Type3:제3유형(제1유형+변경금지)
+areacode             지역코드
+sigungucode          시군구코드
+cat1                 대분류
+cat2                 중분류
+cat3                 소분류
+addr1                주소
+addr2                상세주소
+mapx                 GPS X좌표
+mapy                 GPS Y좌표
+mlevel               Map Level
+dist                 거리
+
+
+
+
+TRIP - 여행 테이블                                              STAY - 테이블 정보
+
+TRIP_CONTENTID      tripContentid          콘텐츠아이디         콘텐츠아이디          STAY_CONTENTID       stayContentid
+TRIP_ADDRESS        tripAddress            여행지주소           숙박주소              STAY_ADDRESS         stayAddress
+                                                                숙박상세주소          STAY_DETAIL_ADDRESS  stayDetailAddress
+TRIP_TITLE          tripTitle              여행지명             숙소명                STAY_TITLE           stayTitle
+AREACODE            areacode               지역코드             지역코드              AREACODE             areacode
+TRIP_CATEGORY1      tripCategory1          여행대분류           숙박대분류            STAY_CATEGORY1       stayCategory1
+TRIP_CATEGORY2      tripCategory2          여행중분류           숙박중분류            STAY_CATEGORY2       stayCategory2
+TRIP_CATEGORY3      tripCategory3          여행소분류           숙박소분류            STAY_CATEGORY3       stayCategory3
+TRIP_CONTENTTYPEID  tripContenttypeid      콘텐츠타입아이디     콘텐츠타입아이디      STAY_CONTENTTYPEID   stayContenttypeid
+TRIP_CREATETIME     tripCreatetime         등록일               등록일                STAY_CREATETIME      stayCreatetime
+TRIP_MODIFYTIME     tripModifytime         수정일               수정일                STAY_MODIFYTIME      stayModifytime
+TRIP_IMAGE          tripImage              이미지               대표이미지            STAY_IMAGE           stayImage
+MAPX                mapx                   X좌표                X좌표                 MAPX                 mapx
+MAPY                mapy                   Y좌표                Y좌표                 MAPY                 mapy
+MAPLEVEL            maplevel               축척                 축척                  MAPLEVEL             maplevel
+TRIP_TEL            tripTel                여행전화번호         숙박전화번호          STAY_TEL             stayTel
+SIGUNGUCODE         sigungucode            시군구코드           시군구코드            SIGUNGUCODE          sigungucode
+
+
+
+
+
+tripContentid       contentid            콘텐츠ID
+tripContenttypeid   contenttypeid        콘텐츠타입ID
+tripTitle           title                제목
+tripCreatetime      createdtime          등록일
+tripModifytime      modifiedtime         수정일
+tripTel             tel                  전화번호
+                    booktour             교과서속여행지 여부
+tripImage           firstimage           대표이미지(원본)
+                    firstimage2          대표이미지(썸네일)
+                    cpyrhtDivCd          저작권 유형 (Type1:제1유형(출처표시-권장), Type3:제3유형(제1유형+변경금지)
+areacode            areacode             지역코드
+sigungucode         sigungucode          시군구코드
+tripCategory1       cat1                 대분류
+tripCategory2       cat2                 중분류
+tripCategory3       cat3                 소분류
+tripAddress         addr1                주소
+                    addr2                상세주소
+mapx                mapx                 GPS X좌표
+mapy                mapy                 GPS Y좌표
+maplevel            mlevel               Map Level
+                    dist                 거리
+
+                    telname
+                    homepage             연관 URL 정보(html태그)
+                    zipcode              우편번호
+                    overview             개요설명
+
+
+TRIP_DETAIL_ADDRESS  tripDetailAddress                    addr2                여행상세주소
+homepage             homepage             연관홈페이지정보
+overview             overview             소개설명
+

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+<body style="background-image: url(/pawpawtrip/img/common/main-carousel-img1.png);background-repeat: no-repeat; cover;background-position-x: center;">
 	<script>
 		// 알림메세지를 띄움
 		alert("${ msg }");
