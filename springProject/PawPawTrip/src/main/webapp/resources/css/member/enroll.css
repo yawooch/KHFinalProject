@@ -142,16 +142,27 @@ select:focus {
     text-align: center;
 }
 .bottom-btn {
-    width: 150px;
+    width: 100px;
     height: 40px;
     padding: 7px 20px;
     border-radius: 5px;
     background: #B29254;
     color:#fff;
-    line-height: 1.2em;
+    /*line-height: 1.2em;*/
     cursor: pointer;
     border: 1px solid #B29254;
     font-size: 15px;
+}
+
+.reset-btn {
+    width: 100px;
+    height: 40px;
+    color: #B29254;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid #B29254;	
 }
 
 /* 약관동의 */

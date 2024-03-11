@@ -164,7 +164,7 @@
 	     </div>
 	     <div class="signInBtn">
 			 <button type="submit" id="bottom-btn" class="bottom-btn">회원가입</button>
-			 <button type="reset">작성하기</button>
+			 <button type="reset" class="reset-btn">다시작성</button>
 	     </div>
 	    </form>
 		</div>
