@@ -136,6 +136,9 @@ $(document).ready(() => {
     $('#numOfRows').on('change', (event) => {
         showList(1, $('#contentId').val(), $('#numOfRows option:selected').val());
     });
+    $('#btnSearch').on('click', (event) => {
+        showList(1, $('#contentId').val(), $('#numOfRows option:selected').val());
+    });
 
     $('div.common-page-number>ul>li').on('click',  clickPaging);
 });
@@ -172,7 +175,7 @@ $(document).ready(() => {
                             <input type="text" name="contentId" id="contentId" placeholder="컨텐츠 ID를 입력해주세요."style="width:160px;" value="${contentId}">
                     </div>
                     <div>
-                        <button>검색</button>
+                        <button id="btnSearch">검색</button>
                     </div>
                 </div>
             </div>

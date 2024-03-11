@@ -37,9 +37,10 @@ window.onload = function()
     });
 
     var geocoder               = new kakao.maps.services.Geocoder();           // 주소-좌표 변환 객체를 생성합니다
-    var imageSrc               = '/pawpawtrip/img/common/favSiteMarker.png';   // 마커이미지의 주소입니다
-    var imageSize              = new kakao.maps.Size(20, 20);                  // 마커이미지의 크기입니다
-    var imageOption            = {offset: new kakao.maps.Point(10, 20)};       // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+    //var imageSrc               = '/pawpawtrip/img/common/favSiteMarker.png';   // 마커이미지의 주소입니다
+    var imageSrc               = '/pawpawtrip/img/trip/dog_icon.png';          // 마커이미지의 주소입니다
+    var imageSize              = new kakao.maps.Size(30, 30);                  // 마커이미지의 크기입니다
+    var imageOption            = {offset: new kakao.maps.Point(15, 15)};       // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
     var markerImage            = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption); // 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
     var marker                 = new kakao.maps.Marker(
                                {
@@ -150,7 +151,8 @@ function showMarkers(map, clusterer)
                     image    : markerImage // 마커이미지 설정
                 });
 
-                var baseImage = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png';
+                //var baseImage = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/thumnail.png';
+                var baseImage = '/pawpawtrip/img/common/replacedImage.png';
                 var content   = '<div class="wrap">' +
                                     '<div class="info">' +
                                         '<div class="title">' + pos.title + '</div>' +

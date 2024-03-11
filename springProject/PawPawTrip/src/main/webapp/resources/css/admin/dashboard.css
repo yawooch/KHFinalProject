@@ -67,25 +67,26 @@ td {
     margin: 31px 0 20px 12px;
     border-collapse: collapse;
     border: 1px solid #e8e8e8;
+    table-layout: fixed;
 }
 
 .board-ranking > table tr td:nth-of-type(1) {
-    width: 52.77px;
+    width: 40px;
     text-align: center;
 }
 
 .board-ranking > table tr td:nth-of-type(2) {
-    width: 76.89px;
+    width: 60px;
     text-align: center;
 }
 
 .board-ranking > table tr td:nth-of-type(3) {
-    width: 242.44px;
+    width: 200px;
     text-align: left;
 }
 
 .board-ranking > table tr td:nth-of-type(4) {
-    width: 76.91px;
+    width: 50px;
     text-align: right;
     padding-right: 5px;
 }
