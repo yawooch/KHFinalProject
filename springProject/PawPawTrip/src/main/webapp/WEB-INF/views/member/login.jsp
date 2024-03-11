@@ -47,17 +47,22 @@
 		                        <a class="a_btn" href="${ path }/member/find-pw">비밀번호 찾기</a>
 		                    </div>
 		                </div>
+		    </form>
 		                <br>
 		                <!--간편 로그인-->
 		                <div class="hr-sect">간편 로그인</div>
 		                <br>
-		                <div class="kakao_btn" onclick="javascript:loginWithKakao()">
+		                <a class="kakao_btn" href="https://kauth.kakao.com/oauth/authorize?client_id=5e374f58b3157eda0c7846d4ebda25f1&redirect_uri=	
+	http://localhost:8080/pawpawtrip/kakaoLogin&response_type=code">
 		                    <img src="https://madangs.com/re_public/images/social/kakao_symbol.svg" alt="" width="20px">
 		                    <span>카카오 로그인</span>
+		                </a>
+		                <!--  
+		                <div class="kakao_btn" onclick="javascript:loginWithKakao()">
 		                </div>
+		                -->
 		            </div>
 		        </div>
-		    </form>
 		</div>
 	</div>
 </section>
@@ -65,47 +70,7 @@
 <!-- 푸터 -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
-<!-- 카카오 JavaScript SDK 로드 -->
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 
-<script type="text/javascript">
-	Kakao.init('3fc2a63b04c71eaa30a65586b28961cc'); // 사용하려는 앱의 JavaScript 키 입력
-	console.log(Kakao.isInitialized()); // 초기화 판단 여부
-	
-	//카카오 로그인 후 토근 값 저장.
-    function loginWithKakao() {
-        Kakao.Auth.login({
-            success: function (authObj) {
-                console.log(authObj); // access토큰 값
-                Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
-
-                getInfo();
-            },
-            fail: function (err) {
-                console.log(err);
-            }
-        });
-    }
-	
-	// 엑세스 토큰을 발급받고, 아래 함수를 호출시켜서 사용자 정보를 받아옴.
-	function getInfo() {
-	    Kakao.API.request({
-	        url: '/v2/user/me',
-	        success: function (res) {
-	            console.log(res);
-	            // 이메일, 닉네임
-	            var email = res.account_email;
-	            var profile_nickname = res.profile_nickname;
-				
-	            console.log(email, profile_nickname);
-	        },
-	        fail: function (error) {
-	            alert('카카오 로그인에 실패했습니다. 관리자에게 문의하세요.' + JSON.stringify(error));
-	        }
-	    });
-	}
-	
-</script>
 	
 	
 

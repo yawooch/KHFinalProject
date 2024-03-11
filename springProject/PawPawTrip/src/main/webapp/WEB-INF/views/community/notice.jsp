@@ -42,7 +42,7 @@
                 </div>
                 <div>
                     <div>
-                        <select name="communitySelect" id="communitySelect">
+                        <select name="select" id="select">
                             <option value="title"   <c:if test="${searchInfoMap.select == 'title'}">  selected</c:if>>제목  </option>
                             <option value="name"    <c:if test="${searchInfoMap.select == 'name'}">   selected</c:if>>작성자</option>
                             <option value="content" <c:if test="${searchInfoMap.select == 'content'}">selected</c:if>>내용  </option>
@@ -50,7 +50,7 @@
                     </div>
                     <div style="width:234px;">
                         <img src="${ path }/img/community/search.png"> 
-                        <input style="width:200px;" type="text" name="communitySearch" id="communitySearch" placeholder="검색어를 입력해주세요." value="${ searchInfoMap.search }">
+                        <input style="width:200px;" type="text" name="search" id="search" placeholder="검색어를 입력해주세요." value="${ searchInfoMap.search }">
                     </div>
                     <div>
                         <button onclick="search();">검색</button>
@@ -141,8 +141,8 @@
 
 <script>
 function search() {
-    var selectValue = document.getElementById("communitySelect").value;
-    var searchValue = document.getElementById("communitySearch").value;
+    var selectValue = document.getElementById("select").value;
+    var searchValue = document.getElementById("search").value;
     
     console.log(searchValue.trim() == '');
     

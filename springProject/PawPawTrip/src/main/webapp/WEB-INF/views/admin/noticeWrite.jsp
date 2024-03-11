@@ -39,8 +39,8 @@
                         <tr>
                             <td class="community-td-header">제목</td>
                             <td class="community-td-title">
-                                <select name="noticeImportantYn" id="noticeImportantYn" required>
-                                        <option value="">중요공지</option>
+                                <select name="noticeImportantYN" id="noticeImportantYN">
+                                        <option value="">공지구분</option>
                                         <option value="Y">중요공지</option>
                                         <option value="N">일반공지</option>
                                 </select> 
@@ -87,9 +87,13 @@ $(document).ready(function()
         let title = $('#communityTitle').val();
         let content = $('#summernote').val();
         let file = $('#talkWriteFile').val().split('.').pop();
+        let noticeImportantYN = $('#noticeImportantYN option:selected').val();
         
-        console.log(file);
         
+        if(noticeImportantYN == '') {
+            alert('공지구분을 선택해주세요.');
+            return false;
+        }
         if(category === '분류') {
             alert('카테고리를 선택해주세요.');
             return false;

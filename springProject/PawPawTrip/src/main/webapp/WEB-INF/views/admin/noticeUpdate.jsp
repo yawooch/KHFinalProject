@@ -64,19 +64,19 @@
         </div>
         <div class="common-list">
             <div class="community-detail-list">
-                <form action="${ path }/admin/boardUpdate" method="post" enctype="multipart/form-data" id="submitCheck">
+                <form action="${ path }/admin/noticeUpdate" method="post" enctype="multipart/form-data" id="submitCheck">
                     <input type="hidden" name="communityNo" value="${ community.communityNo }">
                 
                     <table border="1">
                         <tr>
                             <td class="community-td-header">제목</td>
                             <td class="community-td-title">
-                                <select name="noticeImportantYn" id="noticeImportantYn" required>
-                                        <option value="">중요공지</option>
-                                        <option value="Y">중요공지</option>
-                                        <option value="N">일반공지</option>
+                                <select name="noticeImportantYN" id="noticeImportantYN" required>
+                                        <option value="">공지구분</option>
+                                        <option value="Y" <c:if test="${community.noticeImportantYN eq 'Y'}" >selected</c:if>>중요공지</option>
+                                        <option value="N" <c:if test="${community.noticeImportantYN eq 'N'}" >selected</c:if>>일반공지</option>
                                 </select> 
-                                <input type="text" name="communityTitle" id="communityTitle" value="${ community.communityTitle }" placeholder="제목을 입력해주세요." />
+                                <input type="text" name="communityTitle" id="communityTitle" value="${ community.communityTitle }" placeholder="제목을 입력해주세요." style="width: 80%;"/>
                             </td>
                         </tr>
                         <tr>
@@ -112,7 +112,7 @@
                         </tr>
                     </table>
                     <div class="btn-wrap">
-                        <button type="submit" class="community-add-btn">수정</button>
+                        <input type="submit" class="community-add-btn" value="수정"/>
                         <button type="button" class="community-list-btn" onclick="location.href='${ path }/community/notice'">목록</button>
                     </div>
                 </form>
@@ -141,36 +141,48 @@ $(document).ready(function()
         
         $('#deleteFile').css('display', 'inline');
     })
-    
-    
-    $('#submitCheck').on('submit', () => {
-        let noticeImportantYn = $('#noticeImportantYn').val();
-        let title             = $('#communityTitle').val();
-        let content           = $('#summernote').val();
-        let file              = $('#talkWriteFile').val().split('.').pop();
-        
-        console.log(file);
-        
-//         if(category === '분류') {
-//             alert('카테고리를 선택해주세요.');
-//             return false;
-//         }
-//         if(title === '') {
-//             alert('제목을 입력해주세요.');
-//             return false;
-//         }
-        
-//         if(content === '') {
-//             alert('내용을 입력해주세요.');
-//             return false;
-//         }
-        
-        if(!(file === 'jpg' || file === 'png' || file === 'gif' || file === 'jpeg' || file === '')) {
-            alert('이미지 파일을 등록해주세요.');
-            return false;
-        }
-        
+    $('input[type=submit]').on('click',(evnet)=>{
+    	console.log('inputtest');
+    	$('form').trigger('submit');
     });
+    
+    $('form').on('submit', () => {
+    	
+    	console.log('test');
+//     	return false;
+    })
+    
+    
+//     $('#submitCheck').on('submit', () => {
+    	
+//     	console.log('들어와????');
+//         let noticeImportantYn = $('#noticeImportantYn').val();
+//         let title             = $('#communityTitle').val();
+//         let content           = $('#summernote').val();
+//         let file              = $('#talkWriteFile').val().split('.').pop();
+        
+//         console.log(file);
+        
+// //         if(category === '분류') {
+// //             alert('카테고리를 선택해주세요.');
+// //             return false;
+// //         }
+// //         if(title === '') {
+// //             alert('제목을 입력해주세요.');
+// //             return false;
+// //         }
+        
+// //         if(content === '') {
+// //             alert('내용을 입력해주세요.');
+// //             return false;
+// //         }
+        
+// //         if(!(file === 'jpg' || file === 'png' || file === 'gif' || file === 'jpeg' || file === '')) {
+// //             alert('이미지 파일을 등록해주세요.');
+// //             return false;
+// //         }
+        
+//     });
     
     $("#summernote").summernote(
     {

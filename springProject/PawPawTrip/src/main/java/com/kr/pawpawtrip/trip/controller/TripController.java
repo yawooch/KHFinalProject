@@ -72,7 +72,8 @@ public class TripController {
 				else
 				{
 					//대대체 이미지
-					imgUrl = "https://i.ibb.co/9tKP6gJ/image.jpg";
+//					imgUrl = "https://i.ibb.co/9tKP6gJ/image.jpg";
+					imgUrl = "/pawpawtrip/img/common/replacedImage.png";
 				}
 //				System.out.println("************************************************************");
 				

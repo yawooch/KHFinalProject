@@ -50,7 +50,7 @@ public class CommunityController
     @GetMapping("/notice")
     public ModelAndView notice(ModelAndView modelAndView,
             @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "") String select, 
+            @RequestParam(defaultValue = "title") String select, 
             @RequestParam(defaultValue = "") String search)
     {
         // 전체 리스트 조회(검색기능 포함)
@@ -67,13 +67,17 @@ public class CommunityController
         map.put("select", select);
         map.put("search", search);
 
+        log.info("|||||||||||||||||||||||||||||||   select : {} ", select);
+        log.info("|||||||||||||||||||||||||||||||   search : {} ", search);
+        log.info("|||||||||||||||||||||||||||||||   listCount : {} ", listCount);
+        
         listCount = communityService.getNoticeCount(select, search);
-        pageInfo = new PageInfo(page, 5, listCount, 15);
+        pageInfo = new PageInfo(page, 5, listCount, 10);
 
         // 공지사항 리스트 조회
         noticeList = communityService.getNoticeList(pageInfo, select, search);
         
-        log.info("Notice List - {}", noticeList);
+//        log.info("Notice List - {}", noticeList);
 
         modelAndView.addObject("searchInfoMap", map);
         modelAndView.addObject("pageInfo", pageInfo);

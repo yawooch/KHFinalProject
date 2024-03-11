@@ -1,5 +1,6 @@
 package com.kr.pawpawtrip.member.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -75,6 +78,33 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	// 카카오 로그인
+	@GetMapping("/kakaoLogin")
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session) throws IOException {
+		System.out.println("#########" + code);
+		
+		// code를 보내 access_Token 얻기
+		String access_Token = service.getAccessToken(code);
+//		System.out.println("###access_Token#### : " + access_Token);
+		
+		// access_Token을 보내 사용자 정보 얻기
+		Member userInfo = service.getUserInfo(access_Token);
+		
+		session.setAttribute("loginMember", userInfo);
+//		loginMember
+		System.out.println("###access_Token#### : " + access_Token);
+		System.out.println("###name#### : " + userInfo.getMemberName());
+		System.out.println("###email#### : " + userInfo.getMemberEmail());
+		System.out.println("###phone_number#### : " + userInfo.getMemberPhone());
+		System.out.println("###birth#### : " + userInfo.getMemberBirth());
+		
+		System.out.println(session.getAttribute("loginMember"));;
+		
+		return "redirect:/";
+	
+    }
+
+	
 	
 	// 아이디 찾기
 	@GetMapping("/member/find-id")
@@ -137,8 +167,13 @@ public class MemberController {
 	public ModelAndView enroll(ModelAndView modelAndView, Member member) {
 //		log.info("enroll() 호출 - 회원 가입 페이지 호출");
 		
+		member.setMrktAgreeYn(member.getMrktAgreeYn()==null?"N":"Y");
+		member.setRecvAgreeYn(member.getRecvAgreeYn()==null?"N":"Y");
+		member.setLocaAgreeYn(member.getLocaAgreeYn()==null?"N":"Y");
+		
 		int result = service.save(member);
 		
+		System.out.println("member : " + member);
 		if (result > 0) {
 			// 회원가입 성공 페이지로 이동
 			modelAndView.addObject("location", "/member/complete");

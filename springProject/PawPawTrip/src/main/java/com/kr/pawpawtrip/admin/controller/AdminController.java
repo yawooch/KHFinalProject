@@ -363,9 +363,10 @@ public class AdminController
 
     /** 공지사항 저장 처리 */
     @PostMapping("/admin/noticeWrite")
-    public ModelAndView noticeWrite(       ModelAndView  modelAndView, 
-                                           Community     community,
-            @RequestParam("talkWriteFile") MultipartFile talkWriteFile) 
+    public ModelAndView noticeWrite(         ModelAndView  modelAndView, 
+                                             Community     community,
+            @SessionAttribute("loginMember") Member        loginMember,
+            @RequestParam("talkWriteFile")   MultipartFile talkWriteFile) 
     {
         int result = 0;
         // 1. 파일 업로드 확인 후 파일 저장
@@ -396,14 +397,14 @@ public class AdminController
                 e.printStackTrace();
             }
         }
-        community.setCommunityWriterNo(2);
+        community.setCommunityWriterNo(loginMember.getMemberNo());
+        community.setCommunityCategory("[공지사항]");
         
         result = communityService.save(community);
 
         if(result > 0) 
         {
-            modelAndView.addObject("writeRstMsg","저장되었습니다.");
-            modelAndView.setViewName("community/notice");
+            modelAndView.setViewName("redirect:/community/notice");
         }
         else 
         {
@@ -426,7 +427,7 @@ public class AdminController
         if (community != null && community.getCommunityWriterId().equals(loginMember.getMemberId()))
         {
             modelAndView.addObject("community", community);
-            modelAndView.setViewName("admin/noticeUpdate?no="+ community.getCommunityNo());
+            modelAndView.setViewName("admin/noticeUpdate");
         } 
         else
         {
@@ -439,21 +440,20 @@ public class AdminController
     }
 
     /** 공지사항 수정 처리 */
-    @PostMapping("/admin/noticeUpdate")
+    @PostMapping("admin/noticeUpdate")
     public ModelAndView updateNotice(ModelAndView  modelAndView,
-                   @RequestParam     int           communityNo, 
-                   @RequestParam     String        communityCategory, 
-                   @RequestParam     String        communityTitle,
-                   @RequestParam     String        communityContent, 
-                   @RequestParam     String        noticeImportantYn, 
+                                     Community     community,
                    @RequestParam     MultipartFile talkWriteFile,
                    @SessionAttribute Member        loginMember)
     {
         int result = 0;
     
-        Community community = communityService.getBoardNo(communityNo);
+        System.out.println("community : " + community);
+        
+        Community dbCommunity = communityService.getBoardNo(community.getCommunityNo());
     
-        if (community != null && community.getCommunityWriterId().equals(loginMember.getMemberId()))
+        System.out.println("dbCommunity : " + dbCommunity);
+        if (dbCommunity != null && dbCommunity.getCommunityWriterId().equals(loginMember.getMemberId()))
         {
             String location = null;
             String renamedFileName = null;
@@ -464,15 +464,15 @@ public class AdminController
                     // workspace에 저장되어 있는 파일 경로
                     location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
     
-                    if (community.getCommunityRfileName() != null)
+                    if (dbCommunity.getCommunityRfileName() != null)
                     {
-                        MultipartFileUtil.delete(location + "/" + community.getCommunityRfileName());
+                        MultipartFileUtil.delete(location + "/" + dbCommunity.getCommunityRfileName());
                     }
                     renamedFileName = MultipartFileUtil.save(talkWriteFile, location);
                     if (renamedFileName != null)
                     {
-                        community.setCommunityOfileName(talkWriteFile.getOriginalFilename());
-                        community.setCommunityRfileName(renamedFileName);
+                        dbCommunity.setCommunityOfileName(talkWriteFile.getOriginalFilename());
+                        dbCommunity.setCommunityRfileName(renamedFileName);
                     }
                 }
                 catch (IOException e)
@@ -486,31 +486,29 @@ public class AdminController
                 {
                     location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
     
-                    if (community.getCommunityRfileName() != null)
+                    if (dbCommunity.getCommunityRfileName() != null)
                     {
-                        MultipartFileUtil.delete(location + "/" + community.getCommunityRfileName());
+                        MultipartFileUtil.delete(location + "/" + dbCommunity.getCommunityRfileName());
                     }
-                    community.setCommunityOfileName("");
-                    community.setCommunityRfileName("");
+                    dbCommunity.setCommunityOfileName("");
+                    dbCommunity.setCommunityRfileName("");
                 } catch (IOException e)
                 {
                     e.printStackTrace();
                 }
     
             }
+            dbCommunity.setCommunityWriterNo(loginMember.getMemberNo());
+            dbCommunity.setNoticeImportantYN(community.getNoticeImportantYN());
+            dbCommunity.setCommunityTitle(community.getCommunityTitle());
+            dbCommunity.setCommunityContent(community.getCommunityContent());
     
-            System.out.println(community);
-    
-            community.setCommunityCategory(communityCategory);
-            community.setCommunityTitle(communityTitle);
-            community.setCommunityContent(communityContent);
-    
-            result = communityService.save(community);
+            result = communityService.save(dbCommunity);
     
             if (result > 0)
             {
                 modelAndView.addObject("msg", "게시글 수정 성공");
-                modelAndView.addObject("location", "/community/noticedetail?no=" + community.getCommunityNo());
+                modelAndView.addObject("location", "/community/noticedetail?no=" + dbCommunity.getCommunityNo());
             } 
             else
             {
@@ -520,7 +518,7 @@ public class AdminController
         } else
         {
             modelAndView.addObject("msg", "잘못된 접근입니다.");
-            modelAndView.addObject("location", "/admin/noticeUpdate?no=" + community.getCommunityNo());
+            modelAndView.addObject("location", "/admin/noticeUpdate?no=" + dbCommunity.getCommunityNo());
         }
         modelAndView.setViewName("common/msg");
     
@@ -528,42 +526,18 @@ public class AdminController
     }
 
     // 게시글 삭제
-    @GetMapping("/admin/delete")
+    @GetMapping("/admin/noticeDelete")
     public ModelAndView delete(        ModelAndView modelAndView, 
                      @RequestParam     int          no, 
                      @SessionAttribute Member       loginMember)
     {
-    
-        Community community = communityService.getBoardNo(no);
         int       result    = communityService.delete(no);
     
         if (result > 0)
         {
-            modelAndView.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
-    
-            if (community.getCommunityCategory().equals("[수다]"))
-            {
-                modelAndView.addObject("location", "/community/board/talk");
-            }
-            if (community.getCommunityCategory().equals("[마이펫 자랑]"))
-            {
-                modelAndView.addObject("location", "/community/board/mypet");
-            }
+            modelAndView.setViewName("community/notice");
         } 
-        else
-        {
-            modelAndView.addObject("msg", "게시글이 정상적으로 삭제되지 않았습니다.");
-    
-            if (community.getCommunityCategory().equals("[수다]"))
-            {
-                modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
-            }
-            if (community.getCommunityCategory().equals("[마이펫 자랑]"))
-            {
-                modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
-            }
-        }
-        modelAndView.setViewName("common/msg");
+        modelAndView.setViewName("community/notice");
         return modelAndView;
     }
   

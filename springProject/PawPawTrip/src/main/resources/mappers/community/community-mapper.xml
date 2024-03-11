@@ -27,7 +27,7 @@
 
     <sql id="noticeListSql">
         SELECT COMMUNITY_NO
-             , RNUM
+             , ROWNUM                   AS RNUM
              , COMMUNITY_CATEGORY
              , COMMUNITY_TITLE
              , COMMUNITY_CONTENT
@@ -40,8 +40,7 @@
              , COMMUNITY_WRITER_NO
              , MEMBER_ID
           FROM (
-               SELECT ROWNUM                   AS RNUM
-                    , C.COMMUNITY_NO
+               SELECT C.COMMUNITY_NO
                     , C.COMMUNITY_CATEGORY
                     , C.COMMUNITY_TITLE
                     , C.COMMUNITY_CONTENT
@@ -53,16 +52,16 @@
                     , C.NOTICE_IMPORTANT_YN
                     , C.COMMUNITY_WRITER_NO
                     , M.MEMBER_ID
-                 FROM COMMUNITY                  C
+                 FROM COMMUNITY                C
                 INNER JOIN
-                      MEMBER                     M
+                      MEMBER                   M
                    ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
                 WHERE C.COMMUNITY_CATEGORY   = '[공지사항]'
                   AND C.COMMUNITY_STATUS     = 'Y'
                 ORDER BY
                       C.NOTICE_IMPORTANT_YN      ASC
                     , C.COMMUNITY_ED             ASC
-               ) NOTICE
+               ) 
     </sql>
     
     <sql id="communityListSql">
@@ -156,26 +155,23 @@
        </trim>
      </select>
      
-       <select id="selectNoticeCount" parameterType="map">
+       <select id="selectNoticeCount" parameterType="string">
         SELECT COUNT(*)
-          FROM COMMUNITY                  C
-         INNER JOIN
-               MEMBER                     M
-            ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+          FROM COMMUNITY                  
          <trim prefix="WHERE" prefixOverrides="AND|OR">
            <if test="select != ''">
                <choose>
                <when test="select.equals('title')">
-               COMMUNITY_TITLE   LIKE '%' || #{search} || '%'
+               COMMUNITY_TITLE    LIKE '%' || #{search} || '%'
                </when>
                <when test="select.equals('name')">
-               MEMBER_ID         LIKE '%' || #{search} || '%'
+               MEMBER_ID          LIKE '%' || #{search} || '%'
                </when>
                <when test="select.equals('content')">
-               COMMUNITY_CONTENT LIKE '%' || #{search} || '%'
+               COMMUNITY_CONTENT  LIKE '%' || #{search} || '%'
                </when>
                </choose>
-               </if>
+         </if>
            AND COMMUNITY_CATEGORY   = '[공지사항]'
            AND COMMUNITY_STATUS     = 'Y'
        </trim>
@@ -242,7 +238,7 @@
                </choose>
          </if>
          ORDER BY 
-               COMMUNITY_ED       DESC
+               RNUM DESC
      </select>
     
        <select id="selectBoardList" resultMap="communityListResultMap" parameterType="map">
@@ -357,6 +353,7 @@
              , COMMUNITY_O_FILENAME
              , COMMUNITY_R_FILENAME
              , COMMUNITY_WRITER_NO
+             , NOTICE_IMPORTANT_YN
              )
         VALUES
              (
@@ -367,6 +364,7 @@
              , #{communityOfileName}
              , #{communityRfileName}
              , #{communityWriterNo}
+             , #{noticeImportantYN}
              )
      </insert>
      
@@ -388,6 +386,9 @@
         </if>
         <if test="communityRfileName != null">
             COMMUNITY_R_FILENAME = #{communityRfileName},
+        </if>
+        <if test="noticeImportantYN != null">
+            NOTICE_IMPORTANT_YN = #{noticeImportantYN},
         </if>
       </trim>
       WHERE COMMUNITY_NO = #{communityNo}

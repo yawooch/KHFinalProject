@@ -1,5 +1,8 @@
 package com.kr.pawpawtrip.member.model.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.kr.pawpawtrip.member.model.vo.Member;
 
 public interface MemberService {
@@ -9,5 +12,10 @@ public interface MemberService {
 	int save(Member member);
 
 	Boolean isDuplicateId(String memberId);
+
+	String getAccessToken(String code);
+
+	Member getUserInfo(String access_Token);
+
 	
 }

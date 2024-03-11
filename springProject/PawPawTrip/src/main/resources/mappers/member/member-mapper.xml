@@ -9,6 +9,7 @@
 	<sql id="selectMemberSql">
 		SELECT MEMBER_NO,
 		       MEMBER_ID,
+			   MEMBER_NAME,
 		       MEMBER_PW,
 		       MEMBER_ROLE,
 		       MEMBER_PHONE,
@@ -55,6 +56,35 @@
 		WHERE MEMBER_STATUS = 'Y' AND MEMBER_ID = #{memberId}
 	</select>
 	
+	<!-- 카카오 회원 조회 -->
+	<select id="findKakao" parameterType="Member" resultMap="memberResultMap">
+		<include refid="selectMemberSql" />
+		WHERE MEMBER_STATUS = 'Y' 
+			  AND MEMBER_NAME = #{name}
+			  AND MEMBER_ID = #{id}
+			  AND MEMBER_EMAIL = #{email}
+	</select>
+	
+	<!-- 카카오 회원 가입 -->
+	<insert id="insertKakao">
+		INSERT INTO MEMBER(
+			MEMBER_NO,
+			MEMBER_NAME,
+			MEMBER_ID,
+			MEMBER_PHONE,
+			MEMBER_EMAIL,
+			MEMBER_BIRTH
+		)
+		VALUES (
+			SEQ_MEM_NO.NEXTVAL,
+			#{name},
+			#{id},
+			#{phone_number},
+			#{email},
+			#{birth}
+		)
+	</insert>
+	
 	<!-- 회원 가입 -->
 	<insert id="insertMember" parameterType="Member"
 		useGeneratedKeys="true" keyColumn="MEMBER_NO" keyProperty="memberNo">
@@ -67,18 +97,24 @@
 			MEMBER_EMAIL, 
 			MEMBER_BIRTH, 
 			MEMBER_PET_NAME, 
-			MEMBER_PET_TYPE
+			MEMBER_PET_TYPE,
+			MRKT_AGREE_YN,
+	        RECV_AGREE_YN,
+	        LOCA_AGREE_YN
 		) 
 		VALUES (
 			SEQ_MEM_NO.NEXTVAL,
-			#{memberId},
 			#{memberName},
+			#{memberId},
 			#{memberPw},
 			#{memberPhone},
 			#{memberEmail},
 			#{memberBirth},
 			#{memberPetName},
-			#{memberPetType}
+			#{memberPetType},
+			#{mrktAgreeYn},
+			#{recvAgreeYn},
+			#{locaAgreeYn}			
 		)
 	</insert>
 	
