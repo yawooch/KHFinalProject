@@ -12,21 +12,22 @@
 <script>
 //페이징 요소를 생성하기 위한 콜백용 함수
 function clickPaging(){
-    showList(($(this).attr('pageno')*1), $('#contentId').val());
+    console.log($('numOfRows option:selected').val());
+    showList(($(this).attr('pageno')*1), $('#contentId').val(), $('#numOfRows option:selected').val());
 };
 
 let contentIdsArr = [];
-function showList(pageNo, contentId)
+function showList(pageNo, contentId, numOfRows)
 {               
     let data = {};
     contentIdsArr = [];
     
     if(contentId ==''){
-        data = {pageNo};
+        data = {pageNo, numOfRows};
     }
     else
     {
-        data = {pageNo, contentId};
+        data = {pageNo, contentId, numOfRows};
     }
     $('#spinnerLoading').fadeIn();
     $('#spinnerLoading>div.spinner-border').css('top', '50%');
@@ -107,7 +108,7 @@ function saveList()
             }
             else
             {
-                alert('일괄등록 총'+ data.totalCount +'건 중,\n여행/숙소 : '+ data.mainCount +'건,\n공통 : '+ data.commonCount +'건,\n동반정보 : '+ data.petInfoCount +'건\n저장 성공 하였습니다.');
+                alert('일괄등록 총'+ data.totalCount +'건 중,\n여행 : '+ data.petTripResult +'건 중,\n숙소 : '+ data.petStayResult +'건,\n공통 : '+ data.commonCount +'건,\n동반정보 : '+ data.petInfoCount +'건\n저장 성공 하였습니다.');
             }
             $('#spinnerLoading').fadeOut();
             showList(1, $('#contentId').val());
@@ -123,13 +124,17 @@ function saveList()
 $(document).ready(() => {
 	
 	console.log(pageNo.detailNo);
+	console.log($('numOfRows option:selected').val());
     //리스트를 먼저 보여준다.
-    showList($('#pageNo').val(), $('#contentId').val());
+    showList($('#pageNo').val(), $('#contentId').val(), $('#numOfRows option:selected').val());
 //     $('#spinnerLoading>div.spinner-border').css('top' , '50%');
 //     $('#spinnerLoading>div.spinner-border').css('left', '50%');
     
     $('#contentId').on('change', (event) => {
-        showList(1, $(event.target).val());
+        showList(1, $(event.target).val(), $('#numOfRows option:selected').val());
+    });
+    $('#numOfRows').on('change', (event) => {
+        showList(1, $('#contentId').val(), $('#numOfRows option:selected').val());
     });
 
     $('div.common-page-number>ul>li').on('click',  clickPaging);
@@ -155,7 +160,13 @@ $(document).ready(() => {
                     TOTAL <span>51</span>건
                 </div>
                 <div>
-                    <div></div>
+                    <div>
+                        <select name="numOfRows" id="numOfRows">
+                            <option value="10"   <c:if test="${numOfRows == '10'}">  selected</c:if>>10개씩</option>
+                            <option value="20"   <c:if test="${numOfRows == '20'}">  selected</c:if>>20개씩</option>
+                            <option value="30"   <c:if test="${numOfRows == '30'}">  selected</c:if>>30개씩</option>
+                        </select>
+                    </div>
                     <div style="width:200px;">
                         <img src="${ path }/img/community/search.png"> 
                             <input type="text" name="contentId" id="contentId" placeholder="컨텐츠 ID를 입력해주세요."style="width:160px;" value="${contentId}">

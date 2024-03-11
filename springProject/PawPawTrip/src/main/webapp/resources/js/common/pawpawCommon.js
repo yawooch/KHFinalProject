@@ -45,6 +45,8 @@ function calcPaging(pageNo , numOfRows, totalCount, pagingNum)
 //clickPaging : <li> 를 클릭했을때 실행할 함수 이름 (html 요소를 생성하면 기존의 클릭 이벤트가 사라진다.) 
 function showPaging(pageNo , numOfRows, totalCount, pagingNum, clickPaging)
 {
+    console.log(pageNo , numOfRows, totalCount, pagingNum);
+
 	let pagingTagResult = '';//페이징 요소를 만들 문자열
 	let calcedPage      = new calcPaging(pageNo , numOfRows, totalCount, pagingNum);//페이징 정보를 반환해줄 객체
 	pageNo = calcedPage.pageNo; //pageNo 가 1 미만이거나 maxPage를 초과할때 범위내로 pageNo를 잡아주기 위함 

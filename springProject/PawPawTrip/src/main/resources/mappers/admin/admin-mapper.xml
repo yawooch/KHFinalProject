@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper 
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kr.pawpawtrip.admin.model.mapper.AdminMapper">
+
+<!--     <sql id="selectMemberSql"> -->
+<!--         SELECT MEMBER_NO, -->
+<!--                MEMBER_ID, -->
+<!--                MEMBER_NAME, -->
+<!--                MEMBER_PW, -->
+<!--                MEMBER_ROLE, -->
+<!--                MEMBER_PHONE, -->
+<!--                MEMBER_EMAIL, -->
+<!--                MEMBER_BIRTH, -->
+<!--                MEMBER_PET_NAME, -->
+<!--                MEMBER_PET_TYPE, -->
+<!--                MEMBER_STATUS, -->
+<!--                MEMBER_ED, -->
+<!--                MEMBER_MD, -->
+<!--                MRKT_AGREE_YN, -->
+<!--                RECV_AGREE_YN, -->
+<!--                LOCA_AGREE_YN -->
+<!--         FROM MEMBER -->
+<!--     </sql> -->
+    
+    <resultMap id="communityRankResultMap" type="CommunityRank">
+        <id     property="communityNo"    column="COMMUNITY_NO"/>
+        <result property="rownum"         column="ROWNUM"/>
+        <result property="communityTitle" column="COMMUNITY_TITLE"/>
+        <result property="communityCount" column="COMMUNITY_COUNT"/>
+        <result property="communityWriterNo" column="COMMUNITY_WRITER_NO"/>
+        <result property="memberId" column="MEMBER_ID"/>
+        <result property="communityCategory" column="COMMUNITY_CATEGORY"/>
+    </resultMap>
+    
+    <select id="selectCommunityRanks" resultMap="communityRankResultMap">
+        SELECT ROWNUM 
+             , COMMUNITY_TITLE
+             , COMMUNITY_COUNT
+             , COMMUNITY_WRITER_NO
+             , MEMBER_ID
+             , COMMUNITY_NO
+             , COMMUNITY_CATEGORY
+          FROM (
+               SELECT C.COMMUNITY_TITLE
+                    , C.COMMUNITY_COUNT
+                    , C.COMMUNITY_WRITER_NO
+                    , M.MEMBER_ID
+                    , C.COMMUNITY_NO
+                    , C.COMMUNITY_CATEGORY
+                 FROM COMMUNITY           C
+                INNER JOIN
+                      MEMBER              M
+                   ON M.MEMBER_NO        = C.COMMUNITY_WRITER_NO
+                WHERE COMMUNITY_CATEGORY &lt;&gt; '[공지사항]'
+                ORDER BY 
+                      C.COMMUNITY_COUNT DESC NULLS LAST
+                ) 
+          WHERE ROWNUM &lt;= 7
+    </select>
+    
+    
+    
+</mapper>

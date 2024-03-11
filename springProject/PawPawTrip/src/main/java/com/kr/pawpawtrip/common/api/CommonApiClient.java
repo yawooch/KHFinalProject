@@ -29,14 +29,15 @@ public class CommonApiClient
     private final RestTemplate restTemplate;
 
     /** detailPetTour1 API 사용 메소드 
-     *  사용페이지 : 관리자 - 포포트립 매핑 화면 */
-    public PetTourResponse apiDetailPetTour(String pageNo, int contentId) throws RestClientException, URISyntaxException
+     *  사용페이지 : 관리자 - 포포트립 매핑 화면 
+     * @param numOfRows */
+    public PetTourResponse apiDetailPetTour(String pageNo, int contentId, String numOfRows) throws RestClientException, URISyntaxException
     {
         StringBuilder urlBuilder = new StringBuilder(baseURL + "detailPetTour1");
         //중요파라미터 입력
         urlBuilder.append("?ServiceKey=").append(serviceKey);
         urlBuilder.append("&pageNo="    ).append(pageNo);
-        urlBuilder.append("&numOfRows=" ).append("10");
+        urlBuilder.append("&numOfRows=" ).append(numOfRows);
         urlBuilder.append("&MobileOS="  ).append("ETC");
         urlBuilder.append("&MobileApp=" ).append("pawpawtrip");
         urlBuilder.append("&_type="     ).append("json");

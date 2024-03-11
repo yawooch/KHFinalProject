@@ -34,70 +34,83 @@
 			<div class="board-ranking">
 				<p>게시글 조회 순위</p>
 				<table border="1">
+				<thead>
 					<tr style="background-color: #FDFAEF;">
 						<td>순위</td>
 						<td>작성자</td>
 						<td style="text-align: center;">제목</td>
 						<td style="text-align: center;">조회수</td>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>작성자</td>
-						<td
-							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a
-							href="#">[마이펫 자랑]
-								zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</a></td>
-						<td>352</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>이성자</td>
-						<td
-							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a
-							href="#">[마이펫 자랑] 테스트2</a></td>
-						<td>314</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>김성자</td>
-						<td
-							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a
-							href="#">[마이펫 자랑] 테스트3</a></td>
-						<td>256</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>김성자</td>
-						<td
-							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a
-							href="#">[마이펫 자랑] 테스트3</a></td>
-						<td>256</td>
-					</tr>
-					<tr>
-						<td>5</td>
-						<td>김성자</td>
-						<td
-							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a
-							href="#">[마이펫 자랑] 테스트3</a></td>
-						<td>256</td>
-					</tr>
-					<tr>
-						<td>6</td>
-						<td>김성자</td>
-						<td
-							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a
-							href="#">[마이펫 자랑] 테스트3</a></td>
-						<td>256</td>
-					</tr>
-					<tr>
-						<td>7</td>
-						<td>김성자</td>
-						<td
-							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a
-							href="#">[마이펫 자랑]
-								테스트!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</a></td>
-						<td>256</td>
-					</tr>
+				</thead>
+				<tbody>
+                <c:forEach var="rank" items="${ ranks }">
+                   <tr>
+                       <td>${ rank.rownum }</td>
+                       <td>${ rank.memberId }</td>
+                       <td style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;">
+                        <a href="#">${ rank.communityTitle }</a></td>
+                       <td>${ rank.communityCount }</td>
+                   </tr>
+				</c:forEach>
+				</tbody>
+<!-- 					<tr> -->
+<!-- 						<td>1</td> -->
+<!-- 						<td>작성자</td> -->
+<!-- 						<td -->
+<!-- 							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a -->
+<!-- 							href="#">[마이펫 자랑] -->
+<!-- 								zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz</a></td> -->
+<!-- 						<td>352</td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td>2</td> -->
+<!-- 						<td>이성자</td> -->
+<!-- 						<td -->
+<!-- 							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a -->
+<!-- 							href="#">[마이펫 자랑] 테스트2</a></td> -->
+<!-- 						<td>314</td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td>3</td> -->
+<!-- 						<td>김성자</td> -->
+<!-- 						<td -->
+<!-- 							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a -->
+<!-- 							href="#">[마이펫 자랑] 테스트3</a></td> -->
+<!-- 						<td>256</td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td>4</td> -->
+<!-- 						<td>김성자</td> -->
+<!-- 						<td -->
+<!-- 							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a -->
+<!-- 							href="#">[마이펫 자랑] 테스트3</a></td> -->
+<!-- 						<td>256</td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td>5</td> -->
+<!-- 						<td>김성자</td> -->
+<!-- 						<td -->
+<!-- 							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a -->
+<!-- 							href="#">[마이펫 자랑] 테스트3</a></td> -->
+<!-- 						<td>256</td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td>6</td> -->
+<!-- 						<td>김성자</td> -->
+<!-- 						<td -->
+<!-- 							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a -->
+<!-- 							href="#">[마이펫 자랑] 테스트3</a></td> -->
+<!-- 						<td>256</td> -->
+<!-- 					</tr> -->
+<!-- 					<tr> -->
+<!-- 						<td>7</td> -->
+<!-- 						<td>김성자</td> -->
+<!-- 						<td -->
+<!-- 							style="display: block; padding-top: 10px; padding-left: 5px; border-style: none;"><a -->
+<!-- 							href="#">[마이펫 자랑] -->
+<!-- 								테스트!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</a></td> -->
+<!-- 						<td>256</td> -->
+<!-- 					</tr> -->
 				</table>
 			</div>
 			<div class="user-graph">

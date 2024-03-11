@@ -26,6 +26,8 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kr.pawpawtrip.admin.model.service.AdminService;
+import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.common.api.CommonApiClient;
 import com.kr.pawpawtrip.common.api.item.DetailCommonItem;
 import com.kr.pawpawtrip.common.api.item.PetTourItem;
@@ -58,6 +60,7 @@ public class AdminController
 {
     private final CommonApiClient  commonApiClient;
     private final CommonService    commonService;
+    private final AdminService     adminService;
     private final CommunityService communityService;
     private final TripService      tripService;
     private final ResourceLoader   resourceLoader;
@@ -65,17 +68,26 @@ public class AdminController
 
     /** 대시보드 화면 이동 */
     @GetMapping("/admin/dashboard")
-    public String dashboard()
+    public ModelAndView dashboard(ModelAndView modelAndView)
     {
-        return "admin/dashboard";
+        //대쉬보드 중 게시물 조회수 순위정보를 가져온다.
+        List<CommunityRank> ranks = adminService.getCommunityRanks(); 
+        
+        ranks.stream().forEach(System.out::println);
+        
+        modelAndView.addObject("ranks", ranks);
+        modelAndView.setViewName("admin/dashboard");
+        return modelAndView;
     }
 
     /** 트립 매핑 - 목록 화면으로 이동 */
     @GetMapping("/admin/tripList")
     public ModelAndView tripList(ModelAndView modelAndView,
+            @RequestParam(defaultValue="10")       String           numOfRows,
             @RequestParam(defaultValue = "1") int                    pageNo)
     {
         modelAndView.addObject("pageNo", pageNo);
+        modelAndView.addObject("numOfRows", numOfRows);
         modelAndView.setViewName("/admin/tripList");
 
         return modelAndView;
@@ -84,11 +96,12 @@ public class AdminController
     @PostMapping("/admin/tripList")
     @ResponseBody
     public ResponseEntity<Map<String,Integer>> saveTripList(
-                                         @RequestParam(value="contentIdsArr[]") List<String>           contentIdsArr)
+                                    @RequestParam(defaultValue="10")       String           numOfRows,
+                                    @RequestParam(value="contentIdsArr[]") List<String>     contentIdsArr)
                                          throws RestClientException, URISyntaxException
     {
         int petTripResult = 0;
-        int mainCount     = 0;
+        int petStayResult = 0;
         int commonCount   = 0;
         int petInfoCount  = 0;
         Map<String,Integer> resultMap = new HashMap<String, Integer>();
@@ -96,10 +109,9 @@ public class AdminController
         //세션에 저장된 petTourInfos로 for문을 돌면서 데이터를 저장한다.
         for (String contentIds : contentIdsArr)
         {
-            int                  petInfoResult    = 0;
             int                  contentId        = Integer.parseInt(contentIds);
             DetailCommonResponse commonResponse   = commonApiClient.apiDetailCommonToContentId(contentId);
-            PetTourResponse      petTourResponse  = commonApiClient.apiDetailPetTour("1", contentId);// ApiClient로 API response 객체를 받아온다.
+            PetTourResponse      petTourResponse  = commonApiClient.apiDetailPetTour("1", contentId, numOfRows);// ApiClient로 API response 객체를 받아온다.
             PetInfo              dbPetInfo        = tripService.getPetTourByContentId(contentId);
             DetailCommonItem     detailCommonItem = commonResponse.getDetailCommonItems().get(0);
             PetTourItem          petTourItem      = petTourResponse.getPetTourItems().get(0);
@@ -121,7 +133,7 @@ public class AdminController
                 mappingCommonItemVo(detailCommonItem, spot);
 
                 // VO로 save처리를 한다.
-                petTripResult = tripService.saveTrip(spot);
+                petTripResult += tripService.saveTrip(spot);
             }
             else if (contentTypeid.equals("32") && (acmpyTypeCd.equals("전용")||acmpyTypeCd.equals("동반가능"))) // 숙소- Stay
             {
@@ -130,44 +142,43 @@ public class AdminController
                 mappingCommonItemVo(detailCommonItem, stay);
 
                 // VO로 save처리를 한다.
-                petTripResult = tripService.saveStay(stay);
+                petStayResult += tripService.saveStay(stay);
             }
-            mainCount += petTripResult;
             
             Comm comm = new Comm();
             // Comm와 DetailCommonItem객체를 매핑한다.
             mappingCommonItemVo(detailCommonItem, comm);
 
             // VO로 save처리를 한다.
-            petTripResult = tripService.saveComm(comm);
-            commonCount += petTripResult;
+            commonCount += tripService.saveComm(comm);
 
             // VO로 save처리를 한다.
             PetInfo petInfo = new PetInfo();
             // PetInfo와 PetTourItem객체를 매핑한다.
             mappingPetTourItemVo(petTourItem, petInfo);
 
-            petInfoResult = tripService.savePetInfo(petInfo);
-            petInfoCount += petInfoResult;
+            petInfoCount += tripService.savePetInfo(petInfo);
         }
 
-        resultMap.put("totalCount"  , contentIdsArr.size());
-        resultMap.put("mainCount"   , mainCount);
-        resultMap.put("commonCount" , commonCount);
-        resultMap.put("petInfoCount", petInfoCount);
+        resultMap.put("totalCount"   , contentIdsArr.size());
+        resultMap.put("petTripResult", petTripResult);
+        resultMap.put("petStayResult", petStayResult);
+        resultMap.put("commonCount"  , commonCount);
+        resultMap.put("petInfoCount" , petInfoCount);
         return ResponseEntity.ok(resultMap);
     }
 
     /** 트립 매핑 - 목록 조회 */
     @GetMapping("/admin/tripListApi")
     @ResponseBody
-    public ResponseEntity<PetTourResponse> tripListApi(      HttpSession session,
-                           @RequestParam(defaultValue = "1") String      pageNo,
-                           @RequestParam(defaultValue = "0") int         contentId)
+    public ResponseEntity<PetTourResponse> tripListApi(       HttpSession session,
+                           @RequestParam(defaultValue = "10") String      numOfRows,
+                           @RequestParam(defaultValue = "1")  String      pageNo,
+                           @RequestParam(defaultValue = "0")  int         contentId)
             throws RestClientException, URISyntaxException
     {
         // ApiClient로 API response 객체를 받아온다.
-        PetTourResponse response = commonApiClient.apiDetailPetTour(pageNo, contentId);
+        PetTourResponse response = commonApiClient.apiDetailPetTour(pageNo, contentId, numOfRows);
 
         // @SessionAttributes("petTourInfos") 에 설정한 이름으로 session에 저장한다. - Detail 페이지로 갈때 다시 Api 호출하면 느려지므로
         ArrayList<PetTourItem> petTourInfos = response.getPetTourItems();
@@ -242,7 +253,7 @@ public class AdminController
         /* 2. 가져온 트립 객체를 세션에 저장한다(DB에 insert 할때는 세션에서 객체만 가져오도록) */
         /* 3. List에서 contentId에 해당하는 객체만 세션에 저장한다. */
         DetailCommonResponse commonResponse     = commonApiClient.apiDetailCommonToContentId(contentId);
-        PetTourResponse      petTourResponse    = commonApiClient.apiDetailPetTour("1", contentId);// ApiClient로 API response 객체를 받아온다.
+        PetTourResponse      petTourResponse    = commonApiClient.apiDetailPetTour("1", contentId, "10");// ApiClient로 API response 객체를 받아온다.
         PetInfo              dbPetInfo          = tripService.getPetTourByContentId(contentId);
         DetailCommonItem     detailCommonItem   = commonResponse.getDetailCommonItems().get(0);
         PetTourItem          petTourReponseItem = petTourResponse.getPetTourItems().get(0);
@@ -281,7 +292,7 @@ public class AdminController
                            throws RestClientException, URISyntaxException
     {
         DetailCommonResponse commonResponse   = commonApiClient.apiDetailCommonToContentId(contentId);
-        PetTourResponse      petTourResponse  = commonApiClient.apiDetailPetTour("1", contentId);// ApiClient로 API response 객체를 받아온다.
+        PetTourResponse      petTourResponse  = commonApiClient.apiDetailPetTour("1", contentId, "10");// ApiClient로 API response 객체를 받아온다.
         PetInfo              dbPetInfo        = tripService.getPetTourByContentId(contentId);
         DetailCommonItem     detailCommonItem = commonResponse.getDetailCommonItems().get(0);
         PetTourItem          petTourItem      = petTourResponse.getPetTourItems().get(0);
