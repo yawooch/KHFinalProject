@@ -217,7 +217,7 @@ public class MemberController {
         return modelAndView;
     }
     
-    
+ 
     
     // 마이페이지 - 내가 쓴 게시글
     @GetMapping("/member/mypage/my-board")

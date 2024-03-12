@@ -43,16 +43,12 @@ public class MemberServiceImpl implements MemberService {
 		// 매번 다른 값으로 암호화
 		System.out.println("encoder : " + encoder.encode(memberPw));
 		
-		System.out.println(encoder.matches(memberPw, member.getMemberPw()));
-		
-											// 사용자가 입력한 비밀번호, db에 저장된 번호 비교 
 		if (member == null || !encoder.matches(memberPw, member.getMemberPw())) {
 			return null;
 		}
 		
 		return member;
 	}
-
 	
 	@Override
 	@Transactional // 에러가 생기면 자동 롤백 
