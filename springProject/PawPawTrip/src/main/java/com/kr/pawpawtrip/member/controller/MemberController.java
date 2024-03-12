@@ -165,9 +165,10 @@ public class MemberController {
     
     @PostMapping("/member/mypage/update")
     public ModelAndView update(ModelAndView modelAndView, Member member, @SessionAttribute("loginMember") Member loginMember) {
-        
-        System.out.println(member); // 수정한 데이터를 저장하는 객체
-        System.out.println(loginMember); // 실제 로그인 멤버의 정보
+
+    	System.out.println("loginMember : " + loginMember); // 실제 로그인 멤버의 정보
+    	
+        System.out.println("member : " + member); // 수정한 데이터를 저장하는 객체
         
         member.setMemberNo(loginMember.getMemberNo());
         
@@ -217,6 +218,7 @@ public class MemberController {
         
         return "member/mypage/myBoard";
     }
+    
     
     // 회원가입 화면
     @GetMapping("/enroll")

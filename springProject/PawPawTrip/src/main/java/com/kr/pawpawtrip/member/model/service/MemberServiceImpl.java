@@ -57,19 +57,19 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional // 에러가 생기면 자동 롤백 
 	public int save(Member member) {
-		int result = 0;
-		
-		if(member.getMemberNo() > 0) {
-			// update
-			result = mapper.updateMember(member);
-		} else {
-			// insert
-			member.setMemberPw(encoder.encode(member.getMemberPw())); // insert 전 암호화 된 패스워드를 객체에 set해줌
-			
-			result = mapper.insertMember(member);
-		}
-		
-		return result;
+	    int result = 0;
+	    
+	    if (member.getMemberNo() > 0) {
+	        // update
+	    	member.setMemberPw(encoder.encode(member.getMemberPw())); // 새로운 비밀번호를 암호화하여 설정
+	        result = mapper.updateMember(member);
+	    } else {
+	        // insert
+	        member.setMemberPw(encoder.encode(member.getMemberPw())); // 새로운 비밀번호를 암호화하여 설정
+	        result = mapper.insertMember(member);
+	    }
+	    
+	    return result;
 	}
 
 
