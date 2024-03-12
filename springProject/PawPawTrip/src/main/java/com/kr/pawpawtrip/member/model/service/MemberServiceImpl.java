@@ -61,6 +61,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		if(member.getMemberNo() > 0) {
 			// update
+			result = mapper.updateMember(member);
 		} else {
 			// insert
 			member.setMemberPw(encoder.encode(member.getMemberPw())); // insert 전 암호화 된 패스워드를 객체에 set해줌
@@ -223,6 +224,21 @@ public class MemberServiceImpl implements MemberService {
 		}
 		
 		
+	}
+
+
+	@Override
+	public Member findMemberById(String memberId) {
+		
+		return mapper.selectMemberById(memberId);
+	}
+
+
+	@Override
+	@Transactional
+	public int delete(int memberNo) {
+		
+		return mapper.updateStatus(memberNo, "N");
 	}
 
 

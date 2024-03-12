@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
@@ -100,7 +101,8 @@ public class MemberController {
 		
 		System.out.println(session.getAttribute("loginMember"));;
 		
-		return "redirect:/";
+//		return "redirect:/";
+		return "redirect:/member/mypage/my-info";
 	
     }
 
@@ -141,12 +143,63 @@ public class MemberController {
 		return "member/findPwComplete";
 	}
 	
+	
+		
 	// 마이페이지 - 회원 정보 수정
 	@GetMapping("/member/mypage/my-info")
 	public String myInfo() {
+		log.info("myInfo() 호출 마이페이지 요청");
 		
 		return "member/mypage/myInfo";
 	}
+	
+	@PostMapping("/member/mypage/update")
+	public ModelAndView update(ModelAndView modelAndView, Member member, @SessionAttribute("loginMember") Member loginMember) {
+		
+		System.out.println(member); // 수정한 데이터를 저장하는 객체
+		System.out.println(loginMember); // 실제 로그인 멤버의 정보
+		
+		member.setMemberNo(loginMember.getMemberNo());
+		
+		int result = service.save(member);
+		
+		System.out.println(result);
+		
+		if (result > 0) {
+			// 회원정보 수정 완료
+			modelAndView.addObject("loginMember", service.findMemberById(loginMember.getMemberId()));
+			modelAndView.addObject("msg", "회원 정보 수정 완료");
+		} else {
+			// 회원정보 수정 실패
+			modelAndView.addObject("msg", "회원 정보 수정 실패");
+		}
+		
+		modelAndView.addObject("location", "/member/mypage/my-info");
+		modelAndView.setViewName("common/msg");
+		
+		return modelAndView;
+	}
+	
+	// 회원 탈퇴 (status 변경)
+	@GetMapping("/member/mypage/delete")
+	public ModelAndView delete(ModelAndView modelAndView, @SessionAttribute("loginMember") Member loginMember) {
+		
+		int result = service.delete(loginMember.getMemberNo());
+		
+		if (result > 0) {
+			modelAndView.addObject("msg", "정상적으로 탈퇴되었습니다.");
+			modelAndView.addObject("location", "/logout");
+		} else {
+			modelAndView.addObject("msg", "탈퇴에 실패하였습니다.");
+			modelAndView.addObject("location", "/member/mypage/my-info");
+		}
+		
+		modelAndView.setViewName("common/msg");
+		
+		return modelAndView;
+	}
+	
+	
 	
 	// 마이페이지 - 내가 쓴 게시글
 	@GetMapping("/member/mypage/my-board")

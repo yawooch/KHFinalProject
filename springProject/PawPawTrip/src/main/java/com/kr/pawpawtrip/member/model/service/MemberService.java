@@ -17,5 +17,9 @@ public interface MemberService {
 
 	Member getUserInfo(String access_Token);
 
+	Member findMemberById(String memberId);
+
+	int delete(int memberNo);
+
 	
 }
