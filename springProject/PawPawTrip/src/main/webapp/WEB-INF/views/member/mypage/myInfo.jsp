@@ -41,8 +41,9 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">비밀번호</div>
-								<div class="myInfo-td col-12 padding-bottom"><input type="text" name="memberPw" placeholder="8~15자 영문,숫자 포함"
+								<div class="myInfo-td col-12 padding-bottom"><input type="password" id="password" name="memberPw" placeholder="8~15자 영문,숫자 포함"
 									<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>></div>
+								<p class="strongPassword-message hide" style="color:red; font-size: 12px; margin-top: -30px;">8~15자 영문, 숫자를 포함하여 입력하세요.</p>
 							</div>
 						</div>
 						<div class="myInfo-tr row">
@@ -52,8 +53,9 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">비밀번호 확인</div>
-								<div class="myInfo-td col-12 padding-bottom"><input type="text" placeholder="8~15자 영문,숫자 포함"
+								<div class="myInfo-td col-12 padding-bottom"><input type="password" id="password-retype" placeholder="8~15자 영문,숫자 포함"
 									<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>></div>
+								 <p class="mismatch-message hide" style="color:red; font-size: 12px; margin-top: -30px;">비밀번호가 일치하지 않습니다.</p>
 							</div>
 						</div>
 						<div class="myInfo-tr row">
@@ -64,23 +66,25 @@
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">핸드폰 번호</div>
 								<div class="myInfo-td col-12 padding-bottom">
-									<input type="text" class="contain-button" name="memberPhone" value="${ loginMember.memberPhone }"
+									<input type="text" class="contain-button" id="memberPhone" name="memberPhone" value="${ loginMember.memberPhone }"
 										<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>>
-									<button class="paw_btn btn-filled" type="button">인증받기</button>
+									<button class="paw_btn btn-filled" id="sendVerificationCodeBtn" type="button"
+										<c:if test="${loginMember.memberId.matches('[0-9]+')}">disabled</c:if>>인증받기</button>
 								</div>
 							</div>
 						</div>
 						<div class="myInfo-tr row">
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">마이펫 이름</div>
-								<div class="myInfo-td col-12 padding-bottom"><input type="text" name="memberPetName" value="${ loginMember.memberPetName }"></div>
+								<div class="myInfo-td col-12 padding-bottom"><input type="text" id="memberPetName" name="memberPetName" value="${ loginMember.memberPetName }"></div>
 							</div>
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">인증번호</div>
 								<div class="myInfo-td col-12 padding-bottom">
-									<input type="text" class="contain-button"
+									<input type="text" id="verificationCode" class="contain-button"
 										<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>>
-									<button class="paw_btn btn-filled" type="button">확인</button>
+									<button class="paw_btn btn-filled" id="verifyCodeBtn" type="button"
+										<c:if test="${loginMember.memberId.matches('[0-9]+')}">disabled</c:if>>확인</button>
 								</div>
 							</div>
 						</div>
@@ -104,7 +108,7 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">이메일</div>
-								<div class="myInfo-td col-12 padding-bottom"><input type="text" name="memberEmail" value="${ loginMember.memberEmail }"
+								<div class="myInfo-td col-12 padding-bottom"><input type="text" id="email" name="memberEmail" value="${ loginMember.memberEmail }"
 									<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>></div>
 							</div>
 						</div>
@@ -112,7 +116,7 @@
 				</div>
 				<!-- 하단 버튼 -->
 				<div class="bottom-btn">
-					<button type="submit" class="paw_btn">수정</button>
+					<button type="submit" class="paw_btn" id="modify-btn">수정</button>
 					<button type="button" class="paw_btn btn-filled" id="delete-btn">회원탈퇴</button>
 				</div>
 			</div>
@@ -123,13 +127,7 @@
     <!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
 	
-<script>
-	$(document).ready(() => {
-		$('#delete-btn').on('click', () => {
-			if (confirm('정말로 탈퇴하시겠습니까?')) {
-				location.replace('${ path }/member/mypage/delete');
-			}
-		});
-	});
-</script>
+	<!-- js 추가 -->
+	<script type="text/javascript" src="${path}/js/member/mypage/myInfo.js"></script>
+	
 

@@ -64,7 +64,7 @@ public class MemberController {
             modelAndView.setViewName("redirect:/");
             session.setAttribute("loginMember", loginMember);
         } else {
-            modelAndView.addObject("msg"     , "아이디나 비밀번호가 일치하지 않습니다.");
+            modelAndView.addObject("msg", "아이디나 비밀번호가 일치하지 않습니다.");
             modelAndView.addObject("location", "/login");
             modelAndView.setViewName("common/msg");
         }
@@ -167,16 +167,15 @@ public class MemberController {
     public String myInfo() {
         log.info("myInfo() 호출 마이페이지 요청");
         
-        
-        
         return "member/mypage/myInfo";
     }
     
     @PostMapping("/member/mypage/update")
     public ModelAndView update(ModelAndView modelAndView, Member member, @SessionAttribute("loginMember") Member loginMember) {
-        
-        System.out.println(member); // 수정한 데이터를 저장하는 객체
-        System.out.println(loginMember); // 실제 로그인 멤버의 정보
+
+    	System.out.println("loginMember : " + loginMember); // 실제 로그인 멤버의 정보
+    	
+        System.out.println("member : " + member); // 수정한 데이터를 저장하는 객체
         
         member.setMemberNo(loginMember.getMemberNo());
         
@@ -218,45 +217,44 @@ public class MemberController {
         return modelAndView;
     }
     
-    
+ 
     
     // 마이페이지 - 내가 쓴 게시글
     @GetMapping("/member/mypage/my-board")
-    public ModelAndView myBoard(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, HttpSession session) {
+   public ModelAndView myBoard(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, HttpSession session) {
         
-    	List<Community> community = null;
-    	Member loginMember = (Member) session.getAttribute("loginMember");
-    	// 페이징 처리
-    	PageInfo pageInfo = null;
-    	// 내가 쓴 게시글 수
-    	int listCount = 0;
-    	
-    	if(loginMember != null) {
-    		listCount = communityService.getBoardByMemberCount(loginMember.getMemberNo());
-    		
-    		pageInfo = new PageInfo(page, 5, listCount, 15);
-    		
-    		System.out.println("내가 쓴 게시글 수 : " + listCount);
-    		
-    		// 회원 번호를 통해 게시글 조회
-    		community = communityService.getBoardByMember(pageInfo, loginMember.getMemberNo());
-    		
-    		System.out.println(community);
-    		
-    		modelAndView.addObject("pageInfo", pageInfo);
-    		modelAndView.addObject("community", community);
-    		modelAndView.setViewName("member/mypage/myBoard");
-    	} else {
-    		modelAndView.addObject("msg", "로그인 후 이용해주세요.");
-    		modelAndView.addObject("location", "/login");
-    		modelAndView.setViewName("common/msg");
-    	}
-    	
-    	
-    	log.info("myBoard() - 호출");
-    	
-    	
-    	
+        List<Community> community = null;
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        // 페이징 처리
+        PageInfo pageInfo = null;
+        // 내가 쓴 게시글 수
+        int listCount = 0;
+        
+        if(loginMember != null) {
+            listCount = communityService.getBoardByMemberCount(loginMember.getMemberNo());
+            
+            pageInfo = new PageInfo(page, 5, listCount, 15);
+            
+            System.out.println("내가 쓴 게시글 수 : " + listCount);
+            
+            // 회원 번호를 통해 게시글 조회
+            community = communityService.getBoardByMember(pageInfo, loginMember.getMemberNo());
+            
+            System.out.println(community);
+            
+            modelAndView.addObject("pageInfo", pageInfo);
+            modelAndView.addObject("community", community);
+            modelAndView.setViewName("member/mypage/myBoard");
+        } else {
+            modelAndView.addObject("msg", "로그인 후 이용해주세요.");
+            modelAndView.addObject("location", "/login");
+            modelAndView.setViewName("common/msg");
+        }
+        
+        
+        log.info("myBoard() - 호출");
+
+        
         return modelAndView;
     }
     
