@@ -30,4 +30,8 @@ public interface CommunityMapper
     int updateCommunityCount(@Param("no") int no, @Param("viewsCount") int viewsCount);
     
     int updateStatus(@Param("no") int no, @Param("status") String status);
+    
+    List<Community> selectBoardByMember(RowBounds rowBounds, @Param("memberNo") int memberNo);
+    
+    int selectBoardByMemberCount(@Param("memberNo") int memberNo);
 }

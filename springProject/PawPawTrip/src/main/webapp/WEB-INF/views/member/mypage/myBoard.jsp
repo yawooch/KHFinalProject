@@ -38,108 +38,48 @@
 						<td style="text-align: center;">조회수</td>
 						<td>등록일</td>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[마이펫 자랑] 리드줄 어디꺼가 좋은간가요?</a></td>
-						<td>ismoney</td>
-						<td>139</td>
-						<td>2023-10-13</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[마이펫 자랑] 우리집 춘식이를 소개합니다.</a></td>
-						<td>ismoney</td>
-						<td>247</td>
-						<td>2023-05-09</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[수다] 오늘 저녁 뭐먹죠?</a></td>
-						<td>ismoney</td>
-						<td>18</td>
-						<td>2024-01-05</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[수다] 강아지 간식 추천 부탁드립니다.</a></td>
-						<td>ismoney</td>
-						<td>27</td>
-						<td>2023-12-28</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[수다] 강아지 간식 추천 부탁드립니다.</a></td>
-						<td>ismoney</td>
-						<td>27</td>
-						<td>2023-12-28</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[수다] 강아지 간식 추천 부탁드립니다.</a></td>
-						<td>ismoney</td>
-						<td>27</td>
-						<td>2023-12-28</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[수다] 강아지 간식 추천 부탁드립니다.</a></td>
-						<td>ismoney</td>
-						<td>27</td>
-						<td>2023-12-28</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[수다] 강아지 간식 추천 부탁드립니다.</a></td>
-						<td>ismoney</td>
-						<td>27</td>
-						<td>2023-12-28</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[수다] 강아지 간식 추천 부탁드립니다.</a></td>
-						<td>ismoney</td>
-						<td>27</td>
-						<td>2023-12-28</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td
-							style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;"><a
-							href="#" style="font-size: 16px;">[수다] 강아지 간식 추천 부탁드립니다.</a></td>
-						<td>ismoney</td>
-						<td>27</td>
-						<td>2023-12-28</td>
-					</tr>
+					<c:if test="${ empty community }">
+						<tr>
+							<td colspan="5">작성된 게시글이 없습니다.</td>
+						</tr>
+					</c:if>
+					<c:if test="${ not empty community }">
+						<c:forEach var="c" items="${ community }">
+							<tr>
+								<td>${ c.communityRNUM }</td>
+								<td class="common-text-left" style="padding-left: 5px;">
+									<a>${ c.communityTitle }</a>
+								</td>
+								<td>${ c.communityWriterId }</td>
+								<td class="common-text-right">${ c.communityCount }</td>
+								<td>${ c.communityEd }</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 					
 				</table>
 			</div>
 			<div class="common-page-number">
 				<ul>
-					<li><a href="#"><</a></li>
+					<!-- 페이징 처리 -->
+					<!-- 이전 페이지 -->
+					<li><a href="/member/mypage/my-board?page=${ pageInfo.prevPage }">&lt;</a></li>
+					<!-- 5개 페이지 목록 -->
+<%-- 					<c:if test=""></c:if> --%>
+					<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageinfo.endPage }">
+						<c:choose>
+							<c:when test="">
+							</c:when>
+							<c:otherwise>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
 					<li><a href="#">1</a></li>
 					<li><a href="#">2</a></li>
 					<li><a href="#">3</a></li>
 					<li><a href="#">4</a></li>
 					<li><a href="#">5</a></li>
-					<li><a href="#">></a></li>
+					<li><a href="#">&gt;</a></li>
 				</ul>
 			</div>
 		</div>

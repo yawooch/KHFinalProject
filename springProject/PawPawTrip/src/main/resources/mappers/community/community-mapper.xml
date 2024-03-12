@@ -341,6 +341,42 @@
          AND COMMUNITY_NO = #{no}
     </select>
     
+     <!-- 내가 쓴 게시글 조회 -->
+     <select id="selectBoardByMember" resultMap="communityListResultMap" parameterType="_int">
+      SELECT ROWNUM AS RNUM,
+	         COMMUNITY_NO,
+	         COMMUNITY_CATEGORY,
+	         COMMUNITY_TITLE,
+	         COMMUNITY_CONTENT,
+	         COMMUNITY_ED,
+	         COMMUNITY_COUNT,
+	         COMMUNITY_WRITER_NO,
+	         MEMBER_ID
+	  FROM (
+	      SELECT C.COMMUNITY_NO,
+	             C.COMMUNITY_CATEGORY,
+	             C.COMMUNITY_TITLE,
+	             C.COMMUNITY_CONTENT,
+	             C.COMMUNITY_ED,
+	             C.COMMUNITY_COUNT,
+	             C.COMMUNITY_WRITER_NO,
+	             M.MEMBER_ID
+	        FROM COMMUNITY C
+	        LEFT OUTER JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+	       WHERE C.COMMUNITY_STATUS = 'Y'
+	    ORDER BY C.COMMUNITY_ED DESC
+	  )
+	  WHERE COMMUNITY_WRITER_NO = #{memberNo}
+    </select>
+    
+    <!-- 내가 쓴 게시글 수 -->
+    <select id="selectBoardByMemberCount" parameterType="_int">
+     SELECT COUNT(*)
+       FROM COMMUNITY
+      WHERE COMMUNITY_STATUS = 'Y'
+        AND COMMUNITY_WRITER_NO = #{memberNo}
+    </select>
+    
      <!-- 추가 -->
        <insert id="insertBoard" parameterType="Community" useGeneratedKeys="true" keyProperty="communityNo" keyColumn="COMMUNITY_NO">
         INSERT
