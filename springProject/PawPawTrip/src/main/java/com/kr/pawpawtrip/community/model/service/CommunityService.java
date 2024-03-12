@@ -43,4 +43,10 @@ public interface CommunityService
     // 게시글 삭제
     int delete(int no);
 
+    // 내가 쓴 게시글 조회
+	List<Community> getBoardByMember(PageInfo pageInfo, int memberNo);
+
+	// 내가 쓴 게시글 수
+	int getBoardByMemberCount(int memberNo);
+
 }

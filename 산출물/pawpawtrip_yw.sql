@@ -537,8 +537,37 @@ EXCEPTION
 END;
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 -- 게시글 수정
-UPDATE COMMUNITY
-SET 
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+-- 마이페이지
+SELECT ROWNUM AS RNUM,
+       COMMUNITY_NO,
+       COMMUNITY_CATEGORY,
+       COMMUNITY_TITLE,
+       COMMUNITY_CONTENT,
+       COMMUNITY_ED,
+       COMMUNITY_COUNT,
+       COMMUNITY_WRITER_NO,
+       MEMBER_ID
+FROM (
+    SELECT C.COMMUNITY_NO,
+           C.COMMUNITY_CATEGORY,
+           C.COMMUNITY_TITLE,
+           C.COMMUNITY_CONTENT,
+           C.COMMUNITY_ED,
+           C.COMMUNITY_COUNT,
+           C.COMMUNITY_WRITER_NO,
+           M.MEMBER_ID
+    FROM COMMUNITY C
+    LEFT OUTER JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
+    WHERE C.COMMUNITY_STATUS = 'Y'
+    ORDER BY C.COMMUNITY_ED DESC
+)
+WHERE COMMUNITY_WRITER_NO = 2;
+
+
+
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------
 -- 회원 테이블
@@ -557,6 +586,8 @@ INSERT INTO MEMBER VALUES(SEQ_MEM_NO.NEXTVAL, 'kim0303', '1234', 'ROLE_USER', '0
 INSERT INTO MEMBER VALUES(SEQ_MEM_NO.NEXTVAL, 'song0404', '1234', 'ROLE_USER', '01098745632', 'song0404@nate.com', '19990228', '동강이', '말티즈', 'Y', SYSDATE, SYSDATE, 'N', 'N', 'N');
 
 COMMIT;
+
+
 
 
 
