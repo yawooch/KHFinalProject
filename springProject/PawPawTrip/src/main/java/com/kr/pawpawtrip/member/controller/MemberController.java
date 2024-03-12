@@ -2,6 +2,7 @@ package com.kr.pawpawtrip.member.controller;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kr.pawpawtrip.common.util.PageInfo;
+import com.kr.pawpawtrip.community.model.service.CommunityService;
+import com.kr.pawpawtrip.community.model.vo.Community;
 import com.kr.pawpawtrip.member.model.service.MemberService;
 import com.kr.pawpawtrip.member.model.vo.Member;
 
@@ -28,6 +32,9 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
     @Autowired // 빈을 만들어 주입
     private MemberService service;
+    
+    @Autowired
+    private CommunityService communityService;
     
     // 로그인 화면
     @GetMapping("/login")
@@ -214,11 +221,42 @@ public class MemberController {
     
     // 마이페이지 - 내가 쓴 게시글
     @GetMapping("/member/mypage/my-board")
-    public String myBoard() {
+   public ModelAndView myBoard(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, HttpSession session) {
         
-        return "member/mypage/myBoard";
+        List<Community> community = null;
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        // 페이징 처리
+        PageInfo pageInfo = null;
+        // 내가 쓴 게시글 수
+        int listCount = 0;
+        
+        if(loginMember != null) {
+            listCount = communityService.getBoardByMemberCount(loginMember.getMemberNo());
+            
+            pageInfo = new PageInfo(page, 5, listCount, 15);
+            
+            System.out.println("내가 쓴 게시글 수 : " + listCount);
+            
+            // 회원 번호를 통해 게시글 조회
+            community = communityService.getBoardByMember(pageInfo, loginMember.getMemberNo());
+            
+            System.out.println(community);
+            
+            modelAndView.addObject("pageInfo", pageInfo);
+            modelAndView.addObject("community", community);
+            modelAndView.setViewName("member/mypage/myBoard");
+        } else {
+            modelAndView.addObject("msg", "로그인 후 이용해주세요.");
+            modelAndView.addObject("location", "/login");
+            modelAndView.setViewName("common/msg");
+        }
+        
+        
+        log.info("myBoard() - 호출");
+
+        
+        return modelAndView;
     }
-    
     
     // 회원가입 화면
     @GetMapping("/enroll")
