@@ -551,6 +551,14 @@ public class AdminController
         modelAndView.setViewName("community/notice");
         return modelAndView;
     }
+
+    // 인추장 사이트 이동
+    @GetMapping("/admin/favoritesite")
+    public ModelAndView favoritesite(        ModelAndView modelAndView)
+    {
+        modelAndView.setViewName("admin/favoritesite");
+        return modelAndView;
+    }
   
     /**
      * DetailCommonItem 을 다른 VO로 매핑해준다.

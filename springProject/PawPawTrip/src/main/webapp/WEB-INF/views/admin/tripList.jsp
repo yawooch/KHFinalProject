@@ -17,6 +17,7 @@ function clickPaging(){
 };
 
 let contentIdsArr = [];
+
 function showList(pageNo, contentId, numOfRows)
 {               
     let data = {};
@@ -85,6 +86,7 @@ function showList(pageNo, contentId, numOfRows)
      });
  };
 
+ //보여준 리스트에서 일괄등록 버튼 클릭했을때
 function saveList()
 {
 	if(!confirm('해당 페이지를 일괄 등록 하시겠습니까?'))
@@ -121,21 +123,23 @@ function saveList()
         }
     });
 };
-$(document).ready(() => {
-	
-	console.log(pageNo.detailNo);
-	console.log($('numOfRows option:selected').val());
+$(document).ready(() => 
+{
     //리스트를 먼저 보여준다.
     showList($('#pageNo').val(), $('#contentId').val(), $('#numOfRows option:selected').val());
-//     $('#spinnerLoading>div.spinner-border').css('top' , '50%');
-//     $('#spinnerLoading>div.spinner-border').css('left', '50%');
     
-    $('#contentId').on('change', (event) => {
+    //select 박스를 수정했을때 / input:text 내용을 수정했을때 (focus Out 됐을때)
+    $('#contentId, #numOfRows').on('change', (event) => {
         showList(1, $(event.target).val(), $('#numOfRows option:selected').val());
     });
-    $('#numOfRows').on('change', (event) => {
-        showList(1, $('#contentId').val(), $('#numOfRows option:selected').val());
+    //input:text 내용을 수정했을때 (Enter Key 누를 시)
+    $('#numOfRows').on('keyup', (event) => {
+        if(event.key == 'Enter')
+        {
+                    showList(1, $('#contentId').val(), $('#numOfRows option:selected').val());
+        }
     });
+    //검색버튼 클릭했을때
     $('#btnSearch').on('click', (event) => {
         showList(1, $('#contentId').val(), $('#numOfRows option:selected').val());
     });
@@ -155,6 +159,7 @@ $(document).ready(() => {
                 <li class=""><a href="${path}/admin/dashboard">대시보드</a></li>
                 <li class="on"><a href="${path}/admin/tripList">포포트립 매핑</a>
                 <li class=""><a href="${path}/admin/noticeWrite">공지사항 입력</a></li>
+                <li class=""  ><a href="${path}/admin/favoritesite">인추장 선정</a></li>
             </ul>
         </div>
         <div class="common-list">
