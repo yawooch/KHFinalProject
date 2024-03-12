@@ -95,9 +95,12 @@
                 <!-- 장소 이미지(슬라이드) -->
                 <div class="swiper Swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="https://dangdangmap.net/upload/mapdata/C0472/thumb/content/C0472_F20211210134433001.jpg" alt="숙소 예시">
-                        </div>
+                    	<c:forEach var="detailImageItem" items="${ detailImageItems }">
+	                        <div class="swiper-slide">
+	                            <img src="${ detailImageItem.originimgurl }" alt="숙소 이미지">
+	                        </div>
+                    	</c:forEach>
+                    	<!--  
                         <div class="swiper-slide">
                             <img src="https://dangdangmap.net/upload/mapdata/C0472/thumb/content/C0472_F20211210134434003.jpg" alt="숙소 예시">
                         </div>
@@ -110,6 +113,7 @@
                         <div class="swiper-slide">
                             <img src="https://dangdangmap.net/upload/mapdata/C0472/thumb/content/C0472_F20211210134435008.jpg" alt="숙소 예시">
                         </div>
+                    	-->
                     </div>
                     <div class="swiper-pagination"></div>
                     <div class="swiper-button-prev"></div>
@@ -132,23 +136,22 @@
                         <p>${ stay.stayAddress }</p>
                         <img class="infoIcon" src="${ path }/img/trip/tel_icon.png" alt="문의처 아이콘">
                         <span>문의처</span>
-                        <c:if test="${ stay.stayTel == '-' }">
-                        	<p>별도 문의</p>
+                        <c:if test="${ stay.stayTel == '-' || empty stay.stayTel }">
+                        	<p>- 별도 문의</p>
                         </c:if>
                         <c:if test="${ stay.stayTel != '-' }">
 	                        <p>${ stay.stayTel }</p>
                         </c:if>
-						
-						<!--  
-                        <img class="infoIcon" src="${ path }/img/trip/time_icon.png" alt="이용시간 아이콘">
-                        <span>이용시간</span>
-                        <p>15:00 ~ 다음날 12:00</p>
-						-->
 
                         <!-- 새 창으로 해당 홈페이지 열기! -->
                         <img class="infoIcon" src="${ path }/img/trip/homepage_icon.png" alt="홈페이지 아이콘">
                         <span>홈페이지</span>
-                        <p>${ stay.homepage }</p>
+                        <c:if test="${ empty stay.homepage }">
+                        	<p>- 별도 문의</p>
+                        </c:if>
+                        <c:if test="${ not empty stay.homepage }">
+	                        <p>${ stay.homepage }</p>
+                        </c:if>
                     </div>
                 </div>
             </div>

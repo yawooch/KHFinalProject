@@ -32,6 +32,7 @@ public class TripServiceImpl implements TripService {
 	public List<Spot> getSpotList(PageInfo pageInfo, String selectArea, String searchKeyword) {
 	      int limit = pageInfo.getListLimit();
 	      int offset = (pageInfo.getCurrentPage() - 1) * limit;
+	      
 	      RowBounds rowBounds = new RowBounds(offset, limit);		
 		
 		return tripMapper.selectSpotList(rowBounds, selectArea, searchKeyword);
@@ -48,19 +49,20 @@ public class TripServiceImpl implements TripService {
 	
 	// 숙박 전체 게시물 수 조회
 	@Override
-	public int getStayCount() {
+	public int getStayCount(String selectArea, String searchKeyword) {
 		
-		return tripMapper.selectStayCount();
+		return tripMapper.selectStayCount(selectArea, searchKeyword);
 	}
 	
 	// 숙박 리스트 조회
 	@Override
-	public List<Stay> getStayList(PageInfo pageInfo) {
+	public List<Stay> getStayList(PageInfo pageInfo, String selectArea, String searchKeyword) {
 	      int limit = pageInfo.getListLimit();
 	      int offset = (pageInfo.getCurrentPage() - 1) * limit;
+	      
 	      RowBounds rowBounds = new RowBounds(offset, limit);
 	      
-		return tripMapper.selectStaytList(rowBounds);
+		return tripMapper.selectStaytList(rowBounds, selectArea, searchKeyword);
 	}
 	
 	// 숙박 상세 조회(반려동물 동반 정보 확인)

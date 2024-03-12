@@ -64,10 +64,10 @@
           FROM PETINFO
     </sql>
     
-    
+    <!-- ************************************************************************************************** -->
 
     <!-- 여행 페이지 ResultMap -->
-    <resultMap id="spotListResultMap" type="Spot">
+    <resultMap  id="spotListResultMap" type="Spot">
         <id     property="tripContentId"     column="TRIP_CONTENTID"     />
         <result property="tripAddress"       column="TRIP_ADDRESS"       />
         <result property="tripTitle"         column="TRIP_TITLE"         />
@@ -86,7 +86,7 @@
     </resultMap>
 
     <!-- 숙박 페이지 ResultMap -->
-    <resultMap id="stayListResultMap" type="Stay">
+    <resultMap  id="stayListResultMap" type="Stay">
         <id     property="stayContentId"     column="STAY_CONTENTID"     />
         <result property="stayAddress"       column="STAY_ADDRESS"       />
         <result property="stayTitle"         column="STAY_TITLE"         />
@@ -196,16 +196,31 @@
 
 
 	<!-- 숙박 게시물 수 조회 -->
-	<select id="selectStayCount" resultType="_int">
-		SELECT COUNT(*) 
-		FROM STAY
+	<select id="selectStayCount" resultType="_int" parameterType="string">
+		SELECT COUNT(*)
+		  FROM STAY
+	  <where>
+	    <if test="selectArea != ''">
+	       AND AREACODE = #{selectArea}
+	    </if>
+	 	   AND (STAY_TITLE   LIKE '%' || #{searchKeyword} ||'%'
+	        OR  STAY_ADDRESS LIKE '%' || #{searchKeyword} ||'%')
+	  </where>
+	  	 ORDER BY STAY_TITLE
 	</select>	
 	
 	
     <!-- 숙박 목록 전체 조회 -->
-    <select id="selectStaytList" resultMap="stayListResultMap">
+    <select id="selectStaytList" resultMap="stayListResultMap" parameterType="string">
         <include refid="stayListSql"/>
-        	ORDER BY STAY_TITLE ASC
+		  <where>
+		    <if test="selectArea != ''">
+		      AND AREACODE = #{selectArea}
+		    </if>
+		 	  AND (STAY_TITLE   LIKE '%' || #{searchKeyword} ||'%'
+		       OR  STAY_ADDRESS LIKE '%' || #{searchKeyword} ||'%')
+		  </where>
+		    ORDER BY STAY_TITLE
     </select>
     
     

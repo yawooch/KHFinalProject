@@ -20,10 +20,10 @@ public interface TripService {
 	Spot getSpotById(int id);
 	
 	// 숙박 전체 게시물 수 조회
-	int getStayCount();
+	int getStayCount(String selectArea, String searchKeyword);
 	
 	// 숙박 리스트 조회
-	List<Stay> getStayList(PageInfo pageInfo);
+	List<Stay> getStayList(PageInfo pageInfo, String selectArea, String searchKeyword);
 	
 	// 숙박 상세 조회(숙박 ID 사용) 
 	Stay getStayById(int id);

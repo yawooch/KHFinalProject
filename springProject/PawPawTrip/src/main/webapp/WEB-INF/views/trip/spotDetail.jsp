@@ -88,7 +88,7 @@ color: #FDFAEF;
                     <div class="swiper-wrapper">
                     	<c:forEach var="detailImageItem" items="${ detailImageItems }">
 	                        <div class="swiper-slide">
-	                            <img src="${ detailImageItem.originimgurl }">
+	                            <img src="${ detailImageItem.originimgurl }" alt="여행지 이미지">
 	                        </div>
                     	</c:forEach>
                     	<!--  
@@ -124,7 +124,6 @@ color: #FDFAEF;
                         <img class="infoIcon" src="${ path }/img/trip/map_icon.png" alt="주소 아이콘">
                         <span>주소</span>
                         <p>${ spot.tripAddress }</p>
-                        
                         <img class="infoIcon" src="${ path }/img/trip/tel_icon.png" alt="문의처 아이콘">
                         <span>문의처</span>
                         <c:if test="${ spot.tripTel == '-' || empty spot.tripTel }">
@@ -177,9 +176,9 @@ color: #FDFAEF;
                         <img class="dog-ion" src="${ path }/img/trip/dog_icon.png" alt="메뉴아이콘">
                         <span>비품 정보</span>
                     </div>
-                    <p>비치 품목 : ${ spot.petInfo.relaFrnshPrdlst }<br> 
-                       구매 품목 : ${ spot.petInfo.relaPurcPrdlst } <br> 
-                       렌탈 품목 : ${ spot.petInfo.relaRntlPrdlst }
+                    <p>- 비치 품목 : ${ spot.petInfo.relaFrnshPrdlst }<br> 
+                       - 구매 품목 : ${ spot.petInfo.relaPurcPrdlst } <br> 
+                       - 렌탈 품목 : ${ spot.petInfo.relaRntlPrdlst }
                     </p>
                 </div>
                 <div class="subInfo-div">

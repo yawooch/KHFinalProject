@@ -41,7 +41,7 @@
         </div>
         <!-- 내부 콘텐츠 -->
         <div class="common-list">
-            <!-- ***************************** 검색바 *********************************** -->
+            <!-- ***************************************** 검색바 ******************************************* -->
             <div class="common-search">
 				<div>
 					TOTAL <span>${ pageInfo.listCount }</span>건
@@ -81,7 +81,8 @@
 							   value="${ selectAndSearch.searchKeyword }">
 					</div>
 					<div>
-						<button id="btnSearch">검색</button>
+						<!-- 검색버튼 클릭 시, search()함수 실행 -->
+						<button id="btnSearch" onclick="search()">검색</button>
 					</div>
 				</div>
 			</div>
@@ -132,32 +133,66 @@
                 </div>
             </div>
 
-            <!-- *********************************** 페이징 ************************************* -->
+            <!-- ***************************************** 페이징 ******************************************** -->
             <div class="common-page-number">
                 <ul>
-                	<!-- 이전 페이지 -->
-                    <li><a href="${ path }/trip/stay?page=${ pageInfo.prevPage }">&lt;</a></li>
-                    
-                    <!-- 현재 페이지 -->
-                    <c:forEach var="currentPage" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
-                    	<c:choose>
-                    		<c:when test="${ currentPage == pageInfo.currentPage }">
-	                    		<li class="disable"><a>${ currentPage }</a></li>
-                    		</c:when>
-                    		<c:otherwise>
-	                    		<li><a href="${ path }/trip/stay?page=${ currentPage }">${ currentPage }</a></li>                    			
-                    		</c:otherwise>
-                    	</c:choose>
-                    </c:forEach>
-					
-					<!-- 다음 페이지 -->                    
-                    <li><a href="${ path }/trip/stay?page=${ pageInfo.nextPage }">&gt;</a></li>
+                	<!-- 이전 페이지 --> 
+					<c:if test="${ empty selectAndSearch.selectArea  and empty selectAndSearch.searchKeyword }">
+	                    <li><a href="${ path }/trip/stay?page=${ pageInfo.prevPage }">&lt;</a></li>
+					</c:if>
+					<c:if test="${ not empty selectAndSearch.selectArea or not empty selectAndSearch.searchKeyword}">
+						<li><a href="${ path }/trip/stay?page=${ pageInfo.prevPage }&selectArea=${selectAndSearch.selectArea}&searchKeyword=${selectAndSearch.searchKeyword}">&lt;</a></li>
+					</c:if>
+						                    
+                	<!-- 현재 페이지 -->
+                	<!-- 첫 페이지부터 마지막페이지까지 반복(5페이지씩 보이게 설정함) -->
+                	<c:forEach var="currentPage" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
+                		<c:choose>
+                			<c:when test="${ currentPage == pageInfo.currentPage }">
+				                <li class="disable"><a>${ currentPage }</a></li>
+                			</c:when>
+                			<c:otherwise>
+                				<c:if test="${ empty selectAndSearch.selectArea and empty selectAndSearch.searchKeyword }">
+				                    <li><a href="${ path }/trip/stay?page=${ currentPage }">${ currentPage }</a></li>                					
+                				</c:if>
+                				<c:if test="${ not empty selectAndSearch.selectArea or not empty selectAndSearch.search }">
+				                    <li><a href="${ path }/trip/stay?page=${ currentPage }&selectArea=${ selectAndSearch.selectArea }&searchKeyword=${ selectAndSearch.searchKeyword }">${ currentPage }</a></li>                					                					
+                				</c:if>
+                			</c:otherwise>
+                		</c:choose>
+                	</c:forEach>
+                	
+                    <!-- 다음 페이지 -->
+					<c:if test="${ empty selectAndSearch.selectArea and empty selectAndSearch.searchKeyword }">
+	                    <li><a href="${ path }/trip/stay?page=${ pageInfo.nextPage }">&gt;</a></li>
+					</c:if>
+					<c:if test="${ not empty selectAndSearch.selectArea or not empty selectAndSearch.searchKeyword }">
+						<li><a href="${ path }/trip/stay?page=${ pageInfo.nextPage }&selectArea=${selectAndSearch.selectArea}&searchKeyword=${selectAndSearch.searchKeyword}">&gt;</a></li>
+					</c:if>                    
                 </ul>
             </div>
             <!-- </div> -->
         </div>
     </div>
 </section>
+
+<script>
+	// 검색바의 '검색버튼' 클릭시 실행할 함수
+	function search() {
+	    var selectArea = document.getElementById("selectArea").value;
+	    var searchKeyword = document.getElementById("searchKeyword").value;
+	    
+	    console.log(selectArea, searchKeyword);
+	    
+		// trim() : 양쪽에 있는 공백을 제거
+		if (searchKeyword.trim() != ''||selectArea.trim() != '') {
+			var url = "${path}/trip/stay?selectArea=" + selectArea + "&searchKeyword=" + encodeURIComponent(searchKeyword);
+		} else {
+			var url = "${path}/trip/stay";
+		}
+	    window.location.href = url;		
+	}	
+</script>
 
 
 <!-- 푸터 -->

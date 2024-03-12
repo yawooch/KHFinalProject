@@ -52,7 +52,7 @@
 							<option value="" >지역</option>
 								<c:forEach var="area" items="${ searchAreaOptions }">							
 			                        <option value="${ area.cityCode }" <c:if test="${ selectAndSearch.selectArea == area.cityCode }" >selected</c:if>>
-			                        ${ area.areaName }
+			                        	${ area.areaName }
 			                        </option>
 								</c:forEach>
 <!-- 	                        <option value="2">인천광역시</option> -->

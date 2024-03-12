@@ -101,7 +101,7 @@ public class CommonApiClient
     	urlBuilder.append("&imageYN="     ).append("Y");			// 이미지조회1 : Y=콘텐츠이미지조회 N=”음식점”타입의음식메뉴이미지
     	urlBuilder.append("&subImageYN="  ).append("Y");			// 이미지조회2 : Y=원본,썸네일이미지조회,공공누리 저작권유형정보조회 N=Null
     	
-    	 log.info("Response : {}", new URI(urlBuilder.toString()), String.class);
+    	 // log.info("Response : {}", new URI(urlBuilder.toString()), String.class);
     	
     	return restTemplate.getForObject(new URI(urlBuilder.toString()), DetailImageResponse.class);
     }

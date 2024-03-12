@@ -48,9 +48,8 @@ public class DetailImageResponse {
 		Map<String, Object> body   = (Map<String, Object>)response.get("body");
 		
 		// items    --> item
-		System.out.println("response : " + body.get("items"));
-		if(!body.get("items").equals(""))
-		{
+		// System.out.println("response : " + body.get("items"));
+		if(!body.get("items").equals("")) {
 			Map<String, ArrayList<Map<String, Object>>> items = (Map<String, ArrayList<Map<String, Object>>>)body.get("items");
 			
 			// item     --> contentid,imgname, originimgurl, serialnum, smallimageurl, cpyrhtDivCd     
@@ -73,8 +72,8 @@ public class DetailImageResponse {
 				
 				detailImageItems.add(detailImageItem);
 			}
-		}
-		else {
+			
+		} else {
 			DetailImageItem detailImageItem = new DetailImageItem();
 			detailImageItems.add(detailImageItem);
 		}

@@ -19,18 +19,19 @@ public interface TripMapper {
 						@Param("searchKeyword") String searchKeyword);
 	
 	// 여행지 리스트 조회
-	List<Spot> selectSpotList(RowBounds               rowBounds,
-							  @Param("selectArea")    String selectArea, 
-							  @Param("searchKeyword") String searchKeyword);
+	List<Spot> selectSpotList(RowBounds rowBounds, @Param("selectArea")    String selectArea, 
+							  					   @Param("searchKeyword") String searchKeyword);
 	
 	// 여행지 상세 조회(콘텐츠 ID 사용)
 	Spot selectSpotById(@Param("id") int id);
 	
 	// 숙박 게시물 수 조회
-	int selectStayCount();
+	int selectStayCount(@Param("selectArea") String selectArea, 
+						@Param("searchKeyword") String searchKeyword);
 	
 	// 숙박 리스트 조회
-	List<Stay> selectStaytList(RowBounds rowBounds);
+	List<Stay> selectStaytList(RowBounds rowBounds, @Param("selectArea") String selectArea, 
+												    @Param("searchKeyword") String searchKeyword);
 	
 	// 숙박 상세 조회
 	Stay selectStayById(@Param("id") int id);
