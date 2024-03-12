@@ -41,9 +41,8 @@
 			<!-- 인터셉터를 적용시킬 요청 선택 -->
 			<mapping path="/member/mypage/**"/>	
 			
-			<beans:bean id="loignCheckInterceptor" class="com.kr.pawpawtrip.common.interceptor.LoignCheckInterceptor" />
+			<beans:bean id="loginCheckInterceptor" class="com.kr.pawpawtrip.common.interceptor.LoginCheckInterceptor" />
 		</interceptor>
-		
 	</interceptors>
 	
 </beans:beans>

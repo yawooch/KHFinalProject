@@ -85,16 +85,16 @@
 								<div class="myInfo-td col-12">마이펫 타입</div>
 								<div class="myInfo-td col-12 padding-bottom">
 									<select name="memberPetType" id="memberPetType">
-										 <option value="골든 리트리버">골든 리트리버</option>
-				                         <option value="포메라니안">포메라니안</option>
-				                         <option value="프렌치 불도그">프렌치 불도그</option>
-				                         <option value="비숑 프리제">비숑 프리제</option>
-				                         <option value="말티즈">말티즈</option>
-				                         <option value="푸들">푸들</option>
-				                         <option value="시츄">시츄</option>
-				                         <option value="요크셔 테리어">요크셔 테리어</option>
-				                         <option value="믹스견">믹스견</option>
-				                         <option value="기타">기타</option>
+									    <option value="골든 리트리버" <c:if test="${ loginMember.memberPetType eq '골든 리트리버' }">selected</c:if>>골든 리트리버</option>
+									    <option value="포메라니안" <c:if test="${ loginMember.memberPetType eq '포메라니안' }">selected</c:if>>포메라니안</option>
+									    <option value="프렌치 불도그" <c:if test="${ loginMember.memberPetType eq '프렌치 불도그' }">selected</c:if>>프렌치 불도그</option>
+									    <option value="비숑 프리제" <c:if test="${ loginMember.memberPetType eq '비숑 프리제' }">selected</c:if>>비숑 프리제</option>
+									    <option value="푸들" <c:if test="${ loginMember.memberPetType eq '푸들' }">selected</c:if>>푸들</option>
+									    <option value="말티즈" <c:if test="${ loginMember.memberPetType eq '말티즈' }">selected</c:if>>말티즈</option>
+									    <option value="시츄" <c:if test="${ loginMember.memberPetType eq '시츄' }">selected</c:if>>시츄</option>
+									    <option value="요크셔 테리어" <c:if test="${ loginMember.memberPetType eq '요크셔 테리어' }">selected</c:if>>요크셔 테리어</option>
+									    <option value="믹스견" <c:if test="${ loginMember.memberPetType eq '믹스견' }">selected</c:if>>믹스견</option>
+									    <option value="기타" <c:if test="${ loginMember.memberPetType eq '기타' }">selected</c:if>>기타</option>
 									</select>
 								</div>
 							</div>
