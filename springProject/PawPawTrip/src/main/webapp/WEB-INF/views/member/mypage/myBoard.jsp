@@ -63,23 +63,23 @@
 				<ul>
 					<!-- 페이징 처리 -->
 					<!-- 이전 페이지 -->
-					<li><a href="/member/mypage/my-board?page=${ pageInfo.prevPage }">&lt;</a></li>
+					<li><a href="${ path }/member/mypage/my-board?page=${ pageInfo.prevPage }">&lt;</a></li>
 					<!-- 5개 페이지 목록 -->
-<%-- 					<c:if test=""></c:if> --%>
-					<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageinfo.endPage }">
+					<c:if test="${ empty community }">
+						<li class="disable"><a>1</a></li>
+					</c:if>
+					<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
 						<c:choose>
-							<c:when test="">
+							<c:when test="${ current == pageInfo.currentPage }">
+								<li class="disable"><a>${ current }</a></li>
 							</c:when>
 							<c:otherwise>
+								<li><a href="${ path }/member/mypage/my-board?page=${ current }">${ current }</a></li>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
-					<li><a href="#">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li><a href="#">&gt;</a></li>
+					<!-- 다음 페이지 -->
+					<li><a href="${ path }/member/mypage/my-board?page=${ pageInfo.nextPage }">&gt;</a></li>
 				</ul>
 			</div>
 		</div>

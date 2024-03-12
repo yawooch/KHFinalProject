@@ -12,14 +12,6 @@
 
 <link rel="stylesheet" href="${path}/css/community/mypet.css">
 
-<style>
-	.disable {
-		pointer-events: none;
-		background-color: #B29254;
-		color: white;
-	}
-</style>
-
 <div class="content">
 	<div class="container">
 		<div class="common-title">

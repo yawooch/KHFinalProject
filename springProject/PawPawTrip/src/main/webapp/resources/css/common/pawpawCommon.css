@@ -443,6 +443,12 @@ tr {
     margin-left: 10px;
 }
 
+.disable {
+	pointer-events: none;
+	background-color: #B29254;
+	color: white;
+}
+
 /************************************ 페이징 - 종료 ***********************************/
 
 .common-input-text
