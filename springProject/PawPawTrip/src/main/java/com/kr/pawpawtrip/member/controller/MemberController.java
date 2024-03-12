@@ -79,7 +79,7 @@ public class MemberController {
     
     // 카카오 로그인
     @GetMapping("/kakaoLogin")
-    public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session) throws IOException 
+    public ModelAndView kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session, ModelAndView modelAndView) throws IOException 
     {
         System.out.println("#########" + code);
         
@@ -100,15 +100,20 @@ public class MemberController {
         
         System.out.println(session.getAttribute("loginMember"));
         
-        // 나의 펫 이름 정보가 없을 경우 회원정보 수정으로 보낸다.
-        if(userInfo.getMemberPetName() == null) 
+        // 나의 펫 이름, 타입 정보가 없을 경우 회원정보 수정으로 보낸다.
+        if(userInfo.getMemberPetName() == null && userInfo.getMemberPetType() == null) 
         {
-            return "redirect:/member/mypage/my-info";//회원정보수정으로 보낸다.
+        	modelAndView.addObject("msg", "마이펫 이름, 타입 수정 후 페이지 이용 가능합니다.");
+        	modelAndView.addObject("location", "/member/mypage/my-info");
+        	modelAndView.setViewName("common/msg");
         }
         else
         {
-            return "redirect:/";//메인 화면으로 보낸다.
+        	modelAndView.addObject("location", "/");
+        	modelAndView.setViewName("home");
+        	
         }
+        return modelAndView;
     }
 
     

@@ -41,7 +41,8 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">비밀번호</div>
-								<div class="myInfo-td col-12 padding-bottom"><input type="text" name="memberPw" placeholder="8~15자 영문,숫자 포함"></div>
+								<div class="myInfo-td col-12 padding-bottom"><input type="text" name="memberPw" placeholder="8~15자 영문,숫자 포함"
+									<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>></div>
 							</div>
 						</div>
 						<div class="myInfo-tr row">
@@ -51,7 +52,8 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">비밀번호 확인</div>
-								<div class="myInfo-td col-12 padding-bottom"><input type="text" placeholder="8~15자 영문,숫자 포함"></div>
+								<div class="myInfo-td col-12 padding-bottom"><input type="text" placeholder="8~15자 영문,숫자 포함"
+									<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>></div>
 							</div>
 						</div>
 						<div class="myInfo-tr row">
@@ -62,8 +64,9 @@
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">핸드폰 번호</div>
 								<div class="myInfo-td col-12 padding-bottom">
-									<input type="text" class="contain-button" name="memberPhone" value="${ loginMember.memberPhone }">
-									<button class="paw_btn btn-filled">인증받기</button>
+									<input type="text" class="contain-button" name="memberPhone" value="${ loginMember.memberPhone }"
+										<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>>
+									<button class="paw_btn btn-filled" type="button">인증받기</button>
 								</div>
 							</div>
 						</div>
@@ -75,8 +78,9 @@
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">인증번호</div>
 								<div class="myInfo-td col-12 padding-bottom">
-									<input type="text" class="contain-button">
-									<button class="paw_btn btn-filled">확인</button>
+									<input type="text" class="contain-button"
+										<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>>
+									<button class="paw_btn btn-filled" type="button">확인</button>
 								</div>
 							</div>
 						</div>
@@ -100,7 +104,8 @@
 							</div>
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">이메일</div>
-								<div class="myInfo-td col-12 padding-bottom"><input type="text" name="memberEmail" value="${ loginMember.memberEmail }"></div>
+								<div class="myInfo-td col-12 padding-bottom"><input type="text" name="memberEmail" value="${ loginMember.memberEmail }"
+									<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>></div>
 							</div>
 						</div>
 					</div>
@@ -108,7 +113,7 @@
 				<!-- 하단 버튼 -->
 				<div class="bottom-btn">
 					<button type="submit" class="paw_btn">수정</button>
-					<button type="button" class="paw_btn btn-filled">회원탈퇴</button>
+					<button type="button" class="paw_btn btn-filled" id="delete-btn">회원탈퇴</button>
 				</div>
 			</div>
 		</div>
@@ -120,7 +125,7 @@
 	
 <script>
 	$(document).ready(() => {
-		$('.btn-filled').on('click', () => {
+		$('#delete-btn').on('click', () => {
 			if (confirm('정말로 탈퇴하시겠습니까?')) {
 				location.replace('${ path }/member/mypage/delete');
 			}
