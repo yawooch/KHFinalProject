@@ -47,9 +47,16 @@
 						<c:forEach var="c" items="${ community }">
 							<tr>
 								<td>${ c.communityRNUM }</td>
-								<td class="common-text-left" style="padding-left: 5px;">
-									<a>${ c.communityTitle }</a>
-								</td>
+								<c:if test="${ c.communityCategory == '[수다]' }">
+									<td class="common-text-left" style="padding-left: 5px;">
+										<a href="${ path }/community/board/talkdetail?no=${c.communityNo}">${c.communityCategory} ${ c.communityTitle }</a>
+									</td>
+								</c:if>
+								<c:if test="${ c.communityCategory == '[마이펫 자랑]' }">
+									<td class="common-text-left" style="padding-left: 5px;">
+											<a href="${ path }/community/board/mypetdetail?no=${c.communityNo}">${c.communityCategory} ${ c.communityTitle }</a>
+									</td>
+								</c:if>
 								<td>${ c.communityWriterId }</td>
 								<td class="common-text-right">${ c.communityCount }</td>
 								<td>${ c.communityEd }</td>
