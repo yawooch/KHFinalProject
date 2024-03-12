@@ -21,6 +21,10 @@ public interface MemberMapper {
 
 	int insertKakao(HashMap<String, Object> userInfo);
 	
+	int updateMember(Member member);
+	
+	int updateStatus(@Param("memberNo") int memberNo, @Param("memberStatus") String memberStatus);
+	
 	
 	
 
