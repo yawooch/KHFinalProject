@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core"              prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"               prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"         prefix="fn" %>
-<%@ taglib uri="http://www.springframework.org/security/tags"   prefix="security" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"              prefix="c"          %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"               prefix="fmt"        %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"         prefix="fn"         %>
+<%@ taglib uri="http://www.springframework.org/security/tags"   prefix="security"   %>
 
-<c:set var="path" value="${pageContext.request.contextPath}"/>
+<c:set var="path" value="${pageContext.request.contextPath}" />
 
-	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
 <div class="content">
 	<div class="container">
@@ -86,42 +86,25 @@
                 </div>
             </div>
             <div class="row">
+                <c:forEach var="site" items="${ sites }">
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div class="card h-100">
                         <a href="${path}/trip/stay?stayNo=1">
-                            <img src="${path}/img/common/tempStay.png" class="card-img-top" alt="...">
+                            <c:if test="${site.image== null}">
+	                            <img src="${path}/img/common/replacedImage.png" class="card-img-top" alt="...">
+                            </c:if>
+                            <c:if test="${site.image!= null}">
+                                <img src="${site.image}" class="card-img-top" alt="...">
+                            </c:if>
                         </a>
                         <div class="card-body">
-                            <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayDivisionSize">숙박</a><br>
-                            <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayTitleSize">소노펫클럽앤리조트</a>
-                            <p class="text-muted stayAddressSize"><img src="${path}/img/common/marker.png" >강원 홍천군 서면 한치골길 262</p>
+                            <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayDivisionSize">${site.contenttype}</a><br>
+                            <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayTitleSize">${site.title}</a>
+                            <p class="text-muted stayAddressSize"><img src="${path}/img/common/marker.png" >${site.address}</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12 mb-4">
-                    <div class="card h-100">
-                        <a href="${path}/trip/stay?stayNo=1">
-                            <img src="${path}/img/common/tempStay.png" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayDivisionSize">숙박</a><br>
-                            <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayTitleSize">소노펫클럽앤리조트</a>
-                            <p class="text-muted stayAddressSize"><img src="${path}/img/common/marker.png" >강원 홍천군 서면 한치골길 262</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-12 mb-4">
-                    <div class="card h-100">
-                        <a href="${path}/trip/stay?stayNo=1">
-                            <img src="${path}/img/common/replacedImage.png" class="card-img-top" alt="...">
-                        </a>
-                        <div class="card-body">
-                            <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayDivisionSize">숙박</a><br>
-                            <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayTitleSize">소노펫클럽앤리조트</a>
-                            <p class="text-muted stayAddressSize"><img src="${path}/img/common/marker.png" >강원 홍천군 서면 한치골길 262</p>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </section>

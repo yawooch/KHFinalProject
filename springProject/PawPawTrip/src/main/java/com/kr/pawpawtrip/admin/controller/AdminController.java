@@ -592,7 +592,7 @@ public class AdminController
         
         return ResponseEntity.ok(map);
     }
-    // 인추장 사이트 이동 시 
+    // 인추장 사이트 저장하는 Ajax 
     @ResponseBody
     @PostMapping("/admin/addTopThreeAjax")
     public ResponseEntity<Map<String, Object>> addTopThreeAjax(@RequestParam(value="contentIdsArr[]") List<String>     contentIdsArr) 
