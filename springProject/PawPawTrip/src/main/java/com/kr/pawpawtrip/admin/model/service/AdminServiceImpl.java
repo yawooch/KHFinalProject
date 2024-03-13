@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kr.pawpawtrip.admin.model.mapper.AdminMapper;
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.Pet;
 import com.kr.pawpawtrip.common.util.PageInfo;
 
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,13 @@ public class AdminServiceImpl implements AdminService
     {
         return adminMapper.selectCommunityRanks();
     }
+    
+    //대쉬보드에서 마이펫 비율 정보를 가져온다.
+	@Override
+	public List<Pet> getMyPetRatio() {
+		
+		return adminMapper.selectMypetRatio();
+	}
     
     //관리자화면 인기추천장소에서 사용할 숙박/여행지 목록
     @Override

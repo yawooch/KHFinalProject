@@ -397,7 +397,7 @@ public class CommunityController
         return "community/board/write";
     }
 
-    @PostMapping("/community/board/write")
+    @PostMapping("/board/write")
     public ModelAndView boardWrite(         ModelAndView  modelAndView, 
                                             Community     community, 
             @SessionAttribute("loginMember")Member        loginMember,

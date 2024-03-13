@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kr.pawpawtrip.admin.model.service.AdminService;
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.Pet;
 import com.kr.pawpawtrip.common.api.CommonApiClient;
 import com.kr.pawpawtrip.common.api.item.DetailCommonItem;
 import com.kr.pawpawtrip.common.api.item.PetTourItem;
@@ -75,9 +76,24 @@ public class AdminController
         //대쉬보드 중 게시물 조회수 순위정보를 가져온다.
         List<CommunityRank> ranks = adminService.getCommunityRanks(); 
         
+//        //대쉬보드 중 마이펫 비율 정보를 가져온다.
+//        List<Pet> pets = adminService.getMyPetRatio();
+        
+//        System.out.println("마이펫 비율 정보 : " + pets);
+        
         modelAndView.addObject("ranks", ranks);
         modelAndView.setViewName("admin/dashboard");
         return modelAndView;
+    }
+    
+    /** 대시보드 마이펫 비율 */
+    @GetMapping("/admin/mypetRatioAjax")
+    public ResponseEntity<List<Pet>> mypetRatioAjax() 
+    {
+    	
+    	List<Pet> pets = adminService.getMyPetRatio();
+    	
+    	return ResponseEntity.ok(pets);
     }
 
     /** 트립 매핑 - 목록 화면으로 이동 */

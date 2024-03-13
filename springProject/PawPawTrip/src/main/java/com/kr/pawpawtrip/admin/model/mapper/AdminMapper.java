@@ -8,11 +8,14 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.Pet;
 
 @Mapper
 public interface AdminMapper
 {
     List<CommunityRank> selectCommunityRanks();
+    
+    List<Pet> selectMypetRatio();
 
     List<FavorSite> selectAllFavorSite(RowBounds rowBounds, @Param("select") String select, @Param("search") String search);
 

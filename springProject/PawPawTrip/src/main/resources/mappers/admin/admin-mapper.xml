@@ -35,6 +35,11 @@
         <result property="communityCategory" column="COMMUNITY_CATEGORY" />
     </resultMap>
     
+    <resultMap id="mypetRatioResultMap" type="Pet">
+        <result property="petType" column="MEMBER_PET_TYPE" />
+        <result property="petCount" column="PET_COUNT" />
+    </resultMap>
+    
     <resultMap id="favorSiteResultMap"       type="FavorSite">
         <id     property="contentid"         column="CONTENTID"    />
         <result property="address"           column="ADDRESS"      />
@@ -69,6 +74,12 @@
                       C.COMMUNITY_COUNT DESC NULLS LAST
                 ) 
           WHERE ROWNUM &lt;= 7
+    </select>
+    <select id="selectMypetRatio" resultMap="mypetRatioResultMap">
+        SELECT NVL(MEMBER_PET_TYPE, 'N/A') AS MEMBER_PET_TYPE
+             , COUNT(*) AS PET_COUNT
+          FROM MEMBER
+      GROUP BY MEMBER_PET_TYPE
     </select>
     <select id="selectAllFavorSite" resultMap="favorSiteResultMap">
         SELECT CONTENTID

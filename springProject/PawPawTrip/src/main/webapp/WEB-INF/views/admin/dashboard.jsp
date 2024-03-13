@@ -125,32 +125,50 @@
     const myPetGraph = document.getElementById('myPetGraph');
     const userGraph = document.getElementById('userGraph');
 
-    // 원형 그래프
-    new Chart(myPetGraph, {
-        type     : 'pie',
-        data     : {
-                   labels   : [ '리트리버', '포메라니안 ', '불독', '비숑 ', '말티즈', '푸들', '시츄', '요크셔 테리어', '기타' ],
-                   datasets : [ {
-                                data            : [ 12, 19, 3, 5, 2, 3, 20, 31, 7 ],
-                                borderWidth     : 1,
-                                backgroundColor : [ '#ED6C40', '#F1AC53', '#F7CA45', '#A7CF4A', '#59C37C', '#659CF4', '#3785BA', '#32558C', '#1D3660']
-                              } ]
-                   },
-        options  : {
-                   plugins  : {
-                              legend   : {
-                                          display  : true,
-                                          position : 'right'
-                                         }
-                              },
-                   scales   : {
-                              y        : {
-                                         beginAtZero : true,
-                                         display     : false
-                                         }
-                              }
-                   }
-        })
+    // Ajax
+    $.getJSON('${path}/admin/mypetRatioAjax')
+    .done((obj) => {
+    	console.log(obj);
+    	
+    	let petTypeArr = [];
+    	let petCountArr = [];
+    	
+    	for(let i = 0; i < obj.length; i++) {
+    		petTypeArr.push(obj[i].petType);
+    		petCountArr.push(obj[i].petCount);
+    	}
+    	
+    	console.log(petTypeArr);
+    	console.log(petCountArr);
+    
+	    // 원형 그래프
+	    new Chart(myPetGraph, {
+	        type     : 'pie',
+	        data     : {
+	        		
+	                   labels   : petTypeArr,
+	                   datasets : [ {
+	                                data            : petCountArr,
+	                                borderWidth     : 1,
+	                                backgroundColor : [ '#ED6C40', '#F1AC53', '#F7CA45', '#A7CF4A', '#59C37C', '#659CF4', '#3785BA', '#32558C', '#1D3660']
+	                              } ]
+	                   },
+	        options  : {
+	                   plugins  : {
+	                              legend   : {
+	                                          display  : true,
+	                                          position : 'right'
+	                                         }
+	                              },
+	                   scales   : {
+	                              y        : {
+	                                         beginAtZero : true,
+	                                         display     : false
+	                                         }
+	                              }
+	                   }
+	        })
+    })
 
     // 막대 그래프
     new Chart(userGraph,
