@@ -389,7 +389,6 @@
              , COMMUNITY_O_FILENAME
              , COMMUNITY_R_FILENAME
              , COMMUNITY_WRITER_NO
-             , NOTICE_IMPORTANT_YN
              )
         VALUES
              (
@@ -400,7 +399,6 @@
              , #{communityOfileName}
              , #{communityRfileName}
              , #{communityWriterNo}
-             , #{noticeImportantYN}
              )
      </insert>
      
