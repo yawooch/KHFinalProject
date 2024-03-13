@@ -1,30 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="security"%>
+    prefix="security"%>
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
-<link rel="stylesheet" href="${path}/css/community/mypet.css">
+<link rel="stylesheet" href="${path}/css/admin/favoritesite.css">
 
 <style>
-	.disable {
-		pointer-events: none;
-		background-color: #B29254;
-		color: white;
-	}
+    .disable {
+        pointer-events: none;
+        background-color: #B29254;
+        color: white;
+    }
 </style>
 
 <div class="content">
-	<div class="container">
-		<div class="common-title">
-			<p>인추장 선정</p>
-		</div>
+    <div class="container">
+        <div class="common-title">
+            <p>인추장 선정</p>
+        </div>
         <div class="common-sideMenu">
             <ul>
                 <li>관리자</li>
@@ -34,239 +34,313 @@
                 <li><a href="${path}/admin/favoritesite">인추장 선정</a></li>
             </ul>
         </div>
-		<div class="common-list">
-			<div class="common-search">
-				<div>
-					TOTAL <span>${ pageInfo.listCount }</span>건
-				</div>
-				<div>
-					<div>
-						<select name="communitySelect" id="communitySelect">
-							<option value="title" <c:if test="${searchInfoMap.select == 'title'}">selected</c:if>>제목</option>
-							<option value="name" <c:if test="${searchInfoMap.select == 'name'}">selected</c:if>>작성자</option>
-							<option value="content" <c:if test="${searchInfoMap.select == 'content'}">selected</c:if>>내용</option>
-						</select>
-					</div>
-					<div>
-						<img src="${ path }/img/community/search.png"> 
-						<input type="text" name="communitySearch" id="communitySearch" placeholder="검색어를 입력해주세요." value="${ searchInfoMap.search }">
-					</div>
-					<div>
-						<button onclick="search()">검색</button>
-					</div>
-				</div>
-			</div>
-			<div class="common-detail-list no-row">
-                <div class="row">
-                
-                    <!-- c:forEach로 카드 반복 생성 -->
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail?id=${ spot.tripContentId }" style="text-decoration: none;">
-                            
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                        <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">
-                                        가쟈 아무데나
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        서울 턱별시
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                         콜미
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail?id=${ spot.tripContentId }" style="text-decoration: none;">
-                            
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                        <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">
-                                        가쟈 아무데나
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        서울 턱별시
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                         콜미
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="${ path }/trip/spot/spotDetail?id=${ spot.tripContentId }" style="text-decoration: none;">
-                            
-                            <!-- 카드 이미지 -->
-                            <div class="card mb-4 product-wap rounded-0">
-                                <div class="card rounded-0">
-                                        <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">
-                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                        <p class="readMore" style="font-size: 14px !important;">
-                                            +<br>
-                                            READ MORE
-                                        </p>
-                                    </div>
-                                </div>
-                                <!-- 카드 내용 -->
-                                <div class="card-body">
-                                    <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">
-                                        가쟈 아무데나
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                        서울 턱별시
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                         콜미
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+        <div class="common-list">
+            <div class="common-search">
+                <div>
+                    TOTAL <span>${ pageInfo.listCount }</span>건
                 </div>
-				<table border="1">
-					<tr style="background-color: #FDFAEF;">
-						<td>번호</td>
-						<td style="text-align: center; cursor: default;">제목</td>
-						<td>작성자</td>
-						<td style="text-align: center;">조회수</td>
-						<td>등록일</td>
-					</tr>
-					<c:if test="${ empty boardMypetList }">
-						<tr>
-							<td colspan="5">조회된 데이터가 없습니다.</td>
-						</tr>
-					</c:if>
-					<c:if test="${ not empty boardMypetList }">
-						<c:forEach var="board" items="${ boardMypetList }">
-							<tr>
-								<c:if test="${ board.communityCategory eq '[공지사항]' }">
-									<td>
-										<img src="${ path }/img/community/ant-design_sound-filled.png" alt="">
-									</td>
-									<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
-										<a href="${ path }/community/noticedetail?no=${board.communityNo}" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
-									</td>
-									<td>${ board.communityWriterId }</td>
-									<td class="common-text-right">${ board.communityCount }</td>
-									<td>${ board.communityEd }</td>
-								</c:if>
-								<c:if test="${ board.communityCategory ne '[공지사항]' }">
-									<td>${ board.communityRNUM }</td>
-									<c:if test="${ board.communityCategory eq '[수다]' }">
-										<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
-											<a href="${ path }/community/board/talkdetail?no=${board.communityNo}" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
-										</td>
-									</c:if>
-									<c:if test="${ board.communityCategory eq '[마이펫 자랑]' }">
-										<td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;">
-											<a href="${ path }/community/board/mypetdetail?no=${board.communityNo}" style="font-size: 16px;">${ board.communityCategory } ${ board.communityTitle }</a>
-										</td>
-									</c:if>
-									
-									<td>${ board.communityWriterId }</td>
-									<td class="common-text-right">${ board.communityCount }</td>
-									<td>${ board.communityEd }</td>
-								</c:if>
-							</tr>
-						</c:forEach>
-					</c:if>
-				</table>
-			</div>
-			<div class="btn-wrap">
-				<button class="community-btn" id="writeBtn">글쓰기</button>
-			</div>
-			<div class="common-page-number">
-				<ul>
-					<!-- 페이징 처리 -->
-					<!-- 이전 페이지 -->
-					<c:if test="${ empty searchInfoMap.search }">
-						<li><a href="${ path }/community/board/mypet?page=${ pageInfo.prevPage }">&lt;</a></li>
-					</c:if>
-					<c:if test="${ not empty searchInfoMap.search }">
-						<li><a href="${ path }/community/board/mypet?page=${ pageInfo.prevPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&lt;</a></li>
-					</c:if>
-					<!-- 5개 페이지 목록 -->
-					<c:if test="${ empty boardMypetList }">
-						<li class="disable"><a>1</a></li>
-					</c:if>
-					<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
-						<c:choose>
-							<c:when test="${ current == pageInfo.currentPage }">
-								<li class="disable"><a>${ current }</a></li>
-							</c:when>
-							<c:otherwise>
-								<c:if test="${ empty searchInfoMap.search }">
-									<li><a href="${ path }/community/board/mypet?page=${ current }">${ current }</a></li>
-								</c:if>
-								<c:if test="${ not empty searchInfoMap.search }">
-									<li><a href="${ path }/community/board/mypet?page=${ current }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">${ current }</a></li>
-								</c:if>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
-					
-					<!-- 다음페이지 -->
-					<c:if test="${ empty searchInfoMap.search }">
-						<li><a href="${ path }/community/board/mypet?page=${ pageInfo.nextPage }">&gt;</a></li>
-					</c:if>
-					<c:if test="${ not empty searchInfoMap.search }">
-						<li><a href="${ path }/community/board/mypet?page=${ pageInfo.nextPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&gt;</a></li>
-					</c:if>
-				</ul>
-			</div>
-		</div>
-	</div>
+                <div>
+                    <div>
+                        <select name="searchContentType" id="searchContentType">
+                            <option value=""   >전체</option>
+                            <option value="12" <c:if test="${ searchInfoMap.select == '12' }">selected</c:if>>관광지</option>
+                            <option value="32" <c:if test="${ searchInfoMap.select == '32' }">selected</c:if>>숙소</option>
+                        </select>
+                    </div>
+                    <div style="width: 234px;">
+                        <img src="${ path }/img/community/search.png"> 
+                        <input style="width: 200px;"
+                               type       ="text" 
+                               name       ="searchKeyword" 
+                               id         ="searchKeyword"
+                               placeholder="장소명을 입력해주세요."
+                               value      ="${ searchMap.search }">
+                    </div>
+                    <div><button onClick="search();">검색</button> </div>
+                </div>
+            </div>
+            <div class="common-detail-list no-row">
+                <div class="row" id="topThreeSites">
+                </div>
+            </div>
+                
+              <div class="common-detail-list ">
+            <table border="1">
+                <thead>
+                <tr style="background-color: #FDFAEF;">
+                    <td></td>
+                    <td>컨텐츠ID</td>
+                    <td>구분</td>
+                    <td style="text-align:left; cursor: default;">장소명</td>
+                    <td style="text-align: center;">주소</td>
+                </tr>
+                </thead>
+                <tbody>
+                <c:if test="${ empty sites }">
+                    <tr>
+                        <td colspan="5">조회된 데이터가 없습니다.</td>
+                    </tr>
+                </c:if>
+                <c:if test="${ not empty sites }">
+                    <c:forEach var="site" items="${ sites }">
+                        <tr>
+                           <td><input type="checkbox" name="favorSiteCheck" value="${ site.contentid }" <c:if test="${site.favorRcmdYn == 'Y'}">checked</c:if>/></td>
+                           <td>${ site.contentid }</td>
+                           <td>${ site.contenttype }</td>
+                           <td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;width: 190px;">
+                               <a href="${ path }/trip/${site.contenttype=='관광지'?'spot/spotDetail':'stay/stayDetail'}?id=${site.contentid}" style="font-size: 16px;">${ site.title }</a>
+                           </td>
+                           <td class="common-text-left" style="border: 1px solid #E8E8E8; padding-left: 5px; width: 200px;" >${ site.address }</td>
+                        </tr>
+                    </c:forEach>
+                </c:if>
+                </tbody>
+            </table>
+              </div>
+            <div class="common-page-number">
+                <ul>
+                    <!-- 페이징 처리 -->
+                    <!-- 이전 페이지 -->
+                    <c:if test="${ empty searchInfoMap.search }">
+                        <li><a href="${ path }/admin/favoritesite?page=${ pageInfo.prevPage }">&lt;</a></li>
+                    </c:if>
+                    <c:if test="${ not empty searchInfoMap.search }">
+                        <li><a href="${ path }/admin/favoritesite?page=${ pageInfo.prevPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&lt;</a></li>
+                    </c:if>
+                    <!-- 5개 페이지 목록 -->
+                    <c:if test="${ empty sites }">
+                        <li class="disable"><a>1</a></li>
+                    </c:if>
+                    <c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
+                        <c:choose>
+                            <c:when test="${ current == pageInfo.currentPage }">
+                                <li class="disable"><a>${ current }</a></li>
+                            </c:when>
+                            <c:otherwise>
+                                <c:if test="${ empty searchInfoMap.search }">
+                                    <li><a href="${ path }/admin/favoritesite?page=${ current }">${ current }</a></li>
+                                </c:if>
+                                <c:if test="${ not empty searchInfoMap.search }">
+                                    <li><a href="${ path }/admin/favoritesite?page=${ current }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">${ current }</a></li>
+                                </c:if>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                    
+                    <!-- 다음페이지 -->
+                    <c:if test="${ empty searchInfoMap.search }">
+                        <li><a href="${ path }/admin/favoritesite?page=${ pageInfo.nextPage }">&gt;</a></li>
+                    </c:if>
+                    <c:if test="${ not empty searchInfoMap.search }">
+                        <li><a href="${ path }/admin/favoritesite?page=${ pageInfo.nextPage }&select=${searchInfoMap.select}&search=${searchInfoMap.search}">&gt;</a></li>
+                    </c:if>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
+
+var contentIdsArr = new Array();
+
+$('input[name=favorSiteCheck]').on('change', (event)=>
+{
+	let parentEle   = $(event.target).parents('tr');
+    let maxCount    = 3;
+    let selCount    = $('input[name=favorSiteCheck]:checked').length;
+    let saveDelFlag = $(event.target).prop('checked'); 
+    let contentid   = $(event.target).val();
+    
+    //체크박스 개수 체크
+    if(maxCount < selCount)
+    {
+    	alert('최대개수는 3개입니다.');
+    	$(event.target).prop('checked', false);
+        return false;
+    }
+    
+    if(!confirm('선택한 컨텐츠를 '+ (saveDelFlag?'수정':'삭제') +'하시겠습니까?'))
+    {
+    	return false;
+    }
+
+    //체크박스 체크 여부로 배열에 뺄지 말지 결정
+   	//체크됐을때
+    if(saveDelFlag)
+   	{
+        contentIdsArr.push(contentid);
+   	}
+    else
+    {
+    	let tempArr = new Array();
+    	for(let i = 0; i < contentIdsArr.length; i++)
+    	{
+    		if(contentIdsArr[i] != contentid)
+    		{
+    			tempArr.push(contentIdsArr[i]);
+    		}
+    	}
+    	contentIdsArr = tempArr;
+    }
+    console.log(contentIdsArr);
+    
+    let data = {contentIdsArr};
+    
+    $.ajax(
+    {
+        type : 'POST',
+        url  : '${path}/admin/addTopThreeAjax',
+        data : data,
+        success:function(data)
+        {
+            console.log(data);
+//             showFavorites();
+            alert('화면이 새로고침됩니다.');
+            location.href = location.href;
+        },
+        error: function(error){
+            console.log(`error : ${error}`);
+        }
+     });
+})
+
+showFavorites();
+function showFavorites()
+{
+    $.ajax(
+    {
+        type : 'GET',
+        url  : '${path}/admin/favoriteTopThreeAjax',
+//         data : data,
+        success:function(data)
+        {
+            console.log(data);
+            console.log(data.sites.length);
+            let resultStr = '';
+            let sites = data.sites;
+            let startRowNo = 0;
+            
+
+            //조회된 site만큼 for문을 돌린다.
+            for(let i = 0; i< sites.length ; i ++)
+            {
+            	let site = sites[i]; // '+ site. + '
+
+            	contentIdsArr.push(site.contentid);
+            	let imageUrl = site.image;
+            	if(imageUrl =='' || imageUrl == null)
+            	{
+            		imageUrl = 'https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg';
+            	}
+            	
+                resultStr += '<div class="col-md-4">';
+                resultStr += '    <a href="" name="" style="text-decoration: none;">';
+                resultStr += '        <div class="card mb-4 product-wap rounded-0">';
+                resultStr += '            <div class="card rounded-0">';
+                resultStr += '                <img class="card-img rounded-0 img-fluid" src="'+ imageUrl +'">';
+                resultStr += '                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">';
+                resultStr += '                    <p class="readMore" style="font-size: 14px !important;">+<br>DELETE';
+                resultStr += '                    </p>';
+                resultStr += '                </div>';
+                resultStr += '            </div>';
+                resultStr += '            <div class="card-body">';
+                resultStr += '                <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">';
+                resultStr += site.title + '</p>';
+                resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">';
+                resultStr += site.address + '</p>';
+                resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">';
+                resultStr += (site.tel==null?'방문접수':site.tel) + '</p>';
+                resultStr += '            </div>';
+                resultStr += '        </div>';
+                resultStr += '    </a>';
+                resultStr += '</div>';
+            }
+            for(let i = 0; i< (3-sites.length) ; i ++)
+            {
+                resultStr += '<div class="col-md-4">';
+                resultStr += '    <a  style="text-decoration: none;">';
+                resultStr += '        <div class="card mb-4 product-wap rounded-0">';
+                resultStr += '            <div class="card rounded-0">';
+                resultStr += '                <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">';
+                resultStr += '                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">';
+                resultStr += '                    <p class="readMore" style="font-size: 14px !important;">+<br>INSERT CONTENT</p>';
+                resultStr += '                </div>';
+                resultStr += '            </div>';
+                resultStr += '            <div class="card-body">';
+                resultStr += '                <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">';
+                resultStr += '                    가쟈 아무데나';
+                resultStr += '                </p>';
+                resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">';
+                resultStr += '                    서울 턱별시';
+                resultStr += '                </p>';
+                resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">';
+                resultStr += '                     콜미';
+                resultStr += '                </p>';
+                resultStr += '            </div>';
+                resultStr += '        </div>';
+                resultStr += '    </a>';
+                resultStr += '</div>';
+            }
+            $('#topThreeSites').empty();
+            $('#topThreeSites').append(resultStr);
+        },
+        error: function(error){
+            console.log(`error : ${error}`);
+            let resultStr = '';
+
+            for(let i = 0; i< 3 ; i ++)
+            {
+                resultStr += '<div class="col-md-4">';
+                resultStr += '    <a  style="text-decoration: none;">';
+                resultStr += '        <div class="card mb-4 product-wap rounded-0">';
+                resultStr += '            <div class="card rounded-0">';
+                resultStr += '                <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">';
+                resultStr += '                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">';
+                resultStr += '                    <p class="readMore" style="font-size: 14px !important;">';
+                resultStr += '                        +<br>';
+                resultStr += '                        READ MORE';
+                resultStr += '                    </p>';
+                resultStr += '                </div>';
+                resultStr += '            </div>';
+                resultStr += '            <div class="card-body">';
+                resultStr += '                <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">';
+                resultStr += '                    가쟈 아무데나';
+                resultStr += '                </p>';
+                resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">';
+                resultStr += '                    서울 턱별시';
+                resultStr += '                </p>';
+                resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">';
+                resultStr += '                     콜미';
+                resultStr += '                </p>';
+                resultStr += '            </div>';
+                resultStr += '        </div>';
+                resultStr += '    </a>';
+                resultStr += '</div>';
+
+            }
+            $('#topThreeSites').empty();
+            $('#topThreeSites').append(resultStr);
+        }
+     });
+    
+    console.log(contentIdsArr);
+}
 function search() {
-    var selectValue = document.getElementById("communitySelect").value;
-    var searchValue = document.getElementById("communitySearch").value;
-    
-    console.log(searchValue.trim() == '');
-    
-    if(searchValue.trim() != '') {
-    	var url = "${path}/community/board/mypet?select=" + selectValue + "&search=" + encodeURIComponent(searchValue);
+    var selectValue = document.getElementById('searchContentType').value;
+    var searchValue = document.getElementById('searchKeyword').value;
+
+    let data              = {searchKeyword , searchContentType};
+
+    if(searchValue.trim() != '' || selectValue.trim() != '') {
+        var url = "${path}/admin/favoritesite?select=" + selectValue + "&search=" + encodeURIComponent(searchValue);
     }
     else {
-    	var url = "${path}/community/board/mypet";
+        var url = "${path}/admin/favoritesite";
     }
     
     window.location.href = url;
 }
-
-$('#writeBtn').on('click', () => {
-	if(${loginMember == null}) {
-		alert('로그인 후 작성 가능합니다.');
-	} else {
-		location.href='${ path }/community/board/write';
-	}
-});
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

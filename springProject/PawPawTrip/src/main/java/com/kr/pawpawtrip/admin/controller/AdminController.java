@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kr.pawpawtrip.admin.model.service.AdminService;
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
+import com.kr.pawpawtrip.admin.model.vo.FavorSite;
 import com.kr.pawpawtrip.common.api.CommonApiClient;
 import com.kr.pawpawtrip.common.api.item.DetailCommonItem;
 import com.kr.pawpawtrip.common.api.item.PetTourItem;
@@ -37,6 +38,7 @@ import com.kr.pawpawtrip.common.model.service.CommonService;
 import com.kr.pawpawtrip.common.model.vo.Category;
 import com.kr.pawpawtrip.common.model.vo.CommonArea;
 import com.kr.pawpawtrip.common.util.MultipartFileUtil;
+import com.kr.pawpawtrip.common.util.PageInfo;
 import com.kr.pawpawtrip.community.model.service.CommunityService;
 import com.kr.pawpawtrip.community.model.vo.Community;
 import com.kr.pawpawtrip.member.model.vo.Member;
@@ -72,8 +74,6 @@ public class AdminController
     {
         //대쉬보드 중 게시물 조회수 순위정보를 가져온다.
         List<CommunityRank> ranks = adminService.getCommunityRanks(); 
-        
-        ranks.stream().forEach(System.out::println);
         
         modelAndView.addObject("ranks", ranks);
         modelAndView.setViewName("admin/dashboard");
@@ -260,9 +260,6 @@ public class AdminController
 
         Category   category   = commonService.getAllCategory(detailCommonItem.getCat3());
         CommonArea commonArea = commonService.getFullAreaName(detailCommonItem.getAreacode(), (detailCommonItem.getSigungucode().isEmpty()?"0":detailCommonItem.getSigungucode()));
-        log.info(detailCommonItem.getAreacode(), (detailCommonItem.getSigungucode().isEmpty()?"0":detailCommonItem.getSigungucode()));
-        
-        log.info("tripDetailAjax detailCommonItem : {}, petTourReponseItem : {}", detailCommonItem, petTourReponseItem);
 
         petTourReponseItem.setDbExistYn("미등록");
         petTourReponseItem.setDbAcmpyTypeCd(null);
@@ -382,10 +379,10 @@ public class AdminController
         int result = 0;
         // 1. 파일 업로드 확인 후 파일 저장
         // 파일을 업로드하지 않으면 로그에 true, 업로드하면 false
-        log.info("isEmpty: {}", talkWriteFile.isEmpty());
+        //log.info("isEmpty: {}", talkWriteFile.isEmpty());
         
         // 파일을 업로드하지 않으면 ""(빈문자), 업로드하면 "파일명"
-        log.info("File Name : {}", talkWriteFile.getOriginalFilename());
+        //log.info("File Name : {}", talkWriteFile.getOriginalFilename());
         
         if(talkWriteFile != null && !talkWriteFile.isEmpty())
         {
@@ -433,8 +430,6 @@ public class AdminController
     {
         Community community = communityService.getBoardNo(no);
     
-        log.info("Board Update - {}", community);
-    
         if (community != null && community.getCommunityWriterId().equals(loginMember.getMemberId()))
         {
             modelAndView.addObject("community", community);
@@ -458,12 +453,9 @@ public class AdminController
                    @SessionAttribute Member        loginMember)
     {
         int result = 0;
-    
-        System.out.println("community : " + community);
         
         Community dbCommunity = communityService.getBoardNo(community.getCommunityNo());
     
-        System.out.println("dbCommunity : " + dbCommunity);
         if (dbCommunity != null && dbCommunity.getCommunityWriterId().equals(loginMember.getMemberId()))
         {
             String location = null;
@@ -503,7 +495,8 @@ public class AdminController
                     }
                     dbCommunity.setCommunityOfileName("");
                     dbCommunity.setCommunityRfileName("");
-                } catch (IOException e)
+                }
+                catch (IOException e)
                 {
                     e.printStackTrace();
                 }
@@ -511,8 +504,8 @@ public class AdminController
             }
             dbCommunity.setCommunityWriterNo(loginMember.getMemberNo());
             dbCommunity.setNoticeImportantYN(community.getNoticeImportantYN());
-            dbCommunity.setCommunityTitle(community.getCommunityTitle());
-            dbCommunity.setCommunityContent(community.getCommunityContent());
+            dbCommunity.setCommunityTitle(   community.getCommunityTitle());
+            dbCommunity.setCommunityContent( community.getCommunityContent());
     
             result = communityService.save(dbCommunity);
     
@@ -554,10 +547,63 @@ public class AdminController
 
     // 인추장 사이트 이동
     @GetMapping("/admin/favoritesite")
-    public ModelAndView favoritesite(        ModelAndView modelAndView)
+    public ModelAndView favoritesite(        ModelAndView modelAndView,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "") String select, 
+            @RequestParam(defaultValue = "") String search)
     {
+        // 전체 리스트 수
+        int listCount = 0;
+        // 페이징 처리
+        PageInfo pageInfo = null;
+        
+        // 검색 파라미터 request scope에 저장하기 위한 HashMap
+        Map<String, String> map = new HashMap<String, String>();
+
+        map.put("select", select);
+        map.put("search", search);
+
+        listCount = adminService.getFavorSiteCount(select, search);
+        pageInfo = new PageInfo(page, 5, listCount, 20);
+
+        List<FavorSite> sites = adminService.getFavorSite(pageInfo, select, search);
+        
+        log.info("sites.size() : {}",sites.size());
+        
+        modelAndView.addObject("searchInfoMap", map);
+        modelAndView.addObject("pageInfo"     , pageInfo);
+        modelAndView.addObject("sites"        , sites);
         modelAndView.setViewName("admin/favoritesite");
         return modelAndView;
+    }
+    
+
+    // 인추장 Top3 가져오는 Ajax
+    @GetMapping("/admin/favoriteTopThreeAjax")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> favoriteTopThreeAjax(ModelAndView modelAndView) 
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        
+
+        List<FavorSite> sites = adminService.getFavoriteTopThree();
+        
+        map.put("sites", sites);
+        
+        return ResponseEntity.ok(map);
+    }
+    // 인추장 사이트 이동 시 
+    @ResponseBody
+    @PostMapping("/admin/addTopThreeAjax")
+    public ResponseEntity<Map<String, Object>> addTopThreeAjax(@RequestParam(value="contentIdsArr[]") List<String>     contentIdsArr) 
+    {
+        Map<String, Object> map = new HashMap<String, Object>();
+        
+        int result = adminService.saveFavoriteTopThree(contentIdsArr);
+        
+        map.put("result", result);
+        
+        return ResponseEntity.ok(map);
     }
   
     /**

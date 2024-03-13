@@ -56,7 +56,6 @@ public class CommunityController
         // 전체 리스트 조회(검색기능 포함)
         List<Community> noticeList = null;
 
-
         // 페이징 처리
         PageInfo pageInfo = null;
         // 전체 리스트 수
@@ -67,10 +66,6 @@ public class CommunityController
         map.put("select", select);
         map.put("search", search);
 
-        log.info("|||||||||||||||||||||||||||||||   select : {} ", select);
-        log.info("|||||||||||||||||||||||||||||||   search : {} ", search);
-        log.info("|||||||||||||||||||||||||||||||   listCount : {} ", listCount);
-        
         listCount = communityService.getNoticeCount(select, search);
         pageInfo = new PageInfo(page, 5, listCount, 15);
 

@@ -113,7 +113,7 @@
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div class="card h-100">
                         <a href="${path}/trip/stay?stayNo=1">
-                            <img src="${path}/img/common/tempStay.png" class="card-img-top" alt="...">
+                            <img src="${path}/img/common/replacedImage.png" class="card-img-top" alt="...">
                         </a>
                         <div class="card-body">
                             <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayDivisionSize">숙박</a><br>
@@ -126,4 +126,4 @@
         </div>
     </section>
 </div>
-	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+<jsp:include page="/WEB-INF/views/common/footer.jsp" />
