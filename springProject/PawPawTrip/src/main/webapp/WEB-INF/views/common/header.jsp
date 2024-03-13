@@ -54,8 +54,8 @@
                         <li class="nav-item">
                             <a class="nav-link" href="${path}/trip/spot">포포트립</a>
                             <ul class="menu-sub" id="menuUlsecond">
-                                <li class="on"><a href="${path}/trip/spot">여행</a></li>
-                                <li class=""><a href="${path}/trip/stay">숙박</a></li>
+                                <li class="on"><a href="${path}/trip/spot">관광지</a></li>
+                                <li class=""><a href="${path}/trip/stay">숙소</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">

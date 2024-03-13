@@ -68,14 +68,14 @@ color: #FDFAEF;
 	<div class="container">
 		
 	    <!-- 페이지 타이틀 -->
-	    <div class="common-title"><p>여행</p></div>
+	    <div class="common-title"><p>관광지</p></div>
 	
         <!-- 사이드 메뉴 -->
         <div class="common-sideMenu">
             <ul>
                 <li class="community-text">포포트립</li>
-                <li class="notice-text"><a href="${ path }/trip/spot">여행</a></li>
-                <li class="board-text"><a href="${ path }/trip/stay">숙박</a>
+                <li class="notice-text"><a href="${ path }/trip/spot">관광지</a></li>
+                <li class="board-text"><a href="${ path }/trip/stay">숙소</a>
             </ul>
         </div>
 	        
@@ -206,11 +206,11 @@ color: #FDFAEF;
     var swiper = new Swiper(".Swiper", {
         spaceBetween: 0,
         centeredSlides: true,
-        loop: true,
-        autoplay: {
-            delay: 2000,
-            disableOnInteraction: false,
-        },
+//         loop: true,
+//         autoplay: {
+//             delay: 2000,
+//             disableOnInteraction: false,
+//         },
         pagination: {
             el: ".swiper-pagination",
             clickable: true,

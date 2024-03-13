@@ -29,14 +29,14 @@
     <div class="container">
     
         <!-- 페이지 타이틀 -->
-        <div class="common-title"><p>여행</p></div>
+        <div class="common-title"><p>관광지</p></div>
 
         <!-- 사이드 메뉴 -->
         <div class="common-sideMenu">
             <ul>
                 <li class="community-text">포포트립</li>
-                <li class="notice-text"><a href="${ path }/trip/spot">여행</a></li>
-                <li class="board-text"><a href="${ path }/trip/stay">숙박</a>
+                <li class="notice-text"><a href="${ path }/trip/spot">관광지</a></li>
+                <li class="board-text"><a href="${ path }/trip/stay">숙소</a>
             </ul>
         </div>
         <!-- 내부 콘텐츠 -->
@@ -49,7 +49,7 @@
 					<!-- 지역 선택 -->
 					<div>
 						<select name="selectArea" id="selectArea">
-							<option value="" >지역</option>
+							<option value="">지역</option>
 								<c:forEach var="area" items="${ searchAreaOptions }">							
 			                        <option value="${ area.cityCode }" <c:if test="${ selectAndSearch.selectArea == area.cityCode }" >selected</c:if>>
 			                        	${ area.areaName }
@@ -89,11 +89,16 @@
 				</div>
 			</div>
 
-            <!-- 콘텐츠 내용 -->
+            <!-- *************************************** 콘텐츠 내용 ********************************************* -->
             <div class="common-detail-list no-row">
                 <div class="row">
-                
-                    <!-- c:forEach로 카드 반복 생성 -->
+                	
+                	<!-- 조회된 게시물이 없을 시 -->
+                    <c:if test="${ empty spots }">
+                    	<p>조회된 게시물이 없습니다.</p>
+                    </c:if>
+                    
+                    <!-- 조회된 게시물이 있을 시, 카드 반복 생성 -->
                     <c:forEach var="spot" items="${ spots }">
 	                    <div class="col-md-4">
 	                        <a href="${ path }/trip/spot/spotDetail?id=${ spot.tripContentId }" style="text-decoration: none;">
@@ -108,10 +113,7 @@
 		                                    <img class="card-img rounded-0 img-fluid" src="${ spot.tripImage }">
 	                                	</c:if>
 	                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-	                                        <p class="readMore" style="font-size: 14px !important;">
-	                                            +<br>
-	                                            READ MORE
-	                                        </p>
+	                                        <p class="readMore" style="font-size: 14px !important;">+<br>READ MORE</p>
 	                                    </div>
 	                                </div>
 	                                <!-- 카드 내용 -->
@@ -153,6 +155,9 @@
 						                    
                 	<!-- 현재 페이지 -->
                 	<!-- 첫 페이지부터 마지막페이지까지 반복(5페이지씩 보이게 설정함) -->
+					<c:if test="${ empty spots }">
+						<li class="disable"><a>1</a></li>
+					</c:if>                	
                 	<c:forEach var="currentPage" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
                 		<c:choose>
                 			<c:when test="${ currentPage == pageInfo.currentPage }">

@@ -191,7 +191,7 @@ public class TripController {
 		modelAndView.addObject("stays", stays);
 		modelAndView.addObject("pageInfo", pageInfo);
 		modelAndView.addObject("searchAreaOptions", searchAreaOptions);
-		modelAndView.addObject("searchKeyword", map);
+		modelAndView.addObject("selectAndSearch", map);
 		modelAndView.setViewName("trip/stay");		
 		
 		return modelAndView;

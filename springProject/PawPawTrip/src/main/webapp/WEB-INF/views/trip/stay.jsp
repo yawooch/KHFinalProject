@@ -29,14 +29,14 @@
     <div class="container">
     
         <!-- 페이지 타이틀 -->
-        <div class="common-title"><p>숙박</p></div>
+        <div class="common-title"><p>숙소</p></div>
 
         <!-- 사이드 메뉴 -->
         <div class="common-sideMenu">
             <ul>
                 <li class="community-text">포포트립</li>
-                <li class="notice-text"><a href="${ path }/trip/spot">여행</a></li>
-                <li class="board-text"><a href="${ path }/trip/stay">숙박</a>
+                <li class="notice-text"><a href="${ path }/trip/spot">관광지</a></li>
+                <li class="board-text"><a href="${ path }/trip/stay">숙소</a>
             </ul>
         </div>
         <!-- 내부 콘텐츠 -->
@@ -49,9 +49,11 @@
 				<div>
 					<div>
 						<select name="selectArea" id="selectArea">
-							<option value="" selected>지역</option>
+							<option value="">지역</option>
 								<c:forEach var="area" items="${ searchAreaOptions }">							
-			                        <option value="${ area.cityCode }">${ area.areaName }</option>
+			                        <option value="${ area.cityCode }" <c:if test="${ selectAndSearch.selectArea == area.cityCode }" >selected</c:if>>
+			                        	${ area.areaName }
+			                        </option>
 								</c:forEach>
 <!-- 	                        <option value="area-1">서울특별시</option> -->
 <!-- 	                        <option value="area-2">인천광역시</option> -->
@@ -82,7 +84,7 @@
 					</div>
 					<div>
 						<!-- 검색버튼 클릭 시, search()함수 실행 -->
-						<button id="btnSearch" onclick="search()">검색</button>
+						<button id="btnSearch" onclick="search();">검색</button>
 					</div>
 				</div>
 			</div>
@@ -90,7 +92,13 @@
             <!-- 콘텐츠 내용 -->
             <div class="common-detail-list no-row">
                 <div class="row">
-                    <!-- 카드 (반복 생성) -->
+                
+                	<!-- 조회된 게시물이 없을 시 -->
+                    <c:if test="${ empty stays }">
+                    	<p>조회된 게시물이 없습니다.</p>
+                    </c:if>
+                    
+                    <!-- 조회된 게시물이 있을 시, 카드 반복 생성 -->
                     <c:forEach var="stay" items="${ stays }">
 	                    <div class="col-md-4">
 	                        <a href="${ path }/trip/stay/stayDetail?id=${stay.stayContentId}" style="text-decoration: none;">
@@ -146,6 +154,9 @@
 						                    
                 	<!-- 현재 페이지 -->
                 	<!-- 첫 페이지부터 마지막페이지까지 반복(5페이지씩 보이게 설정함) -->
+					<c:if test="${ empty stays }">
+						<li class="disable"><a>1</a></li>
+					</c:if>                 	
                 	<c:forEach var="currentPage" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
                 		<c:choose>
                 			<c:when test="${ currentPage == pageInfo.currentPage }">
@@ -193,7 +204,6 @@
 	    window.location.href = url;		
 	}	
 </script>
-
 
 <!-- 푸터 -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
