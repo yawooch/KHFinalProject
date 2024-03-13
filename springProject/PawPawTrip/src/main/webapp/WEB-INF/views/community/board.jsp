@@ -52,12 +52,12 @@
 				</div>
 			</div>
 			<div class="common-detail-list">
-				<table border="1">
+				<table border="1" class="common-table">
 					<tr style="background-color: #FDFAEF;">
-						<td>번호</td>
-						<td style="text-align: center; cursor: default;">제목</td>
+						<td style="width: 50px;">번호</td>
+						<td style="width: 500px; text-align: center; cursor: default;">제목</td>
 						<td>작성자</td>
-						<td style="text-align: center;">조회수</td>
+						<td style="width: 60px; text-align: center;">조회수</td>
 						<td>등록일</td>
 					</tr>
 					<c:if test="${ empty boardList }">
