@@ -89,7 +89,7 @@
                 <c:forEach var="site" items="${ sites }">
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div class="card h-100">
-                        <a href="${path}/trip/stay?stayNo=1">
+                        <a href="${ path }/trip/${site.contenttype=='관광지'?'spot/spotDetail':'stay/stayDetail'}?id=${site.contentid}">
                             <c:if test="${site.image== null}">
 	                            <img src="${path}/img/common/replacedImage.png" class="card-img-top" alt="...">
                             </c:if>
@@ -98,8 +98,8 @@
                             </c:if>
                         </a>
                         <div class="card-body">
-                            <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayDivisionSize">${site.contenttype}</a><br>
-                            <a href="${path}/trip/stay?stayNo=1" class="text-decoration-none text-dark stayTitleSize">${site.title}</a>
+                            <a href="${ path }/trip/${site.contenttype=='관광지'?'spot/spotDetail':'stay/stayDetail'}?id=${site.contentid}" class="text-decoration-none text-dark stayDivisionSize">${site.contenttype}</a><br>
+                            <a href="${ path }/trip/${site.contenttype=='관광지'?'spot/spotDetail':'stay/stayDetail'}?id=${site.contentid}" class="text-decoration-none text-dark stayTitleSize">${site.title}</a>
                             <p class="text-muted stayAddressSize"><img src="${path}/img/common/marker.png" >${site.address}</p>
                         </div>
                     </div>
