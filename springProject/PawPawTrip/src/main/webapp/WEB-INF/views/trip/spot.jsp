@@ -79,7 +79,7 @@
 						<input type="text" 
 							   name="searchKeyword" 
 							   id=  "searchKeyword" 
-							   placeholder="주소 또는 장소를 입력해주세요."
+							   placeholder="주소/장소를 입력해주세요."
 							   value="${ selectAndSearch.searchKeyword }">
 					</div>
 					<div>
@@ -106,12 +106,7 @@
 	                            <!-- 카드 이미지 -->
 	                            <div class="card mb-4 product-wap rounded-0">
 	                                <div class="card rounded-0">
-	                                	<c:if test="${ spot.tripImage == '-' }">	                                		
-		                                    <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">
-	                                	</c:if>
-	                                	<c:if test="${ spot.tripImage != '-' }">
-		                                    <img class="card-img rounded-0 img-fluid" src="${ spot.tripImage }">
-	                                	</c:if>
+		                                <img class="card-img rounded-0 img-fluid" src="${ spot.tripImage }">
 	                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
 	                                        <p class="readMore" style="font-size: 14px !important;">+<br>READ MORE</p>
 	                                    </div>
@@ -124,16 +119,16 @@
 	                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
 	                                        ${ spot.tripAddress }
 	                                    </p>
-	                                    <c:if test="${ spot.tripTel == '-' }">
-		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-		                                         별도 문의
-		                                    </p>	                                    	
-	                                    </c:if>
-	                                    <c:if test="${ spot.tripTel != '-' }">
-		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-		                                         ${ spot.tripTel }
-		                                    </p>
-	                                    </c:if>
+<%-- 	                                    <c:if test="${ spot.tripTel == '-' }"> --%>
+<%-- 		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;"> --%>
+<!-- 		                                         별도 문의 -->
+<!-- 		                                    </p>	                                    	 -->
+<%-- 	                                    </c:if> --%>
+<%-- 	                                    <c:if test="${ spot.tripTel != '-' }"> --%>
+<%-- 		                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;"> --%>
+<%-- 		                                         ${ spot.tripTel } --%>
+<!-- 		                                    </p> -->
+<%-- 	                                    </c:if> --%>
 	                                </div>
 	                            </div>
 	                        </a>

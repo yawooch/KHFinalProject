@@ -105,12 +105,7 @@
 	                            <!-- 카드 이미지 -->
 	                            <div class="card mb-4 product-wap rounded-0">
 	                                <div class="card rounded-0">
-	                                	<c:if test="${ stay.stayImage == '-' }">	                                	
-		                                    <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/9tKP6gJ/image.jpg">
-	                                	</c:if>
-	                                	<c:if test="${ stay.stayImage != '-' }">
-		                                    <img class="card-img rounded-0 img-fluid" src="${ stay.stayImage }">
-	                                	</c:if>
+		                                <img class="card-img rounded-0 img-fluid" src="${ stay.stayImage }">
 	                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
 	                                        <p class="readMore" style="font-size: 14px !important;">+<br>READ MORE</p>
 	                                    </div>
