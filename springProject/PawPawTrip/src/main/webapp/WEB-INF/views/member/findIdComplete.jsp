@@ -22,7 +22,7 @@
 	                <h3>보호자님 아이디는 아래와 같습니다.</h3>
 	                <br />
 	                <h2>
-	                <b style="color: #B29254;">woochan</b> <br> 
+	                <b style="color: #B29254;">${ memberId }</b> <br> 
 	                </h2>
 	                <input class="paw_btn_long" type="button" value="로그인 하기" onclick="location.href='${ path }/login'"/>
 	            </div>

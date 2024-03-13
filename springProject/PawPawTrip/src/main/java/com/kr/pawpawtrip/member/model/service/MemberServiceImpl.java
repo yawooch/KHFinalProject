@@ -229,13 +229,32 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.selectMemberById(memberId);
 	}
 
-
 	@Override
 	@Transactional
 	public int delete(int memberNo) {
 		
 		return mapper.updateStatus(memberNo, "N");
 	}
+
+	// 아이디 찾기
+	@Override
+	public String findMemberId(String memberName, String memberPhone) {
+		
+		return mapper.findMemberId(memberName, memberPhone);
+	}
+
+	// 비밀번호 찾기
+	@Override
+	public Member findMemberAndChangePw(String memberId, String memberName, String memberPhone) {
+		
+		Member member = mapper.findMemberAndChangePw(memberId, memberName, memberPhone);
+		
+		System.out.println("### findMember ### : " + member);
+		
+		return member;
+	}
+
+	
 
 
 	

@@ -25,7 +25,11 @@ public interface MemberMapper {
 	
 	int updateStatus(@Param("memberNo") int memberNo, @Param("memberStatus") String memberStatus);
 	
+	// 아이디 찾기
+	String findMemberId(@Param("memberName") String memberName, @Param("memberPhone") String memberPhone);
+	
+	// 비밀번호 찾기
+	Member findMemberAndChangePw(@Param("memberId") String memberId, @Param("memberName") String memberName, @Param("memberPhone") String memberPhone);
 	
 	
-
 }

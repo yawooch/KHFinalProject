@@ -15,7 +15,7 @@
 	
 <section class="content container-fluid">
 	<!-- 메인 -->
-	<form class="container" action="${ path }/member/find-pw" method="post">
+	<form class="container" action="${ path }/member/change-pw" method="post">
         <!-- 비밀번호 찾기 -->
         <section class="member-content main-box">
             <!-- navi -->
@@ -34,34 +34,34 @@
                     <div class="findId-tr row">
                         <div class="col-lg-3">이름</div>
                         <div class="col-lg-9 findId-contain">
-                            <input class="user_info_input_tag1" type="text" name="" id="" />
+                            <input class="user_info_input_tag1" type="text" name="memberName" id="memberName" />
                             <button class="col-12 paw_btn2" type="button" style="visibility: hidden;">숨기기</button>
                         </div>
                     </div>
                     <div class="findId-tr row">
                         <div class="col-lg-3">아이디</div>
                         <div class="col-lg-9 findId-contain">
-                            <input class="user_info_input_tag1" type="text" name="" id="" />
+                            <input class="user_info_input_tag1" type="text" name="memberId" id="memberId" />
                             <button class="col-12 paw_btn2" type="button" style="visibility: hidden;">숨기기</button>
                         </div>
                     </div>
                     <div class="findId-tr row">
                         <div class="col-lg-3">휴대폰 번호</div>
                         <div class="col-lg-9 findId-contain" style="display:inline-flex;">
-                            <input class="contain-button" type="text" name="" id="" placeholder="휴대폰 번호 '-' 제외하고 입력" />
-                            <button class="col-12 paw_btn2">인증받기</button>
+                            <input class="contain-button" type="text" name="memberPhone" id="memberPhone" placeholder="휴대폰 번호 '-' 제외하고 입력" />
+                            <button class="col-12 paw_btn2" id="sendVerificationCodeBtn" type="button">인증받기</button>
                         </div>
                     </div>
                     <div class="findId-tr row">
                         <div class="col-lg-3"></div>
                         <div class="col-lg-9 findId-contain">
-                            <input class="user_info_input_tag2" type="text" name="" id="" placeholder="인증번호 입력" />
-                        	<button class="col-12 paw_btn2">확인</button>
+                            <input class="user_info_input_tag2" type="text" id="verificationCode" placeholder="인증번호 입력" />
+                        	<button class="col-12 paw_btn2" id="verifyCodeBtn" type="button">확인</button>
                         </div>
                     </div>
                 </div>
                 <div style="text-align: center">
-                    <button class="paw_btn1" type="submit">비밀번호 찾기</button>
+                    <button class="paw_btn1" id="submit-btn" type="submit">비밀번호 찾기</button>
                 </div>
             </div>
         </section>
@@ -70,3 +70,45 @@
 
 	<!-- 푸터 -->
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
+
+<script type="text/javascript">
+$(document).ready(function() {
+	// 랜덤 수 생성 변수 선언   
+	var generatedCode = null;
+	
+	// 인증하기 버튼 클릭 시
+	$("#sendVerificationCodeBtn").on('click', phoneCode);
+	
+	// 핸드폰 인증 번호 발송
+	function phoneCode() {
+	    generatedCode = Math.floor(100000 + Math.random() * 900000);
+	    alert("휴대폰으로 전송된 인증번호 : " + generatedCode);
+	}
+	
+	// 확인 버튼 클릭 시   
+	$("#verifyCodeBtn").on('click', verifyCode);
+	
+	// 인증 번호 확인
+	function verifyCode() {
+	    var inputCode = $("#verificationCode").val();
+	    
+	    if (parseInt(inputCode) === generatedCode) {
+	        alert("인증에 성공하였습니다.");
+	    } else {
+	        alert("인증에 실패하였습니다. 올바른 인증번호를 입력하세요.");
+	    }
+	}
+	
+	// 인증번호 일치 시, 아이디 찾기 폼 submit
+	$("#submit-btn").on('click', checkNum);
+	
+	function checkNum() {
+		if (parseInt($("#verificationCode").val()) !== generatedCode) {
+	    	// 인증번호가 맞지 않을 시 폼 제출 막기
+	        event.preventDefault();
+	        alert("인증번호를 확인해주세요.");
+		}
+	}
+});	
+
+</script>

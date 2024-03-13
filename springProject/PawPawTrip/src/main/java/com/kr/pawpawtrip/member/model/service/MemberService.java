@@ -21,5 +21,10 @@ public interface MemberService {
 
 	int delete(int memberNo);
 
+	// 아이디 찾기
+	String findMemberId(String memberName, String memberPhone);
+
+	// 비밀번호 찾기
+	Member findMemberAndChangePw(String memberId, String memberName, String memberPhone);
 	
 }

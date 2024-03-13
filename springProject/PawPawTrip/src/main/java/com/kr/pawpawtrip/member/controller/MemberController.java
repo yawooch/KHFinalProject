@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -116,14 +117,11 @@ public class MemberController {
         }
         else
         {
-        	modelAndView.addObject("location", "/");
-        	modelAndView.setViewName("home");
-        	
+        	modelAndView.setViewName("redirect:/");
         }
         return modelAndView;
     }
 
-    
     
     // 아이디 찾기
     @GetMapping("/member/find-id")
@@ -131,37 +129,95 @@ public class MemberController {
         
         return "member/findId";
     }
-    
+  
     // 아이디 찾기 완료
-    @PostMapping("/member/find-id")
-    public String findIdComplete() {
-        
-        return "member/findIdComplete";
+    @PostMapping("/member/complete-id")
+    public ModelAndView findIdComplete(ModelAndView modelAndView,
+    									@RequestParam String memberName,
+    									@RequestParam String memberPhone) {
+    	
+    	
+    	String memberId = service.findMemberId(memberName, memberPhone);
+    	
+    	System.out.println("####memberId#### : " + memberId);
+    	
+    	if(memberId != null) {
+    		modelAndView.addObject("memberId", memberId);
+    		modelAndView.addObject("location", "/member/findIdComplete");
+    		modelAndView.setViewName("member/findIdComplete");
+    	} else {
+    		modelAndView.addObject("msg", "회원을 찾을 수 없습니다. 다시 확인 해주세요.");
+    		modelAndView.addObject("location", "/member/find-id");
+    		modelAndView.setViewName("common/msg");
+    	}
+    	
+        return modelAndView;
     }
-    
-    // 비밀번호 찾기
+     
+    // 비밀번호 찾기 페이지
     @GetMapping("/member/find-pw")
     public String findPw() {
         
         return "member/findPw";
     }
     
-    // 비밀번호 변경
-    @PostMapping("member/find-pw")
-    public String changePw() {
-        
-        return "member/changePw";
-    }
-    
-    // 비밀번호 변경 완료
+    // 비밀번호 찾기
     @PostMapping("/member/change-pw")
-    public String findPwComplete() {
-        
-        return "member/findPwComplete";
+    public ModelAndView changePw(ModelAndView modelAndView,
+    							 HttpSession session,
+    							 @RequestParam String memberId,
+    							 @RequestParam String memberName,
+    							 @RequestParam String memberPhone) {
+    	
+    	Member member = service.findMemberAndChangePw(memberId, memberName, memberPhone);
+    	
+    	session.setAttribute("updateMember", member);
+    	
+    	System.out.println("####member##### : " + member);
+    	
+    	if(member != null) {
+    		modelAndView.addObject("member", member);
+    		modelAndView.addObject("location", "/member/change-pw");
+    		modelAndView.setViewName("member/changePw");
+    	} else {
+    		modelAndView.addObject("msg", "회원을 찾을 수 없습니다. 다시 확인 해주세요.");
+    		modelAndView.addObject("location", "/member/find-pw");
+    		modelAndView.setViewName("common/msg");
+    	}
+    	
+        return modelAndView;
     }
     
+    // 비밀번호 변경 
+    @PostMapping("/member/complete-pw")
+    public ModelAndView findPwComplete(HttpSession session,
+    								   ModelAndView modelAndView,
+    								   Member member) {
+    	
+    	Member updateMember = (Member) session.getAttribute("updateMember");
+    	System.out.println("updateMember : " + updateMember);
+    	
+    	member.setMemberNo(updateMember.getMemberNo());
+    	
+    	int result = service.save(member);
+    	
+    	System.out.println("result : " + result);
+    	
+    	if (result > 0) {
+    		// 비밀번호 변경 완료
+    		modelAndView.addObject("updateMember", service.findMemberById(updateMember.getMemberId()));
+    		modelAndView.addObject("location", "/member/findPwComplete");
+    		modelAndView.setViewName("member/findPwComplete");
+    	} else {
+    		// 비밀번호 변경 실패
+    		modelAndView.addObject("msg", "비밀번호 변경에 실패하였습니다.");
+    		modelAndView.addObject("location", "redirect:/member/find-pw");
+    		modelAndView.setViewName("common/msg");
+    	}
+    	
+        return modelAndView;
+    }
     
-        
     // 마이페이지 - 회원 정보 수정
     @GetMapping("/member/mypage/my-info")
     public String myInfo() {
@@ -174,7 +230,6 @@ public class MemberController {
     public ModelAndView update(ModelAndView modelAndView, Member member, @SessionAttribute("loginMember") Member loginMember) {
 
     	System.out.println("loginMember : " + loginMember); // 실제 로그인 멤버의 정보
-    	
         System.out.println("member : " + member); // 수정한 데이터를 저장하는 객체
         
         member.setMemberNo(loginMember.getMemberNo());
@@ -221,7 +276,7 @@ public class MemberController {
     
     // 마이페이지 - 내가 쓴 게시글
     @GetMapping("/member/mypage/my-board")
-   public ModelAndView myBoard(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, HttpSession session) {
+    public ModelAndView myBoard(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, HttpSession session) {
         
         List<Community> community = null;
         Member loginMember = (Member) session.getAttribute("loginMember");

@@ -122,11 +122,31 @@
 	<update id="updateMember" parameterType="Member">
 	    UPDATE MEMBER  
 	    <set>
-	    	MEMBER_PET_NAME = #{memberPetName},
-	        MEMBER_PET_TYPE = #{memberPetType},
-	        MEMBER_PHONE = #{memberPhone},
-	        MEMBER_EMAIL = #{memberEmail},
 	        MEMBER_MD = SYSDATE,
+	    	<if test="memberPetName == null">
+	            MEMBER_PET_NAME = MEMBER_PET_NAME,
+	        </if>
+	        <if test="memberPetName != null">
+	            MEMBER_PET_NAME = #{memberPetName},
+	        </if>
+	        <if test="memberPetType == null">
+	            MEMBER_PET_TYPE = MEMBER_PET_TYPE,
+	        </if>
+	        <if test="memberPetType != null">
+	            MEMBER_PET_TYPE = #{memberPetType},
+	        </if>
+	        <if test="memberPhone == null">
+	            MEMBER_PHONE = MEMBER_PHONE,
+	        </if>
+	        <if test="memberPhone != null">
+	            MEMBER_PHONE = #{memberPhone},
+	        </if>
+	        <if test="memberEmail == null">
+	            MEMBER_EMAIL = MEMBER_EMAIL,
+	        </if>
+	        <if test="memberEmail != null">
+	            MEMBER_EMAIL = #{memberEmail},
+	        </if>
 	        <if test="memberPw == null">
 	            MEMBER_PW = MEMBER_PW
 	        </if>
@@ -146,4 +166,22 @@
 		WHERE 
 			MEMBER_NO = #{memberNo}
 	</update>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findMemberId" parameterType="String" resultType="String">
+		SELECT MEMBER_ID
+		FROM MEMBER
+		WHERE MEMBER_NAME=#{memberName} AND MEMBER_PHONE=#{memberPhone}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findMemberAndChangePw" parameterType="string" resultMap="memberResultMap">
+		<include refid="selectMemberSql" />
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_NAME = #{memberName}
+		AND MEMBER_PHONE = #{memberPhone}
+	</select>
+	
+	<!-- 비밀번호 변경하기 -->
+	
 </mapper>
