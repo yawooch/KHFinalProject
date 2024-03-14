@@ -2,6 +2,7 @@ package com.kr.pawpawtrip.common.interceptor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,11 +47,11 @@ public class MemberUrlCheckInterceptor implements HandlerInterceptor
          * request.getRequestURI()    /pawpawtrip/admin/tripList                                                                     
          ********************************************************/
 
-        String remoteAddr = request.getRemoteAddr();
         
         int memberNo = 0;
         MemberAccsLog memberAccsLog = new MemberAccsLog();
-        memberAccsLog.setAccessAddr(remoteAddr);
+        memberAccsLog.setAccessAddr(request.getRemoteAddr());
+        memberAccsLog.setAccessAddr(request.getServletPath());
         
         
         
@@ -67,16 +68,16 @@ public class MemberUrlCheckInterceptor implements HandlerInterceptor
         }
         memberAccsLog.setMemberNo(memberNo);
 
-        MemberAccsLog todayVisitor = adminService.getVisitorLog(remoteAddr, memberNo);
+        List<MemberAccsLog> todayVisitors = adminService.getVisitorLog(memberAccsLog);
         
         
         
-        if (todayVisitor == null)
+        if (todayVisitors.size() == 0)
         {
             adminService.saveVisitorLog(memberAccsLog);
         }
         
-        log.info("todayVisitor : {}", todayVisitor);
+        log.info("todayVisitor : {}", todayVisitors);
         
         
         

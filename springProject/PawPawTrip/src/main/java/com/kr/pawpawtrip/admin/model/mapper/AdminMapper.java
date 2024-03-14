@@ -39,5 +39,5 @@ public interface AdminMapper
     int insertMemberAccsLog(MemberAccsLog memberAccsLog);
 
     //사용자 접속 로그 테이블에서 사용자 가져오기
-    MemberAccsLog selectMemberAccsLog(@Param("remoteAddr") String remoteAddr, @Param("memberNo") int memberNo);
+    List<MemberAccsLog> selectMemberAccsLog(MemberAccsLog memberAccsLog);
 }

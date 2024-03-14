@@ -15,4 +15,5 @@ public class MemberAccsLog
     private int       memberNo;
     private String    accessAddr;
     private LocalDate accessDate;
+    private String    accessPath;
 }

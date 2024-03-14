@@ -106,7 +106,7 @@
 	                            <!-- 카드 이미지 -->
 	                            <div class="card mb-4 product-wap rounded-0">
 	                                <div class="card rounded-0">
-		                                <img class="card-img rounded-0 img-fluid" src="${ spot.tripImage }">
+		                                <img class="card-img rounded-0 img-fluid" src="${ spot.tripImage }" alt="잠시후에 다시 시도해 주세요.">
 	                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
 	                                        <p class="readMore" style="font-size: 14px !important;">+<br>READ MORE</p>
 	                                    </div>

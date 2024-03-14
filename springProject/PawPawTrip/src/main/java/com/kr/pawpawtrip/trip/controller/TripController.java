@@ -50,33 +50,37 @@ public class TripController {
 		List<Spot> spots = tripService.getSpotList(pageInfo, selectArea, searchKeyword);
 		
 		// 이미지 대체 조건
-		// 	1. spot 객체에 저장된 image데이터가 없을 경우, api에서 조회한 이미지로 대체
-		// 	2. api에서도 없을 경우, 지정 URL 노출
+		// 	1. DB에 저장된 image데이터가 없을 경우, api를 호출하여 이미지를 update실행
+		// 	2. api에서도 없을 경우, 특정 이미지(이미지 준비 중) 노출
 		for (Spot spot : spots) {
-			String tripImageURL = "";			
+			String apiImageURL = "";
+			int result = 0;
+			int id = 0;
+			
+			id = spot.getTripContentId();
 			
 			// Spot객체에서 얻은 이미지 데이터값이 "-"라면, API에서 조회한 이미지 URL 사용 
-			if (spot.getTripImage().equals("-")) {
+			if (spot.getTripImage().equals("-") || spot.getTripImage() == null) {
 				
 				// 이미지 API 호출 + 예외던지기
-				DetailImageResponse detailImageResponse = commonApiClient.apiDetailImageByContentId(spot.getTripContentId() , 1);
+				DetailImageResponse detailImageResponse = commonApiClient.apiDetailImageByContentId(id , 1);
 				List<DetailImageItem> detailImageItems = detailImageResponse.getDetailImageItems();
 				
 				for (DetailImageItem detailImageItem : detailImageItems) {
 					
-					// System.out.println("***************************************************************************");
 					// System.out.println(detailImageItem.getOriginimgurl());
+					apiImageURL = detailImageItem.getOriginimgurl();
 					
-					tripImageURL = detailImageItem.getOriginimgurl();
-					spot.setTripImage(tripImageURL);
-					
+					if (apiImageURL != null) {
+						result = tripService.saveSpotImage(id, apiImageURL);
+						// System.out.println("*******************************************************************************");
+						// System.out.println(apiImageURL);
+						
+					}	 
 					// Spot 객체의 이미지 데이터값이 없고, API 이미지에도 데이터가 존재하지 않을 때(둘 다 데이터가 없을 때)
-					if(detailImageItem.getOriginimgurl() == null) {
+					else if (apiImageURL == null) {
+						spot.setTripImage("/pawpawtrip/img/trip/readyImage.png");
 						
-						// tripImageURL = "https://i.ibb.co/9tKP6gJ/image.jpg";
-						tripImageURL = "/pawpawtrip/img/common/replacedImage.png";
-						
-						spot.setTripImage(tripImageURL);
 					}
 				}
 			}				
@@ -133,7 +137,7 @@ public class TripController {
 				detailImageItem.setOriginimgurl(spot.getTripImage());
 				
 				if (spot.getTripImage().equals("-")) {
-					detailImageItem.setOriginimgurl("/pawpawtrip/img/common/replacedImage.png");
+					detailImageItem.setOriginimgurl("/pawpawtrip/img/trip/readyImage.png");
 				}
 			}
 		}
@@ -166,19 +170,29 @@ public class TripController {
 		List<CommonArea> searchAreaOptions = commonService.getAreaByCode("00");
 		
 		for (Stay stay : stays) {
-			String stayImageURL = "";
+			String apiImageURL = "";
+			int result = 0;
+			int id = 0;
 			
-			if (stay.getStayImage().equals("-")) {
-				DetailImageResponse detailImageResponse = commonApiClient.apiDetailImageByContentId(stay.getStayContentId(), 1);
+			id = stay.getStayContentId();
+			
+			if (stay.getStayImage().equals("-") || stay.getStayImage() == null) {
+				DetailImageResponse detailImageResponse = commonApiClient.apiDetailImageByContentId(id, 1);
 				List<DetailImageItem> detailImageItems = detailImageResponse.getDetailImageItems();
 				
 				for (DetailImageItem detailImageItem : detailImageItems) {
 					
-					stayImageURL = detailImageItem.getOriginimgurl();
-					stay.setStayImage(stayImageURL);
+					apiImageURL = detailImageItem.getOriginimgurl();
 					
-					if (stayImageURL == null) {
-						stay.setStayImage("/pawpawtrip/img/common/replacedImage.png");
+					// stay에 바로 설정해주려 했으나 호출시간이 긴 이슈 발생하여, api 조회이미지를 DB에 저장 후 저장된 데이터 조회  
+					// stay.setStayImage(stayImageURL);	
+					
+					if (apiImageURL != null) {
+						result = tripService.saveStayImage(id, apiImageURL);
+					}
+					
+					else if (apiImageURL == null) {
+						stay.setStayImage("/pawpawtrip/img/trip/readyImage.png");						
 					}
 				}
 			}
@@ -214,7 +228,7 @@ public class TripController {
 				detailImageItem.setOriginimgurl(stay.getStayImage());
 				
 				if (stay.getStayImage().equals("-")) {
-					detailImageItem.setOriginimgurl("/pawpawtrip/img/common/replacedImage.png");
+					detailImageItem.setOriginimgurl("/pawpawtrip/img/trip/readyImage.png");
 				}
 			}
 		}

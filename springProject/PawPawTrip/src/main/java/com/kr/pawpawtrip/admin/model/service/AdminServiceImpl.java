@@ -86,9 +86,9 @@ public class AdminServiceImpl implements AdminService
     }
 
     @Override
-    public MemberAccsLog getVisitorLog(String remoteAddr,  int memberNo)
+    public List<MemberAccsLog> getVisitorLog(MemberAccsLog memberAccsLog)
     {
-        return adminMapper.selectMemberAccsLog(remoteAddr,  memberNo);
+        return adminMapper.selectMemberAccsLog(memberAccsLog);
     }
 
 }

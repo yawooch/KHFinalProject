@@ -22,43 +22,80 @@
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <style>
- * { 
+* { 
     font-family: 'Noto Sans KR'; 
 }
-/* @media (min-width: 768px { */
-/* 	.swiper{ */
-/* 		display: block; */
-/* 		width: 100%; */
-/* 		height: 50%; */
-/* 		bottom: 0; */
-		
-/* 	}	 */
-/* } */
 
-/* @media (min-width: 992px) { */
-/* 	.swiper{ */
-/* 		display: block; */
-/* 		width: 100%; */
-/* 		height: 50%; */
-/* 		bottom: 0; */
-		
-/* 	} */
-/* } */
+@media (min-width: 1200px) {
+	.tripDetail-mainInfo-wrap{
+		height: 350px;
+	}
+	.tripDetail-mainInfo{
+		width: 44%;
+		height: 100%
+	}
+	.swiper {
+		width: 55%;
+		height: 100%;
+	}
+}
 
-/* @media (min-width: 1200px){ */
-/* 	.swiper{ */
-/* 		height: 100%; */
-/* 		width: 55% !important; */
-/* 	} */
-/* } */
+@media (max-width: 1200px) {
+	.tripDetail-mainInfo-wrap{
+		height: 350px;
+	}
+	.tripDetail-mainInfo{
+		width: 44%;
+		height: 100%
+	}
+	.swiper {
+		width: 55%;
+		height: 100%;
+	}
+}
+
+@media (max-width: 992px) {
+	.tripDetail-mainInfo-wrap{
+		height: 350px;
+	}
+	.tripDetail-mainInfo{
+		display: block;
+		width: 44%;
+		top: 0;
+		height: inherit;
+	}
+	
+}
+
+@media (max-width: 768px) {
+	.tripDetail-mainInfo-wrap{
+		height: 660px;
+	}
+	.tripDetail-mainInfo{
+		display: block;
+		width: 100%;
+		height: 48%;
+		padding-left: 20px !important;
+		top: 340px;
+	}
+	.mainInfo{
+		padding-left: 20px !important;
+	}
+	.swiper {
+		display: block ;
+		width: 100%;
+		height: 50%;
+		top: 0;
+	}	
+}
 
 .swiper {
 display: inline-block;
 position: absolute;    
 /* margin: 15px 0px; */
 flex-direction: row;
-	width: 55%;
-	height: 330px;
+/* width: 55%; */
+/* height: 330px; */
 z-index: 5;
 left: 0; 
 border-radius: 10px;

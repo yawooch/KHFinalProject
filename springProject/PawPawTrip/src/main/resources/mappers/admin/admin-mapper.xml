@@ -39,6 +39,7 @@
         <result property="memberNo"          column="MEMBER_NO"          />
         <result property="accessAddr"        column="ACCESS_ADDR"        />
         <result property="accessDate"        column="ACCESS_DATE"        />
+        <result property="accessPath"        column="ACCESS_PATH"        />
     </resultMap>
     
     <resultMap id="mypetRatioResultMap"      type="Pet">
@@ -227,22 +228,26 @@
         (
                MEMBER_NO
              , ACCESS_ADDR
+             , ACCESS_PATH
         )
         VALUES
         (
               #{memberNo}
              ,#{accessAddr}
+             ,#{accessPath}
         )
     </insert>
     
     
-    <select id="selectMemberAccsLog" parameterType="map" resultMap="accsLogResultMap">
+    <select id="selectMemberAccsLog" parameterType="MemberAccsLog" resultMap="accsLogResultMap">
         SELECT MEMBER_NO
              , ACCESS_ADDR
              , ACCESS_DATE
+             , ACCESS_PATH
           FROM MEMBER_ACCS_LOG
          WHERE TO_CHAR(ACCESS_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
-           AND ACCESS_ADDR                      = #{remoteAddr}
+           AND ACCESS_ADDR                      = #{accessAddr}
+           AND ACCESS_PATH                      = #{accessPath}
            AND MEMBER_NO                        = #{memberNo}
     </select>
     

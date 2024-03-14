@@ -24,5 +24,5 @@ public interface AdminService
 
     int saveVisitorLog(MemberAccsLog memberAccsLog);
 
-    MemberAccsLog getVisitorLog(String remoteAddr,  int memberNo);
+    List<MemberAccsLog> getVisitorLog(MemberAccsLog memberAccsLog);
 }
