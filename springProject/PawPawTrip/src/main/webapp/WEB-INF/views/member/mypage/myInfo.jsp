@@ -129,5 +129,17 @@
 	
 	<!-- js 추가 -->
 	<script type="text/javascript" src="${path}/js/member/mypage/myInfo.js"></script>
+
+		
+<script>
+    // 알림메세지를 띄움
+    alert("${ msg }");
+
+    // 실행시켜야할 스크립트가 있으면 실행
+    if(${ not empty script }) {
+        ${ script }
+    }
+</script>
+	
 	
 

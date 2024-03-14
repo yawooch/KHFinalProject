@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +43,7 @@ public class MemberController {
     // 로그인 화면
     @GetMapping("/login")
     public String login() {
-        
+    	
         return "member/login";
     }
     
@@ -69,7 +72,7 @@ public class MemberController {
             modelAndView.addObject("location", "/login");
             modelAndView.setViewName("common/msg");
         }
-        
+   
         System.out.println("loginMember : " + loginMember);
         
         return modelAndView;
@@ -143,7 +146,6 @@ public class MemberController {
     	
     	if(memberId != null) {
     		modelAndView.addObject("memberId", memberId);
-    		modelAndView.addObject("location", "/member/findIdComplete");
     		modelAndView.setViewName("member/findIdComplete");
     	} else {
     		modelAndView.addObject("msg", "회원을 찾을 수 없습니다. 다시 확인 해주세요.");
@@ -177,7 +179,6 @@ public class MemberController {
     	
     	if(member != null) {
     		modelAndView.addObject("member", member);
-    		modelAndView.addObject("location", "/member/change-pw");
     		modelAndView.setViewName("member/changePw");
     	} else {
     		modelAndView.addObject("msg", "회원을 찾을 수 없습니다. 다시 확인 해주세요.");
@@ -206,7 +207,6 @@ public class MemberController {
     	if (result > 0) {
     		// 비밀번호 변경 완료
     		modelAndView.addObject("updateMember", service.findMemberById(updateMember.getMemberId()));
-    		modelAndView.addObject("location", "/member/findPwComplete");
     		modelAndView.setViewName("member/findPwComplete");
     	} else {
     		// 비밀번호 변경 실패
@@ -272,8 +272,6 @@ public class MemberController {
         return modelAndView;
     }
     
- 
-    
     // 마이페이지 - 내가 쓴 게시글
     @GetMapping("/member/mypage/my-board")
     public ModelAndView myBoard(ModelAndView modelAndView, @RequestParam(defaultValue = "1") int page, HttpSession session) {
@@ -334,7 +332,6 @@ public class MemberController {
         System.out.println("member : " + member);
         if (result > 0) {
             // 회원가입 성공 페이지로 이동
-            modelAndView.addObject("location", "/member/complete");
             modelAndView.setViewName("member/enrollComplete");
         } else {
             modelAndView.addObject("msg", "회원 가입 실패");
