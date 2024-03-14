@@ -75,10 +75,18 @@ public class HomeController
 		return "template/shopSingle" ;
 	}
 
-	@GetMapping("/common/template")
-	public String template() {
-		return "common/template" ;
-	}
+    @GetMapping("/common/msg")
+    public ModelAndView commonMsg(ModelAndView modelAndView, String msg, String location) {
+        
+        modelAndView.addObject("location", location);
+        modelAndView.addObject("msg", msg);
+        modelAndView.setViewName("common/msg" );
+        return modelAndView;
+    }
+    @GetMapping("/common/template")
+    public String template() {
+        return "common/template" ;
+    }
 	@GetMapping("/common/error")
 	public ModelAndView error(ModelAndView modelAndView) {
 		modelAndView.setViewName("common/error") ;

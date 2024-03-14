@@ -462,3 +462,9 @@ tr {
     padding: 8px;
     font-size: 15px;
 }
+
+/* summernote전체화면 배경 페이지 */
+div.note-editable 
+{
+    background-color:white;
+}
