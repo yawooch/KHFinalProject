@@ -8,3 +8,18 @@
 	color: #B29254;
 	font-weight: bold;
 }
+
+/********************************************************/
+
+/* .myTrip-list { */
+/*     width: 100%; */
+/*     border: 1px solid #E8E8E8 !important; */
+/*     padding: 20px; */
+/*     font-size: 16px; */
+/*     border: none; */
+/*     border-spacing: 0 5px; */
+/* } */
+
+.common-detail-list {
+	margin-top: 0 !important;
+}
