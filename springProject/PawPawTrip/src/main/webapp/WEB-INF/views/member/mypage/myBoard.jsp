@@ -24,7 +24,8 @@
 			<ul>
 				<li class="community-text">마이페이지</li>
 				<li class="notice-text"><a href="${path}/member/mypage/my-info">회원 정보 수정</a></li>
-				<li class="board-text"><a href="${path}/memebr/mypage/my-board">내가 쓴 게시글</a>
+				<li class="board-text" style="border-bottom: 0;"><a href="${path}/member/mypage/my-board">내가 쓴 게시글</a></li>
+				<li><a href="${path}/member/mypage/my-trip">내가 찜한 장소</a></li>
 			</ul>
 		</div>
 		<!-- 컨텐츠 -->

@@ -26,7 +26,8 @@
 			<ul>
 				<li class="">마이페이지</li>
 				<li class="on"><a href="${path}/member/mypage/my-info">회원 정보 수정</a></li>
-				<li class=""><a href="${path}/member/mypage/my-board">내가 쓴 게시글</a>
+				<li class=""><a href="${path}/member/mypage/my-board">내가 쓴 게시글</a></li>
+				<li class=""><a href="${path}/member/mypage/my-trip">내가 찜한 장소</a></li>
 			</ul>
 		</div>
 		<div class="common-list">

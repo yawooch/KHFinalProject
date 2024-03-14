@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.myboard-detail-list {
+	margin-top: 0;
+}
+
+.board-text > a {
+	color: #B29254;
+	font-weight: bold;
+}
