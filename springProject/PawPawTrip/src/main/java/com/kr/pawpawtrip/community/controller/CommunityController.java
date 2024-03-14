@@ -392,17 +392,21 @@ public class CommunityController
 
 //    게시글 작성
     @GetMapping("/board/write")
-    public String boardWrite()
+    public ModelAndView boardWrite(ModelAndView modelAndView)
     {
-        return "community/board/write";
+    	modelAndView.setViewName("board/write");
+    	
+        return modelAndView;
     }
 
     @PostMapping("/board/write")
     public ModelAndView boardWrite(         ModelAndView  modelAndView, 
                                             Community     community, 
-            @SessionAttribute("loginMember")Member        loginMember,
+//            @SessionAttribute("loginMember")Member        loginMember,
+                                            HttpSession session,
             @RequestParam("talkWriteFile")  MultipartFile talkWriteFile)
     {
+    	Member loginMember = (Member) session.getAttribute("loginMember");
 
         int result = 0;
 
@@ -477,6 +481,9 @@ public class CommunityController
         community = communityService.getBoardNo(no);
 
         log.info("Board Update - {}", community);
+        
+//        modelAndView.addObject("community", community);
+//        modelAndView.setViewName("community/board/update");
 
         if (community != null && community.getCommunityWriterId().equals(loginMember.getMemberId()))
         {
@@ -484,7 +491,7 @@ public class CommunityController
             modelAndView.setViewName("community/board/update");
         } else
         {
-            modelAndView.addObject("msg", "잘못된 접근입니다.");
+            modelAndView.addObject("msg", "잘못 된 접근입니다.");
             modelAndView.addObject("location", "/community/board");
             modelAndView.setViewName("common/msg");
         }
@@ -502,12 +509,6 @@ public class CommunityController
                   @RequestParam     MultipartFile talkWriteFile,
                   @SessionAttribute Member        loginMember)
     {
-
-//        System.out.println(communityNo);
-//        System.out.println(communityCategory);
-//        System.out.println(communityTitle);
-//        System.out.println(communityContent);
-//        System.out.println(talkWriteFile);
 
         int result = 0;
 
@@ -609,44 +610,44 @@ public class CommunityController
 
         community = communityService.getBoardNo(no);
 
-        result = communityService.delete(no);
-
-        if (result > 0)
-        {
-            modelAndView.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
-
-            if (community.getCommunityCategory().equals("[수다]"))
-            {
-                modelAndView.addObject("location", "/community/board/talk");
-            }
-
-            if (community.getCommunityCategory().equals("[마이펫 자랑]"))
-            {
-                modelAndView.addObject("location", "/community/board/mypet");
-            }
-        } else
-        {
-            modelAndView.addObject("msg", "게시글이 정상적으로 삭제되지 않았습니다.");
-
-            if (community.getCommunityCategory().equals("[수다]"))
-            {
-                modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
-            }
-
-            if (community.getCommunityCategory().equals("[마이펫 자랑]"))
-            {
-                modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
-            }
+        if(community != null && community.getCommunityWriterId().equals(loginMember.getMemberId())) {
+        	
+        	result = communityService.delete(no);
+        
+        	if (result > 0)
+        	{
+        		modelAndView.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
+        		
+        		if (community.getCommunityCategory().equals("[수다]"))
+        		{
+        			modelAndView.addObject("location", "/community/board/talk");
+        		}
+        		
+        		if (community.getCommunityCategory().equals("[마이펫 자랑]"))
+        		{
+        			modelAndView.addObject("location", "/community/board/mypet");
+        		}
+        	} else
+        	{
+        		modelAndView.addObject("msg", "게시글이 정상적으로 삭제되지 않았습니다.");
+        		
+        		if (community.getCommunityCategory().equals("[수다]"))
+        		{
+        			modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
+        		}
+        		
+        		if (community.getCommunityCategory().equals("[마이펫 자랑]"))
+        		{
+        			modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
+        		}
+        	}
+        } else {
+        	modelAndView.addObject("msg", "잘못 된 접근입니다.");
+        	modelAndView.addObject("location", "/community/board");
         }
 
-        modelAndView.setViewName("common/msg");
 
-//        if(community != null && community.getCommunityWriterId().equals(loginMember.getMemberId())) {
-//            System.out.println("정상입니다.");
-//            
-//        } else {
-//            System.out.println("비정상입니다.");
-//        }
+        modelAndView.setViewName("common/msg");
 
         return modelAndView;
     }
