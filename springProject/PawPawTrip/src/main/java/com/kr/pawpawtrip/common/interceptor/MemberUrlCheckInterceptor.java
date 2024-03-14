@@ -51,7 +51,7 @@ public class MemberUrlCheckInterceptor implements HandlerInterceptor
         int memberNo = 0;
         MemberAccsLog memberAccsLog = new MemberAccsLog();
         memberAccsLog.setAccessAddr(request.getRemoteAddr());
-        memberAccsLog.setAccessAddr(request.getServletPath());
+        memberAccsLog.setAccessPath(request.getServletPath());
         
         
         
