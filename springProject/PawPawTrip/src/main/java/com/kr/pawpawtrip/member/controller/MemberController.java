@@ -227,7 +227,7 @@ public class MemberController {
     }
     
     @PostMapping("/member/mypage/update")
-    public ModelAndView update(ModelAndView modelAndView, Member member, @SessionAttribute("loginMember") Member loginMember) {
+    public ModelAndView update(ModelAndView modelAndView, Member member, @SessionAttribute("loginMember") Member loginMember, HttpSession session) {
 
     	System.out.println("loginMember : " + loginMember); // 실제 로그인 멤버의 정보
         System.out.println("member : " + member); // 수정한 데이터를 저장하는 객체
@@ -240,6 +240,8 @@ public class MemberController {
         
         if (result > 0) {
             // 회원정보 수정 완료
+        	loginMember = service.findMemberById(member.getMemberId());
+        	session.setAttribute("loginMember", loginMember);
             modelAndView.addObject("loginMember", service.findMemberById(loginMember.getMemberId()));
             modelAndView.addObject("msg", "회원 정보 수정 완료");
         } else {

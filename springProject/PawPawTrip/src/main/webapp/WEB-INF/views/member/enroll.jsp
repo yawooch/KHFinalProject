@@ -177,9 +177,4 @@
 <!-- js 추가 -->
 <script type="text/javascript" src="${path}/js/member/enroll.js"></script>
 
-<script>
-
-
-
-</script>
 
