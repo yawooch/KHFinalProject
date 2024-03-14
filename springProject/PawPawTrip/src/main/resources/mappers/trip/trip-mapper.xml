@@ -5,7 +5,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.kr.pawpawtrip.trip.model.mapper.TripMapper">
-    <!-- 여행 SQL 구문 -->
+    <!-- 관광지 SQL 구문 -->
     <sql id="spotListSql">
 		SELECT TRIP_CONTENTID
 		     , TRIP_ADDRESS || TRIP_DETAIL_ADDRESS AS TRIP_ADDRESS
@@ -66,7 +66,7 @@
     
     <!-- ************************************************************************************************** -->
 
-    <!-- 여행 페이지 ResultMap -->
+    <!-- 관광지 페이지 ResultMap -->
     <resultMap  id="spotListResultMap" type="Spot">
         <id     property="tripContentId"     column="TRIP_CONTENTID"     />
         <result property="tripAddress"       column="TRIP_ADDRESS"       />
@@ -85,7 +85,7 @@
     	<association property="petInfo" columnPrefix="P_" resultMap="petInfoResultMap"/>
     </resultMap>
 
-    <!-- 숙박 페이지 ResultMap -->
+    <!-- 숙소 페이지 ResultMap -->
     <resultMap  id="stayListResultMap" type="Stay">
         <id     property="stayContentId"     column="STAY_CONTENTID"     />
         <result property="stayAddress"       column="STAY_ADDRESS"       />
@@ -144,7 +144,7 @@
 	
 	<!-- ************************************************************************************** -->
 	
-	<!-- 여행지 게시물 수 조회 -->
+	<!-- 관광지 게시물 수 조회 -->
 	<select id="selectSpotCount" resultType="_int" parameterType="string">
 		SELECT COUNT(*)
 		  FROM TRIP
@@ -159,7 +159,7 @@
 	</select>
 	
 	
-    <!-- 여행지 목록 전체 조회 -->
+    <!-- 관광지 목록 전체 조회 -->
     <select id="selectSpotList" resultMap="spotListResultMap" parameterType="string">
         <include refid="spotListSql"/>
 		  <where>
@@ -173,7 +173,16 @@
     </select>
     
     
-    <!-- 여행 콘텐츠 아이디로 여행지 상세페이지 조회 -->
+    <!-- 관광지 API 이미지 DB저장 (DB에서 null인 경우에만) -->
+    <update id="updateSpotApiImage"  parameterType="map">
+		UPDATE TRIP
+		   SET TRIP_IMAGE = #{apiImageURL}
+		 WHERE TRIP_IMAGE IS NULL
+		   AND TRIP_CONTENTID = #{id}    
+    </update>
+    
+    
+    <!-- 관광지 CONTENT ID 로 관광지 상세페이지 조회 -->
 	<select id="selectSpotById" parameterType="_int" resultMap="spotListResultMap">
         SELECT T.TRIP_CONTENTID,
 		       T.TRIP_ADDRESS || T.TRIP_DETAIL_ADDRESS 		AS TRIP_ADDRESS,
@@ -195,7 +204,7 @@
 	</select>
 
 
-	<!-- 숙박 게시물 수 조회 -->
+	<!-- 숙소 게시물 수 조회 -->
 	<select id="selectStayCount" resultType="_int" parameterType="string">
 		SELECT COUNT(*)
 		  FROM STAY
@@ -210,7 +219,7 @@
 	</select>	
 	
 	
-    <!-- 숙박 목록 전체 조회 -->
+    <!-- 숙소 목록 전체 조회 -->
     <select id="selectStaytList" resultMap="stayListResultMap" parameterType="string">
         <include refid="stayListSql"/>
 		  <where>
@@ -222,9 +231,18 @@
 		  </where>
 		    ORDER BY STAY_TITLE
     </select>
+
+
+    <!-- 숙소 API 이미지 DB저장 (DB에서 null인 경우에만) -->
+    <update id="updateStayApiImage"  parameterType="map">
+		UPDATE STAY
+		   SET STAY_IMAGE = #{apiImageURL}
+		 WHERE STAY_IMAGE IS NULL
+		   AND STAY_CONTENTID = #{id}    
+    </update>
     
     
-    <!-- 숙박 상세 조회 -->
+    <!-- 숙소 상세 조회 -->
     <select id="selectStayById" parameterType="_int" resultMap="stayListResultMap">
     	SELECT S.STAY_CONTENTID,
 		       S.STAY_ADDRESS || STAY_DETAIL_ADDRESS    	AS STAY_ADDRESS,

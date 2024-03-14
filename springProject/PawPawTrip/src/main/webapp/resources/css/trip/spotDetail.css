@@ -1,47 +1,5 @@
 @charset "UTF-8";
 
-/* @media (min-width: 768px) { */
-/* 	.tripDetail-mainInfo-wrap{ */
-/* 		height: 400px; */
-/* 	} */
-/* 	.tripDetail-mainInfo{ */
-/* 		display: block; */
-/* 		width: 100%; */
-/* 		top: 0; */
-/* 		height: 200px; */
-/* 		padding-left: 20px !important; */
-/* 	} */
-/* 	.mainInfo{ */
-/* 		padding-left: 20px !important; */
-/* 	}	 */
-/* } */
-
-@media (min-width: 992px) {
-	.tripDetail-mainInfo-wrap{
-		height: 660px;
-	}
-	.tripDetail-mainInfo{
-		display: block;
-		width: 100%;
-		top: 0;
-		height: 300px;
-		padding-left: 20px;
-	}
-	.mainInfo{
-		padding-left: 20px;
-	}	
-}
-
-@media (min-width: 1200px) {
-	.tripDetail-mainInfo-wrap{
-		height: 350px;
-	}
-	.tripDetail-mainInfo{
-		width: 44%;
-		height: 100%
-	}
-}
-
 * {
     word-break: break-all;
     word-wrap: break-word;

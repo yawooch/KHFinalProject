@@ -20,14 +20,14 @@ import lombok.RequiredArgsConstructor;
 public class TripServiceImpl implements TripService {
 	private final TripMapper tripMapper;
 	
-	// 여행지 전체 게시물 수 조회
+	// 관광지 전체 게시물 수 조회
 	@Override
 	public int getSpotCount(String selectArea, String searchKeyword) {
 		
 		return tripMapper.selectSpotCount(selectArea, searchKeyword);
 	}
 	
-	// 여행지 리스트 조회
+	// 관광지 리스트 조회
 	@Override
 	public List<Spot> getSpotList(PageInfo pageInfo, String selectArea, String searchKeyword) {
 	      int limit = pageInfo.getListLimit();
@@ -38,7 +38,15 @@ public class TripServiceImpl implements TripService {
 		return tripMapper.selectSpotList(rowBounds, selectArea, searchKeyword);
 	}
 	
-	// 여행지 상세 조회(반려동물 동반 정보 확인)
+	// 관광지 API 이미지 저장
+	@Override
+	@Transactional
+	public int saveSpotImage(int id, String apiImageURL) {
+		
+		return tripMapper.updateSpotApiImage(id, apiImageURL);
+	}
+	
+	// 관광지 상세 조회(반려동물 동반 정보 확인)
 	@Override
 	public Spot getSpotById(int id) {
 		
@@ -47,14 +55,14 @@ public class TripServiceImpl implements TripService {
 	
 	// -------------------------------------------------------------------------
 	
-	// 숙박 전체 게시물 수 조회
+	// 숙소 전체 게시물 수 조회
 	@Override
 	public int getStayCount(String selectArea, String searchKeyword) {
 		
 		return tripMapper.selectStayCount(selectArea, searchKeyword);
 	}
 	
-	// 숙박 리스트 조회
+	// 숙소 리스트 조회
 	@Override
 	public List<Stay> getStayList(PageInfo pageInfo, String selectArea, String searchKeyword) {
 	      int limit = pageInfo.getListLimit();
@@ -65,7 +73,15 @@ public class TripServiceImpl implements TripService {
 		return tripMapper.selectStaytList(rowBounds, selectArea, searchKeyword);
 	}
 	
-	// 숙박 상세 조회(반려동물 동반 정보 확인)
+	// 숙소 API 이미지 저장
+	@Override
+	@Transactional
+	public int saveStayImage(int id, String apiImageURL) {
+		// TODO Auto-generated method stub
+		return tripMapper.updateStayApiImage(id, apiImageURL);
+	}
+	
+	// 숙소 상세 조회(반려동물 동반 정보 확인)
 	@Override
 	public Stay getStayById(int id) {
 		
@@ -138,4 +154,8 @@ public class TripServiceImpl implements TripService {
     {
         return tripMapper.selectPetInfoByContentId(contentId);
     }
+
+
+
+
 }

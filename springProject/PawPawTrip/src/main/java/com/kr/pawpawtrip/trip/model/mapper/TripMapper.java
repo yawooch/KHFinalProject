@@ -14,26 +14,32 @@ import com.kr.pawpawtrip.trip.model.vo.Stay;
 @Mapper
 public interface TripMapper {
 	
-	// 여행지 게시물 수 조회
+	// 관광지 게시물 수 조회
 	int selectSpotCount(@Param("selectArea")    String selectArea,
 						@Param("searchKeyword") String searchKeyword);
 	
-	// 여행지 리스트 조회
+	// 관광지 리스트 조회
 	List<Spot> selectSpotList(RowBounds rowBounds, @Param("selectArea")    String selectArea, 
 							  					   @Param("searchKeyword") String searchKeyword);
 	
-	// 여행지 상세 조회(콘텐츠 ID 사용)
+	// 관광지 API 이미지 저장
+	int updateSpotApiImage(@Param("id") int id, @Param("apiImageURL") String apiImageURL);
+	
+	// 관광지 상세 조회(콘텐츠 ID 사용)
 	Spot selectSpotById(@Param("id") int id);
 	
-	// 숙박 게시물 수 조회
+	// 숙소 게시물 수 조회
 	int selectStayCount(@Param("selectArea") String selectArea, 
 						@Param("searchKeyword") String searchKeyword);
 	
-	// 숙박 리스트 조회
+	// 숙소 리스트 조회
 	List<Stay> selectStaytList(RowBounds rowBounds, @Param("selectArea") String selectArea, 
 												    @Param("searchKeyword") String searchKeyword);
 	
-	// 숙박 상세 조회
+	// 숙소 API 이미지 저장
+	int updateStayApiImage(int id, String apiImageURL);
+	
+	// 숙소 상세 조회
 	Stay selectStayById(@Param("id") int id);
 	
 	// 동물동반 정보 insert
@@ -50,4 +56,8 @@ public interface TripMapper {
     List<PetInfo> selectPetInfoByContentIds(@Param("contentIdList") List<Integer> contentIdList);
     
     PetInfo selectPetInfoByContentId(@Param("contentId") int contentId);
+
+	
+
+	
 }
