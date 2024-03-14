@@ -14,6 +14,8 @@
 <link rel="stylesheet" href="${path}/css/member/login.css">
 <link rel="stylesheet" href="${path}/css/member/member.css">
 
+
+
     <!--메인 로그인 창-->
 <section class="content container-fluid">
 	<div class="container">
@@ -31,7 +33,8 @@
 		                <input type="password" name="memberPw" id="input_pass" placeholder="비밀번호" />
 		                <div class="login_info_save">
 		                    <!-- 아이디 저장 체크박스 -->
-			                <input type="checkbox" name="saveId" id="login_info_save" value="${ cookie.saveId.value }"/>
+		                    <input type="hidden" id="saveId" name="saveId" value="${empty cookie.saveId ? "false" : "true"}" />
+			                <input type="checkbox" id="login_info_save" ${ empty cookie.saveId ? "" : "checked" }/>
 			                <label for="login_info_save">아이디 저장</label>
 		                </div>
 		                <button type="submit" class="login_btn">로그인</button>
@@ -71,7 +74,14 @@
 <!-- 푸터 -->
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
 
-
+<script>
+$(document).ready(function() {
+    $('#login_info_save').change(function() {
+        // 아이디 저장 체크박스의 상태에 따라 hidden input의 값을 설정
+        $('#saveId').val(this.checked);
+    });
+});
+</script>
 	
 	
 

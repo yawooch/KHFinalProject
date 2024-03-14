@@ -52,17 +52,33 @@ public class MemberController {
     @PostMapping("/login")
     public ModelAndView login(ModelAndView modelAndView,
                               HttpSession session,
+                              HttpServletRequest request,
+                              HttpServletResponse response,
                               @RequestParam String memberId,
-                              @RequestParam String memberPw) {
+                              @RequestParam String memberPw,
+                              @RequestParam String saveId) {
         
         // 로그인 후 바로 메인화면으로 이동 (좌측 상단 로그인 > 로그아웃)
 //      modelAndView.setViewName("redirect:/");
-        
+    	
         log.info("login() 호출 - {}, {}", memberId, memberPw);
 
+        if (saveId.equals("true")) {
+        	// 전달된 아이디를 쿠키에 저장
+        	// 1. 쿠키 생성
+        	Cookie cookie = new Cookie("saveId", memberId);
+        	cookie.setMaxAge(259200); // 3일 동안 유지
+        	
+        	// 2. response 객체에 쿠키 추가
+        	response.addCookie(cookie);
+        } else {
+        	// 쿠키 삭제
+        	Cookie cookie = new Cookie("saveId", "");
+        	cookie.setMaxAge(0);
+        	response.addCookie(cookie);
+        }
 
         Member loginMember = service.login(memberId, memberPw);
-        
         
         System.out.println("loginMember : " + loginMember);
         
