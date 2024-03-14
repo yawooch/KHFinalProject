@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
 import com.kr.pawpawtrip.common.util.PageInfo;
 
@@ -21,4 +22,7 @@ public interface AdminService
 
     int saveFavoriteTopThree(List<String> contentIdsArr);
 
+    int saveVisitorLog(MemberAccsLog memberAccsLog);
+
+    MemberAccsLog getVisitorLog(String remoteAddr,  int memberNo);
 }

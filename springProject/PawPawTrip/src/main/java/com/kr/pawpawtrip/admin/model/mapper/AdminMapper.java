@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
 
 @Mapper
@@ -33,4 +34,10 @@ public interface AdminMapper
     int updateFavoriteTrip(@Param("contentIds") List<String> contentIds);
     //STAY 테이블 FAVOR_RCMD_YN = Y
     int updateFavoriteStay(@Param("contentIds")List<String> contentIds);
+
+    //사용자 접속 로그 테이블에 로그 기록
+    int insertMemberAccsLog(MemberAccsLog memberAccsLog);
+
+    //사용자 접속 로그 테이블에서 사용자 가져오기
+    MemberAccsLog selectMemberAccsLog(@Param("remoteAddr") String remoteAddr, @Param("memberNo") int memberNo);
 }

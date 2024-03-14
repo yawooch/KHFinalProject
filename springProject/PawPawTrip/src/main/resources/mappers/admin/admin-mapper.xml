@@ -35,9 +35,15 @@
         <result property="communityCategory" column="COMMUNITY_CATEGORY" />
     </resultMap>
     
-    <resultMap id="mypetRatioResultMap" type="Pet">
-        <result property="petType" column="MEMBER_PET_TYPE" />
-        <result property="petCount" column="PET_COUNT" />
+    <resultMap id="accsLogResultMap"         type="MemberAccsLog">
+        <result property="memberNo"          column="MEMBER_NO"          />
+        <result property="accessAddr"        column="ACCESS_ADDR"        />
+        <result property="accessDate"        column="ACCESS_DATE"        />
+    </resultMap>
+    
+    <resultMap id="mypetRatioResultMap"      type="Pet">
+        <result property="petType"           column="MEMBER_PET_TYPE" />
+        <result property="petCount"          column="PET_COUNT"       />
     </resultMap>
     
     <resultMap id="favorSiteResultMap"       type="FavorSite">
@@ -215,6 +221,29 @@
          </foreach> 
     </update>
     
+    <insert id="insertMemberAccsLog" parameterType="MemberAccsLog">
+        INSERT 
+          INTO MEMBER_ACCS_LOG
+        (
+               MEMBER_NO
+             , ACCESS_ADDR
+        )
+        VALUES
+        (
+              #{memberNo}
+             ,#{accessAddr}
+        )
+    </insert>
     
+    
+    <select id="selectMemberAccsLog" parameterType="map" resultMap="accsLogResultMap">
+        SELECT MEMBER_NO
+             , ACCESS_ADDR
+             , ACCESS_DATE
+          FROM MEMBER_ACCS_LOG
+         WHERE TO_CHAR(ACCESS_DATE, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+           AND ACCESS_ADDR                      = #{remoteAddr}
+           AND MEMBER_NO                        = #{memberNo}
+    </select>
     
 </mapper>

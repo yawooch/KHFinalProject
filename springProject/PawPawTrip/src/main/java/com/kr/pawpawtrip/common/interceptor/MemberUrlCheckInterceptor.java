@@ -1,19 +1,27 @@
 package com.kr.pawpawtrip.common.interceptor;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kr.pawpawtrip.admin.model.service.AdminService;
+import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.member.model.vo.Member;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RequiredArgsConstructor
 public class MemberUrlCheckInterceptor implements HandlerInterceptor
 {
-
+    private final AdminService adminService;
+    
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
     {
@@ -38,19 +46,46 @@ public class MemberUrlCheckInterceptor implements HandlerInterceptor
          * request.getRequestURI()    /pawpawtrip/admin/tripList                                                                     
          ********************************************************/
 
+        String remoteAddr = request.getRemoteAddr();
+        
+        int memberNo = 0;
+        MemberAccsLog memberAccsLog = new MemberAccsLog();
+        memberAccsLog.setAccessAddr(remoteAddr);
+        
+        
+        
         if (loginMember != null)
         {
             String servletPath = request.getServletPath();
             if((loginMember.getMemberPetType() == null || loginMember.getMemberPetName() == null) && !servletPath.equals("/member/mypage/myInfo"))
             {
                 request.setAttribute("msg", "필수정보 입력후 이용가능합니다.");
-                request.setAttribute("location", "/member/mypage/myInfo");
-//                response.sendRedirect(request.getContextPath() + "/common/msg");
-//                request.getRequestDispatcher("/WEB-INF/views/common/msg.jsp").forward(request, response);
                 request.getRequestDispatcher("/WEB-INF/views/member/mypage/myInfo.jsp").forward(request, response);
-//                request.getRequestDispatcher("/member/mypage/myInfo").forward(request, response);
             }
+            //로그인 객체가 있을때는 넣어준다.
+            memberNo = loginMember.getMemberNo();
         }
+        memberAccsLog.setMemberNo(memberNo);
+
+        MemberAccsLog todayVisitor = adminService.getVisitorLog(remoteAddr, memberNo);
+        
+        
+        
+        if (todayVisitor == null)
+        {
+            adminService.saveVisitorLog(memberAccsLog);
+        }
+        
+        log.info("todayVisitor : {}", todayVisitor);
+        
+        
+        
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        
+        System.out.println(today);
+        
+//        memberAccsLog.equals(remoteAddr);
+        
 
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
