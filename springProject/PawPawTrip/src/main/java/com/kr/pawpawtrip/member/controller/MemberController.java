@@ -59,8 +59,10 @@ public class MemberController {
 //      modelAndView.setViewName("redirect:/");
         
         log.info("login() 호출 - {}, {}", memberId, memberPw);
-        
+
+
         Member loginMember = service.login(memberId, memberPw);
+        
         
         System.out.println("loginMember : " + loginMember);
         
@@ -72,7 +74,7 @@ public class MemberController {
             modelAndView.addObject("location", "/login");
             modelAndView.setViewName("common/msg");
         }
-   
+        
         System.out.println("loginMember : " + loginMember);
         
         return modelAndView;
