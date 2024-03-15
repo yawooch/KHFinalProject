@@ -332,13 +332,13 @@ public class MemberController {
     }
     
     // 내가 찜한 장소(관광지, 숙소)
-    @GetMapping("/member/mypage/my-trip")
-    public ModelAndView myTrip(ModelAndView modelAndView) {
-    	
-    	modelAndView.setViewName("member/mypage/myTrip");
-    	
-    	return modelAndView; 
-    }
+//    @GetMapping("/member/mypage/my-trip")
+//    public ModelAndView myTrip(ModelAndView modelAndView) {
+//    	
+//    	modelAndView.setViewName("member/mypage/myTrip");
+//    	
+//    	return modelAndView; 
+//    }
     
     // 회원가입 화면
     @GetMapping("/enroll")
