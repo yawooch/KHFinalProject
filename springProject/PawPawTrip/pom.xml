@@ -249,13 +249,18 @@
 		    <version>5.10.1</version>
 		    <scope>test</scope>
 		</dependency>
-		
 		<dependency>
 		    <groupId>org.assertj</groupId>
 		    <artifactId>assertj-core</artifactId>
 		    <version>3.25.1</version>
 		    <scope>test</scope>
-		</dependency>      
+		</dependency>
+		<!-- SMS 라이브러리 추가 -->
+		<dependency>
+		    <groupId>net.nurigo</groupId>
+		    <artifactId>sdk</artifactId>
+		    <version>4.3.0</version>
+		</dependency>     
 	</dependencies>
     <build>
         <plugins>
