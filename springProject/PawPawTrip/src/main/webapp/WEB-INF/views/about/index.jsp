@@ -28,7 +28,7 @@
 	                소망하는 메시지를 담았습니다.
 	            </p>
 	        </div>
-	        <img class="fir_img" src="${ path }/img/about/emerson-peters-oBCT3obZ6OY-unsplash 1.png" alt="">
+	        <img class="fir_img" src="${ path }/img/about/dangdang.png" alt="">
 	    </section>
 	    <!-- 소개 하단 -->
 	    <div class="sec_section">
