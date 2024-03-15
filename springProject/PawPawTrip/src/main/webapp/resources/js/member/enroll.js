@@ -214,6 +214,47 @@ $(document).ready(function() {
 	}
 	
 /************************* 휴대폰 번호 인증(랜덤 6자리 수 생성) / 인증번호 일치 확인 *************************/
+	var generatedCode = Math.floor(Math.random() * 100000) + 100000;
+	
+	//인증번호 전송 버튼 클릭 시
+	$('#sendVerificationCodeBtn').click(function(){
+
+        $("#generatedCode").val(generatedCode);  // 난수로 생성된 인증번호를 hidden name : generatedCode에 숨긴다
+		
+		let memberPhone = $('#phoneNumber').val(); // 휴대폰 번호 입력란의 값을 가져와 'memberPhone' 변수에 할당
+		
+		$.ajax({
+			type: "POST",
+			url:'/pawpawtrip/send-one',
+			data: {
+				memberPhone,
+				generatedCode
+			},
+			success: function(res){
+				alert('인증번호가 전송되었습니다.');
+			},
+			error: function(error) {
+				alert('인증번호 전송에 실패하였습니다.');
+			}
+		})
+	});
+	
+	/*
+	*/
+	// 확인 버튼 클릭 시   
+	$("#verifyCodeBtn").on('click', verifyCode);
+	
+	// 인증 번호 확인
+	function verifyCode() {
+	    var inputCode = $("#verificationCode").val();
+	    
+	    if (parseInt(inputCode) === generatedCode) {
+	        alert("인증에 성공하였습니다.");
+	    } else {
+	        alert("인증에 실패하였습니다. 올바른 인증번호를 입력하세요.");
+	    }
+	}
+
 	/*
 	// 랜덤 수 생성 변수 선언   
 	var generatedCode = null;
@@ -224,7 +265,7 @@ $(document).ready(function() {
 	// 핸드폰 인증 번호 발송
 	function phoneCode() {
 	    generatedCode = Math.floor(100000 + Math.random() * 900000);
-	    alert("휴대폰으로 전송된 인증번호 : " + generatedCode);
+	    //alert("휴대폰으로 전송된 인증번호 : " + generatedCode);
 	}
 	*/
 	

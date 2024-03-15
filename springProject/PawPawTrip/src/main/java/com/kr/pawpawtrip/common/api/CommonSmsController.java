@@ -120,7 +120,6 @@ public class CommonSmsController {
         return response;
     }
 
-
     /**
      * 잔액 조회 예제
      */

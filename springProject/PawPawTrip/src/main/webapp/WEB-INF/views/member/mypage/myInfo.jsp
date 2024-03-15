@@ -67,7 +67,7 @@
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">핸드폰 번호</div>
 								<div class="myInfo-td col-12 padding-bottom">
-									<input type="text" class="contain-button" id="memberPhone" name="memberPhone" value="${ loginMember.memberPhone }"
+									<input type="text" class="contain-button" id="phoneNumber" name="memberPhone" value="${ loginMember.memberPhone }"
 										<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>>
 									<button class="paw_btn btn-filled" id="sendVerificationCodeBtn" type="button"
 										<c:if test="${loginMember.memberId.matches('[0-9]+')}">disabled</c:if>>인증받기</button>
@@ -82,6 +82,8 @@
 							<div class="col-lg-6">
 								<div class="myInfo-td col-12">인증번호</div>
 								<div class="myInfo-td col-12 padding-bottom">
+									<!-- 인증번호를 히든으로 저장해서 보낸다 -->	                 	
+		                 			<input type="hidden" name="generatedCode" id="generatedCode">
 									<input type="text" id="verificationCode" class="contain-button"
 										<c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>>
 									<button class="paw_btn btn-filled" id="verifyCodeBtn" type="button"
@@ -130,7 +132,6 @@
 	
 	<!-- js 추가 -->
 	<script type="text/javascript" src="${path}/js/member/mypage/myInfo.js"></script>
-
 		
 <script>
     // 알림메세지를 띄움

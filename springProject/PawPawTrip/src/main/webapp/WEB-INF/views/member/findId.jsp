@@ -41,14 +41,16 @@
                     <div class="findId-tr row">
                         <div class="col-lg-3">휴대폰 번호</div>
                         <div class="col-lg-9 findId-contain" style="display:inline-flex;">
-                            <input class="contain-button" type="text" name="memberPhone" id="" placeholder="휴대폰 번호 '-' 제외하고 입력" />
+                            <input class="contain-button" type="text" name="memberPhone" id="phoneNumber" placeholder="휴대폰 번호 '-' 제외하고 입력" />
                             <button class="col-12 paw_btn2" type="button" id="sendVerificationCodeBtn">인증받기</button>
                         </div>
                     </div>
                     <div class="findId-tr row">
                         <div class="col-lg-3"></div>
                         <div class="col-lg-9 findId-contain">
-                            <input class="user_info_input_tag2" type="text" name="" id="verificationCode" placeholder="인증번호 입력" />
+	                        <!-- 인증번호를 히든으로 저장해서 보낸다 -->	                 	
+		                 	<input type="hidden" name="generatedCode" id="generatedCode">
+                            <input class="user_info_input_tag2" type="text" id="verificationCode" placeholder="인증번호 입력" />
                         	<button class="col-12 paw_btn2" type="button" id="verifyCodeBtn">확인</button>
                         </div>
                     </div>
@@ -66,17 +68,30 @@
 	
 <script>
 $(document).ready(function() {
-	// 랜덤 수 생성 변수 선언   
-	var generatedCode = null;
+	var generatedCode = Math.floor(Math.random() * 100000) + 100000;
 	
-	// 인증하기 버튼 클릭 시
-	$("#sendVerificationCodeBtn").on('click', phoneCode);
-	
-	// 핸드폰 인증 번호 발송
-	function phoneCode() {
-	    generatedCode = Math.floor(100000 + Math.random() * 900000);
-	    alert("휴대폰으로 전송된 인증번호 : " + generatedCode);
-	}
+	//인증번호 전송 버튼 클릭 시
+	$('#sendVerificationCodeBtn').click(function(){
+
+        $("#generatedCode").val(generatedCode);  // 난수로 생성된 인증번호를 hidden name : generatedCode에 숨긴다
+		
+		let memberPhone = $('#phoneNumber').val(); // 휴대폰 번호 입력란의 값을 가져와 'memberPhone' 변수에 할당
+		
+		$.ajax({
+			type: "POST",
+			url:'/pawpawtrip/send-one',
+			data: {
+				memberPhone,
+				generatedCode
+			},
+			success: function(res){
+				alert('인증번호가 전송되었습니다.');
+			},
+			error: function(error) {
+				alert('인증번호 전송에 실패하였습니다.');
+			}
+		})
+	});	
 	
 	// 확인 버튼 클릭 시   
 	$("#verifyCodeBtn").on('click', verifyCode);
