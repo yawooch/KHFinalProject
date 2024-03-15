@@ -23,12 +23,11 @@ public class CodeGennerater
             System.out.print((i+1) + ", ");
             System.out.print("'" + dg.gennerateEmail().split("@")[0] + "', ");
             System.out.print("'1234', ");
-            System.out.print("'" + dg.gennerateName() + "', ");
+            System.out.print("'" + dg.gennerateName("korean") + "', ");
             System.out.println("'" + now.format(formatter) + "');");
         }
         
     }
-
     /**
      *  특수문자는 _ 만 포함하는 메일의 형식을 만든다.
      */
@@ -90,16 +89,25 @@ public class CodeGennerater
         return phone;
     }
     
-    public String gennerateName()
+    public String gennerateName(String nameType)
     {
         String[] firstName   = {"김" , "이" , "박" , "최" , "정" , "강" , "조" , "윤" , "장" , "임" , "한" , "오" , "서" , "신" , "권" , "황" , "안" , "송" , "전" , "홍" , "유" , "고" , "문" , "양" , "손" , "배" , "조" , "백" , "허" , "유" , "남" , "심" , "노" , "정" , "하" , "곽" , "성" , "차" , "주" , "우" , "구" , "신" , "임" , "전" , "민" , "유" , "류" , "나" , "진" , "지" , "엄" , "채" , "원" , "천" , "방" , "공" , "강" , "현" , "함" , "변" , "염" , "양" , "변" , "여" , "추" , "노" , "도" , "소" , "신" , "석" , "선" , "설" , "마" , "길" , "주" , "연" , "방" , "위" , "표" , "명" , "기" , "반" , "라" , "왕" , "금" , "옥" , "육" , "인" , "맹" , "제" , "모" , "장" , "남궁" , "탁" , "국" , "여" , "진" , "어"};
         String[] krName      = {"길동", "개똥","국뽕","백만불", "안테나","것다","까따","하다", "성","나르샤", "현아", "동일" , "중기" , "홍철" , "은이" , "재석" , "준하" , "나라" , "이유" , "혜수" , "봉선" , "은혜" , "형돈" , "쯔위" , "동훈" , "명수" , "프콘" , "태현" , "태연" , "지현" , "효리" , "시완"};
         String[] animalName  = {"어흥","코끼리", "멍멍", "야옹", "짹짹", "까악", "원숭", "삐약" ,"꿀꿀" ,"히잉" ,"윙윙" ,"꺆꺆" ,"닭" ,"구구" ,"매미" ,"개굴" ,"말벌"};
-        String[] lastName    = krName.clone();
-        String rtnName;
+//        String[] lastName    = krName.clone();
+        String rtnName = "";
         
-        rtnName  = firstName[randomIntZeroTo(firstName.length, true)];
-        rtnName += lastName[randomIntZeroTo(lastName.length, true)];
+        if(nameType.equals("animal"))
+        {
+            rtnName  = firstName[randomIntZeroTo(firstName.length, true)];
+            rtnName += animalName[randomIntZeroTo(animalName.length, true)];
+        }
+        if (nameType.equals("korean"))
+        {
+            rtnName  = firstName[randomIntZeroTo(firstName.length, true)];
+            rtnName += krName[randomIntZeroTo(krName.length, true)];
+        }
+        
         
         return rtnName;
     }
@@ -192,7 +200,7 @@ public class CodeGennerater
         return randomInt;
     }
 
-    private static int randomIntZeroTo(int endNum)
+    public static int randomIntZeroTo(int endNum)
     {
         return randomIntZeroTo(endNum, false);
     }
@@ -204,7 +212,7 @@ public class CodeGennerater
      * @param zeroContain
      * </pre>
      */
-    private static int randomIntZeroTo(int endNum, boolean zeroContain)
+    public static int randomIntZeroTo(int endNum, boolean zeroContain)
     {
         if(endNum == 1 && zeroContain)
         {

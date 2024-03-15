@@ -41,9 +41,7 @@
 	            <div class="carousel-item">
 	                <div class="max-container">
 	                    <div class="row">
-	                        <div class="mx-auto col-md-8 col-lg-6 order-lg-last">
-	                            <img class="img-fluid" src="${path}/img/common/main-carousel-img3.jpg" alt="">
-	                        </div>
+                            <img class="img-fluid" src="${path}/img/common/main-carousel-img3-1.jpg" alt="">
 	                    </div>
 	                </div>
 	            </div>

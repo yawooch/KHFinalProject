@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,15 +16,14 @@ import com.kr.pawpawtrip.admin.model.service.AdminService;
 import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.member.model.vo.Member;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequiredArgsConstructor
 public class MemberUrlCheckInterceptor implements HandlerInterceptor
 {
-    private final AdminService adminService;
+    @Autowired
+    private  AdminService adminService;
     
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception
@@ -54,8 +54,6 @@ public class MemberUrlCheckInterceptor implements HandlerInterceptor
         MemberAccsLog memberAccsLog = new MemberAccsLog();
         memberAccsLog.setAccessAddr(request.getRemoteAddr());
         memberAccsLog.setAccessPath(request.getServletPath());
-        
-        
         
         if (loginMember != null)
         {
