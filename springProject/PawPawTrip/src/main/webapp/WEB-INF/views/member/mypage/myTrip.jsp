@@ -33,10 +33,10 @@
 		</div>
 		
 		<!-- 컨텐츠 -->
-		<div class="common-list">
-			<div class="common-detail-list no-row">
+		<div class="common-list" style="margin-top: 28px;">
+			<div class="common-detail-list no-row" >
 				<div class="row">
-					<div class="col-lg-4">
+					<div class="col-md-4">
 						<a href="" style="text-decoration: none;">
                             <!-- 카드 이미지 -->
                             <div class="card mb-4 product-wap rounded-0">
@@ -48,14 +48,12 @@
                                 </div>
                                 <!-- 카드 내용 -->
                                 <div class="card-body">
+                                	<div class="contentType">관광지</div>
                                     <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">
                                         장소 이름
                                     </p>
                                     <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
                                         장소 주소 
-                                    </p>
-                                    <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">
-                                        장소 문의처
                                     </p>
                                 </div>
                             </div>
@@ -63,6 +61,19 @@
 					</div>
 				</div>	
 			</div>
+			
+			<!-- 페이징 -->
+			<div class="common-page-number">
+				<ul>
+					<li><a href="">&lt;</a></li>
+					<li><a href="">1</a></li>
+					<li><a href="">2</a></li>
+					<li><a href="">3</a></li>
+					<li><a href="">4</a></li>
+					<li><a href="">5</a></li>
+					<li><a href="">&gt;</a></li>
+				</ul>
+			</div>		
 		</div>		
 	</div>
 </div>

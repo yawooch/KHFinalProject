@@ -141,6 +141,15 @@
         <result property="etcAcmpyInfo"      column="ETC_ACMPY_INFO"   />
         <result property="acmpyNeedMtr"      column="ACMPY_NEED_MTR"   />
     </resultMap>
+    
+    <!-- 내가찜한장소 테이블 ResultMap  -->
+    <resultMap id="MyTripResultMap" type="MyTrip">
+    	<id         property="contentId" column="CONTENTID"/>
+    	<result     property="memberNo"  column="MEMBER_NO"/>
+    	<collection property="replies" javaType="arraylist" columnPrefix="R_" resultMap="replyResultMap" />
+    	<collection property="stays" javaType="arraylist" resultMap="stayListResultMap"/>
+    	<collection property="spots" javaType="arraylist" resultMap="spotListResultMap"/>
+    </resultMap>
 	
 	<!-- ************************************************************************************** -->
 	
@@ -187,17 +196,17 @@
         SELECT T.TRIP_CONTENTID,
 		       T.TRIP_ADDRESS || T.TRIP_DETAIL_ADDRESS 		AS TRIP_ADDRESS,
 		       T.TRIP_TITLE,
-		       NVL(T.TRIP_IMAGE, '-') 		           		AS TRIP_IMAGE,
-		       NVL(T.TRIP_TEL, '별도 문의')   		           	AS TRIP_TEL,
-		       NVL(T.HOMEPAGE, '-')   		           		AS HOMEPAGE,
-		       NVL(T.OVERVIEW, '-')   		           		AS OVERVIEW,
-		       NVL(P.RELA_POSES_FCLTY, '-')            		AS P_RELA_POSES_FCLTY,
-		       NVL(P.ETC_ACMPY_INFO, '-') 	           		AS P_ETC_ACMPY_INFO,
-		       NVL(P.RELA_RNTL_PRDLST, '없음')          		AS P_RELA_RNTL_PRDLST,
-		       NVL(P.RELA_PURC_PRDLST, '없음')          		AS P_RELA_PURC_PRDLST,
-		       NVL(P.RELA_FRNSH_PRDLST, '없음')         		AS P_RELA_FRNSH_PRDLST,
-		       NVL(P.ACMPY_PSBL_CPAM, '동반 동물 별도 제한 없음')  AS P_ACMPY_PSBL_CPAM,
-		       NVL(P.ACMPY_NEED_MTR, '-') 	           		AS P_ACMPY_NEED_MTR
+		       NVL(T.TRIP_IMAGE,        '-') 		          AS TRIP_IMAGE,
+		       NVL(T.TRIP_TEL, 		    '별도 문의')   		  AS TRIP_TEL,
+		       NVL(T.HOMEPAGE, 		    '-')   		          AS HOMEPAGE,
+		       NVL(T.OVERVIEW, 		    '-')   		          AS OVERVIEW,
+		       NVL(P.RELA_POSES_FCLTY,  '-')            	  AS P_RELA_POSES_FCLTY,
+		       NVL(P.ETC_ACMPY_INFO,    '-') 	           	  AS P_ETC_ACMPY_INFO,
+		       NVL(P.RELA_RNTL_PRDLST,  '없음')          		  AS P_RELA_RNTL_PRDLST,
+		       NVL(P.RELA_PURC_PRDLST,  '없음')          		  AS P_RELA_PURC_PRDLST,
+		       NVL(P.RELA_FRNSH_PRDLST, '없음')         		  AS P_RELA_FRNSH_PRDLST,
+		       NVL(P.ACMPY_PSBL_CPAM,   '동반 동물 별도 제한 없음')  AS P_ACMPY_PSBL_CPAM,
+		       NVL(P.ACMPY_NEED_MTR,    '-') 	           	  AS P_ACMPY_NEED_MTR
 		  FROM TRIP T
 		  INNER JOIN PETINFO P ON (T.TRIP_CONTENTID = P.PETINFO_CONTENTID)
 		  WHERE T.TRIP_CONTENTID = #{id}
@@ -262,6 +271,38 @@
 		INNER JOIN PETINFO P ON (S.STAY_CONTENTID = P.PETINFO_CONTENTID)
 		WHERE S.STAY_CONTENTID = #{id}
     </select> 	
+   
+	<!-- 회원이 찜한 장소 갯수 조회 -->
+<!--     <select id="selectMyTripCount" resultType="_int" > -->
+<!--  		SELECT COUNT(*) -->
+<!--            FROM ( -->
+<!--                 SELECT STAY_CONTENTID      AS CONTENTID -->
+<!--                      , STAY_ADDRESS        AS ADDRESS -->
+<!--                      , STAY_DETAIL_ADDRESS AS DETAIL_ADDRESS -->
+<!--                      , STAY_TITLE          AS TITLE -->
+<!--                      , STAY_CONTENTTYPEID  AS CONTENTTYPE -->
+<!--                      , STAY_IMAGE          AS IMAGE -->
+<!--                      , STAY_TEL            AS TEL -->
+<!--                      , FAVOR_RCMD_YN       AS FAVOR_RCMD_YN -->
+<!--                      , STAY_MODIFYTIME     AS MODIFYTIME -->
+<!--                   FROM STAY -->
+<!--                  UNION -->
+<!--                 SELECT TRIP_CONTENTID      AS CONTENTID -->
+<!--                      , TRIP_ADDRESS        AS ADDRESS -->
+<!--                      , TRIP_DETAIL_ADDRESS AS DETAIL_ADDRESS -->
+<!--                      , TRIP_TITLE          AS TITLE -->
+<!--                      , TRIP_CONTENTTYPEID  AS CONTENTTYPE -->
+<!--                      , TRIP_IMAGE          AS IMAGE -->
+<!--                      , TRIP_TEL            AS TEL -->
+<!--                      , FAVOR_RCMD_YN       AS FAVOR_RCMD_YN -->
+<!--                      , TRIP_MODIFYTIME     AS MODIFYTIME -->
+<!--                   FROM TRIP -->
+<!--                 ) -->
+<!--                 WHERE CONTENTID IN -->
+<!--                 (SELECT CONTENTID -->
+<!--                    FROM ZZIM -->
+<!--                   WHERE MEMBER_NO = #{memberNo})	   	 -->
+<!--     </select> -->
    
 	<!-- ************************************************************************************* -->
 	

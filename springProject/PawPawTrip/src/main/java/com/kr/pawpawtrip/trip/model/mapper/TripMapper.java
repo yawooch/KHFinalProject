@@ -41,6 +41,9 @@ public interface TripMapper {
 	
 	// 숙소 상세 조회
 	Stay selectStayById(@Param("id") int id);
+
+	// 회원이 찜한 장소(관광지, 숙소) 갯수 조회
+	int selectMyTripCount(int memberNo);
 	
 	// 동물동반 정보 insert
     int insertPetInfo(PetInfo petInfo);
@@ -56,6 +59,8 @@ public interface TripMapper {
     List<PetInfo> selectPetInfoByContentIds(@Param("contentIdList") List<Integer> contentIdList);
     
     PetInfo selectPetInfoByContentId(@Param("contentId") int contentId);
+
+
 
 	
 

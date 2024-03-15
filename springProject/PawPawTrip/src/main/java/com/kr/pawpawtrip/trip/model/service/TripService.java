@@ -34,6 +34,11 @@ public interface TripService {
 	// 숙소 상세 조회(숙박 ID 사용) 
 	Stay getStayById(int id);
 	
+	// memberNo를 이용하여 회원이 찜한 장소 갯수 조회 
+	int getMyTripByMemberNo(int memberNo);
+
+	// -----------------------------------------------------------------------------------------
+	
 	//반려동물 동반정보 수정/저장
     int savePetInfo(PetInfo petInfo);
 
@@ -48,6 +53,8 @@ public interface TripService {
     List<PetInfo> getPetTourListByContentIds(List<Integer> contentIdList);
     
     PetInfo getPetTourByContentId(int contentId);
+
+	
 
 
 

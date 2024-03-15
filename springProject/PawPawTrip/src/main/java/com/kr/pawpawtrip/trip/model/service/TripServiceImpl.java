@@ -88,7 +88,14 @@ public class TripServiceImpl implements TripService {
 		return tripMapper.selectStayById(id);
 	}
 	
-	// -------------------------------------------------------------------------
+	// 회원이 찜한 장소(관광지, 숙소) 갯수 조회
+	@Override
+	public int getMyTripByMemberNo(int memberNo) {
+		
+		return tripMapper.selectMyTripCount(memberNo);
+	}
+	
+	// -----------------------------------------------------------------------------------------
 	
     @Override
     @Transactional
@@ -154,6 +161,8 @@ public class TripServiceImpl implements TripService {
     {
         return tripMapper.selectPetInfoByContentId(contentId);
     }
+
+
 
 
 
