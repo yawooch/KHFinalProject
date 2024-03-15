@@ -86,9 +86,10 @@
         SELECT NVL(MEMBER_PET_TYPE, 'N/A') AS MEMBER_PET_TYPE
              , COUNT(*) AS PET_COUNT
           FROM MEMBER
-      GROUP BY MEMBER_PET_TYPE
-    </select>
-    <select id="selectAllFavorSite" resultMap="favorSiteResultMap">
+         GROUP BY 
+               MEMBER_PET_TYPE
+     </select>
+       <select id="selectAllFavorSite" resultMap="favorSiteResultMap">
         SELECT CONTENTID
              , ADDRESS || NVL(DETAIL_ADDRESS, '') AS ADDRESS
              , TITLE

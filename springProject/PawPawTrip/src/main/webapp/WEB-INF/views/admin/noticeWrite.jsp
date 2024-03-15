@@ -22,15 +22,16 @@
 <div class="content">
     <div class="container">
         <div class="common-title">
-            <p>관리자</p>
+            <p>공지사항 입력</p>
         </div>
         <div class="common-sideMenu">
             <ul>
-                <li class=""  >관리자</li>
-                <li class=""  ><a href="${path}/admin/dashboard">대시보드</a></li>
-                <li class=""  ><a href="${path}/admin/tripList">포포트립 매핑</a>
-                <li class="on"><a href="${path}/admin/noticeWrite">공지사항 입력</a></li>
-                <li class=""  ><a href="${path}/admin/favoritesite">인추장 선정</a></li>
+                <li>관리자</li>
+                <li class="">  <a href="${path}/admin/dashboard"     >대시보드     </a></li>
+                <li class="">  <a href="${path}/admin/tripList"      >포포트립 매핑</a></li>
+                <li class="on"><a href="${path}/admin/noticeWrite"   >공지사항 입력</a></li>
+                <li class="">  <a href="${path}/admin/favoritesite"  >인추장 선정  </a></li>
+                <li class="">  <a href="${path}/admin/plannedDevelop">개발예정 기능</a></li>
             </ul>
         </div>
         <div class="common-list">
@@ -152,7 +153,8 @@ $(document).ready(function()
                      '24', '28', '30', '36', '50', '72' ]
     });
 
-});
+}
+
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
