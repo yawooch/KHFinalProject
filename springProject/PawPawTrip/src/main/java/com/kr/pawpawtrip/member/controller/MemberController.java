@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kr.pawpawtrip.common.api.CommonSmsController;
 import com.kr.pawpawtrip.common.util.PageInfo;
 import com.kr.pawpawtrip.community.model.service.CommunityService;
 import com.kr.pawpawtrip.community.model.vo.Community;
@@ -390,4 +391,8 @@ public class MemberController {
         
         return map;
     }
+    
+    
+    
+    
 }

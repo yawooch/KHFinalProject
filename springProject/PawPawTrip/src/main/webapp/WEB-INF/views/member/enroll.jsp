@@ -14,6 +14,57 @@
 <link rel="stylesheet" href="${path}/css/member/enroll.css">
 <link rel="stylesheet" href="${path}/css/member/member.css">
 
+<script>
+$(document).ready(function () {
+	//인증번호 전송 버튼 클릭 시
+	$('#sendVerificationCodeBtn').click(function(){
+// 		var number;
+		var generatedCode = Math.floor(Math.random() * 100000) + 100000;
+// 	        if(number>100000){
+// 	           number = number - 10000;
+// 	        }
+
+        $("#generatedCode").val(generatedCode);      /* 난수로 생성된 인증번호를 hidden name : generatedCode 에 숨긴다 */
+		
+		let memberPhone = $('#phoneNumber').val();
+		
+		$('#phoneNumber').val("")
+		
+		$.ajax({
+			type: "POST",
+			url:'/pawpawtrip/send-one',
+			data: {
+				memberPhone,
+				generatedCode
+			},
+			success: function(res){
+				alert( generatedCode + '인증번호가 전송되었습니다.');
+			},
+			error: function(error) {
+				alert('인증번호 전송에 실패하였습니다.');
+			}
+		});
+	});
+	
+	/*
+	// 확인 버튼 클릭 시   
+	$("#verifyCodeBtn").on('click', verifyCode);
+	
+	// 인증 번호 확인
+	function verifyCode() {
+	    var inputCode = $("#verificationCode").val();
+	    
+	    if (parseInt(inputCode === generatedCode) {
+	        alert("인증에 성공하였습니다.");
+	    } else {
+	        alert("인증에 실패하였습니다. 올바른 인증번호를 입력하세요.");
+	    }
+	}
+	*/
+	
+});
+</script>
+
 <!-- 메인 -->
 <section class="content container-fluid">
 	<div class="container">
@@ -114,6 +165,8 @@
 	             <div class="enroll-tr row">
 	                 <div class="col-lg-3"></div>
 	                 <div class="col-lg-9 enroll-contain">
+	                 	<!-- 인증번호를 히든으로 저장해서 보낸다 -->	                 	
+	                 	<input type="hidden" name="generatedCode" id="generatedCode">
 	                 	<input type="text" id="verificationCode" placeholder="인증번호 입력" />
 	                 	<button type="button" class="col-12 enroll-btn" id="verifyCodeBtn">확인</button>
 	                 </div>
@@ -176,5 +229,7 @@
 
 <!-- js 추가 -->
 <script type="text/javascript" src="${path}/js/member/enroll.js"></script>
+
+
 
 

@@ -164,8 +164,6 @@ $(document).ready(function() {
 	});
 	
 /************************* 아이디 *************************/
-
-
 	// 아이디 중복체크 & 정규식 확인
 	$('#checkDuplicate').on('click', function(event) {
 	    checkDuplicate(false); // 아이디 중복확인 및 정규식 확인 실행
@@ -216,6 +214,7 @@ $(document).ready(function() {
 	}
 	
 /************************* 휴대폰 번호 인증(랜덤 6자리 수 생성) / 인증번호 일치 확인 *************************/
+	/*
 	// 랜덤 수 생성 변수 선언   
 	var generatedCode = null;
 	
@@ -227,20 +226,9 @@ $(document).ready(function() {
 	    generatedCode = Math.floor(100000 + Math.random() * 900000);
 	    alert("휴대폰으로 전송된 인증번호 : " + generatedCode);
 	}
+	*/
 	
-	// 확인 버튼 클릭 시   
-	$("#verifyCodeBtn").on('click', verifyCode);
 	
-	// 인증 번호 확인
-	function verifyCode() {
-	    var inputCode = $("#verificationCode").val();
-	    
-	    if (parseInt(inputCode) === generatedCode) {
-	        alert("인증에 성공하였습니다.");
-	    } else {
-	        alert("인증에 실패하였습니다. 올바른 인증번호를 입력하세요.");
-	    }
-	}
 	
 /************************* 회원가입 활성화 *************************/
 	// 회원가입 버튼 클릭 시
