@@ -441,5 +441,13 @@
       SET COMMUNITY_STATUS = #{status}
       WHERE COMMUNITY_NO = #{no}
      </update>
+     
+     <!-- 게시글 파일 삭제 -->
+     <update id="updateFileName" parameterType="_int">
+      UPDATE COMMUNITY
+      SET COMMUNITY_O_FILENAME = null
+        , COMMUNITY_R_FILENAME = null
+      WHERE COMMUNITY_NO = #{cNo}
+     </update>
     
 </mapper>

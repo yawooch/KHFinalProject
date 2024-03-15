@@ -149,4 +149,12 @@ public class CommunityServiceImpl implements CommunityService {
 		return communityMapper.selectBoardByMemberCount(memberNo);
 	}
 
+	// 게시글 파일 삭제
+	@Override
+	@Transactional
+	public int updateFileName(int cNo) {
+		
+		return communityMapper.updateFileName(cNo);
+	}
+
 }

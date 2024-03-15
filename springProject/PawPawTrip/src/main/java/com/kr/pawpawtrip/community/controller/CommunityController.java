@@ -1,5 +1,6 @@
 package com.kr.pawpawtrip.community.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -392,21 +393,18 @@ public class CommunityController
 
 //    게시글 작성
     @GetMapping("/board/write")
-    public ModelAndView boardWrite(ModelAndView modelAndView)
+    public String boardWrite()
     {
-    	modelAndView.setViewName("board/write");
     	
-        return modelAndView;
+        return "community/board/write";
     }
 
     @PostMapping("/board/write")
     public ModelAndView boardWrite(         ModelAndView  modelAndView, 
                                             Community     community, 
-//            @SessionAttribute("loginMember")Member        loginMember,
-                                            HttpSession session,
+            @SessionAttribute("loginMember")Member        loginMember,
             @RequestParam("talkWriteFile")  MultipartFile talkWriteFile)
     {
-    	Member loginMember = (Member) session.getAttribute("loginMember");
 
         int result = 0;
 
@@ -506,96 +504,118 @@ public class CommunityController
                   @RequestParam     String        communityCategory, 
                   @RequestParam     String        communityTitle,
                   @RequestParam     String        communityContent, 
+//                  @RequestParam     String        fileName,
                   @RequestParam     MultipartFile talkWriteFile,
                   @SessionAttribute Member        loginMember)
     {
 
         int result = 0;
+        String location = null;
+        String renamedFileName = null;
+        Community community = null;
+        
+        System.out.println("MultipartFile : " + talkWriteFile);
+        System.out.println("업로드한 파일 명 : " + talkWriteFile.getOriginalFilename());
 
-        Community community = communityService.getBoardNo(communityNo);
-
-        if (community != null && community.getCommunityWriterId().equals(loginMember.getMemberId()))
+        community = communityService.getBoardNo(communityNo);
+        
+        if(talkWriteFile != null && !talkWriteFile.isEmpty()) // 파일 업로드 했을 때
         {
-            String location = null;
-            String renamedFileName = null;
-            if (talkWriteFile != null && !talkWriteFile.isEmpty())
-            {
-                try
-                {
-                    // workspace에 저장되어 있는 파일 경로
-                    location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
-
-                    if (community.getCommunityRfileName() != null)
-                    {
-                        MultipartFileUtil.delete(location + "/" + community.getCommunityRfileName());
-                    }
-
-                    renamedFileName = MultipartFileUtil.save(talkWriteFile, location);
-
-                    if (renamedFileName != null)
-                    {
-                        community.setCommunityOfileName(talkWriteFile.getOriginalFilename());
-                        community.setCommunityRfileName(renamedFileName);
-                    }
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            } else
-            {
-                try
-                {
-                    location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
-
-                    if (community.getCommunityRfileName() != null)
-                    {
-                        MultipartFileUtil.delete(location + "/" + community.getCommunityRfileName());
-                    }
-                    community.setCommunityOfileName("");
-                    community.setCommunityRfileName("");
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-
-            }
-
-            System.out.println(community);
-
-            community.setCommunityCategory(communityCategory);
-            community.setCommunityTitle(communityTitle);
-            community.setCommunityContent(communityContent);
-
-            result = communityService.save(community);
-
-            if (result > 0)
-            {
-                modelAndView.addObject("msg", "게시글 수정 성공");
-
-                if (community.getCommunityCategory().equals("[수다]"))
-                {
-                    modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
-                }
-
-                if (community.getCommunityCategory().equals("[마이펫 자랑]"))
-                {
-                    modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
-                }
-            } else
-            {
-                modelAndView.addObject("msg", "게시글 수정 실패");
-                modelAndView.addObject("location", "/community/board");
-            }
-        } else
-        {
-            modelAndView.addObject("msg", "잘못된 접근입니다.");
-            modelAndView.addObject("location", "/community/board/update?no=" + community.getCommunityNo());
+        	
+        	try {
+				location = resourceLoader.getResource("resources/upload/community")
+						                 .getFile()
+						                 .getPath();
+				
+				// 기존에 업로드 된 파일 삭제
+				if(community.getCommunityRfileName() != null) {
+					MultipartFileUtil.delete(location + "/" + community.getCommunityRfileName());
+				}
+				
+				renamedFileName = MultipartFileUtil.save(talkWriteFile, location);
+				
+				if(renamedFileName != null) {
+					community.setCommunityOfileName(talkWriteFile.getOriginalFilename());
+					community.setCommunityRfileName(renamedFileName);
+				}
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
         }
+        
+        community.setCommunityCategory(communityCategory);
+        community.setCommunityTitle(communityTitle);
+        community.setCommunityContent(communityContent);
+        
+        result = communityService.save(community);
+        
+        if(result > 0) {
+        	modelAndView.addObject("msg", "게시글 수정 성공");
+		
+        	if (community.getCommunityCategory().equals("[수다]"))
+        	{
+        		modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
+        	}
+		
+        	if (community.getCommunityCategory().equals("[마이펫 자랑]"))
+        	{
+        		modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
+        	}
+        } else {
+        	modelAndView.addObject("msg", "게시글 수정 실패");
+        	modelAndView.addObject("location", "/community/board");
+        }
+        
         log.info("Board Update(게시글 수정 성공) - {}", community);
-
+        
         modelAndView.setViewName("common/msg");
-
+        
         return modelAndView;
+        
+    }
+    
+//  파일 삭제
+    @PostMapping("/deletefile")
+    public ResponseEntity<Map<String, Object>> deleteFile(@RequestParam("cNo") int cNo) {
+    	
+    	Community community = null;
+    	int result = 0;
+    	String location = null;
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	
+    	// 파일 삭제 되기 전
+    	community = communityService.getBoardNo(cNo);
+    	
+    	// workspace에 저장되어 있는 파일 경로
+    	try {
+			location = resourceLoader.getResource("resources/upload/community").getFile().getPath()
+					+ "\\" + community.getCommunityRfileName();
+			
+			File file = new File(location);
+			
+			// workspace에 저장되어 있는 파일 삭제
+			if(file.exists()) {
+				file.delete();
+			}
+			
+			System.out.println("경로 : " + location);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    	// 파일 null 처리
+    	result = communityService.updateFileName(cNo);
+    	
+    	// 게시글 조회
+    	community = communityService.getBoardNo(cNo);
+    	
+    	map.put("resultCode", result);
+    	
+    	log.info("Community FileDelete - {}", community);
+    	
+    	return ResponseEntity.ok(map);
     }
 
 //    게시글 삭제

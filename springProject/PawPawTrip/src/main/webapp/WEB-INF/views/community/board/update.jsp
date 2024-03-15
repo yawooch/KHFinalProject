@@ -12,7 +12,7 @@
 
 <link rel="stylesheet" href="${path}/css/community/boardwrite.css">
 <link rel="stylesheet" href="${path}/css/community/summernote-lite.css">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 
 <style>
@@ -103,6 +103,7 @@
 							</td>
 							<td>
 								<c:if test="${ community.communityOfileName == null }">
+									<input type="hidden" id="cNo" value="${ community.communityNo }" />
 									<label for="talkWriteFile" class="talkWriteFile">파일선택</label>
 									<input type="file" name="talkWriteFile" id="talkWriteFile" style="display: none;">
 									<span id="fileNameDisplay">선택 된 파일 없음</span>
@@ -110,6 +111,7 @@
 								</c:if>
 								
 								<c:if test="${ community.communityOfileName != null }">
+									<input type="hidden" id="cNo" value="${ community.communityNo }" />
 									<label for="talkWriteFile" class="talkWriteFile">파일선택</label>
 									<input type="file" name="talkWriteFile" id="talkWriteFile" style="display: none;">
 									<span id="fileNameDisplay">${ community.communityOfileName }</span>
@@ -132,18 +134,39 @@
 $(document).ready(function() 
 {	
 	
-	console.log($('#fileNameDisplay').text());
+	// console.log($('#fileNameDisplay').text());
 	
 	if($('#fileNameDisplay').text() === '선택 된 파일 없음') {
+		
 		$('#deleteFile').css('display', 'none');
+		
 	}
 	
 	$('#deleteFile').on('click', () => {
-		$('#talkWriteFile').val('');
+		let cNo = $('#cNo').val();
 		
-		$('#fileNameDisplay').text('선택 된 파일 없음');
+		let result = confirm('정말로 파일을 삭제하시겠습니까?');
 		
-		$('#deleteFile').css('display', 'none');
+		if(result) {
+			$('#fileNameDisplay').text('선택 된 파일 없음');
+			
+			$('#deleteFile').css('display', 'none');
+			
+			// Ajax
+			$.ajax({
+				type: 'post',
+				url: `${path}/community/deletefile`,
+				dataType: 'json',
+				data: {
+					cNo: cNo
+				},
+				success: (obj) => {
+					console.log(obj);
+				}
+			})
+		} else {
+			return false;
+		}
 	});
 	
 	$('#talkWriteFile').on('change', () => {

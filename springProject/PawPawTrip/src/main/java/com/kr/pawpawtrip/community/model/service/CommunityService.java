@@ -49,4 +49,7 @@ public interface CommunityService
 	// 내가 쓴 게시글 수
 	int getBoardByMemberCount(int memberNo);
 
+	// 게시글 파일 삭제
+	int updateFileName(int cNo);
+
 }
