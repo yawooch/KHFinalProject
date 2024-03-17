@@ -26,7 +26,6 @@ import com.kr.pawpawtrip.member.model.mapper.MemberMapper;
 import com.kr.pawpawtrip.member.model.vo.Member;
 
 
-// mvc에서 service 역할하는 빈을 만드는 어노테이션
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired
