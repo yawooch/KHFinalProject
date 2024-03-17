@@ -222,7 +222,6 @@ function showFavorites()
     {
         type : 'GET',
         url  : '${path}/admin/favoriteTopThreeAjax',
-//         data : data,
         success:function(data)
         {
             console.log(data);
@@ -230,7 +229,6 @@ function showFavorites()
             let resultStr = '';
             let sites = data.sites;
             let startRowNo = 0;
-            
 
             //조회된 site만큼 for문을 돌린다.
             for(let i = 0; i< sites.length ; i ++)
@@ -273,15 +271,15 @@ function showFavorites()
                 resultStr += '            <div class="card rounded-0">';
                 resultStr += '                <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">';
                 resultStr += '                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">';
-                resultStr += '                    <p class="readMore" style="font-size: 14px !important;">+<br>INSERT CONTENT</p>';
+                resultStr += '                    <p class="readMore" style="font-size: 14px !important;color:white;">+<br>INSERT CONTENT</p>';
                 resultStr += '                </div>';
                 resultStr += '            </div>';
                 resultStr += '            <div class="card-body">';
                 resultStr += '                <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">';
-                resultStr += '                    가쟈 아무데나';
+                resultStr += '                    추가 필요';
                 resultStr += '                </p>';
                 resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">';
-                resultStr += '                    서울 턱별시';
+                resultStr += '                    추천장소를 선택해주세요';
                 resultStr += '                </p>';
                 resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">';
                 resultStr += '                     콜미';
@@ -306,18 +304,15 @@ function showFavorites()
                 resultStr += '            <div class="card rounded-0">';
                 resultStr += '                <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">';
                 resultStr += '                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">';
-                resultStr += '                    <p class="readMore" style="font-size: 14px !important;">';
-                resultStr += '                        +<br>';
-                resultStr += '                        READ MORE';
-                resultStr += '                    </p>';
+                resultStr += '                    <p class="readMore" style="font-size: 14px !important;color:white;">+<br>INSERT CONTENT</p>';
                 resultStr += '                </div>';
                 resultStr += '            </div>';
                 resultStr += '            <div class="card-body">';
                 resultStr += '                <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">';
-                resultStr += '                    가쟈 아무데나';
+                resultStr += '                    오류';
                 resultStr += '                </p>';
                 resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">';
-                resultStr += '                    서울 턱별시';
+                resultStr += '                    새로고침 해주세요';
                 resultStr += '                </p>';
                 resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">';
                 resultStr += '                     콜미';
