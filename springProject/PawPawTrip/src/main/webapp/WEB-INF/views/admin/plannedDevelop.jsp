@@ -58,27 +58,37 @@
                         <div id="spinnerLoading" style="display:none;position:absolute;width:100%;height:100%;background-color:rgb(0 0 0 / 65%);">
                             <div class="spinner-border text-warning" style="position: absolute;width: 80px; height: 80px; border: 16px solid currentcolor; border-right-color: transparent;margin-left: -40px; margin-top: -40px;"></div>
                         </div>
+                        <div style="text-align: left; margin-bottom: 10px;">
+                        	<select id="regId">
+                        		<option value="choice">----- 선택 -----</option>
+                        		<c:forEach var="weatherArea" items="${ weatherAreas }" >
+	                        		<option value="${weatherArea.areaCode }">
+	                        			<c:out value="${ weatherArea.areaName }" />
+	                        		</option>
+	                        		
+                        		</c:forEach>
+                        	</select>
+                        </div>
                         <table>
-                            <colgroup>
-                                <col width="60">
-                                <col width="250">
-                                <col width="250">
-                                <col width="250">
-                            </colgroup>
                             <thead>
                             <tr>
-                                <th>번호</th>
-                                <th>콘텐츠 ID</tH>
-                                <th>매핑여부</th>
-                                <th>동반가능여부</th>
+								<td style="width: 70px;">3일 후</td>
+								<td style="width: 70px;">4일 후</td>
+								<td style="width: 70px;">5일 후</td>
+								<td style="width: 70px;">6일 후</td>
+								<td style="width: 70px;">7일 후</td>
+								<td style="width: 70px;">8일 후</td>
                             </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td colspan="5">
-                                        조회된 게시글이 없습니다.
-                                    </td>
-                                </tr>   
+<!--                                 <tr> -->
+<!-- 	                                <td colspan="7"> -->
+<!-- 	                                    조회된 게시글이 없습니다. -->
+<!-- 	                                </td> -->
+<!--                                 </tr> -->
+                                <tr id="test">
+                                	<td colspan="7">조회된 게시글이 없습니다. 지역을 선택해 주세요.</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -224,6 +234,43 @@ $(document).ready(function()
 //                      '14', '16', '18', '20', '22',
 //                      '24', '28', '30', '36', '50', '72' ]
 //     });
+	
+	// 중기 예보
+	$('#regId').on('change', (e) => {
+		let regId = $(e.target).val();
+		
+		console.log(regId);
+		
+		let result = '';
+		
+		if(regId !== 'choice') {
+			$.getJSON('${path}/weather/midta', {regId})
+			.done((data) => {
+				
+				let {weatherMidItems} = data;
+				let item = weatherMidItems[0];
+				console.log(item);
+				console.log(item.regId);
+				
+				result = '<td>' + item.taMin3 + '℃ / ' + item.taMax3 + '℃</td>' +
+						 '<td>' + item.taMin4 + '℃ / ' + item.taMax4 + '℃</td>' +
+						 '<td>' + item.taMin5 + '℃ / ' + item.taMax5 + '℃</td>' +
+						 '<td>' + item.taMin6 + '℃ / ' + item.taMax6 + '℃</td>' +
+						 '<td>' + item.taMin7 + '℃ / ' + item.taMax7 + '℃</td>' +
+						 '<td>' + item.taMin8 + '℃ / ' + item.taMax8 + '℃</td>';
+				console.log(result);
+				$('#test').html(result);
+			});
+		} else {
+			
+			result = '<td colspan="6">' + '조회된 게시글이 없습니다. 지역을 선택해 주세요.' + '</td>';
+			$('#test').html(result);
+		}
+		
+		
+	})
+	
+	
 
 });
 </script>

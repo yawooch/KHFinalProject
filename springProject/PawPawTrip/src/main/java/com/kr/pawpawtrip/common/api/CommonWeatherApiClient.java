@@ -2,11 +2,15 @@ package com.kr.pawpawtrip.common.api;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
+import com.kr.pawpawtrip.common.api.response.GetMidTaResponse;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +30,7 @@ public class CommonWeatherApiClient
 
     /**  
      * @param  */
+    // 중기육상예보조회
     public String apiGetMidFcst(String regId, String tmFc) throws RestClientException, URISyntaxException
     {
         StringBuilder urlBuilder = new StringBuilder(baseURL + "getMidLandFcst");
@@ -42,5 +47,28 @@ public class CommonWeatherApiClient
 
         return restTemplate.getForObject(new URI(urlBuilder.toString()), String.class);
     }
+    
+    // 중기기온조회
+    public GetMidTaResponse apiGetMidTa(String regId) throws RestClientException, URISyntaxException {
+    	
+    	String currentDate = null;
+    	StringBuilder urlBuilder = null;
+    	
+    	urlBuilder = new StringBuilder(baseURL + "getMidTa");
+    	// 현재 시간
+    	currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")) + "0600";
+    	
+    	urlBuilder.append("?ServiceKey=").append(serviceKey);
+    	urlBuilder.append("&pageNo=").append("1");
+    	urlBuilder.append("&numberOfRows=").append("10");
+    	urlBuilder.append("&dataType=").append("JSON");
+    	urlBuilder.append("&regId=").append(regId);
+    	urlBuilder.append("&tmFc=").append(currentDate);
+    	
+    	log.info("Request URL - getMidTa : {}", urlBuilder.toString());
+    	
+    	return restTemplate.getForObject(new URI(urlBuilder.toString()), GetMidTaResponse.class);
+    }
+    
 
 }

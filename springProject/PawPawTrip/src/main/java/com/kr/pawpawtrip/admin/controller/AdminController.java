@@ -30,11 +30,13 @@ import com.kr.pawpawtrip.admin.model.service.AdminService;
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
+import com.kr.pawpawtrip.admin.model.vo.WeatherArea;
 import com.kr.pawpawtrip.common.api.CommonApiClient;
 import com.kr.pawpawtrip.common.api.CommonWeatherApiClient;
 import com.kr.pawpawtrip.common.api.item.DetailCommonItem;
 import com.kr.pawpawtrip.common.api.item.PetTourItem;
 import com.kr.pawpawtrip.common.api.response.DetailCommonResponse;
+import com.kr.pawpawtrip.common.api.response.GetMidTaResponse;
 import com.kr.pawpawtrip.common.api.response.PetTourResponse;
 import com.kr.pawpawtrip.common.model.service.CommonService;
 import com.kr.pawpawtrip.common.model.vo.Category;
@@ -618,9 +620,16 @@ public class AdminController
         //지점번호 : "11B00000" 발표 시각 : yyyyMMddHHmm - 일 2회(06:00,18:00)회 생성
         String response = commonWeatherApiClient.apiGetMidFcst("11B00000","202403150600");
         
+        // 지역별 날씨정보 조회
+        List<WeatherArea> weatherAreas = null;
+        
+        weatherAreas = adminService.getWeatherAreaList();
+        
+        log.info("WeatherAreas - {}", weatherAreas);
         
         log.info("response : {}" ,response);
         
+        modelAndView.addObject("weatherAreas", weatherAreas);
         modelAndView.setViewName("admin/plannedDevelop");
 
         return modelAndView;
@@ -744,4 +753,20 @@ public class AdminController
         petInfo.setEtcAcmpyInfo(petTourItem.getEtcAcmpyInfo()); // 기타동반정보
         petInfo.setAcmpyNeedMtr(petTourItem.getAcmpyNeedMtr()); // 동반시필요사항
     }
+    
+    // 중기예보
+    @GetMapping("/weather/midta")
+    public ResponseEntity<GetMidTaResponse> midTa(String regId) throws RestClientException, URISyntaxException {
+    	
+    	GetMidTaResponse responseText = null;
+    	
+    	responseText = commonWeatherApiClient.apiGetMidTa(regId);
+    	
+    	return ResponseEntity.ok(responseText);
+    }
 }
+
+
+
+
+

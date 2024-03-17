@@ -57,6 +57,11 @@
         <result property="favorRcmdYn"       column="FAVOR_RCMD_YN"/>
     </resultMap>
     
+    <resultMap id="weatherAreaListMap" type="WeatherArea">
+    	<result property="areaCode" column="AREA_CODE" />
+    	<result property="areaName" column="AREA_NAME" />
+    </resultMap>
+    
     <select id="selectCommunityRanks" resultMap="communityRankResultMap">
         SELECT ROWNUM 
              , COMMUNITY_TITLE
@@ -196,6 +201,12 @@
                )
          WHERE FAVOR_RCMD_YN = 'Y'
          ORDER BY MODIFYTIME DESC
+    </select>
+    <select id="selectWeatherAreaList" resultMap="weatherAreaListMap">
+    	SELECT AREA_CODE,
+    	       AREA_NAME
+    	  FROM WEATHER_AREA
+    	  ORDER BY AREA_NAME ASC
     </select>
     
     <update id="updateFavoriteTripInit" parameterType="map">

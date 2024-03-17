@@ -10,6 +10,7 @@ import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
 import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
+import com.kr.pawpawtrip.admin.model.vo.WeatherArea;
 import com.kr.pawpawtrip.common.util.PageInfo;
 
 import lombok.RequiredArgsConstructor;
@@ -90,5 +91,11 @@ public class AdminServiceImpl implements AdminService
     {
         return adminMapper.selectMemberAccsLog(memberAccsLog);
     }
+
+	@Override
+	public List<WeatherArea> getWeatherAreaList() {
+		
+		return adminMapper.selectWeatherAreaList();
+	}
 
 }

@@ -6,6 +6,7 @@ import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
 import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
+import com.kr.pawpawtrip.admin.model.vo.WeatherArea;
 import com.kr.pawpawtrip.common.util.PageInfo;
 
 public interface AdminService
@@ -25,4 +26,6 @@ public interface AdminService
     int saveVisitorLog(MemberAccsLog memberAccsLog);
 
     List<MemberAccsLog> getVisitorLog(MemberAccsLog memberAccsLog);
+
+	List<WeatherArea> getWeatherAreaList();
 }

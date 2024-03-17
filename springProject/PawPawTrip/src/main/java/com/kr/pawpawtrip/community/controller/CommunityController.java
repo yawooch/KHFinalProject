@@ -3,6 +3,7 @@ package com.kr.pawpawtrip.community.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
@@ -26,9 +27,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kr.pawpawtrip.common.api.CommonWeatherApiClient;
 import com.kr.pawpawtrip.common.util.MultipartFileUtil;
 import com.kr.pawpawtrip.common.util.PageInfo;
 import com.kr.pawpawtrip.community.model.service.CommunityService;
@@ -90,7 +93,7 @@ public class CommunityController
     public ModelAndView board(ModelAndView modelAndView, 
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "") String select, 
-            @RequestParam(defaultValue = "") String search)
+            @RequestParam(defaultValue = "") String search) throws RestClientException, URISyntaxException
     {
 
         // 전체 리스트 조회(검색기능 포함)

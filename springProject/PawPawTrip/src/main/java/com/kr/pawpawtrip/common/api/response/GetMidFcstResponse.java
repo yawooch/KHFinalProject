@@ -1,7 +1,6 @@
 package com.kr.pawpawtrip.common.api.response;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +21,9 @@ public class GetMidFcstResponse {
 	
 	// API 호출 결과의 상태
 	private String resultMsg;
+	
+	// 데이터 타입
+	private String dataType;
 	
 	// 한 페이지의 결과 수
 	private int numOfRows;
@@ -78,4 +80,7 @@ public class GetMidFcstResponse {
 			detailImageItems.add(detailImageItem);
 		}
 	}	
+	
+	
+	
 }
