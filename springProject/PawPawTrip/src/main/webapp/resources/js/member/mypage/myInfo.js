@@ -128,7 +128,7 @@ $(document).ready(function() {
 	
 	// 모든 필드가 채워져 있는지 확인하는 함수
 	function validateForm() {
-	    let memberPhone = $('#memberPhone').val();
+	    let memberPhone = $('#phoneNumber').val();
 	    let memberEmail = $('#email').val();
 	    let memberPetName = $('#memberPetName').val();
 	    let memberPetType = $('#memberPetType').val();
