@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kr.pawpawtrip.admin.model.mapper.AdminMapper;
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.LogCount;
 import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
 import com.kr.pawpawtrip.admin.model.vo.WeatherArea;
@@ -97,5 +98,11 @@ public class AdminServiceImpl implements AdminService
 		
 		return adminMapper.selectWeatherAreaList();
 	}
+	
+    @Override
+    public List<LogCount> getAccessMemberCount()
+    {
+        return adminMapper.selectAccessMemberCount();
+    }
 
 }

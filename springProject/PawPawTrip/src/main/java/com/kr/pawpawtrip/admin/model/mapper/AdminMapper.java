@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.LogCount;
 import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
 import com.kr.pawpawtrip.admin.model.vo.WeatherArea;
@@ -43,4 +44,6 @@ public interface AdminMapper
     List<MemberAccsLog> selectMemberAccsLog(MemberAccsLog memberAccsLog);
 
 	List<WeatherArea> selectWeatherAreaList();
+	
+    List<LogCount> selectAccessMemberCount();
 }

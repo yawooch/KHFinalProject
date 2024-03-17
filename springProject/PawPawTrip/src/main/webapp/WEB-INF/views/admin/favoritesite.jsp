@@ -145,42 +145,48 @@ var contentIdsArr = new Array();
 
 $('input[name=favorSiteCheck]').on('change', (event)=>
 {
-	let parentEle   = $(event.target).parents('tr');
     let maxCount    = 3;
     let selCount    = $('input[name=favorSiteCheck]:checked').length;
     let saveDelFlag = $(event.target).prop('checked'); 
     let contentid   = $(event.target).val();
     
     //체크박스 개수 체크
-    if(maxCount < selCount)
+    if((maxCount < selCount || maxCount <= contentIdsArr.length) && saveDelFlag)
     {
-    	alert('최대개수는 3개입니다.');
-    	$(event.target).prop('checked', false);
+        alert('최대개수는 3개입니다.');
+        $(event.target).prop('checked', false);
         return false;
     }
     
+    addTopThreefunc(saveDelFlag, contentid);
+})
+
+
+//카드 클릭시 이벤트를 위해 함수 생성
+function addTopThreefunc(saveDelFlag, contentid)
+{
     if(!confirm('선택한 컨텐츠를 '+ (saveDelFlag?'수정':'삭제') +'하시겠습니까?'))
     {
-    	return false;
+        return false;
     }
 
     //체크박스 체크 여부로 배열에 뺄지 말지 결정
-   	//체크됐을때
+    //체크됐을때
     if(saveDelFlag)
-   	{
+    {
         contentIdsArr.push(contentid);
-   	}
+    }
     else
     {
-    	let tempArr = new Array();
-    	for(let i = 0; i < contentIdsArr.length; i++)
-    	{
-    		if(contentIdsArr[i] != contentid)
-    		{
-    			tempArr.push(contentIdsArr[i]);
-    		}
-    	}
-    	contentIdsArr = tempArr;
+        let tempArr = new Array();
+        for(let i = 0; i < contentIdsArr.length; i++)
+        {
+            if(contentIdsArr[i] != contentid)
+            {
+                tempArr.push(contentIdsArr[i]);
+            }
+        }
+        contentIdsArr = tempArr;
     }
     console.log(contentIdsArr);
     
@@ -194,7 +200,6 @@ $('input[name=favorSiteCheck]').on('change', (event)=>
         success:function(data)
         {
             console.log(data);
-//             showFavorites();
             alert('화면이 새로고침됩니다.');
             location.href = location.href;
         },
@@ -202,7 +207,13 @@ $('input[name=favorSiteCheck]').on('change', (event)=>
             console.log(`error : ${error}`);
         }
      });
-})
+    }
+
+//카드를 클릭하면 삭제 처리를 한다.
+function clickCard(contentId)
+{
+    addTopThreefunc(false, contentId);
+}
 
 showFavorites();
 function showFavorites()
@@ -211,7 +222,6 @@ function showFavorites()
     {
         type : 'GET',
         url  : '${path}/admin/favoriteTopThreeAjax',
-//         data : data,
         success:function(data)
         {
             console.log(data);
@@ -219,28 +229,26 @@ function showFavorites()
             let resultStr = '';
             let sites = data.sites;
             let startRowNo = 0;
-            
 
             //조회된 site만큼 for문을 돌린다.
             for(let i = 0; i< sites.length ; i ++)
             {
-            	let site = sites[i]; // '+ site. + '
+                let site = sites[i]; // '+ site. + '
 
-            	contentIdsArr.push(site.contentid);
-            	let imageUrl = site.image;
-            	if(imageUrl =='' || imageUrl == null)
-            	{
-            		imageUrl = 'https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg';
-            	}
-            	
+                contentIdsArr.push(site.contentid);
+                let imageUrl = site.image;
+                if(imageUrl =='' || imageUrl == null)
+                {
+                    imageUrl = 'https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg';
+                }
+                
                 resultStr += '<div class="col-md-4">';
-                resultStr += '    <a href="" name="" style="text-decoration: none;">';
+                resultStr += '    <a href="javascript:clickCard('+ site.contentid +');" name="" style="text-decoration: none;">';
                 resultStr += '        <div class="card mb-4 product-wap rounded-0">';
                 resultStr += '            <div class="card rounded-0">';
                 resultStr += '                <img class="card-img rounded-0 img-fluid" src="'+ imageUrl +'">';
                 resultStr += '                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">';
-                resultStr += '                    <p class="readMore" style="font-size: 14px !important;">+<br>DELETE';
-                resultStr += '                    </p>';
+                resultStr += '                    <p class="readMore" style="font-size: 14px !important;color:white;">+<br>DELETE</p>';
                 resultStr += '                </div>';
                 resultStr += '            </div>';
                 resultStr += '            <div class="card-body">';
@@ -263,15 +271,15 @@ function showFavorites()
                 resultStr += '            <div class="card rounded-0">';
                 resultStr += '                <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">';
                 resultStr += '                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">';
-                resultStr += '                    <p class="readMore" style="font-size: 14px !important;">+<br>INSERT CONTENT</p>';
+                resultStr += '                    <p class="readMore" style="font-size: 14px !important;color:white;">+<br>INSERT CONTENT</p>';
                 resultStr += '                </div>';
                 resultStr += '            </div>';
                 resultStr += '            <div class="card-body">';
                 resultStr += '                <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">';
-                resultStr += '                    가쟈 아무데나';
+                resultStr += '                    추가 필요';
                 resultStr += '                </p>';
                 resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">';
-                resultStr += '                    서울 턱별시';
+                resultStr += '                    추천장소를 선택해주세요';
                 resultStr += '                </p>';
                 resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">';
                 resultStr += '                     콜미';
@@ -296,18 +304,15 @@ function showFavorites()
                 resultStr += '            <div class="card rounded-0">';
                 resultStr += '                <img class="card-img rounded-0 img-fluid" src="https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg">';
                 resultStr += '                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">';
-                resultStr += '                    <p class="readMore" style="font-size: 14px !important;">';
-                resultStr += '                        +<br>';
-                resultStr += '                        READ MORE';
-                resultStr += '                    </p>';
+                resultStr += '                    <p class="readMore" style="font-size: 14px !important;color:white;">+<br>INSERT CONTENT</p>';
                 resultStr += '                </div>';
                 resultStr += '            </div>';
                 resultStr += '            <div class="card-body">';
                 resultStr += '                <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">';
-                resultStr += '                    가쟈 아무데나';
+                resultStr += '                    오류';
                 resultStr += '                </p>';
                 resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">';
-                resultStr += '                    서울 턱별시';
+                resultStr += '                    새로고침 해주세요';
                 resultStr += '                </p>';
                 resultStr += '                <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block;  text-align: start !important; word-wrap: break-word; word-break: break-word; padding-left: 22px; top: 0; background: url(${path}/img/trip/tel_icon.png)no-repeat; line-height: 19px;">';
                 resultStr += '                     콜미';

@@ -1,6 +1,7 @@
 // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
 // 별도의 이벤트 메소드를 제공하지 않습니다
 var markers   = new Array();
+var overlays= new Array();
 window.onload = function()
 {
     var container              = document.getElementById('map');               //지도를 담을 영역의 DOM 레퍼런스
@@ -49,14 +50,21 @@ window.onload = function()
                                });
 
 
-    kakao.maps.event.addListener(map, 'click', function(mouseEvent)             // 지도에 클릭 이벤트를 등록합니다
+    kakao.maps.event.addListener(map, 'click', function(mouseEvent, map)             // 지도에 클릭 이벤트를 등록합니다
     {                                                                           // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
         var addressInfo = document.getElementById('addressInfo');               // 주소      정보를 보여줄 DIV
         var clickLatlng = document.getElementById('clickLatlng');               // 위도 경도 정보를 보여줄 DIV
         var eventlatlng = mouseEvent.latLng;                                    // 클릭한 위도, 경도 정보를 가져옵니다
 
         addressInfo.innerHTML = '';
-
+        
+        for(let overlay of overlays)
+        {
+            console.log(overlay);
+            overlay.setMap(null);
+            
+        }
+        
         marker.setPosition(eventlatlng);                                        // 마커 위치를 클릭한 위치로 옮깁니다
 
         clickLatlng.innerText = '클릭한 위치\n위도 : ' + eventlatlng.getLat() + '\n경도 : ' + eventlatlng.getLng();
@@ -130,8 +138,8 @@ function showMarkers(map, clusterer)
         success:function(data)
         {
             var imageSrc    = '/pawpawtrip/img/common/favSiteMarker2.png'; // 마커이미지의 주소입니다
-            var imageSize   = new kakao.maps.Size(20, 23); // 마커이미지의 크기입니다
-            var imageOption = {offset: new kakao.maps.Point(10, 20)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+            var imageSize   = new kakao.maps.Size(20, 23);                 // 마커이미지의 크기입니다
+            var imageOption = {offset: new kakao.maps.Point(10, 20)};      // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 
             clusterer.clear();
             markers = new Array();
@@ -170,13 +178,15 @@ function showMarkers(map, clusterer)
                                 '</div>';
                 // 마커 위에 커스텀오버레이를 표시합니다
                 // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
-                var overlay = new kakao.maps.CustomOverlay(
+                overlay = new kakao.maps.CustomOverlay(
                 {
                     content  : content,
                     map      : null, //먼저 지도에는 표시하지 않는다.
                     position : marker.getPosition()
                 });
 
+
+                overlays.push(overlay);
 
                 // 데이터에서 좌표 값을 가지고 마커를 표시합니다
                 // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다

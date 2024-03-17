@@ -1,7 +1,6 @@
 package com.kr.pawpawtrip.common.interceptor;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,16 +47,25 @@ public class MemberUrlCheckInterceptor implements HandlerInterceptor
          * request.getRemoteUser()    null                                                                                           
          * request.getRequestURI()    /pawpawtrip/admin/tripList                                                                     
          ********************************************************/
-
+        List<String> excpExts = Arrays.asList("css" ,"bundle" ,"js" ,"png" ,"jpg" ,"woff2");
+        String   servletPath    = request.getServletPath();
+        String[] servletPathExt = servletPath.split(".");//확장자를 추출하기위한 처리
         
         int memberNo = 0;
         MemberAccsLog memberAccsLog = new MemberAccsLog();
         memberAccsLog.setAccessAddr(request.getRemoteAddr());
-        memberAccsLog.setAccessPath(request.getServletPath());
+        memberAccsLog.setAccessPath(servletPath);
         
+        //예외 확장자면 로그에 기록하지 않는다.
+        if(servletPathExt.length != 0 && excpExts.contains(servletPathExt[servletPathExt.length])) 
+        {
+            memberAccsLog.setAccessPath(null);
+        }
+        
+        //로그인 했을때
         if (loginMember != null)
         {
-            String servletPath = request.getServletPath();
+            
             if((loginMember.getMemberPetType() == null || loginMember.getMemberPetName() == null) && !servletPath.equals("/member/mypage/myInfo"))
             {
                 request.setAttribute("msg", "필수정보 입력후 이용가능합니다.");
@@ -70,23 +78,12 @@ public class MemberUrlCheckInterceptor implements HandlerInterceptor
 
         List<MemberAccsLog> todayVisitors = adminService.getVisitorLog(memberAccsLog);
         
-        
-        
+        //조회된 로그가 없을때만 insert 한다.
         if (todayVisitors.size() == 0)
         {
             adminService.saveVisitorLog(memberAccsLog);
         }
         
-        
-        
-        
-        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        
-        System.out.println(today);
-        
-//        memberAccsLog.equals(remoteAddr);
-        
-
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

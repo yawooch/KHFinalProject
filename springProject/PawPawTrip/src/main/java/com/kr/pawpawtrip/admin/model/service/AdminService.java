@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.LogCount;
 import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
 import com.kr.pawpawtrip.admin.model.vo.WeatherArea;
@@ -28,4 +29,6 @@ public interface AdminService
     List<MemberAccsLog> getVisitorLog(MemberAccsLog memberAccsLog);
 
 	List<WeatherArea> getWeatherAreaList();
+	
+    List<LogCount> getAccessMemberCount();
 }
