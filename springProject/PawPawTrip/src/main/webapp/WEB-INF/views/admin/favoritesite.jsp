@@ -145,42 +145,42 @@ var contentIdsArr = new Array();
 
 $('input[name=favorSiteCheck]').on('change', (event)=>
 {
-	let parentEle   = $(event.target).parents('tr');
+    let parentEle   = $(event.target).parents('tr');
     let maxCount    = 3;
     let selCount    = $('input[name=favorSiteCheck]:checked').length;
     let saveDelFlag = $(event.target).prop('checked'); 
     let contentid   = $(event.target).val();
     
     //체크박스 개수 체크
-    if(maxCount < selCount)
+    if(maxCount < selCount || maxCount < contentIdsArr.length)
     {
-    	alert('최대개수는 3개입니다.');
-    	$(event.target).prop('checked', false);
+        alert('최대개수는 3개입니다.');
+        $(event.target).prop('checked', false);
         return false;
     }
     
     if(!confirm('선택한 컨텐츠를 '+ (saveDelFlag?'수정':'삭제') +'하시겠습니까?'))
     {
-    	return false;
+        return false;
     }
 
     //체크박스 체크 여부로 배열에 뺄지 말지 결정
-   	//체크됐을때
+    //체크됐을때
     if(saveDelFlag)
-   	{
+    {
         contentIdsArr.push(contentid);
-   	}
+    }
     else
     {
-    	let tempArr = new Array();
-    	for(let i = 0; i < contentIdsArr.length; i++)
-    	{
-    		if(contentIdsArr[i] != contentid)
-    		{
-    			tempArr.push(contentIdsArr[i]);
-    		}
-    	}
-    	contentIdsArr = tempArr;
+        let tempArr = new Array();
+        for(let i = 0; i < contentIdsArr.length; i++)
+        {
+            if(contentIdsArr[i] != contentid)
+            {
+                tempArr.push(contentIdsArr[i]);
+            }
+        }
+        contentIdsArr = tempArr;
     }
     console.log(contentIdsArr);
     
@@ -224,15 +224,15 @@ function showFavorites()
             //조회된 site만큼 for문을 돌린다.
             for(let i = 0; i< sites.length ; i ++)
             {
-            	let site = sites[i]; // '+ site. + '
+                let site = sites[i]; // '+ site. + '
 
-            	contentIdsArr.push(site.contentid);
-            	let imageUrl = site.image;
-            	if(imageUrl =='' || imageUrl == null)
-            	{
-            		imageUrl = 'https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg';
-            	}
-            	
+                contentIdsArr.push(site.contentid);
+                let imageUrl = site.image;
+                if(imageUrl =='' || imageUrl == null)
+                {
+                    imageUrl = 'https://i.ibb.co/6wHGL3T/Kakao-Talk-20240215-211419884.jpg';
+                }
+                
                 resultStr += '<div class="col-md-4">';
                 resultStr += '    <a href="" name="" style="text-decoration: none;">';
                 resultStr += '        <div class="card mb-4 product-wap rounded-0">';

@@ -99,7 +99,8 @@
                             <div class="myInfo-tr row">
                                 <div class="col-lg-12">
                                     <div class="myInfo-td col-12">보낼 내용</div>
-                                    <div class="myInfo-td col-12 padding-bottom"><textarea id="content" name="contents" value="" placeholder="[포포트립 안내] " ></textarea></div>
+                                    <div class="myInfo-td col-12 padding-bottom"><textarea id="sendingMessage" name="sendingMessage" placeholder="[포포트립 안내] " >[포포트립 안내]
+포포트립 개발하시느라 고생많으셨습니다~!</textarea></div>
                                 </div>
                             </div>
                         </div>
@@ -117,6 +118,27 @@
 <script>
 $(document).ready(function() 
 {
+    //보내기 버튼 클릭 시
+    $('#sendMessage').click(function()
+    {
+        let memberPhone    = $('#memberPhone').val(); // 휴대폰 번호 입력란의 값을 가져와 'memberPhone' 변수에 할당
+        let sendingMessages = $('#sendingMessage').val();
+        
+        $.ajax({
+            type: "POST",
+            url:'/pawpawtrip/sendMessages',
+            data: {
+                memberPhone,
+                sendingMessages
+            },
+            success: function(res){
+                alert('메세지가 전송되었습니다.');
+            },
+            error: function(error) {
+                alert('메세지 전송에 실패하였습니다.');
+            }
+        })
+    });     
 //     $('#submitCheck').on('submit', (event) => {
 //         let category = $('#comunityCate').val();
 //         let title = $('#communityTitle').val();

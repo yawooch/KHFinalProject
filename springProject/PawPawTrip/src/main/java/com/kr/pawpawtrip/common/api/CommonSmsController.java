@@ -1,32 +1,25 @@
 package com.kr.pawpawtrip.common.api;
 
+import java.util.ArrayList;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.extern.slf4j.Slf4j;
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.exception.NurigoMessageNotReceivedException;
 import net.nurigo.sdk.message.model.Balance;
 import net.nurigo.sdk.message.model.Message;
-import net.nurigo.sdk.message.model.StorageType;
 import net.nurigo.sdk.message.request.MessageListRequest;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.MessageListResponse;
 import net.nurigo.sdk.message.response.MultipleDetailMessageSentResponse;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Random;
-
+@Slf4j
 @RestController // @Controller + @ResponseBody가 합쳐진 형태로 JSON 형태의 객체 데이터를 반환
 public class CommonSmsController {
 
@@ -98,14 +91,14 @@ public class CommonSmsController {
 //        Random random = new Random();
 //        String numStr = "";
 //        for(int i = 0; i < 6; i++) {
-//        	String ran = Integer.toString(random.nextInt(10));
-//        	numStr+=ran;
+//          String ran = Integer.toString(random.nextInt(10));
+//          numStr+=ran;
 //        }
         
 //        System.out.println("####memberPhone#### : " + memberphone);
-    	
-    	System.out.println("######## phone, code ###### : " + memberPhone + " /  " + generatedCode);
-    	
+        
+        System.out.println("######## phone, code ###### : " + memberPhone + " /  " + generatedCode);
+        
         Message message = new Message();
         
         // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
@@ -118,6 +111,54 @@ public class CommonSmsController {
         System.out.println("######response : #######" + response);
 
         return response;
+    }
+    /**
+     * 관리자 화면 
+     */
+    /**
+     * 여러 메시지 발송 예제
+     * 한 번 실행으로 최대 10,000건 까지의 메시지가 발송 가능합니다.
+     */
+    @PostMapping("/sendMessages")
+    public MultipleDetailMessageSentResponse sendMessages(@RequestParam String memberPhone, @RequestParam String sendingMessages) {
+        ArrayList<Message> messageList  = new ArrayList<>();
+        String[]           memberPhones = new String[1];
+
+        if(memberPhone.contains(";")) 
+        {
+            memberPhones = memberPhone.split(";").clone();
+        }
+        else 
+        {
+            memberPhones[0] = memberPhone;
+        }
+        
+        log.info("memberPhones : {}", memberPhones);
+        
+        for (int i = 0; i < memberPhones.length; i++) {
+            String phoneNumber = memberPhones[i];
+            Message message = new Message();
+            message.setFrom("01033954663");
+            message.setTo(phoneNumber);
+            message.setText(sendingMessages);
+            
+            messageList.add(message);
+        }
+        try {
+            MultipleDetailMessageSentResponse response = this.messageService.send(messageList, false, true);
+
+            return response;
+        }
+        catch (NurigoMessageNotReceivedException exception)
+        {
+            System.out.println(exception.getFailedMessageList());
+            System.out.println(exception.getMessage());
+        }
+        catch (Exception exception)
+        {
+            System.out.println(exception.getMessage());
+        }
+        return null;
     }
 
     /**
