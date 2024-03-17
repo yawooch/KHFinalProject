@@ -95,15 +95,6 @@ public class CommonSmsController {
     @PostMapping("/send-one")
     public SingleMessageSentResponse sendOne(@RequestParam String memberPhone, @RequestParam int generatedCode) {
         
-//        Random random = new Random();
-//        String numStr = "";
-//        for(int i = 0; i < 6; i++) {
-//        	String ran = Integer.toString(random.nextInt(10));
-//        	numStr+=ran;
-//        }
-        
-//        System.out.println("####memberPhone#### : " + memberphone);
-    	
     	System.out.println("######## phone, code ###### : " + memberPhone + " /  " + generatedCode);
     	
         Message message = new Message();

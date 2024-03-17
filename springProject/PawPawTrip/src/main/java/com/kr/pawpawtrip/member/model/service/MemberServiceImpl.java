@@ -57,8 +57,15 @@ public class MemberServiceImpl implements MemberService {
 	    
 	    if (member.getMemberNo() > 0) {
 	        // update
-	    	member.setMemberPw(encoder.encode(member.getMemberPw())); // 새로운 비밀번호를 암호화하여 설정
-	        result = mapper.updateMember(member);
+	    	if(member.getMemberPw().equals("")) {
+	    		// 비밀번호 변경 없을 시
+	    		member.setMemberPw(null);
+	    		result = mapper.updateMember(member);
+	    	} else {
+	    		// 비밀번호 변경 시 
+	    		member.setMemberPw(encoder.encode(member.getMemberPw())); // 새로운 비밀번호를 암호화하여 설정
+	    		result = mapper.updateMember(member);
+	    	}
 	    } else {
 	        // insert
 	        member.setMemberPw(encoder.encode(member.getMemberPw())); // 새로운 비밀번호를 암호화하여 설정
@@ -210,7 +217,6 @@ public class MemberServiceImpl implements MemberService {
 			// result가 null이면 정보가 저장이 안되있는거므로 정보를 저장.
 			mapper.insertKakao(userInfo);
 			// 위 코드가 정보를 저장하기 위해 Repository로 보내는 코드임.
-			
 			return mapper.findKakao(userInfo);
 			// 위 코드는 정보 저장 후 컨트롤러에 정보를 보내는 코드임.
 			//  result를 리턴으로 보내면 null이 리턴되므로 위 코드를 사용.
@@ -229,6 +235,7 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.selectMemberById(memberId);
 	}
 
+	// 회원 삭제 
 	@Override
 	@Transactional
 	public int delete(int memberNo) {
