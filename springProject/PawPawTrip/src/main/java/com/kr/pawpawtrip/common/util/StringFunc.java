@@ -108,14 +108,6 @@ public class StringFunc
      * <PRE>
      *  2Byte문자를 감안한 문자열을 길이를 반환한다
      * </PRE>
-     *
-     * @location StringUtil.java
-     * @Method getLength
-     * @cdate 2015. 10. 1. 오전 10:13:28
-     * @version 1.0
-     *
-     * @param input
-     * @return
      */
     public static final int getLength(String input)
     {

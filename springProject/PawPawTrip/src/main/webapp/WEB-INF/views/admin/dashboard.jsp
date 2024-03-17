@@ -69,61 +69,88 @@
     const userGraph = document.getElementById('userGraph');
 
     // Ajax
-    $.getJSON('${path}/admin/mypetRatioAjax')
-    .done((obj) => {
-    	console.log(obj);
-    	
-    	let petTypeArr = [];
-    	let petCountArr = [];
-    	
-    	for(let i = 0; i < obj.length; i++) {
-    		petTypeArr.push(obj[i].petType);
-    		petCountArr.push(obj[i].petCount);
-    	}
-    	
-    	console.log(petTypeArr);
-    	console.log(petCountArr);
+    $.getJSON('${path}/admin/mypetRatioAjax').done((obj) => 
+    {
+        console.log(obj);
+        
+        let petTypeArr = [];
+        let petCountArr = [];
+        
+        for(let i = 0; i < obj.length; i++) {
+            petTypeArr.push(obj[i].petType);
+            petCountArr.push(obj[i].petCount);
+        }
+        
+        console.log(petTypeArr);
+        console.log(petCountArr);
     
-	    // 원형 그래프
-	    new Chart(myPetGraph, {
-	        type     : 'pie',
-	        data     : {
-	        		
-	                   labels   : petTypeArr,
-	                   datasets : [ {
-	                                data            : petCountArr,
-	                                borderWidth     : 1,
-	                                backgroundColor : [ '#ED6C40', '#F1AC53', '#F7CA45', '#A7CF4A', '#59C37C', '#659CF4', '#3785BA', '#32558C', '#1D3660']
-	                              } ]
-	                   },
-	        options  : {
-	                   plugins  : {
-	                              legend   : {
-	                                          display  : true,
-	                                          position : 'right'
-	                                         }
-	                              },
-	                   scales   : {
-	                              y        : {
-	                                         beginAtZero : true,
-	                                         display     : false
-	                                         }
-	                              }
-	                   }
-	        })
+        // 원형 그래프
+        new Chart(myPetGraph, {
+            type     : 'pie',
+            data     : {
+                    
+                       labels   : petTypeArr,
+                       datasets : [ {
+                                    data            : petCountArr,
+                                    borderWidth     : 1,
+                                    backgroundColor : [ '#ED6C40', '#F1AC53', '#F7CA45', '#A7CF4A', '#59C37C', '#659CF4', '#3785BA', '#32558C', '#1D3660', '#B784B7']
+                                  } ]
+                       },
+            options  : {
+                       plugins  : {
+                                  legend   : {
+                                              display  : true,
+                                              position : 'right'
+                                             }
+                                  },
+                       scales   : {
+                                  y        : {
+                                             beginAtZero : true,
+                                             display     : false
+                                             }
+                                  }
+                       }
+            })
     })
 
-    // 막대 그래프
-    new Chart(userGraph,
+    
+    // Ajax
+    $.getJSON('${path}/admin/accessMemberCountAjax').done((obj) => 
+    {
+        console.log(obj);
+        
+        let dataMonth = '';
+        if(obj.length != 0)
+        {
+            dataMonth = obj[0].accessDate.split('-')[1].replace(/^0/,'');
+            dataMonth = '(' + dataMonth + '월)';
+        }
+        
+        
+        let accsDate = new Array();
+        let mbCounts = new Array();
+        
+        for(let i = 0; i < obj.length; i ++)
+        {
+            let accessDate = obj[i].accessDate.split('-')[2];
+            let count      = obj[i].count;
+            accessDate = accessDate.replace(/^0/,'') + '일';
+            accsDate.push(accessDate);
+            mbCounts.push(count);
+        }
+        
+        
+        // 막대 그래프
+        new Chart(userGraph,
         {
         type         : 'bar',
         data         : {
-        labels       : [ '1일', '2일', '3일', '4일', '5일', '6일', '7일', '8일', '9일', '10일', '11일', '12일', '13일', '14일', '15일' ],
+        labels       : accsDate,
         datasets     : [ {
-                       label           : '일 별 방문자 수(2월)',
-                       data            : [ 12, 19, 3, 5, 2, 3, 20, 31, 35, 11, 50, 45, 7, 19, 33 ],
+                       label           : '일 별 방문자 수' + dataMonth,
+                       data            : mbCounts,
                        borderWidth     : 1,
-                       backgroundColor : '#6D6E71'
+                       backgroundColor : '#B29254'
                        } ]
         },
         options      : {
@@ -134,6 +161,7 @@
                        maintainAspectRatio : false
                        }
         });
+    });
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />

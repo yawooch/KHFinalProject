@@ -88,57 +88,18 @@
                     <div class="myinfo-inner-content">
                         <div class="myInfo-table">
                             <div class="myInfo-tr row">
-                                <div class="col-lg-6">
-                                    <div class="myInfo-td col-12">아이디</div>
-                                    <div class="myInfo-td col-12 padding-bottom"><input type="text" name="memberId" value="${ loginMember.memberId }" readonly></div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="myInfo-td col-12">비밀번호</div>
-                                    <div class="myInfo-td col-12 padding-bottom"><input type="password" id="password" name="memberPw" placeholder="8~15자 영문,숫자 포함"
-                                        <c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>></div>
-                                    <p class="strongPassword-message hide" style="color:red; font-size: 12px; margin-top: -30px;">8~15자 영문, 숫자를 포함하여 입력하세요.</p>
-                                </div>
-                            </div>
-                            <div class="myInfo-tr row">
-                                <div class="col-lg-6">
-                                    <div class="myInfo-td col-12">이름</div>
-                                    <div class="myInfo-td col-12 padding-bottom"><input type="text" name="memberName" value="${ loginMember.memberName }" readonly></div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="myInfo-td col-12">비밀번호 확인</div>
-                                    <div class="myInfo-td col-12 padding-bottom"><input type="password" id="password-retype" placeholder="8~15자 영문,숫자 포함"
-                                        <c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>></div>
-                                     <p class="mismatch-message hide" style="color:red; font-size: 12px; margin-top: -30px;">비밀번호가 일치하지 않습니다.</p>
-                                </div>
-                            </div>
-                            <div class="myInfo-tr row">
-                                <div class="col-lg-6">
-                                    <div class="myInfo-td col-12">생년월일</div>
-                                    <div class="myInfo-td col-12 padding-bottom"><input type="text" name="memberBirth" value="${ loginMember.memberBirth }" readonly></div>
-                                </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="myInfo-td col-12">핸드폰 번호</div>
                                     <div class="myInfo-td col-12 padding-bottom">
-                                        <input type="text" class="contain-button" id="memberPhone" name="memberPhone" value="${ loginMember.memberPhone }"
-                                            <c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>>
-                                        <button class="paw_btn btn-filled" id="sendVerificationCodeBtn" type="button"
-                                            <c:if test="${loginMember.memberId.matches('[0-9]+')}">disabled</c:if>>인증받기</button>
+                                        <input type="text" class="contain-button" id="memberPhone" name="memberPhone" value="" placeholder="ex) 01012345678">
+                                        <button class="paw_btn btn-filled" id="sendMessage" type="button">보내기</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="myInfo-tr row">
-                                <div class="col-lg-6">
-                                    <div class="myInfo-td col-12">마이펫 이름</div>
-                                    <div class="myInfo-td col-12 padding-bottom"><input type="text" id="memberPetName" name="memberPetName" value="${ loginMember.memberPetName }"></div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="myInfo-td col-12">인증번호</div>
-                                    <div class="myInfo-td col-12 padding-bottom">
-                                        <input type="text" id="verificationCode" class="contain-button"
-                                            <c:if test="${loginMember.memberId.matches('[0-9]+')}">readonly</c:if>>
-                                        <button class="paw_btn btn-filled" id="verifyCodeBtn" type="button"
-                                            <c:if test="${loginMember.memberId.matches('[0-9]+')}">disabled</c:if>>확인</button>
-                                    </div>
+                                <div class="col-lg-12">
+                                    <div class="myInfo-td col-12">보낼 내용</div>
+                                    <div class="myInfo-td col-12 padding-bottom"><textarea id="content" name="contents" value="" placeholder="[포포트립 안내] " ></textarea></div>
                                 </div>
                             </div>
                         </div>

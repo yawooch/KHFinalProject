@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kr.pawpawtrip.admin.model.mapper.AdminMapper;
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.LogCount;
 import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
 import com.kr.pawpawtrip.common.util.PageInfo;
@@ -89,6 +90,12 @@ public class AdminServiceImpl implements AdminService
     public List<MemberAccsLog> getVisitorLog(MemberAccsLog memberAccsLog)
     {
         return adminMapper.selectMemberAccsLog(memberAccsLog);
+    }
+
+    @Override
+    public List<LogCount> getAccessMemberCount()
+    {
+        return adminMapper.selectAccessMemberCount();
     }
 
 }

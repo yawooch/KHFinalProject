@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.LogCount;
 import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
 
@@ -40,4 +41,6 @@ public interface AdminMapper
 
     //사용자 접속 로그 테이블에서 사용자 가져오기
     List<MemberAccsLog> selectMemberAccsLog(MemberAccsLog memberAccsLog);
+
+    List<LogCount> selectAccessMemberCount();
 }

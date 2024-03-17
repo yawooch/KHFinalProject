@@ -25,7 +25,7 @@
 <!--         FROM MEMBER -->
 <!--     </sql> -->
     
-    <resultMap id="communityRankResultMap"   type="CommunityRank"        >
+    <resultMap  id="communityRankResultMap"   type="CommunityRank"        >
         <id     property="communityNo"       column="COMMUNITY_NO"       />
         <result property="rownum"            column="ROWNUM"             />
         <result property="communityTitle"    column="COMMUNITY_TITLE"    />
@@ -35,19 +35,24 @@
         <result property="communityCategory" column="COMMUNITY_CATEGORY" />
     </resultMap>
     
-    <resultMap id="accsLogResultMap"         type="MemberAccsLog">
+    <resultMap  id="accsLogResultMap"         type="MemberAccsLog">
         <result property="memberNo"          column="MEMBER_NO"          />
         <result property="accessAddr"        column="ACCESS_ADDR"        />
         <result property="accessDate"        column="ACCESS_DATE"        />
         <result property="accessPath"        column="ACCESS_PATH"        />
     </resultMap>
     
-    <resultMap id="mypetRatioResultMap"      type="Pet">
+    <resultMap  id="mypetRatioResultMap"      type="Pet">
         <result property="petType"           column="MEMBER_PET_TYPE" />
         <result property="petCount"          column="PET_COUNT"       />
     </resultMap>
     
-    <resultMap id="favorSiteResultMap"       type="FavorSite">
+    <resultMap  id="logCountResultMap"        type ="LogCount">
+        <result property="accessDate"        column="ACCESS_DATE" />
+        <result property="count"             column="COUNT"       />
+    </resultMap>
+    
+    <resultMap  id="favorSiteResultMap"       type="FavorSite">
         <id     property="contentid"         column="CONTENTID"    />
         <result property="address"           column="ADDRESS"      />
         <result property="title"             column="TITLE"        />
@@ -57,7 +62,7 @@
         <result property="favorRcmdYn"       column="FAVOR_RCMD_YN"/>
     </resultMap>
     
-    <select id="selectCommunityRanks" resultMap="communityRankResultMap">
+    <select    id="selectCommunityRanks" resultMap="communityRankResultMap">
         SELECT ROWNUM 
              , COMMUNITY_TITLE
              , COMMUNITY_COUNT
@@ -223,6 +228,7 @@
          </foreach> 
     </update>
     
+    <!-- 인터셉터에서 로그정보 insert -->
     <insert id="insertMemberAccsLog" parameterType="MemberAccsLog">
         INSERT 
           INTO MEMBER_ACCS_LOG
@@ -239,7 +245,7 @@
         )
     </insert>
     
-    
+    <!-- 인터셉터에서 조회할 쿼리 -->
     <select id="selectMemberAccsLog" parameterType="MemberAccsLog" resultMap="accsLogResultMap">
         SELECT MEMBER_NO
              , ACCESS_ADDR
@@ -250,6 +256,29 @@
            AND ACCESS_ADDR                      = #{accessAddr}
            AND ACCESS_PATH                      = #{accessPath}
            AND MEMBER_NO                        = #{memberNo}
+    </select>
+    
+    <select id="selectAccessMemberCount" resultMap="logCountResultMap">
+        SELECT ACCESS_DATE   AS ACCESS_DATE
+             , COUNT(*)      AS COUNT
+          FROM (
+               SELECT TO_CHAR(ACCESS_DATE, 'YYYY-MM-DD') AS ACCESS_DATE
+                    , ACCESS_ADDR                        AS ACCESS_ADDR
+                    , MEMBER_NO                          AS MEMBER_NO
+                 FROM MEMBER_ACCS_LOG
+                GROUP BY
+                      TO_CHAR(ACCESS_DATE, 'YYYY-MM-DD')
+                    , ACCESS_ADDR
+                    , MEMBER_NO
+                ORDER BY
+                      ACCESS_DATE
+                    , ACCESS_ADDR
+                    , MEMBER_NO
+               )
+         GROUP BY
+               ACCESS_DATE
+         ORDER BY
+               ACCESS_DATE
     </select>
     
 </mapper>

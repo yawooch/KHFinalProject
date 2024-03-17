@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kr.pawpawtrip.admin.model.service.AdminService;
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
 import com.kr.pawpawtrip.admin.model.vo.FavorSite;
+import com.kr.pawpawtrip.admin.model.vo.LogCount;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
 import com.kr.pawpawtrip.common.api.CommonApiClient;
 import com.kr.pawpawtrip.common.api.CommonWeatherApiClient;
@@ -91,10 +92,17 @@ public class AdminController
     @GetMapping("/admin/mypetRatioAjax")
     public ResponseEntity<List<Pet>> mypetRatioAjax()
     {
-
         List<Pet> pets = adminService.getMyPetRatio();
 
         return ResponseEntity.ok(pets);
+    }
+    /** 대시보드 사용자 접속로그 */
+    @GetMapping("/admin/accessMemberCountAjax")
+    public ResponseEntity<List<LogCount>> accessMemberCountAjax()
+    {
+        List<LogCount> logCount = adminService.getAccessMemberCount();
+        
+        return ResponseEntity.ok(logCount);
     }
 
     /** 트립 매핑 - 목록 화면으로 이동 */
