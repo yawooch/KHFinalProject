@@ -110,7 +110,7 @@ $(document).ready(function()
 			return false;
 		}
 		
-		if(!(file === 'jpg' || file === 'png' || file === 'gif' || file === '')) {
+		if(!(file === 'jpg' || file === 'png' || file === 'gif' || file === 'jpeg' || file === '')) {
 			alert('이미지 파일을 등록해주세요.');
 			return false;
 		}
