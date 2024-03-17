@@ -62,16 +62,12 @@
         <result property="favorRcmdYn"       column="FAVOR_RCMD_YN"/>
     </resultMap>
     
-<<<<<<< HEAD
     <resultMap id="weatherAreaListMap" type="WeatherArea">
     	<result property="areaCode" column="AREA_CODE" />
     	<result property="areaName" column="AREA_NAME" />
     </resultMap>
     
-    <select id="selectCommunityRanks" resultMap="communityRankResultMap">
-=======
     <select    id="selectCommunityRanks" resultMap="communityRankResultMap">
->>>>>>> bcdc0ab044a719cb3536c8ac7359e543315130fe
         SELECT ROWNUM 
              , COMMUNITY_TITLE
              , COMMUNITY_COUNT
