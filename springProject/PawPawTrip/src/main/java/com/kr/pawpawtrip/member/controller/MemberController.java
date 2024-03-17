@@ -249,7 +249,6 @@ public class MemberController {
     public ModelAndView update(ModelAndView modelAndView, Member member, @SessionAttribute("loginMember") Member loginMember, HttpSession session) {
 
     	System.out.println("#####loginMember : " + loginMember); // 실제 로그인 멤버의 정보
-        System.out.println("#####member : " + member); // 수정한 데이터를 저장하는 객체
         
         member.setMemberNo(loginMember.getMemberNo());
         
@@ -270,6 +269,8 @@ public class MemberController {
         
         modelAndView.addObject("location", "/member/mypage/my-info");
         modelAndView.setViewName("common/msg");
+        
+        System.out.println("#####member : " + member); // 수정한 데이터를 저장하는 객체
         
         return modelAndView;
     }
