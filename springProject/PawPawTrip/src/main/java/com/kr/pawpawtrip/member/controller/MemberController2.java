@@ -93,13 +93,15 @@ public class MemberController2 {
       return modelAndView; 
    }
    
-   @PostMapping("/member/my-trip/add")
+   
+   
+   // 찜 목록에 추가
+   @GetMapping("/member/mypage/my-trip/add")
    public ModelAndView addSpotToZzim(ModelAndView modelAndView,@RequestParam("contentId") String contentId,
-                                                @RequestParam("memberNo") String memberNo) {
-         
-      tripService.addMyTrip(contentId, memberNo);
-      
-      modelAndView.setViewName("member/my-trip/add");
+                                                			   @RequestParam("memberNo") int memberNo, HttpSession session) {
+      int result = 0;
+	   
+      result = tripService.addMyTrip(contentId, memberNo);
       
       return modelAndView;
    }

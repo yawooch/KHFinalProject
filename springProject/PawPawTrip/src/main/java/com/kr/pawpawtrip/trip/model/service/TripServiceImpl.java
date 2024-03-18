@@ -102,6 +102,14 @@ public class TripServiceImpl implements TripService {
       
       return tripMapper.selectMyTripList(memberNo);
    }
+
+   // 찜한 장소 목록에 추가
+   @Override
+   @Transactional
+   public int addMyTrip(String contentId, int memberNo) {
+	   	
+	   return tripMapper.insertMyTrip(contentId, memberNo);
+   }   
    
    // -----------------------------------------------------------------------------------------
    
@@ -169,6 +177,8 @@ public class TripServiceImpl implements TripService {
     {
         return tripMapper.selectPetInfoByContentId(contentId);
     }
+
+
 
 
 

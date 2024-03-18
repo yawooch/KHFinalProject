@@ -41,6 +41,8 @@ public interface TripService {
    // memberNo를 이용하여 회원이 찜한 장소 리스트 조회
    List<MyTrip> getMyTripListByMemberNo(PageInfo pageInfo, int memberNo);
    
+   // contentId와 memberNo를 이용하여 My
+   int addMyTrip(String contentId, int memberNo);
    // -----------------------------------------------------------------------------------------
    
    //반려동물 동반정보 수정/저장
@@ -57,6 +59,8 @@ public interface TripService {
     List<PetInfo> getPetTourListByContentIds(List<Integer> contentIdList);
     
     PetInfo getPetTourByContentId(int contentId);
+
+	
 
 
    

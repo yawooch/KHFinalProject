@@ -331,6 +331,13 @@
                                   WHERE MEMBER_NO = #{memberNo})  
       </select>
       
+      <!-- 회원이 찜한 장소 추가 -->
+      <insert id="insertMyTrip" parameterType="map">
+		INSERT 
+		INTO ZZIM ( CONTENTID, MEMBER_NO )
+		VALUES ( #{contentId}, #{memberNo} )     	
+      </insert>
+      
    <!-- ************************************************************************************* -->
    
     <!-- PetTour List IN절조건 조회 -->
