@@ -13,14 +13,6 @@
 <link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
 <link rel="stylesheet" href="${path}/css/trip/spot.css">
 
-<style>
-	.disable {
-		pointer-events: none;
-		background-color: #B29254;
-		color: white;
-	}
-</style>
-
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
@@ -153,17 +145,17 @@
 					<c:if test="${ empty spots }">
 						<li class="disable"><a>1</a></li>
 					</c:if>                	
-                	<c:forEach var="currentPage" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
+                	<c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
                 		<c:choose>
-                			<c:when test="${ currentPage == pageInfo.currentPage }">
-				                <li class="disable"><a>${ currentPage }</a></li>
+                			<c:when test="${ current == pageInfo.currentPage }">
+				                <li class="disable"><a>${ current }</a></li>
                 			</c:when>
                 			<c:otherwise>
                 				<c:if test="${ empty selectAndSearch.selectArea and empty selectAndSearch.searchKeyword }">
-				                    <li><a href="${ path }/trip/spot?page=${ currentPage }">${ currentPage }</a></li>                					
+				                    <li><a href="${ path }/trip/spot?page=${ current }">${ current }</a></li>                					
                 				</c:if>
-                				<c:if test="${ not empty selectAndSearch.selectArea or not empty selectAndSearch.search }">
-				                    <li><a href="${ path }/trip/spot?page=${ currentPage }&selectArea=${ selectAndSearch.selectArea }&searchKeyword=${ selectAndSearch.searchKeyword }">${ currentPage }</a></li>                					                					
+                				<c:if test="${ not empty selectAndSearch.selectArea or not empty selectAndSearch.searchKeyword }">
+				                    <li><a href="${ path }/trip/spot?page=${ current }&selectArea=${ selectAndSearch.selectArea }&searchKeyword=${ selectAndSearch.searchKeyword }">${ current }</a></li>                					                					
                 				</c:if>
                 			</c:otherwise>
                 		</c:choose>

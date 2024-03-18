@@ -37,9 +37,14 @@
 
 .readMore {
     text-align: center;
-    
     color: #FDFAEF;
     font-size: 14px !important;
+}
+
+.disable {
+	pointer-events: none;
+	background-color: #B29254;
+	color: white;
 }
 
 .notice-text > a {

@@ -35,17 +35,22 @@ public interface TripService {
    // 숙소 상세 조회(숙박 ID 사용) 
    Stay getStayById(int id);
    
+   // -----------------------------------------------------------------------------------------
+   
    // memberNo를 이용하여 회원이 찜한 장소 갯수 조회 
    int getMyTripByMemberNo(int memberNo);
    
    // memberNo를 이용하여 회원이 찜한 장소 리스트 조회
    List<MyTrip> getMyTripListByMemberNo(PageInfo pageInfo, int memberNo);
    
-   // contentId와 memberNo를 이용하여 MyTrip에 Spot(관광지) 추가 
-   int saveSpotToMyTrip(String contentId, int memberNo);
+   // contentId와 memberNo를 이용하여 MyTrip에 관광지/숙소 추가 
+   int saveMyTrip(String contentId, int memberNo);
    
-   // contentId와 memberNo를 이용하여 MyTrip에 Spot(관광지) 삭제 
-   int deleteSpotOfMyTrip(String contentId, int memberNo);
+   // contentId와 memberNo를 이용하여 MyTrip에 관광지/숙소 삭제 
+   int deleteMyTrip(String contentId, int memberNo);
+   
+   String isZzimThis(String contentId, String memberNo);
+   
    // -----------------------------------------------------------------------------------------
    
    //반려동물 동반정보 수정/저장
@@ -63,7 +68,10 @@ public interface TripService {
     
     PetInfo getPetTourByContentId(int contentId);
 
-    String isZzimThis(String contentId, String memberNo);
+	
+
+	
+
 
 
 }

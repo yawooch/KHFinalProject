@@ -334,7 +334,7 @@
       
       
       
-      <!-- 회원이 찜한 관광지 조회 -->
+      <!-- 회원이 찜한 관광지/숙소 조회 -->
       <select id="selectZzimId" parameterType="map" resultType="string">
 		SELECT CONTENTID
 		  FROM ZZIM
@@ -343,7 +343,7 @@
       </select>
       
       <!-- 회원이 찜한 관광지 추가 -->
-      <insert id="insertSpotMyTrip" parameterType="map">
+      <insert id="insertMyTrip" parameterType="map">
 		INSERT 
 		INTO ZZIM ( CONTENTID, MEMBER_NO )
 		VALUES ( #{contentId}, #{memberNo} )     	
@@ -351,7 +351,7 @@
       
       
       <!-- 회원이 찜한 관광지 삭제 -->
-      <delete id="deleteSpotMyTrip" parameterType="map">
+      <delete id="deleteMyTrip" parameterType="map">
 		DELETE
 		FROM ZZIM 
 		WHERE MEMBER_NO = #{memberNo}

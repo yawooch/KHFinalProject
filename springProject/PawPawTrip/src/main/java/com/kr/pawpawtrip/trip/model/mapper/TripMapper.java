@@ -43,13 +43,13 @@ public interface TripMapper {
    int selectMyTripCount(int memberNo);
    
    // 회원이 찜한 장소(관광지, 숙소) 리스트 조회
-   List<MyTrip> selectMyTripList(@Param("memberNo") int memberNo);
+   List<MyTrip> selectMyTripList(RowBounds rowBounds, @Param("memberNo") int memberNo);
    
-   // 찜한 관광지 MyTrip페이지에 추가
-   int insertSpotMyTrip(@Param("contentId") String contentId, @Param("memberNo") int memberNo);
+   // 찜한 관광지/숙소 MyTrip페이지에 추가
+   int insertMyTrip(@Param("contentId") String contentId, @Param("memberNo") int memberNo);
    
-   // 찜했던 관광지 MyTrip페이지에서 삭제
-   int deleteSpotMyTrip(@Param("contentId") String contentId, @Param("memberNo") int memberNo);
+   // 찜했던 관광지/숙소 MyTrip페이지에서 삭제
+   int deleteMyTrip(@Param("contentId") String contentId, @Param("memberNo") int memberNo);
    
    // 동물동반 정보 insert
     int insertPetInfo(PetInfo petInfo);
@@ -67,15 +67,5 @@ public interface TripMapper {
     PetInfo selectPetInfoByContentId(@Param("contentId") int contentId);
 
     String selectZzimId(@Param("contentId") String contentId, @Param("memberNo") String memberNo);
-
-	
-
-	
-
-
-
-
-   
-
-   
+  
 }

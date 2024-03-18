@@ -33,20 +33,21 @@
       
       <!-- 컨텐츠 -->
       <div class="common-list" style="margin-top: 28px;">
-         <div class="common-detail-list no-row" >
+         <div class="common-detail-list no-row">
             <div class="row">
             
                 <!-- 찜한 장소가  없을 때 -->
                     <c:if test="${ empty myTrips }">
-                       <p>조회된 게시물이 없습니다.</p>
-                       <br>
-                       <button class="btnGoSpot" onclick="location.href='${ path }/trip/spot'">관광지 둘러보기</button>
-                       <button class="btnGoStay" onclick="location.href='${ path }/trip/stay'">숙소 둘러보기</button>
+                       <div class="emptyTripHeight">
+	                       <p style=" height: 200px; font-weight: 500; line-height: 300px; ">조회된 게시물이 없습니다.</p>
+	                       <button class="btnGoSpot" onclick="location.href='${ path }/trip/spot'">관광지 둘러보기</button>
+	                       <button class="btnGoStay" onclick="location.href='${ path }/trip/stay'">숙소 둘러보기</button>
+                       </div>
                     </c:if>
                     
                     <!-- 찜한 장소가 있을 때 -->
                     <c:forEach var="myTrip" items="${ myTrips }">
-                  <div class="col-md-4">
+                    <div class="col-md-4">
                      
                      <!-- 컨텐츠 타입에따라 이동할 URL 변경 -->
                      <c:if test="${ myTrip.contentType == '관광지' }">
@@ -56,41 +57,54 @@
                         <a href="${ path }/trip/stay/stayDetail?id=${myTrip.contentId}" style="text-decoration: none;">
                      </c:if>
                      
-                               <!-- 카드 이미지 -->
-                               <div class="card mb-4 product-wap rounded-0">
-                                   <div class="card rounded-0">
-                                      <img class="card-img rounded-0 img-fluid" src="${ myTrip.image }" alt="잠시후에 다시 시도해 주세요.">
-                                       <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                           <p class="readMore" style="font-size: 14px !important;">+<br>READ MORE</p>
-                                       </div>
-                                   </div>
-                                   <!-- 카드 내용 -->
-                                   <div class="card-body">
-                                      <div class="contentType">${ myTrip.contentType }</div>
-                                       <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">
-                                           ${ myTrip.title }
-                                       </p>
-                                       <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
-                                           ${ myTrip.address } 
-                                       </p>
-                                   </div>
-                               </div>
-                           </a>
-                  </div>
-                    </c:forEach>
-            </div>   
-         </div>
+                     <!-- 카드 이미지 -->
+                     <div class="card mb-4 product-wap rounded-0">
+                         <div class="card rounded-0">
+                            <img class="card-img rounded-0 img-fluid" src="${ myTrip.image }" alt="잠시후에 다시 시도해 주세요.">
+                             <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                 <p class="readMore" style="font-size: 14px !important;">+<br>READ MORE</p>
+                             </div>
+                         </div>
+                         <!-- 카드 내용 -->
+                         <div class="card-body">
+                            <div class="contentType">${ myTrip.contentType }</div>
+                             <p class="text-center mb-4" style="font-size: 18px !important; font-weight: bold; color: #4B4242; height: 54px !important;">
+                                 ${ myTrip.title }
+                             </p>
+                             <p class="text-decoration-none mb-2 !important" style="font-size: 14px !important; display: block; text-align: start !important; word-wrap: break-word; word-break: break-all; padding-left: 22px; top: 0; background: url(${path}/img/trip/map_icon.png)no-repeat; line-height: 19px;">
+                                 ${ myTrip.address } 
+                             </p>
+                         </div>
+                     </div>
+                     </a>
+           		</div>
+             </c:forEach>
+           </div>   
+        </div>
          
          <!-- 페이징 -->
          <div class="common-page-number">
             <ul>
-               <li><a href="">&lt;</a></li>
-               <li><a href="">1</a></li>
-               <li><a href="">2</a></li>
-               <li><a href="">3</a></li>
-               <li><a href="">4</a></li>
-               <li><a href="">5</a></li>
-               <li><a href="">&gt;</a></li>
+               <!-- 이전 페이지 -->
+               <li><a href="${ path }/member/mypage/my-trip?page=${ pageInfo.prevPage }">&lt;</a></li>
+			   
+			   <!-- 현재 페이지 -->
+			   <c:if test="${ empty myTrips }">
+				   <li class="disable"><a>1</a></li>
+			   </c:if>
+			   <c:forEach var="current" begin="${ pageInfo.startPage }" end="${ pageInfo.endPage }">
+			       <c:choose>
+               			<c:when test="${ current == pageInfo.currentPage }">
+			                <li class="disable"><a>${ current }</a></li>
+               			</c:when>
+               			<c:otherwise>
+               				<li><a href="${ path }/member/mypage/my-trip?page=${ current }">${ current }</a></li>
+               			</c:otherwise>			   		
+			       </c:choose>
+			   </c:forEach>
+			   
+			   <!-- 다음 페이지 -->
+			   <li><a href="${ path }/member/mypage/my-trip?page=${ pageInfo.nextPage }">&gt;</a></li>
             </ul>
          </div>      
       </div>      

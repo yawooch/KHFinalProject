@@ -159,23 +159,35 @@
     margin: 10px auto;
 }
 
+/* -------------------------------------------------------------------------------- */
+
 /* 하트 아이콘 */
-#heart-icon {
-    display: inline-block;
-    /* position: absolute; */
-    width: 7%;
-    height: 31px;
-    /* padding-left: 120px; */
-    color: #4B4242;
-    text-align: center;
-    vertical-align: middle;
-    margin: 10px auto;
-    font-variation-settings:
-    'FILL' 0,  /* FILL이 0이면 빈 하트, 1이면 채워진 하트*/
-    'wght' 500,
-    'GRAD' 0,
-    'opsz' 48;
+.heartBox {
+	display: inline-block;
+    position: absolute;
+    line-height: 63px;
+    height: 56px;
+    width: auto;
+    right: 20px;
 }
+
+label {
+    background-image: url(/pawpawtrip/img/trip/heartOutline_icon.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 25px;
+    width: 31px;
+    height: 31px;   
+}
+
+#heart {
+   width: 0;
+}
+#heart:checked+label{
+    background-image: url(/pawpawtrip/img/trip/heartFill_icon.png);
+}
+
+/* -------------------------------------------------------------------------------- */
 
 .mainInfo {
     display: block;

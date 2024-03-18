@@ -40,6 +40,12 @@
     font-size: 14px !important;
 }
 
+.disable {
+	pointer-events: none;
+	background-color: #B29254;
+	color: white;
+}
+
 .board-text > a {
 	color: #B29254 !important;
 	font-weight: bold;

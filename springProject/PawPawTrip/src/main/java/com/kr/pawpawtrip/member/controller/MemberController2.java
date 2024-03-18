@@ -7,9 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -19,8 +17,6 @@ import com.kr.pawpawtrip.member.model.service.MemberService;
 import com.kr.pawpawtrip.member.model.vo.Member;
 import com.kr.pawpawtrip.trip.model.service.TripService;
 import com.kr.pawpawtrip.trip.model.vo.MyTrip;
-import com.kr.pawpawtrip.trip.model.vo.Spot;
-import com.kr.pawpawtrip.trip.model.vo.Stay;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -74,7 +70,7 @@ public class MemberController2 {
             }
          }
          
-         System.out.println("***************************************************************");
+         // System.out.println("***************************************************************");
          // log.info("mytrips : {}", myTrips);
          // log.info("mytrips size : {}", myTrips.size());
          // log.info("LoginMember NO : {}", loginMember.getMemberNo());
@@ -98,7 +94,8 @@ public class MemberController2 {
    public ModelAndView insertSpotToZzim(ModelAndView modelAndView, @RequestParam("contentId") String contentId, @RequestParam("memberNo") int memberNo, HttpSession session) {
       
 	  // contentId와 memberNo를 받아 한 행(My Trip) 추가
-      int result = tripService.saveSpotToMyTrip(contentId, memberNo);
+      int result = tripService.saveMyTrip(contentId, memberNo);
+      
       modelAndView.addObject(contentId, session);
       modelAndView.addObject("msg", "찜 목록에 추가되었습니다.");
       modelAndView.setViewName("common/msg");
@@ -110,7 +107,8 @@ public class MemberController2 {
    public ModelAndView deleteSpotToZzim(ModelAndView modelAndView, @RequestParam("contentId") String contentId, @RequestParam("memberNo") int memberNo, HttpSession session) {
 	   
 	// contentId와 memberNo를 받아 한 행(My Trip) 삭제
-	   int result = tripService.deleteSpotOfMyTrip(contentId, memberNo);
+	   int result = tripService.deleteMyTrip(contentId, memberNo);
+	   
 	   modelAndView.addObject(contentId, session);
 	   modelAndView.addObject("msg", "찜 목록에서 삭제되었습니다.");
 	   modelAndView.setViewName("common/msg");

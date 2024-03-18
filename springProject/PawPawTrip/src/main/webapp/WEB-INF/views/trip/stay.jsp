@@ -13,14 +13,6 @@
 <link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
 <link rel="stylesheet" href="${path}/css/trip/stay.css">
 
-<style>
-	.disable {
-		pointer-events: none;
-		background-color: #B29254;
-		color: white;
-	}
-</style>
-
 <!-- 헤더 -->
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
@@ -161,7 +153,7 @@
                 				<c:if test="${ empty selectAndSearch.selectArea and empty selectAndSearch.searchKeyword }">
 				                    <li><a href="${ path }/trip/stay?page=${ currentPage }">${ currentPage }</a></li>                					
                 				</c:if>
-                				<c:if test="${ not empty selectAndSearch.selectArea or not empty selectAndSearch.search }">
+                				<c:if test="${ not empty selectAndSearch.selectArea or not empty selectAndSearch.searchKeyword }">
 				                    <li><a href="${ path }/trip/stay?page=${ currentPage }&selectArea=${ selectAndSearch.selectArea }&searchKeyword=${ selectAndSearch.searchKeyword }">${ currentPage }</a></li>                					                					
                 				</c:if>
                 			</c:otherwise>

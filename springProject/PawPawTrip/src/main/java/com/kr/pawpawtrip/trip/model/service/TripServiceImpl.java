@@ -101,23 +101,35 @@ public class TripServiceImpl implements TripService {
    // 회원이 찜한 장소 리스트 조회 - (관광지, 숙소)
    @Override
    public List<MyTrip> getMyTripListByMemberNo(PageInfo pageInfo, int memberNo) {
-      
-      return tripMapper.selectMyTripList(memberNo);
+       int limit = pageInfo.getListLimit();
+       int offset = (pageInfo.getCurrentPage() - 1) * limit;
+       
+       RowBounds rowBounds = new RowBounds(offset, limit);
+       
+      return tripMapper.selectMyTripList(rowBounds,memberNo);
    }
    
-   // 찜한 관광지 MyTrip에 추가 - (관광지)
+   // 
+   @Override
+   public String isZzimThis(String contentId, String memberNo)
+   {
+       return tripMapper.selectZzimId(contentId, memberNo);
+   }
+   
+   // 찜한 관광지/숙소 MyTrip에 추가
    @Override
    @Transactional
-   public int saveSpotToMyTrip(String contentId, int memberNo) {
+   public int saveMyTrip(String contentId, int memberNo) {
 	   	
-	   return tripMapper.insertSpotMyTrip(contentId, memberNo);
+	   return tripMapper.insertMyTrip(contentId, memberNo);
    }
    
-   // MyTrip에서 관광지 삭제 - (관광지)
+   // MyTrip에서 관광지/숙소 삭제
 	@Override
-	public int deleteSpotOfMyTrip(String contentId, int memberNo) {
+	@Transactional
+	public int deleteMyTrip(String contentId, int memberNo) {
 		
-		return tripMapper.deleteSpotMyTrip(contentId, memberNo);
+		return tripMapper.deleteMyTrip(contentId, memberNo);
 	}   
    
    // -----------------------------------------------------------------------------------------
@@ -187,24 +199,6 @@ public class TripServiceImpl implements TripService {
     {
         return tripMapper.selectPetInfoByContentId(contentId);
     }
-
-    @Override
-    public String isZzimThis(String contentId, String memberNo)
-    {
-        return tripMapper.selectZzimId(contentId, memberNo);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
