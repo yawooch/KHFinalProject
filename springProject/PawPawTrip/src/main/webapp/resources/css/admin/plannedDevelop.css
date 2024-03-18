@@ -2,6 +2,24 @@
 
 
 /***************** 기본 input/select 스타일 설정 - 시작 *****************/  
+
+
+
+.myInfo-td>textarea
+{
+    width: 100%;
+    height: 150px;
+    border-radius: 5px;
+    padding: 8px;
+    border: 1px solid #E8E8E8;
+    font-size: 15px;
+}
+.myInfo-td>textarea:focus
+{
+    border-radius: 5px;
+    border: 1px solid #E8E8E8;
+}
+
 .myInfo-table input::placeholder {
     color: gray;
 }
@@ -10,8 +28,15 @@
     background-color: #E8E8E8;
 }
 
-.myInfo-table input, .myInfo-table select {
+.myInfo-table input{
     width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 8px;
+    border: 1px solid #E8E8E8;
+    font-size: 15px;
+}
+.common-detail-list select {
     height: 40px;
     border-radius: 5px;
     padding: 8px;
