@@ -471,77 +471,61 @@ public class AdminController
 
     /** 공지사항 수정 처리 */
     @PostMapping("admin/noticeUpdate")
-    public ModelAndView updateNotice(ModelAndView modelAndView, Community community,
-            @RequestParam MultipartFile talkWriteFile, @SessionAttribute Member loginMember)
+    public ModelAndView updateNotice(    ModelAndView  modelAndView, 
+                                         Community     community,
+                       @RequestParam     MultipartFile talkWriteFile, 
+                       @SessionAttribute Member        loginMember)
     {
         int result = 0;
 
         Community dbCommunity = communityService.getBoardNo(community.getCommunityNo());
 
-        if (dbCommunity != null && dbCommunity.getCommunityWriterId().equals(loginMember.getMemberId()))
+        String location = null;
+        String renamedFileName = null;
+        
+        if (talkWriteFile != null && !talkWriteFile.isEmpty())
         {
-            String location = null;
-            String renamedFileName = null;
-            if (talkWriteFile != null && !talkWriteFile.isEmpty())
+            try
             {
-                try
+                // workspace에 저장되어 있는 파일 경로
+                location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
+                
+                if (dbCommunity.getCommunityRfileName() != null)
                 {
-                    // workspace에 저장되어 있는 파일 경로
-                    location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
-
-                    if (dbCommunity.getCommunityRfileName() != null)
-                    {
-                        MultipartFileUtil.delete(location + "/" + dbCommunity.getCommunityRfileName());
-                    }
-                    renamedFileName = MultipartFileUtil.save(talkWriteFile, location);
-                    if (renamedFileName != null)
-                    {
-                        dbCommunity.setCommunityOfileName(talkWriteFile.getOriginalFilename());
-                        dbCommunity.setCommunityRfileName(renamedFileName);
-                    }
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
+                    MultipartFileUtil.delete(location + "/" + dbCommunity.getCommunityRfileName());
                 }
-            } else
-            {
-                try
+                renamedFileName = MultipartFileUtil.save(talkWriteFile, location);
+                
+                if (renamedFileName != null)
                 {
-                    location = resourceLoader.getResource("resources/upload/community").getFile().getPath();
-
-                    if (dbCommunity.getCommunityRfileName() != null)
-                    {
-                        MultipartFileUtil.delete(location + "/" + dbCommunity.getCommunityRfileName());
-                    }
-                    dbCommunity.setCommunityOfileName("");
-                    dbCommunity.setCommunityRfileName("");
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
+                    dbCommunity.setCommunityOfileName(talkWriteFile.getOriginalFilename());
+                    dbCommunity.setCommunityRfileName(renamedFileName);
                 }
-
             }
-            dbCommunity.setCommunityWriterNo(loginMember.getMemberNo());
-            dbCommunity.setNoticeImportantYN(community.getNoticeImportantYN());
-            dbCommunity.setCommunityTitle(community.getCommunityTitle());
-            dbCommunity.setCommunityContent(community.getCommunityContent());
-
-            result = communityService.save(dbCommunity);
-
-            if (result > 0)
+            catch (IOException e)
             {
-                modelAndView.addObject("msg", "게시글 수정 성공");
-                modelAndView.addObject("location", "/community/noticedetail?no=" + dbCommunity.getCommunityNo());
-            } else
-            {
-                modelAndView.addObject("msg", "게시글 수정 실패");
-                modelAndView.addObject("location", "/community/notice");
+                e.printStackTrace();
             }
-        } else
-        {
-            modelAndView.addObject("msg", "잘못된 접근입니다.");
-            modelAndView.addObject("location", "/admin/noticeUpdate?no=" + dbCommunity.getCommunityNo());
         }
+        
+        dbCommunity.setCommunityWriterNo(loginMember.getMemberNo());
+        dbCommunity.setNoticeImportantYN(community.getNoticeImportantYN());
+        dbCommunity.setCommunityTitle(community.getCommunityTitle());
+        dbCommunity.setCommunityContent(community.getCommunityContent());
+        
+        result = communityService.save(dbCommunity);
+        
+        if (result > 0)
+        {
+            modelAndView.addObject("msg", "게시글 수정 성공");
+            modelAndView.addObject("location", "/community/notice");
+        }
+        else
+        {
+            modelAndView.addObject("msg", "게시글 수정 실패");
+            modelAndView.addObject("location", "/community/noticedetail?no=" + dbCommunity.getCommunityNo());
+        }
+        
         modelAndView.setViewName("common/msg");
 
         return modelAndView;

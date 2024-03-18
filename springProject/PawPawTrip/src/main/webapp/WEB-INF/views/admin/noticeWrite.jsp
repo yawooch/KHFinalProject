@@ -16,8 +16,7 @@
 -->
 <link rel="stylesheet" href="${path}/css/community/summernote-lite.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<script
-    src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 
 <div class="content">
     <div class="container">
@@ -67,13 +66,13 @@
                             </td>
                             <td>
                                 <input type="file" name="talkWriteFile" id="talkWriteFile">
+                                <input type="button" id="deleteFile" value="삭제" />
                             </td>
                         </tr>
                     </table>
                     <div class="btn-wrap">
                         <button type="submit" class="community-add-btn">등록</button>
-                        <button type="button" class="community-list-btn"
-                            onclick="location.href='${ path }/community/board'">목록</button>
+                        <button type="button" class="community-list-btn" onclick="location.href='${ path }/community/notice'">목록</button>
                     </div>
                 </form>
             </div>
@@ -153,7 +152,7 @@ $(document).ready(function()
                      '24', '28', '30', '36', '50', '72' ]
     });
 
-}
+});
 
 </script>
 

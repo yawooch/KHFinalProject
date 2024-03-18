@@ -87,7 +87,7 @@
             </div>
             <div class="btn-wrap">
             <c:if test="${not empty loginMember and loginMember.memberRole == 'ROLE_ADMIN'}">
-                <button class="community-btn" id="writeBtn">글쓰기</button>
+                <button class="community-btn" id="writeBtn" onclick="location.href='${ path }/admin/noticeWrite'">글쓰기</button>
             </c:if>
             </div>
             <div class="common-page-number">
@@ -147,14 +147,6 @@ function search() {
     
     window.location.href = url;
 }
-
-$('#writeBtn').on('click', () => {
-    if(${loginMember == null}) {
-        alert('로그인 후 작성 가능합니다.');
-    } else {
-        location.href='${ path }/admin/noticeWrite';
-    }
-});
 </script>
 
 <jsp:include page="/WEB-INF/views/common/footer.jsp" />
