@@ -160,6 +160,15 @@
 
 /* ------------------------------------------------------------------ */
 /* 하트 아이콘 */
+.heartBox {
+	display: inline-block;
+    position: absolute;
+    line-height: 63px;
+    height: 56px;
+    width: auto;
+    right: 20px;
+}
+
 label {
     background-image: url(/pawpawtrip/img/trip/heartOutline_icon.png);
     background-repeat: no-repeat;

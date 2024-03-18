@@ -331,12 +331,22 @@
                                   WHERE MEMBER_NO = #{memberNo})  
       </select>
       
-      <!-- 회원이 찜한 장소 추가 -->
-      <insert id="insertMyTrip" parameterType="map">
+      
+      <!-- 회원이 찜한 관광지 추가 -->
+      <insert id="insertSpotMyTrip" parameterType="map">
 		INSERT 
 		INTO ZZIM ( CONTENTID, MEMBER_NO )
 		VALUES ( #{contentId}, #{memberNo} )     	
       </insert>
+      
+      
+      <!-- 회원이 찜한 관광지 삭제 -->
+      <delete id="deleteSpotMyTrip" parameterType="map">
+		DELETE
+		FROM ZZIM 
+		WHERE MEMBER_NO = #{memberNo}
+		AND CONTENTID = #{contentId}      
+      </delete>
       
    <!-- ************************************************************************************* -->
    

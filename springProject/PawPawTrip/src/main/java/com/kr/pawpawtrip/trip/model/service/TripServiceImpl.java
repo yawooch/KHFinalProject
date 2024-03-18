@@ -88,30 +88,40 @@ public class TripServiceImpl implements TripService {
       
       return tripMapper.selectStayById(id);
    }
+
+   // -----------------------------------------------------------------------------------------
    
-   // 회원이 찜한 장소(관광지, 숙소) 갯수 조회
+   // 회원이 찜한 장소 갯수 조회 - (관광지, 숙소)
    @Override
    public int getMyTripByMemberNo(int memberNo) {
       
       return tripMapper.selectMyTripCount(memberNo);
    }
    
-   // 회원이 찜한 장소 리스트 조회
+   // 회원이 찜한 장소 리스트 조회 - (관광지, 숙소)
    @Override
    public List<MyTrip> getMyTripListByMemberNo(PageInfo pageInfo, int memberNo) {
       
       return tripMapper.selectMyTripList(memberNo);
    }
-
-   // 찜한 장소 목록에 추가
+   
+   // 찜한 관광지 MyTrip에 추가 - (관광지)
    @Override
    @Transactional
-   public int addMyTrip(String contentId, int memberNo) {
+   public int saveSpotToMyTrip(String contentId, int memberNo) {
 	   	
-	   return tripMapper.insertMyTrip(contentId, memberNo);
-   }   
+	   return tripMapper.insertSpotMyTrip(contentId, memberNo);
+   }
+   
+   // MyTrip에서 관광지 삭제 - (관광지)
+	@Override
+	public int deleteSpotOfMyTrip(String contentId, int memberNo) {
+		
+		return tripMapper.deleteSpotMyTrip(contentId, memberNo);
+	}   
    
    // -----------------------------------------------------------------------------------------
+   
    
     @Override
     @Transactional
@@ -177,6 +187,10 @@ public class TripServiceImpl implements TripService {
     {
         return tripMapper.selectPetInfoByContentId(contentId);
     }
+
+
+
+
 
 
 

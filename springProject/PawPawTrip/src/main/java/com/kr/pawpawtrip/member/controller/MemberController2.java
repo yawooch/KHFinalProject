@@ -93,16 +93,29 @@ public class MemberController2 {
       return modelAndView; 
    }
    
-   
-   
    // 찜 목록에 추가
-   @GetMapping("/member/mypage/my-trip/add")
-   public ModelAndView addSpotToZzim(ModelAndView modelAndView,@RequestParam("contentId") String contentId,
-                                                			   @RequestParam("memberNo") int memberNo, HttpSession session) {
-      int result = 0;
-	   
-      result = tripService.addMyTrip(contentId, memberNo);
+   @GetMapping("/member/mypage/my-trip/insert")
+   public ModelAndView insertSpotToZzim(ModelAndView modelAndView, @RequestParam("contentId") String contentId, @RequestParam("memberNo") int memberNo, HttpSession session) {
+      
+	  // contentId와 memberNo를 받아 한 행(My Trip) 추가
+      int result = tripService.saveSpotToMyTrip(contentId, memberNo);
+      modelAndView.addObject(contentId, session);
+      modelAndView.addObject("msg", "찜 목록에 추가되었습니다.");
+      modelAndView.setViewName("common/msg");
       
       return modelAndView;
    }
+   
+   @GetMapping("/member/mypage/my-trip/delete")
+   public ModelAndView deleteSpotToZzim(ModelAndView modelAndView, @RequestParam("contentId") String contentId, @RequestParam("memberNo") int memberNo, HttpSession session) {
+	   
+	// contentId와 memberNo를 받아 한 행(My Trip) 삭제
+	   int result = tripService.deleteSpotOfMyTrip(contentId, memberNo);
+	   modelAndView.addObject(contentId, session);
+	   modelAndView.addObject("msg", "찜 목록에서 삭제되었습니다.");
+	   modelAndView.setViewName("common/msg");
+	   
+	   return modelAndView;
+   }
+   
 }

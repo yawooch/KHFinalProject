@@ -166,7 +166,7 @@ color: #FDFAEF;
                     <div class="tripNameAndLike">
                         <p class="tripName">${ spot.tripTitle }</p>
                         <!-- 관심등록 -->
-                        <div>
+                        <div class="heartBox">
                            <input type="checkbox" id="heart">
                            <label for="heart"></label>
                         </div>
@@ -301,39 +301,36 @@ color: #FDFAEF;
          if($(event.target).prop('checked')){
             //찜 장소 추가   
             $.ajax({
-               type: 'GET',
-               url: '${path}/member/mypage/my-trip/add',
-               data: {
-                  contentId: contentId,
-                  memberNo: memberNo
-               },	
-               		// 찜 성공 시
-                    success: function(data){
-                       if (confirm('관심 목록에 추가되었습니다. 내가 찜한 장소로 이동하시겠습니까?')) {
-                    	   location.href = '${path}/member/mypage/my-trip';								
-					   } else {
-						   location.reload();
-					   };
-                    },
-                    // 찜 실패 시
-                    error: function(){
+            	type: 'GET',
+               	url: '${path}/member/mypage/my-trip/insert',
+               	data: {contentId: contentId, memberNo: memberNo},	
+               	// 찜 성공 시
+               	success: function(data){
+               				if (confirm('내가 찜한 장소에 추가되었습니다. 해당 페이지로 이동하시겠습니까?')) {
+               					location.href='${ path }/member/mypage/my-trip';
+	               				console.log('관심 목록에 추가되었습니다.');
+               				}
+               	},
+               	// 찜 실패 시
+               	error: function(){
                     	alert('실패했습니다. 다시 시도해주세요');
-                    }
+            	}
             });
 
          } else {
             //찜 장소 제거   
-                $.ajax({
-                    type: 'GET',
-                    url: '${path}/trip/spot/spotDetail/remove',
-                    data: { contentId: contentId, memberNo: memberNo },
-                    success: function(data){
-                        console.log('Data removed successfully.');
-                    },
-                    error: function(){
-                        console.log('Error removing data.');
-                    }
-                });
+            $.ajax({
+                type: 'GET',
+                url: '${path}/member/mypage/my-trip/delete',
+                data: { contentId: contentId, memberNo: memberNo },
+                success: function(data){
+                	alert('<마이페이지 - 내가 찜한 장소> 에서 삭제되었습니다.');
+                    console.log('관심 목록에서 삭제되었습니다.');
+                },
+                error: function(){
+                	alert('실패했습니다. 다시 시도해주세요');
+                }
+            });
          }
          
       }

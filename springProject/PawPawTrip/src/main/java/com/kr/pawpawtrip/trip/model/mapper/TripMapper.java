@@ -16,12 +16,10 @@ import com.kr.pawpawtrip.trip.model.vo.Stay;
 public interface TripMapper {
    
    // 관광지 게시물 수 조회
-   int selectSpotCount(@Param("selectArea")    String selectArea,
-                  @Param("searchKeyword") String searchKeyword);
+   int selectSpotCount(@Param("selectArea") String selectArea, @Param("searchKeyword") String searchKeyword);
    
    // 관광지 리스트 조회
-   List<Spot> selectSpotList(RowBounds rowBounds, @Param("selectArea")    String selectArea, 
-                                         @Param("searchKeyword") String searchKeyword);
+   List<Spot> selectSpotList(RowBounds rowBounds, @Param("selectArea") String selectArea, @Param("searchKeyword") String searchKeyword);
    
    // 관광지 API 이미지 저장
    int updateSpotApiImage(@Param("id") int id, @Param("apiImageURL") String apiImageURL);
@@ -30,12 +28,10 @@ public interface TripMapper {
    Spot selectSpotById(@Param("id") int id);
    
    // 숙소 게시물 수 조회
-   int selectStayCount(@Param("selectArea") String selectArea, 
-                  @Param("searchKeyword") String searchKeyword);
+   int selectStayCount(@Param("selectArea") String selectArea, @Param("searchKeyword") String searchKeyword);
    
    // 숙소 리스트 조회
-   List<Stay> selectStaytList(RowBounds rowBounds, @Param("selectArea") String selectArea, 
-                                        @Param("searchKeyword") String searchKeyword);
+   List<Stay> selectStaytList(RowBounds rowBounds, @Param("selectArea") String selectArea, @Param("searchKeyword") String searchKeyword);
    
    // 숙소 API 이미지 저장
    int updateStayApiImage(int id, String apiImageURL);
@@ -49,8 +45,11 @@ public interface TripMapper {
    // 회원이 찜한 장소(관광지, 숙소) 리스트 조회
    List<MyTrip> selectMyTripList(@Param("memberNo") int memberNo);
    
-   // 찜한 장소 추가
-   int insertMyTrip(@Param("contentId") String contentId,@Param("memberNo") int memberNo);
+   // 찜한 관광지 MyTrip페이지에 추가
+   int insertSpotMyTrip(@Param("contentId") String contentId, @Param("memberNo") int memberNo);
+   
+   // 찜했던 관광지 MyTrip페이지에서 삭제
+   int deleteSpotMyTrip(@Param("contentId") String contentId, @Param("memberNo") int memberNo);
    
    // 동물동반 정보 insert
     int insertPetInfo(PetInfo petInfo);
@@ -66,6 +65,8 @@ public interface TripMapper {
     List<PetInfo> selectPetInfoByContentIds(@Param("contentIdList") List<Integer> contentIdList);
     
     PetInfo selectPetInfoByContentId(@Param("contentId") int contentId);
+
+	
 
 	
 
