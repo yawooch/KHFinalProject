@@ -11,45 +11,19 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 <link rel="stylesheet" href="${path}/css/community/boardwrite.css">
-<!--  
-<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
--->
-<link rel="stylesheet" href="${path}/css/community/summernote-lite.css">
 <link rel="stylesheet" href="${path}/css/admin/plannedDevelop.css">
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 
 <div class="content">
     <div class="container">
         <div class="common-title">
-            <p>개발예정 기능</p>
+            <p>날씨</p>
         </div>
         <div class="common-sideMenu">
-            <ul>
-                <li>관리자</li>
-                <li class=""  ><a href="${path}/admin/dashboard"     >대시보드     </a></li>
-                <li class=""  ><a href="${path}/admin/tripList"      >포포트립 매핑</a></li>
-                <li class=""  ><a href="${path}/admin/noticeWrite"   >공지사항 입력</a></li>
-                <li class=""  ><a href="${path}/admin/favoritesite"  >인추장 선정  </a></li>
-                <li class="on"><a href="${path}/admin/plannedDevelop">개발예정 기능</a></li>
-            </ul>
+			<img style="margin-top: 57px;" src="${ path }/img/weather/weatherEnd.png" >
         </div>
         <div class="common-list">
             <div class="community-detail-list">
-            
-              <!-- Nav tabs -->
-              <ul class="nav nav-tabs">
-                <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#home">날씌</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#menu1">문자</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#menu2">날씌2</a>
-                </li>
-              </ul>
-            
               <!-- Tab panes -->
               <div class="tab-content" style="margin-bottom: 200px;">
                 <div id="home" class="container tab-pane active"><br>

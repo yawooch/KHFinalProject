@@ -764,21 +764,6 @@ public class AdminController
     	
     	return ResponseEntity.ok(map);
     }
-    
-    // 중기육상예보조회
-    @GetMapping("/weather/midland")
-    public ResponseEntity<GetMidLandFcstResponse> midland(String regId) throws RestClientException, URISyntaxException {
-    	
-    	Map<String, Object> map = new HashMap<String, Object>();
-    	
-    	GetMidLandFcstResponse responseText = null;
-    	
-    	responseText = commonWeatherApiClient.apiGetMidLandFcst(regId);
-    	
-    	map.put("midLandFcst", responseText);
-    	
-    	return ResponseEntity.ok(responseText);
-    }
 }
 
 
