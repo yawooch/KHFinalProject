@@ -59,10 +59,11 @@
                             <div class="spinner-border text-warning" style="position: absolute;width: 80px; height: 80px; border: 16px solid currentcolor; border-right-color: transparent;margin-left: -40px; margin-top: -40px;"></div>
                         </div>
                         <div style="text-align: left; margin-bottom: 10px;">
+                        	<input type="hidden" id="landRegId" value="" />
                         	<select id="regId">
                         		<option value="choice">----- 선택 -----</option>
                         		<c:forEach var="weatherArea" items="${ weatherAreas }" >
-	                        		<option value="${weatherArea.areaCode }">
+	                        		<option value="${weatherArea.areaCode }" grp="${weatherArea.areaGrpCode }">
 	                        			<c:out value="${ weatherArea.areaName }" />
 	                        		</option>
 	                        		
@@ -81,12 +82,20 @@
                             </tr>
                             </thead>
                             <tbody>
-<!--                                 <tr> -->
-<!-- 	                                <td colspan="7"> -->
-<!-- 	                                    조회된 게시글이 없습니다. -->
-<!-- 	                                </td> -->
-<!--                                 </tr> -->
-                                <tr id="test">
+                            	<tr id="midLand">
+                            		<td>
+                            			<div>
+	                            			<span style="font-size: 14px;">오전</span><br>
+	                            			<img src="${ path }/img/weather/rain.png" width="50px;">
+                            			</div>
+                            			<hr style="margin: 0; margin-top: 5px; margin-bottom: 5px;">
+                            			<div style="margin-bottom: 5px;">
+	                            			<span style="font-size: 14px;">오후</span><br>
+	                            			<img src="${ path }/img/weather/sunny.png" width="50px;">
+                            			</div>
+                            		</td>
+                            	</tr>
+                                <tr id="midTa">
                                 	<td colspan="7">조회된 게시글이 없습니다. 지역을 선택해 주세요.</td>
                                 </tr>
                             </tbody>
@@ -221,31 +230,59 @@ $(document).ready(function()
 	// 중기 예보
 	$('#regId').on('change', (e) => {
 		let regId = $(e.target).val();
-		
-		console.log(regId);
+		let regGrpId = $(e.target).children('option:selected').attr('grp');
 		
 		let result = '';
+		let result2 = '';
+		
+		
+		console.log(regId);
+		console.log(regGrpId);
 		
 		if(regId !== 'choice') {
-			$.getJSON('${path}/weather/midta', {regId})
+			
+			// 중기 예보(기온, 날씨)
+			$.getJSON('${path}/weather/midta', {regId, regGrpId})
 			.done((data) => {
+
+				let {regGrpId, regId} = data;
 				
-				let {weatherMidItems} = data;
-				let item = weatherMidItems[0];
-				console.log(item);
-				console.log(item.regId);
+				let {resultCode, resultMsg, dataType, numOfRows, pageNo, totalCount, weatherMidLandItems} = regGrpId;
+				let {resultCode2, resultMsg2, dataType2, numOfRows2, pageNo2, totalCount2, weatherMidItems} = regId;
 				
-				result = '<td>' + item.taMin3 + '℃ / ' + item.taMax3 + '℃</td>' +
-						 '<td>' + item.taMin4 + '℃ / ' + item.taMax4 + '℃</td>' +
-						 '<td>' + item.taMin5 + '℃ / ' + item.taMax5 + '℃</td>' +
-						 '<td>' + item.taMin6 + '℃ / ' + item.taMax6 + '℃</td>' +
-						 '<td>' + item.taMin7 + '℃ / ' + item.taMax7 + '℃</td>' +
-						 '<td>' + item.taMin8 + '℃ / ' + item.taMax8 + '℃</td>';
-				console.log(result);
-				$('#test').html(result);
+				let regGrpItem = weatherMidLandItems[0];
+				let regItem = weatherMidItems[0];
+				
+				console.log(regGrpItem);
+				console.log(regItem);
+				
+				switch() {
+				case "":
+					
+				
+				}
+				
+				
+				
+				result2 = '<td>' + '<div>' + '<span>' + '오전' + '</span><br>' + regGrpItem.wf3Am + '</div>' + '<hr>' + '<div>' + '<span>' + '오후' + '</span><br>' + regGrpItem.wf3Pm + '</div>' + '</td>' +
+						  '<td>' + '<div>' + '<span>' + '오전' + '</span><br>' + regGrpItem.wf4Am + '</div>' + '<hr>' + '<div>' + '<span>' + '오후' + '</span><br>' + regGrpItem.wf4Pm + '</div>' + '</td>' +
+						  '<td>' + '<div>' + '<span>' + '오전' + '</span><br>' + regGrpItem.wf5Am + '</div>' + '<hr>' + '<div>' + '<span>' + '오후' + '</span><br>' + regGrpItem.wf5Pm + '</div>' + '</td>' +
+						  '<td>' + '<div>' + '<span>' + '오전' + '</span><br>' + regGrpItem.wf6Am + '</div>' + '<hr>' + '<div>' + '<span>' + '오후' + '</span><br>' + regGrpItem.wf6Pm + '</div>' + '</td>' +
+						  '<td>' + '<div>' + '<span>' + '오전' + '</span><br>' + regGrpItem.wf7Am + '</div>' + '<hr>' + '<div>' + '<span>' + '오후' + '</span><br>' + regGrpItem.wf7Pm + '</div>' + '</td>' +
+						  '<td>' + '<div>' + '<span>' + '오전' + '</span><br>' + regGrpItem.wf8 + '</div>' + '<hr>' + '<div>' + '<span>' + '오후' + '</span><br>' + regGrpItem.wf8 + '</div>' + '</td>';
+						  
+				console.log(result2);
+				
+				result = '<td>' + regItem.taMin3 + '℃ / ' + regItem.taMax3 + '℃</td>' +
+						 '<td>' + regItem.taMin4 + '℃ / ' + regItem.taMax4 + '℃</td>' +
+						 '<td>' + regItem.taMin5 + '℃ / ' + regItem.taMax5 + '℃</td>' +
+						 '<td>' + regItem.taMin6 + '℃ / ' + regItem.taMax6 + '℃</td>' +
+						 '<td>' + regItem.taMin7 + '℃ / ' + regItem.taMax7 + '℃</td>' +
+						 '<td>' + regItem.taMin8 + '℃ / ' + regItem.taMax8 + '℃</td>';
+						 
+				$('#midTa').html(result);
 			});
 		} else {
-			
 			result = '<td colspan="6">' + '조회된 게시글이 없습니다. 지역을 선택해 주세요.' + '</td>';
 			$('#test').html(result);
 		}

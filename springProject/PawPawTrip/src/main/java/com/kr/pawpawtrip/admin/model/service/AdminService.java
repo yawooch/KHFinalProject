@@ -31,4 +31,5 @@ public interface AdminService
 	List<WeatherArea> getWeatherAreaList();
 	
     List<LogCount> getAccessMemberCount();
+
 }

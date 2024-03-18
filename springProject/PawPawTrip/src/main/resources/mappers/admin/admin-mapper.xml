@@ -63,6 +63,8 @@
     </resultMap>
     
     <resultMap id="weatherAreaListMap" type="WeatherArea">
+    	<result property="areaGrpCode" column="AREA_GRP_CODE" />
+    	<result property="areaGrpName" column="AREA_GRP_NAME" />
     	<result property="areaCode" column="AREA_CODE" />
     	<result property="areaName" column="AREA_NAME" />
     </resultMap>
@@ -208,7 +210,9 @@
          ORDER BY MODIFYTIME DESC
     </select>
     <select id="selectWeatherAreaList" resultMap="weatherAreaListMap">
-    	SELECT AREA_CODE,
+    	SELECT AREA_GRP_CODE,
+    	       AREA_GRP_NAME,
+    	       AREA_CODE,
     	       AREA_NAME
     	  FROM WEATHER_AREA
     	  ORDER BY AREA_NAME ASC

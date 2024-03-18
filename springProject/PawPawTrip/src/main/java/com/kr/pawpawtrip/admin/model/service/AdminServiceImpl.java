@@ -93,11 +93,13 @@ public class AdminServiceImpl implements AdminService
         return adminMapper.selectMemberAccsLog(memberAccsLog);
     }
 
+    // 중기 기온 지역 조회
 	@Override
 	public List<WeatherArea> getWeatherAreaList() {
 		
 		return adminMapper.selectWeatherAreaList();
 	}
+	
 	
     @Override
     public List<LogCount> getAccessMemberCount()

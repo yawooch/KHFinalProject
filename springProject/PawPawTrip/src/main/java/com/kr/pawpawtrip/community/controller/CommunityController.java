@@ -31,7 +31,6 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.kr.pawpawtrip.common.api.CommonWeatherApiClient;
 import com.kr.pawpawtrip.common.util.MultipartFileUtil;
 import com.kr.pawpawtrip.common.util.PageInfo;
 import com.kr.pawpawtrip.community.model.service.CommunityService;
@@ -95,7 +94,7 @@ public class CommunityController
             @RequestParam(defaultValue = "") String select, 
             @RequestParam(defaultValue = "") String search) throws RestClientException, URISyntaxException
     {
-
+    	
         // 전체 리스트 조회(검색기능 포함)
         List<Community> boardList = null;
         // 페이징 처리

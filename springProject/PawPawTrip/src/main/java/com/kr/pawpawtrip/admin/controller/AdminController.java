@@ -37,6 +37,7 @@ import com.kr.pawpawtrip.common.api.CommonWeatherApiClient;
 import com.kr.pawpawtrip.common.api.item.DetailCommonItem;
 import com.kr.pawpawtrip.common.api.item.PetTourItem;
 import com.kr.pawpawtrip.common.api.response.DetailCommonResponse;
+import com.kr.pawpawtrip.common.api.response.GetMidLandFcstResponse;
 import com.kr.pawpawtrip.common.api.response.GetMidTaResponse;
 import com.kr.pawpawtrip.common.api.response.PetTourResponse;
 import com.kr.pawpawtrip.common.model.service.CommonService;
@@ -628,7 +629,7 @@ public class AdminController
         //지점번호 : "11B00000" 발표 시각 : yyyyMMddHHmm - 일 2회(06:00,18:00)회 생성
         String response = commonWeatherApiClient.apiGetMidFcst("11B00000","202403150600");
         
-        // 지역별 날씨정보 조회
+        // 중기 기운 지역별 날씨정보 조회
         List<WeatherArea> weatherAreas = null;
         
         weatherAreas = adminService.getWeatherAreaList();
@@ -764,11 +765,33 @@ public class AdminController
     
     // 중기예보
     @GetMapping("/weather/midta")
-    public ResponseEntity<GetMidTaResponse> midTa(String regId) throws RestClientException, URISyntaxException {
+    public ResponseEntity<Map<String, Object>> midTa(String regId, String regGrpId) throws RestClientException, URISyntaxException {
+    	
+    	Map<String, Object> map = new HashMap<String, Object>();
     	
     	GetMidTaResponse responseText = null;
+    	GetMidLandFcstResponse responseText2 = null;
     	
     	responseText = commonWeatherApiClient.apiGetMidTa(regId);
+    	responseText2 = commonWeatherApiClient.apiGetMidLandFcst(regGrpId);
+    	
+    	map.put("regId", responseText);
+    	map.put("regGrpId", responseText2);
+    	
+    	return ResponseEntity.ok(map);
+    }
+    
+    // 중기육상예보조회
+    @GetMapping("/weather/midland")
+    public ResponseEntity<GetMidLandFcstResponse> midland(String regId) throws RestClientException, URISyntaxException {
+    	
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	
+    	GetMidLandFcstResponse responseText = null;
+    	
+    	responseText = commonWeatherApiClient.apiGetMidLandFcst(regId);
+    	
+    	map.put("midLandFcst", responseText);
     	
     	return ResponseEntity.ok(responseText);
     }

@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WeatherArea {
 
+	private String areaGrpCode;
+	
+	private String areaGrpName;
+	
 	private String areaCode;
 	
 	private String areaName;
