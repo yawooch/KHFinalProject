@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kr.pawpawtrip.admin.model.mapper.AdminMapper;
 import com.kr.pawpawtrip.admin.model.vo.CommunityRank;
@@ -13,6 +14,8 @@ import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
 import com.kr.pawpawtrip.admin.model.vo.WeatherArea;
 import com.kr.pawpawtrip.common.util.PageInfo;
+import com.kr.pawpawtrip.community.model.mapper.CommunityMapper;
+import com.kr.pawpawtrip.community.model.vo.Community;
 
 import lombok.RequiredArgsConstructor;
 
@@ -20,7 +23,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService
 {
-    private final AdminMapper adminMapper;
+    private final AdminMapper     adminMapper;
+    private final CommunityMapper communityMapper;
 
     // 대쉬보드에서 공지사항을 제외한 커뮤니티 조회수를 가장 많이 받은 TOP7을 가져온다.
     @Override
@@ -107,4 +111,21 @@ public class AdminServiceImpl implements AdminService
         return adminMapper.selectAccessMemberCount();
     }
 
+    // 공지사항 작성, 수정
+    @Override
+    @Transactional
+    public int saveNotice(Community community) {
+        
+        int result = 0;
+        
+        if(community.getCommunityNo() > 0) {
+            // 업데이트
+            result = communityMapper.updateBoard(community);
+        } else {
+            // 인서트
+            result = communityMapper.insertNotice(community);
+        }
+        
+        return result;
+    }
 }

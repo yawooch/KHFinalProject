@@ -9,6 +9,7 @@ import com.kr.pawpawtrip.admin.model.vo.MemberAccsLog;
 import com.kr.pawpawtrip.admin.model.vo.Pet;
 import com.kr.pawpawtrip.admin.model.vo.WeatherArea;
 import com.kr.pawpawtrip.common.util.PageInfo;
+import com.kr.pawpawtrip.community.model.vo.Community;
 
 public interface AdminService
 {
@@ -31,5 +32,6 @@ public interface AdminService
 	List<WeatherArea> getWeatherAreaList();
 	
     List<LogCount> getAccessMemberCount();
-
+    
+    public int saveNotice(Community community);
 }

@@ -25,6 +25,7 @@ public interface CommunityMapper
     Community selectBoardByNo(@Param("no") int no);
 
     int insertBoard(Community community);
+    int insertNotice(Community community);
     int updateBoard(Community community);
     
     int updateCommunityCount(@Param("no") int no, @Param("viewsCount") int viewsCount);

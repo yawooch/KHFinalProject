@@ -36,7 +36,6 @@
                     <div>
                         <select name="select" id="select">
                             <option value="title"   <c:if test="${searchInfoMap.select == 'title'}">  selected</c:if>>제목  </option>
-                            <option value="name"    <c:if test="${searchInfoMap.select == 'name'}">   selected</c:if>>작성자</option>
                             <option value="content" <c:if test="${searchInfoMap.select == 'content'}">selected</c:if>>내용  </option>
                         </select>
                     </div>

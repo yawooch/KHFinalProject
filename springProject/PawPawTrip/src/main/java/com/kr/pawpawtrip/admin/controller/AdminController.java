@@ -433,10 +433,12 @@ public class AdminController
                 e.printStackTrace();
             }
         }
+        log.info("community : {}", community);
+        
         community.setCommunityWriterNo(loginMember.getMemberNo());
         community.setCommunityCategory("[공지사항]");
 
-        result = communityService.save(community);
+        result = adminService.saveNotice(community);
 
         if (result > 0)
         {
@@ -540,9 +542,9 @@ public class AdminController
 
         if (result > 0)
         {
-            modelAndView.setViewName("community/notice");
+            modelAndView.setViewName("redirect:/community/notice");
         }
-        modelAndView.setViewName("community/notice");
+        modelAndView.setViewName("redirect:/community/notice");
         return modelAndView;
     }
 
