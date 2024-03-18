@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="${path}/css/community/boardwrite.css">
 <link rel="stylesheet" href="${path}/css/community/summernote-lite.css">
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
 
 <style>
@@ -99,12 +99,15 @@
                             </td>
                             <td>
                                 <c:if test="${ community.communityOfileName == null }">
+                                    <input type="hidden" id="cNo" value="${ community.communityNo }" />
                                     <label for="talkWriteFile" class="talkWriteFile">파일선택</label>
                                     <input type="file" name="talkWriteFile" id="talkWriteFile" style="display: none;">
                                     <span id="fileNameDisplay">선택 된 파일 없음</span>
+                                    <input type="button" id="deleteFile" value="삭제" />
                                 </c:if>
                                 
                                 <c:if test="${ community.communityOfileName != null }">
+                                    <input type="hidden" id="cNo" value="${ community.communityNo }" />
                                     <label for="talkWriteFile" class="talkWriteFile">파일선택</label>
                                     <input type="file" name="talkWriteFile" id="talkWriteFile" style="display: none;">
                                     <span id="fileNameDisplay">${ community.communityOfileName }</span>
@@ -126,66 +129,89 @@
 <script>
 $(document).ready(function() 
 {   
-    $('#deleteFile').on('click', () => {
-        $('#talkWriteFile').val('');
-        
-        $('#fileNameDisplay').text('선택된 파일 없음');
-        
+    if($('#fileNameDisplay').text() === '선택 된 파일 없음') 
+    {
         $('#deleteFile').css('display', 'none');
-    });
+    }
     
+    $('#deleteFile').on('click', () => 
+    {
+        let cNo = $('#cNo').val();
+        
+        let result = confirm('정말로 파일을 삭제하시겠습니까?');
+        
+        if(result) 
+        {
+            $('#fileNameDisplay').text('선택 된 파일 없음');
+            
+            $('#deleteFile').css('display', 'none');
+            
+            // Ajax
+            $.ajax(
+            {
+                type: 'post',
+                url: `${path}/community/deletefile`,
+                dataType: 'json',
+                data: {
+                    cNo: cNo
+                },
+                success: (obj) => 
+                {
+                    console.log(obj);
+                },
+                error: (obj) => 
+                {
+                    console.log(obj);
+                }
+            })
+        }
+        else 
+        {
+            return false;
+        }
+    });
+
     $('#talkWriteFile').on('change', () => {
-        var fileNameDisplay = $('#fileNameDisplay');
-        var fileValue       = $("#talkWriteFile").val().split("\\");
-        var fileName        = fileValue[fileValue.length-1];
+        let fileNameDisplay = $('#fileNameDisplay');
+        
+        let fileValue = $("#talkWriteFile").val().split("\\");
+        let fileName = fileValue[fileValue.length-1];
         
         fileNameDisplay.text(fileName);
         
         $('#deleteFile').css('display', 'inline');
     })
-    $('input[type=submit]').on('click',(evnet)=>{
-    	console.log('inputtest');
-    	$('form').trigger('submit');
+    
+    
+    $('#submitCheck').on('submit', () => {
+        let category = $('#comunityCate').val();
+        let title = $('#communityTitle').val();
+        let content = $('#summernote').val();
+        let file = $('#talkWriteFile').val().split('.').pop();
+        
+        console.log(file);
+        
+        if(category === '분류') {
+            alert('카테고리를 선택해주세요.');
+            return false;
+        }
+        
+        if(title === '') {
+            alert('제목을 입력해주세요.');
+            return false;
+        }
+        
+        if(content === '') {
+            alert('내용을 입력해주세요.');
+            return false;
+        }
+        
+        if(!(file === 'jpg' || file === 'png' || file === 'gif' || file === 'jpeg' || file === '')) {
+            alert('이미지 파일을 등록해주세요.');
+            return false;
+        }
+        
     });
-    
-    $('form').on('submit', () => {
-    	
-    	console.log('test');
-//     	return false;
-    })
-    
-    
-//     $('#submitCheck').on('submit', () => {
-    	
-//     	console.log('들어와????');
-//         let noticeImportantYn = $('#noticeImportantYn').val();
-//         let title             = $('#communityTitle').val();
-//         let content           = $('#summernote').val();
-//         let file              = $('#talkWriteFile').val().split('.').pop();
-        
-//         console.log(file);
-        
-// //         if(category === '분류') {
-// //             alert('카테고리를 선택해주세요.');
-// //             return false;
-// //         }
-// //         if(title === '') {
-// //             alert('제목을 입력해주세요.');
-// //             return false;
-// //         }
-        
-// //         if(content === '') {
-// //             alert('내용을 입력해주세요.');
-// //             return false;
-// //         }
-        
-// //         if(!(file === 'jpg' || file === 'png' || file === 'gif' || file === 'jpeg' || file === '')) {
-// //             alert('이미지 파일을 등록해주세요.');
-// //             return false;
-// //         }
-        
-//     });
-    
     $("#summernote").summernote(
     {
         width     : 650,

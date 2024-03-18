@@ -49,7 +49,7 @@
 										<option value="[수다]">수다</option>
 										<option value="[마이펫 자랑]">마이펫 자랑</option>
 								</select> 
-								<input type="text" name="communityTitle" id="communityTitle" placeholder="제목을 입력해주세요." />
+								<input type="text" name="communityTitle" id="communityTitle" placeholder="제목을 입력해주세요." style="width: 60%;"/>
 							</td>
 						</tr>
 						<tr>

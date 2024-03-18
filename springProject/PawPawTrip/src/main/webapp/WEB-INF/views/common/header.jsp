@@ -24,6 +24,7 @@
     <script src="${path}/js/common/jquery-migrate-1.2.1.min.js"></script>
     <script src="${path}/js/common/bootstrap.bundle.min.js"></script>
     <script src="${path}/js/common/templatemo.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<script src="${path}/js/common/pawpawHeader.js"></script>
 	<script src="${path}/js/common/pawpawCommon.js"></script>
  	 	  
@@ -32,7 +33,7 @@
 <!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> -->
 </head>
 <body>
-
+    <div class="afterWeather"><a href="${path}/common/todayWeather"><img src="${path}/img/common/todayWeather.png"></a></div>
     <!-- Header -->
     <nav class="navbar navbar-expand-lg navbar-light shadow">
         <div class="container d-flex justify-content-between align-items-center">

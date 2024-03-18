@@ -1,4 +1,27 @@
 @charset "UTF-8";
+@media (min-width: 500px) {
+    .card-img {
+        height: 385px !important;
+    }   
+}
+
+@media (min-width: 768px) {
+    .card-img {
+        height: 160px !important;
+    }   
+}
+
+@media (min-width: 992px) {
+    .card-img {
+        height: 150px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-img {
+        height: 189px !important;
+    }
+}
 
 input::placeholder {
     color: gray;

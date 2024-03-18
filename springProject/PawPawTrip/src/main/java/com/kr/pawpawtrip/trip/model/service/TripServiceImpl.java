@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kr.pawpawtrip.common.util.PageInfo;
 import com.kr.pawpawtrip.trip.model.mapper.TripMapper;
 import com.kr.pawpawtrip.trip.model.vo.Comm;
+import com.kr.pawpawtrip.trip.model.vo.MyTrip;
 import com.kr.pawpawtrip.trip.model.vo.PetInfo;
 import com.kr.pawpawtrip.trip.model.vo.Spot;
 import com.kr.pawpawtrip.trip.model.vo.Stay;
@@ -18,85 +19,110 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class TripServiceImpl implements TripService {
-	private final TripMapper tripMapper;
-	
-	// 관광지 전체 게시물 수 조회
+   private final TripMapper tripMapper;
+   
+   // 관광지 전체 게시물 수 조회
+   @Override
+   public int getSpotCount(String selectArea, String searchKeyword) {
+      
+      return tripMapper.selectSpotCount(selectArea, searchKeyword);
+   }
+   
+   // 관광지 리스트 조회
+   @Override
+   public List<Spot> getSpotList(PageInfo pageInfo, String selectArea, String searchKeyword) {
+         int limit = pageInfo.getListLimit();
+         int offset = (pageInfo.getCurrentPage() - 1) * limit;
+         
+         RowBounds rowBounds = new RowBounds(offset, limit);      
+      
+      return tripMapper.selectSpotList(rowBounds, selectArea, searchKeyword);
+   }
+   
+   // 관광지 API 이미지 저장
+   @Override
+   @Transactional
+   public int saveSpotImage(int id, String apiImageURL) {
+      
+      return tripMapper.updateSpotApiImage(id, apiImageURL);
+   }
+   
+   // 관광지 상세 조회(반려동물 동반 정보 확인)
+   @Override
+   public Spot getSpotById(int id) {
+      
+      return tripMapper.selectSpotById(id);
+   }
+   
+   // -------------------------------------------------------------------------
+   
+   // 숙소 전체 게시물 수 조회
+   @Override
+   public int getStayCount(String selectArea, String searchKeyword) {
+      
+      return tripMapper.selectStayCount(selectArea, searchKeyword);
+   }
+   
+   // 숙소 리스트 조회
+   @Override
+   public List<Stay> getStayList(PageInfo pageInfo, String selectArea, String searchKeyword) {
+         int limit = pageInfo.getListLimit();
+         int offset = (pageInfo.getCurrentPage() - 1) * limit;
+         
+         RowBounds rowBounds = new RowBounds(offset, limit);
+         
+      return tripMapper.selectStaytList(rowBounds, selectArea, searchKeyword);
+   }
+   
+   // 숙소 API 이미지 저장
+   @Override
+   @Transactional
+   public int saveStayImage(int id, String apiImageURL) {
+      // TODO Auto-generated method stub
+      return tripMapper.updateStayApiImage(id, apiImageURL);
+   }
+   
+   // 숙소 상세 조회(반려동물 동반 정보 확인)
+   @Override
+   public Stay getStayById(int id) {
+      
+      return tripMapper.selectStayById(id);
+   }
+
+   // -----------------------------------------------------------------------------------------
+   
+   // 회원이 찜한 장소 갯수 조회 - (관광지, 숙소)
+   @Override
+   public int getMyTripByMemberNo(int memberNo) {
+      
+      return tripMapper.selectMyTripCount(memberNo);
+   }
+   
+   // 회원이 찜한 장소 리스트 조회 - (관광지, 숙소)
+   @Override
+   public List<MyTrip> getMyTripListByMemberNo(PageInfo pageInfo, int memberNo) {
+      
+      return tripMapper.selectMyTripList(memberNo);
+   }
+   
+   // 찜한 관광지 MyTrip에 추가 - (관광지)
+   @Override
+   @Transactional
+   public int saveSpotToMyTrip(String contentId, int memberNo) {
+	   	
+	   return tripMapper.insertSpotMyTrip(contentId, memberNo);
+   }
+   
+   // MyTrip에서 관광지 삭제 - (관광지)
 	@Override
-	public int getSpotCount(String selectArea, String searchKeyword) {
+	public int deleteSpotOfMyTrip(String contentId, int memberNo) {
 		
-		return tripMapper.selectSpotCount(selectArea, searchKeyword);
-	}
-	
-	// 관광지 리스트 조회
-	@Override
-	public List<Spot> getSpotList(PageInfo pageInfo, String selectArea, String searchKeyword) {
-	      int limit = pageInfo.getListLimit();
-	      int offset = (pageInfo.getCurrentPage() - 1) * limit;
-	      
-	      RowBounds rowBounds = new RowBounds(offset, limit);		
-		
-		return tripMapper.selectSpotList(rowBounds, selectArea, searchKeyword);
-	}
-	
-	// 관광지 API 이미지 저장
-	@Override
-	@Transactional
-	public int saveSpotImage(int id, String apiImageURL) {
-		
-		return tripMapper.updateSpotApiImage(id, apiImageURL);
-	}
-	
-	// 관광지 상세 조회(반려동물 동반 정보 확인)
-	@Override
-	public Spot getSpotById(int id) {
-		
-		return tripMapper.selectSpotById(id);
-	}
-	
-	// -------------------------------------------------------------------------
-	
-	// 숙소 전체 게시물 수 조회
-	@Override
-	public int getStayCount(String selectArea, String searchKeyword) {
-		
-		return tripMapper.selectStayCount(selectArea, searchKeyword);
-	}
-	
-	// 숙소 리스트 조회
-	@Override
-	public List<Stay> getStayList(PageInfo pageInfo, String selectArea, String searchKeyword) {
-	      int limit = pageInfo.getListLimit();
-	      int offset = (pageInfo.getCurrentPage() - 1) * limit;
-	      
-	      RowBounds rowBounds = new RowBounds(offset, limit);
-	      
-		return tripMapper.selectStaytList(rowBounds, selectArea, searchKeyword);
-	}
-	
-	// 숙소 API 이미지 저장
-	@Override
-	@Transactional
-	public int saveStayImage(int id, String apiImageURL) {
-		// TODO Auto-generated method stub
-		return tripMapper.updateStayApiImage(id, apiImageURL);
-	}
-	
-	// 숙소 상세 조회(반려동물 동반 정보 확인)
-	@Override
-	public Stay getStayById(int id) {
-		
-		return tripMapper.selectStayById(id);
-	}
-	
-	// 회원이 찜한 장소(관광지, 숙소) 갯수 조회
-	@Override
-	public int getMyTripByMemberNo(int memberNo) {
-		
-		return tripMapper.selectMyTripCount(memberNo);
-	}
-	
-	// -----------------------------------------------------------------------------------------
-	
+		return tripMapper.deleteSpotMyTrip(contentId, memberNo);
+	}   
+   
+   // -----------------------------------------------------------------------------------------
+   
+   
     @Override
     @Transactional
     public int savePetInfo(PetInfo petInfo)
@@ -161,6 +187,20 @@ public class TripServiceImpl implements TripService {
     {
         return tripMapper.selectPetInfoByContentId(contentId);
     }
+
+    @Override
+    public String isZzimThis(String contentId, String memberNo)
+    {
+        return tripMapper.selectZzimId(contentId, memberNo);
+    }
+
+
+
+
+
+
+
+
 
 
 
