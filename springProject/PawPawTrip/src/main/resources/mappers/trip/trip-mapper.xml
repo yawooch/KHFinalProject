@@ -258,22 +258,22 @@
     <!-- 숙소 상세 조회 -->
     <select id="selectStayById" parameterType="_int" resultMap="stayListResultMap">
        SELECT S.STAY_CONTENTID,
-             S.STAY_ADDRESS || STAY_DETAIL_ADDRESS       AS STAY_ADDRESS,
-             S.STAY_TITLE,
-             NVL(S.STAY_IMAGE, '-')                      AS STAY_IMAGE,
-             NVL(S.STAY_TEL, '별도 문의')                    AS STAY_TEL,
-             NVL(S.HOMEPAGE, '-')                        AS HOMEPAGE,
-             NVL(S.OVERVIEW, '-')                        AS OVERVIEW,
-             NVL(P.RELA_POSES_FCLTY, '-')                AS P_RELA_POSES_FCLTY,
-             NVL(P.ETC_ACMPY_INFO, '-')                    AS P_ETC_ACMPY_INFO,
-             NVL(P.RELA_RNTL_PRDLST, '없음')               AS P_RELA_RNTL_PRDLST,
-             NVL(P.RELA_PURC_PRDLST, '없음')               AS P_RELA_PURC_PRDLST,
-             NVL(P.RELA_FRNSH_PRDLST, '없음')              AS P_RELA_FRNSH_PRDLST,
-             NVL(P.ACMPY_PSBL_CPAM, '동반 동물 별도 제한 없음')  AS P_ACMPY_PSBL_CPAM,
-             NVL(P.ACMPY_NEED_MTR, '-')                     AS P_ACMPY_NEED_MTR
-      FROM STAY S
-      INNER JOIN PETINFO P ON (S.STAY_CONTENTID = P.PETINFO_CONTENTID)
-      WHERE S.STAY_CONTENTID = #{id}
+              S.STAY_ADDRESS || STAY_DETAIL_ADDRESS               AS STAY_ADDRESS,
+              S.STAY_TITLE                                        AS STAY_TITLE,
+              NVL(S.STAY_IMAGE, '-')                              AS STAY_IMAGE,
+              NVL(S.STAY_TEL, '별도 문의')                        AS STAY_TEL,
+              NVL(S.HOMEPAGE, '-')                                AS HOMEPAGE,
+              NVL(S.OVERVIEW, '-')                                AS OVERVIEW,
+              NVL(P.RELA_POSES_FCLTY, '-')                        AS P_RELA_POSES_FCLTY,
+              NVL(P.ETC_ACMPY_INFO, '-')                          AS P_ETC_ACMPY_INFO,
+              NVL(P.RELA_RNTL_PRDLST, '없음')                     AS P_RELA_RNTL_PRDLST,
+              NVL(P.RELA_PURC_PRDLST, '없음')                     AS P_RELA_PURC_PRDLST,
+              NVL(P.RELA_FRNSH_PRDLST, '없음')                    AS P_RELA_FRNSH_PRDLST,
+              NVL(P.ACMPY_PSBL_CPAM, '동반 동물 별도 제한 없음')  AS P_ACMPY_PSBL_CPAM,
+              NVL(P.ACMPY_NEED_MTR, '-')                          AS P_ACMPY_NEED_MTR
+         FROM STAY S
+        INNER JOIN PETINFO P ON (S.STAY_CONTENTID = P.PETINFO_CONTENTID)
+        WHERE S.STAY_CONTENTID = #{id}
     </select>    
    
    <!-- 회원이 찜한 장소 갯수 조회 -->
@@ -331,6 +331,16 @@
                                   WHERE MEMBER_NO = #{memberNo})  
       </select>
       
+      
+      
+      
+      <!-- 회원이 찜한 관광지 조회 -->
+      <select id="selectZzimId" parameterType="map" resultType="string">
+		SELECT CONTENTID
+		  FROM ZZIM
+		 WHERE CONTENTID = #{contentId}
+           AND MEMBER_NO = #{memberNo}
+      </select>
       
       <!-- 회원이 찜한 관광지 추가 -->
       <insert id="insertSpotMyTrip" parameterType="map">

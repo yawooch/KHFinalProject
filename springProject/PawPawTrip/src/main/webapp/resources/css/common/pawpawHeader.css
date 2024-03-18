@@ -170,3 +170,11 @@ body>.content {
 section.favoriteMenu>div.row {
 	text-align: center;
 }
+
+div.afterWeather
+{
+    position: fixed;
+    bottom: 300px;
+    left: 70px;
+    z-index: 10;
+}

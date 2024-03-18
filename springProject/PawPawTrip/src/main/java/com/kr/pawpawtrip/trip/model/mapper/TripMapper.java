@@ -66,6 +66,8 @@ public interface TripMapper {
     
     PetInfo selectPetInfoByContentId(@Param("contentId") int contentId);
 
+    String selectZzimId(@Param("contentId") String contentId, @Param("memberNo") String memberNo);
+
 	
 
 	

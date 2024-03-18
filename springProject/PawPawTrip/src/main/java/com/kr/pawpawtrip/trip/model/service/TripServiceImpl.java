@@ -188,6 +188,12 @@ public class TripServiceImpl implements TripService {
         return tripMapper.selectPetInfoByContentId(contentId);
     }
 
+    @Override
+    public String isZzimThis(String contentId, String memberNo)
+    {
+        return tripMapper.selectZzimId(contentId, memberNo);
+    }
+
 
 
 

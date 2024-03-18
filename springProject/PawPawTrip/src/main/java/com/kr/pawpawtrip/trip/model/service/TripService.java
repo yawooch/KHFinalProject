@@ -63,22 +63,7 @@ public interface TripService {
     
     PetInfo getPetTourByContentId(int contentId);
 
-	
-
-	
-
-
-	
-
-
-   
-
-
-
-
-
-   
-
+    String isZzimThis(String contentId, String memberNo);
 
 
 }

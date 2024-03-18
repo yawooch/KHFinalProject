@@ -125,7 +125,7 @@ $(document).ready(()=>
 	});
 	/********************** 서브메뉴 hover이벤트 종료 ***************************/
 	
-	
+	$('div.afterWeather').draggable();
 	
 	//footerSink();	
 })

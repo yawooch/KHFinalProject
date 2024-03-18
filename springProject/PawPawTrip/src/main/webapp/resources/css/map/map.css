@@ -70,7 +70,17 @@
     margin-top: -2px;
 }
 .info .link {
-    color: #5085BB;
+    color: #B29254;
+    text-decoration: none;
+    font-size:15px;
+    border-radius: 5px;
+    border: solid 1px;
+    padding: 0px 4px;
+}
+.info .link:hover {
+    color: #FFFFFF;
+    background-color: #B29254;
+    border-color: #B29254;
     text-decoration: none;
     font-size:15px;
     border-radius: 5px;
