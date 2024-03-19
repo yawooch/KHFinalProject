@@ -25,7 +25,7 @@
         <div class="common-list">
             <div class="community-detail-list">
               <!-- Tab panes -->
-              <div class="tab-content" style="margin-bottom: 200px;">
+              <div class="tab-content" style="margin-bottom: 300px;">
                 <div id="home" class="container tab-pane active"><br>
                 
                     <div class="common-detail-list" style="position:relative;">
