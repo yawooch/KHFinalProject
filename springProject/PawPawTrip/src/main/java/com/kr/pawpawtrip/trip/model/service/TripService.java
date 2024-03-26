@@ -67,11 +67,4 @@ public interface TripService {
     List<PetInfo> getPetTourListByContentIds(List<Integer> contentIdList);
     
     PetInfo getPetTourByContentId(int contentId);
-
-	
-
-	
-
-
-
 }

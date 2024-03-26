@@ -75,8 +75,6 @@ public class CommunityController
         // 공지사항 리스트 조회
         noticeList = communityService.getNoticeList(pageInfo, select, search);
         
-//        log.info("Notice List - {}", noticeList);
-
         modelAndView.addObject("searchInfoMap", map);
         modelAndView.addObject("pageInfo", pageInfo);
         modelAndView.addObject("noticeList", noticeList);
@@ -94,7 +92,7 @@ public class CommunityController
             @RequestParam(defaultValue = "") String select, 
             @RequestParam(defaultValue = "") String search) throws RestClientException, URISyntaxException
     {
-    	
+        
         // 전체 리스트 조회(검색기능 포함)
         List<Community> boardList = null;
         // 페이징 처리
@@ -148,8 +146,6 @@ public class CommunityController
         // 수다 리스트 조회
         boardTalkList = communityService.getBoardTalkList(pageInfo, select, search);
 
-        log.info("Board TalkList - {}", boardTalkList);
-
         modelAndView.addObject("searchInfoMap", map);
         modelAndView.addObject("pageInfo", pageInfo);
         modelAndView.addObject("boardTalkList", boardTalkList);
@@ -184,8 +180,6 @@ public class CommunityController
         // 마이펫 리스트 조회
         boardMypetList = communityService.getBoardMypetList(pageInfo, select, search);
 
-        log.info("Board MypetList - {}", boardMypetList);
-
         modelAndView.addObject("searchInfoMap", map);
         modelAndView.addObject("pageInfo", pageInfo);
         modelAndView.addObject("boardMypetList", boardMypetList);
@@ -200,50 +194,46 @@ public class CommunityController
     {
         Community community = null;
         Member loginMember = (Member) session.getAttribute("loginMember");
-    	String ipAddr = request.getRemoteAddr();
-    	String communityNo = "";
-    	String cNo = "";
-    	Cookie[] cookies = request.getCookies();;
-    	Cookie cookie = null;
-    	boolean cookieCheck = false;
+        String ipAddr = request.getRemoteAddr();
+        String communityNo = "";
+        String cNo = "";
+        Cookie[] cookies = request.getCookies();;
+        Cookie cookie = null;
+        boolean cookieCheck = false;
 
-    	System.out.println("가져온 ip 주소 : " + ipAddr);
-    	
-    	// 조회수 카운트 되기 전
+        // 조회수 카운트 되기 전
         community = communityService.getBoardNo(no);
         
         // 게시글 번호를 cookie에 저장하기 위해 int -> String 변경
-    	communityNo = String.valueOf(community.getCommunityNo());
-    	
-    	cNo = "community_no" + communityNo;
-    	
-    	System.out.println(cNo);
-
-    	// cookie 정보에 동일한 게시글 번호 && ip 주소 중복 체크
-    	for (Cookie c : cookies) {
-			if(cNo.equals(c.getName()) && ipAddr.equals(c.getValue())) {
-				cookieCheck = true;
-			}
-    		
-		}
-    	
-    	// 중복되지 않으면 cookie에 값을 저장 후 조회수 카운트
-    	if(!cookieCheck) {
-    		// name : 게시글 번호, value : 접속 IP cookie에 저장
-        	cookie = new Cookie("community_no" + communityNo, ipAddr);
-        	
-        	cookie.setMaxAge(3600);
-        	
-        	int viewsCount =  community.getCommunityCount();
-        	
-        	if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
-            	viewsCount ++;
-            	
-            	communityService.updateCommunityCount(no, viewsCount);
+        communityNo = String.valueOf(community.getCommunityNo());
+        
+        cNo = "community_no" + communityNo;
+        
+        // cookie 정보에 동일한 게시글 번호 && ip 주소 중복 체크
+        for (Cookie c : cookies) {
+            if(cNo.equals(c.getName()) && ipAddr.equals(c.getValue())) {
+                cookieCheck = true;
             }
-        	
-        	response.addCookie(cookie);
-    	}
+            
+        }
+        
+        // 중복되지 않으면 cookie에 값을 저장 후 조회수 카운트
+        if(!cookieCheck) {
+            // name : 게시글 번호, value : 접속 IP cookie에 저장
+            cookie = new Cookie("community_no" + communityNo, ipAddr);
+            
+            cookie.setMaxAge(3600);
+            
+            int viewsCount =  community.getCommunityCount();
+            
+            if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
+                viewsCount ++;
+                
+                communityService.updateCommunityCount(no, viewsCount);
+            }
+            
+            response.addCookie(cookie);
+        }
         
         // 조회수 업데이트
         System.out.println("로그인 멤버 : " + loginMember);
@@ -264,53 +254,53 @@ public class CommunityController
     @GetMapping("/board/talkdetail")
     public ModelAndView talkDetail(ModelAndView modelAndView, @RequestParam int no, HttpSession session, HttpServletRequest request, HttpServletResponse response)
     {
-    	
-    	Community community = null;
-    	Member loginMember = (Member) session.getAttribute("loginMember");
-    	String ipAddr = request.getRemoteAddr();
-    	String communityNo = "";
-    	String cNo = "";
-    	Cookie[] cookies = request.getCookies();;
-    	Cookie cookie = null;
-    	boolean cookieCheck = false;
-    	
-    	System.out.println("가져온 ip 주소 : " + ipAddr);
-    	
-    	// 조회수 카운트 되기 전
-    	community = communityService.getBoardNo(no);
-    	
-    	// 게시글 번호를 cookie에 저장하기 위해 int -> String 변경
-    	communityNo = String.valueOf(community.getCommunityNo());
-    	
-    	cNo = "community_no" + communityNo;
-    	
-    	System.out.println(cNo);
+        
+        Community community = null;
+        Member loginMember = (Member) session.getAttribute("loginMember");
+        String ipAddr = request.getRemoteAddr();
+        String communityNo = "";
+        String cNo = "";
+        Cookie[] cookies = request.getCookies();;
+        Cookie cookie = null;
+        boolean cookieCheck = false;
+        
+        System.out.println("가져온 ip 주소 : " + ipAddr);
+        
+        // 조회수 카운트 되기 전
+        community = communityService.getBoardNo(no);
+        
+        // 게시글 번호를 cookie에 저장하기 위해 int -> String 변경
+        communityNo = String.valueOf(community.getCommunityNo());
+        
+        cNo = "community_no" + communityNo;
+        
+        System.out.println(cNo);
 
-    	// cookie 정보에 동일한 게시글 번호 && ip 주소 중복 체크
-    	for (Cookie c : cookies) {
-			if(cNo.equals(c.getName()) && ipAddr.equals(c.getValue())) {
-				cookieCheck = true;
-			}
-    		
-		}
-    	
-    	// 중복되지 않으면 cookie에 값을 저장 후 조회수 카운트
-    	if(!cookieCheck) {
-    		// name : 게시글 번호, value : 접속 IP cookie에 저장
-        	cookie = new Cookie("community_no" + communityNo, ipAddr);
-        	
-        	cookie.setMaxAge(3600);
-        	
-        	int viewsCount =  community.getCommunityCount();
-        	
-        	if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
-            	viewsCount ++;
-            	
-            	communityService.updateCommunityCount(no, viewsCount);
+        // cookie 정보에 동일한 게시글 번호 && ip 주소 중복 체크
+        for (Cookie c : cookies) {
+            if(cNo.equals(c.getName()) && ipAddr.equals(c.getValue())) {
+                cookieCheck = true;
             }
-        	
-        	response.addCookie(cookie);
-    	}
+            
+        }
+        
+        // 중복되지 않으면 cookie에 값을 저장 후 조회수 카운트
+        if(!cookieCheck) {
+            // name : 게시글 번호, value : 접속 IP cookie에 저장
+            cookie = new Cookie("community_no" + communityNo, ipAddr);
+            
+            cookie.setMaxAge(3600);
+            
+            int viewsCount =  community.getCommunityCount();
+            
+            if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
+                viewsCount ++;
+                
+                communityService.updateCommunityCount(no, viewsCount);
+            }
+            
+            response.addCookie(cookie);
+        }
         
         // 조회수 업데이트
         System.out.println("로그인 멤버 : " + loginMember);
@@ -334,48 +324,48 @@ public class CommunityController
 
         Community community = null;
         Member loginMember = (Member) session.getAttribute("loginMember");
-    	String ipAddr = request.getRemoteAddr();
-    	String communityNo = "";
-    	String cNo = "";
-    	Cookie[] cookies = request.getCookies();;
-    	Cookie cookie = null;
-    	boolean cookieCheck = false;
+        String ipAddr = request.getRemoteAddr();
+        String communityNo = "";
+        String cNo = "";
+        Cookie[] cookies = request.getCookies();;
+        Cookie cookie = null;
+        boolean cookieCheck = false;
 
         // 조회수 카운트 되기 전
         community = communityService.getBoardNo(no);
         
         // 게시글 번호를 cookie에 저장하기 위해 int -> String 변경
-    	communityNo = String.valueOf(community.getCommunityNo());
-    	
-    	cNo = "community_no" + communityNo;
-    	
-    	System.out.println(cNo);
+        communityNo = String.valueOf(community.getCommunityNo());
+        
+        cNo = "community_no" + communityNo;
+        
+        System.out.println(cNo);
 
-    	// cookie 정보에 동일한 게시글 번호 && ip 주소 중복 체크
-    	for (Cookie c : cookies) {
-			if(cNo.equals(c.getName()) && ipAddr.equals(c.getValue())) {
-				cookieCheck = true;
-			}
-    		
-		}
-    	
-    	// 중복되지 않으면 cookie에 값을 저장 후 조회수 카운트
-    	if(!cookieCheck) {
-    		// name : 게시글 번호, value : 접속 IP cookie에 저장
-        	cookie = new Cookie("community_no" + communityNo, ipAddr);
-        	
-        	cookie.setMaxAge(3600);
-        	
-        	int viewsCount =  community.getCommunityCount();
-        	
-        	if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
-            	viewsCount ++;
-            	
-            	communityService.updateCommunityCount(no, viewsCount);
+        // cookie 정보에 동일한 게시글 번호 && ip 주소 중복 체크
+        for (Cookie c : cookies) {
+            if(cNo.equals(c.getName()) && ipAddr.equals(c.getValue())) {
+                cookieCheck = true;
             }
-        	
-        	response.addCookie(cookie);
-    	}
+            
+        }
+        
+        // 중복되지 않으면 cookie에 값을 저장 후 조회수 카운트
+        if(!cookieCheck) {
+            // name : 게시글 번호, value : 접속 IP cookie에 저장
+            cookie = new Cookie("community_no" + communityNo, ipAddr);
+            
+            cookie.setMaxAge(3600);
+            
+            int viewsCount =  community.getCommunityCount();
+            
+            if(loginMember == null || loginMember.getMemberRole().equals("ROLE_USER")) {
+                viewsCount ++;
+                
+                communityService.updateCommunityCount(no, viewsCount);
+            }
+            
+            response.addCookie(cookie);
+        }
         
         
         // 조회수 업데이트
@@ -397,7 +387,7 @@ public class CommunityController
     @GetMapping("/board/write")
     public String boardWrite()
     {
-    	
+        
         return "community/board/write";
     }
 
@@ -523,27 +513,27 @@ public class CommunityController
         
         if(talkWriteFile != null && !talkWriteFile.isEmpty()) // 파일 업로드 했을 때
         {
-        	
-        	try {
-				location = resourceLoader.getResource("resources/upload/community")
-						                 .getFile()
-						                 .getPath();
-				
-				// 기존에 업로드 된 파일 삭제
-				if(community.getCommunityRfileName() != null) {
-					MultipartFileUtil.delete(location + "/" + community.getCommunityRfileName());
-				}
-				
-				renamedFileName = MultipartFileUtil.save(talkWriteFile, location);
-				
-				if(renamedFileName != null) {
-					community.setCommunityOfileName(talkWriteFile.getOriginalFilename());
-					community.setCommunityRfileName(renamedFileName);
-				}
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+            
+            try {
+                location = resourceLoader.getResource("resources/upload/community")
+                                         .getFile()
+                                         .getPath();
+                
+                // 기존에 업로드 된 파일 삭제
+                if(community.getCommunityRfileName() != null) {
+                    MultipartFileUtil.delete(location + "/" + community.getCommunityRfileName());
+                }
+                
+                renamedFileName = MultipartFileUtil.save(talkWriteFile, location);
+                
+                if(renamedFileName != null) {
+                    community.setCommunityOfileName(talkWriteFile.getOriginalFilename());
+                    community.setCommunityRfileName(renamedFileName);
+                }
+                
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         
         community.setCommunityCategory(communityCategory);
@@ -553,20 +543,20 @@ public class CommunityController
         result = communityService.save(community);
         
         if(result > 0) {
-        	modelAndView.addObject("msg", "게시글 수정 성공");
-		
-        	if (community.getCommunityCategory().equals("[수다]"))
-        	{
-        		modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
-        	}
-		
-        	if (community.getCommunityCategory().equals("[마이펫 자랑]"))
-        	{
-        		modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
-        	}
+            modelAndView.addObject("msg", "게시글 수정 성공");
+        
+            if (community.getCommunityCategory().equals("[수다]"))
+            {
+                modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
+            }
+        
+            if (community.getCommunityCategory().equals("[마이펫 자랑]"))
+            {
+                modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
+            }
         } else {
-        	modelAndView.addObject("msg", "게시글 수정 실패");
-        	modelAndView.addObject("location", "/community/board");
+            modelAndView.addObject("msg", "게시글 수정 실패");
+            modelAndView.addObject("location", "/community/board");
         }
         
         log.info("Board Update(게시글 수정 성공) - {}", community);
@@ -580,44 +570,44 @@ public class CommunityController
 //  파일 삭제
     @PostMapping("/deletefile")
     public ResponseEntity<Map<String, Object>> deleteFile(@RequestParam("cNo") int cNo) {
-    	
-    	Community community = null;
-    	int result = 0;
-    	String location = null;
-    	Map<String, Object> map = new HashMap<String, Object>();
-    	
-    	// 파일 삭제 되기 전
-    	community = communityService.getBoardNo(cNo);
-    	
-    	// workspace에 저장되어 있는 파일 경로
-    	try {
-			location = resourceLoader.getResource("resources/upload/community").getFile().getPath()
-					+ "\\" + community.getCommunityRfileName();
-			
-			File file = new File(location);
-			
-			// workspace에 저장되어 있는 파일 삭제
-			if(file.exists()) {
-				file.delete();
-			}
-			
-			System.out.println("경로 : " + location);
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	
-    	// 파일 null 처리
-    	result = communityService.updateFileName(cNo);
-    	
-    	// 게시글 조회
-    	community = communityService.getBoardNo(cNo);
-    	
-    	map.put("resultCode", result);
-    	
-    	log.info("Community FileDelete - {}", community);
-    	
-    	return ResponseEntity.ok(map);
+        
+        Community community = null;
+        int result = 0;
+        String location = null;
+        Map<String, Object> map = new HashMap<String, Object>();
+        
+        // 파일 삭제 되기 전
+        community = communityService.getBoardNo(cNo);
+        
+        // workspace에 저장되어 있는 파일 경로
+        try {
+            location = resourceLoader.getResource("resources/upload/community").getFile().getPath()
+                    + "\\" + community.getCommunityRfileName();
+            
+            File file = new File(location);
+            
+            // workspace에 저장되어 있는 파일 삭제
+            if(file.exists()) {
+                file.delete();
+            }
+            
+            System.out.println("경로 : " + location);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        // 파일 null 처리
+        result = communityService.updateFileName(cNo);
+        
+        // 게시글 조회
+        community = communityService.getBoardNo(cNo);
+        
+        map.put("resultCode", result);
+        
+        log.info("Community FileDelete - {}", community);
+        
+        return ResponseEntity.ok(map);
     }
 
 //    게시글 삭제
@@ -633,39 +623,39 @@ public class CommunityController
         community = communityService.getBoardNo(no);
 
         if(community != null && community.getCommunityWriterId().equals(loginMember.getMemberId())) {
-        	
-        	result = communityService.delete(no);
+            
+            result = communityService.delete(no);
         
-        	if (result > 0)
-        	{
-        		modelAndView.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
-        		
-        		if (community.getCommunityCategory().equals("[수다]"))
-        		{
-        			modelAndView.addObject("location", "/community/board/talk");
-        		}
-        		
-        		if (community.getCommunityCategory().equals("[마이펫 자랑]"))
-        		{
-        			modelAndView.addObject("location", "/community/board/mypet");
-        		}
-        	} else
-        	{
-        		modelAndView.addObject("msg", "게시글이 정상적으로 삭제되지 않았습니다.");
-        		
-        		if (community.getCommunityCategory().equals("[수다]"))
-        		{
-        			modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
-        		}
-        		
-        		if (community.getCommunityCategory().equals("[마이펫 자랑]"))
-        		{
-        			modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
-        		}
-        	}
+            if (result > 0)
+            {
+                modelAndView.addObject("msg", "게시글이 정상적으로 삭제되었습니다.");
+                
+                if (community.getCommunityCategory().equals("[수다]"))
+                {
+                    modelAndView.addObject("location", "/community/board/talk");
+                }
+                
+                if (community.getCommunityCategory().equals("[마이펫 자랑]"))
+                {
+                    modelAndView.addObject("location", "/community/board/mypet");
+                }
+            } else
+            {
+                modelAndView.addObject("msg", "게시글이 정상적으로 삭제되지 않았습니다.");
+                
+                if (community.getCommunityCategory().equals("[수다]"))
+                {
+                    modelAndView.addObject("location", "/community/board/talkdetail?no=" + community.getCommunityNo());
+                }
+                
+                if (community.getCommunityCategory().equals("[마이펫 자랑]"))
+                {
+                    modelAndView.addObject("location", "/community/board/mypetdetail?no=" + community.getCommunityNo());
+                }
+            }
         } else {
-        	modelAndView.addObject("msg", "잘못 된 접근입니다.");
-        	modelAndView.addObject("location", "/community/board");
+            modelAndView.addObject("msg", "잘못 된 접근입니다.");
+            modelAndView.addObject("location", "/community/board");
         }
 
 

@@ -14,14 +14,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PetTourResponse {
-
-    private String resultCode;
-    private String resultMsg;
-    private int    pageNo;
-    private int    numOfRows;
-//    private String dataType;
-    private int    totalCount;
+public class PetTourResponse 
+{
+    private String resultCode;  // API 호출 결과의 상태 코드
+    private String resultMsg;   // API 호출 결과의 상태
+    private int    numOfRows;   // 한 페이지의 결과 수
+    private int    pageNo;      // 현재 조회된 데이터의 페이지 번호
+    private int    totalCount;  // 전체 데이터의 총 수
+    
     private ArrayList<PetTourItem> petTourItems = new ArrayList<PetTourItem>();
     
 
@@ -39,7 +39,6 @@ public class PetTourResponse {
         
         this.pageNo     = (Integer)body.get("pageNo");
         this.numOfRows  = (Integer)body.get("numOfRows");
-//        this.dataType   = (String)body.get("dataType");
         this.totalCount = (Integer)body.get("totalCount");
         
         for (Map<String, Object> map : item)

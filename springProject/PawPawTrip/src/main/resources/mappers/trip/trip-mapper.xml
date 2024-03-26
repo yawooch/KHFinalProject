@@ -28,7 +28,7 @@
            , NVL(TRIP_TEL, '-') AS TRIP_TEL
            , NVL(HOMEPAGE, '-') AS HOMEPAGE
            , NVL(OVERVIEW, '-') AS OVERVIEW
-      FROM TRIP
+        FROM TRIP
     </sql>
 
     <!-- 숙소 SQL 구문 -->
@@ -42,10 +42,10 @@
                (SELECT S.MID_CATE_NAME FROM MIDCATEGORY S WHERE S.MID_CATE_CODE = STAY_CATEGORY2 )AS STAY_CATEGORY2,
                (SELECT S.SML_CATE_NAME FROM SMLCATEGORY S WHERE S.SML_CATE_CODE = STAY_CATEGORY3 )AS STAY_CATEGORY3,
                NVL(STAY_IMAGE, '-') AS STAY_IMAGE,
-             NVL(STAY_TEL, '-') AS STAY_TEL,
-             NVL(HOMEPAGE, '-') AS HOMEPAGE,
-             NVL(OVERVIEW, '-') AS OVERVIEW
-        FROM STAY
+               NVL(STAY_TEL, '-') AS STAY_TEL,
+               NVL(HOMEPAGE, '-') AS HOMEPAGE,
+               NVL(OVERVIEW, '-') AS OVERVIEW
+          FROM STAY
     </sql>
     
     
@@ -143,18 +143,14 @@
     </resultMap>
     
     <!-- 내가찜한장소 테이블 ResultMap  -->
-    <resultMap id="myTripResultMap" type="MyTrip">
-       <id         property="contentId" column="CONTENTID"/>
-       <result     property="memberNo"  column="MEMBER_NO"/>
-       <result     property="address"  column="ADDRESS"/>
-       <result     property="title"  column="TITLE"/>
+    <resultMap     id="myTripResultMap"    type="MyTrip"       >
+       <id         property="contentId"    column="CONTENTID"  />
+       <result     property="memberNo"     column="MEMBER_NO"  />
+       <result     property="address"      column="ADDRESS"    />
+       <result     property="title"        column="TITLE"      />
        <result     property="contentType"  column="CONTENTTYPE"/>
-       <result     property="image"  column="IMAGE"/>
+       <result     property="image"        column="IMAGE"      />
     </resultMap>
-<!--  
-       <collection property="stays" javaType="arraylist" resultMap="stayListResultMap"/>
-       <collection property="spots" javaType="arraylist" resultMap="spotListResultMap"/>
--->   
    <!-- ************************************************************************************** -->
    
    <!-- 관광지 게시물 수 조회 -->
@@ -198,22 +194,24 @@
     <!-- 관광지 CONTENT ID 로 관광지 상세페이지 조회 -->
    <select id="selectSpotById" parameterType="_int" resultMap="spotListResultMap">
         SELECT T.TRIP_CONTENTID,
-             T.TRIP_ADDRESS || T.TRIP_DETAIL_ADDRESS       AS TRIP_ADDRESS,
-             T.TRIP_TITLE,
-             NVL(T.TRIP_IMAGE,        '-')                 AS TRIP_IMAGE,
-             NVL(T.TRIP_TEL,           '별도 문의')           AS TRIP_TEL,
-             NVL(T.HOMEPAGE,           '-')                   AS HOMEPAGE,
-             NVL(T.OVERVIEW,           '-')                   AS OVERVIEW,
-             NVL(P.RELA_POSES_FCLTY,  '-')                 AS P_RELA_POSES_FCLTY,
-             NVL(P.ETC_ACMPY_INFO,    '-')                    AS P_ETC_ACMPY_INFO,
-             NVL(P.RELA_RNTL_PRDLST,  '없음')                  AS P_RELA_RNTL_PRDLST,
-             NVL(P.RELA_PURC_PRDLST,  '없음')                  AS P_RELA_PURC_PRDLST,
-             NVL(P.RELA_FRNSH_PRDLST, '없음')                 AS P_RELA_FRNSH_PRDLST,
-             NVL(P.ACMPY_PSBL_CPAM,   '동반 동물 별도 제한 없음')  AS P_ACMPY_PSBL_CPAM,
-             NVL(P.ACMPY_NEED_MTR,    '-')                    AS P_ACMPY_NEED_MTR
-        FROM TRIP T
-        INNER JOIN PETINFO P ON (T.TRIP_CONTENTID = P.PETINFO_CONTENTID)
-        WHERE T.TRIP_CONTENTID = #{id}
+               T.TRIP_ADDRESS || T.TRIP_DETAIL_ADDRESS               AS TRIP_ADDRESS,
+               T.TRIP_TITLE,                                        
+               NVL(T.TRIP_IMAGE,        '-')                         AS TRIP_IMAGE,
+               NVL(T.TRIP_TEL,           '별도 문의')                AS TRIP_TEL,
+               NVL(T.HOMEPAGE,           '-')                        AS HOMEPAGE,
+               NVL(T.OVERVIEW,           '-')                        AS OVERVIEW,
+               NVL(P.RELA_POSES_FCLTY,  '-')                         AS P_RELA_POSES_FCLTY,
+               NVL(P.ETC_ACMPY_INFO,    '-')                         AS P_ETC_ACMPY_INFO,
+               NVL(P.RELA_RNTL_PRDLST,  '없음')                      AS P_RELA_RNTL_PRDLST,
+               NVL(P.RELA_PURC_PRDLST,  '없음')                      AS P_RELA_PURC_PRDLST,
+               NVL(P.RELA_FRNSH_PRDLST, '없음')                      AS P_RELA_FRNSH_PRDLST,
+               NVL(P.ACMPY_PSBL_CPAM,   '동반 동물 별도 제한 없음')  AS P_ACMPY_PSBL_CPAM,
+               NVL(P.ACMPY_NEED_MTR,    '-')                         AS P_ACMPY_NEED_MTR
+          FROM TRIP T
+         INNER JOIN 
+               PETINFO P 
+            ON T.TRIP_CONTENTID = P.PETINFO_CONTENTID
+         WHERE T.TRIP_CONTENTID = #{id}
    </select>
 
 
@@ -296,9 +294,9 @@
                      , TRIP_IMAGE          AS IMAGE
                   FROM TRIP
                 )
-                WHERE CONTENTID IN (SELECT CONTENTID
-                                    FROM ZZIM
-                                  WHERE MEMBER_NO = #{memberNo})         
+          WHERE CONTENTID IN (SELECT CONTENTID
+                                FROM ZZIM
+                               WHERE MEMBER_NO = #{memberNo})         
     </select>
     
     
@@ -326,36 +324,33 @@
                      , TRIP_IMAGE          AS IMAGE
                   FROM TRIP
                 )
-                WHERE CONTENTID IN (SELECT CONTENTID
-                                    FROM ZZIM
-                                  WHERE MEMBER_NO = #{memberNo})  
+          WHERE CONTENTID IN (SELECT CONTENTID
+                                FROM ZZIM
+                               WHERE MEMBER_NO = #{memberNo})  
       </select>
-      
-      
-      
       
       <!-- 회원이 찜한 관광지/숙소 조회 -->
       <select id="selectZzimId" parameterType="map" resultType="string">
-		SELECT CONTENTID
-		  FROM ZZIM
-		 WHERE CONTENTID = #{contentId}
+        SELECT CONTENTID
+          FROM ZZIM
+         WHERE CONTENTID = #{contentId}
            AND MEMBER_NO = #{memberNo}
       </select>
       
       <!-- 회원이 찜한 관광지 추가 -->
       <insert id="insertMyTrip" parameterType="map">
-		INSERT 
-		INTO ZZIM ( CONTENTID, MEMBER_NO )
-		VALUES ( #{contentId}, #{memberNo} )     	
+        INSERT 
+          INTO ZZIM ( CONTENTID, MEMBER_NO )
+        VALUES ( #{contentId}, #{memberNo} )        
       </insert>
       
       
       <!-- 회원이 찜한 관광지 삭제 -->
       <delete id="deleteMyTrip" parameterType="map">
-		DELETE
-		FROM ZZIM 
-		WHERE MEMBER_NO = #{memberNo}
-		AND CONTENTID = #{contentId}      
+        DELETE
+          FROM ZZIM 
+         WHERE MEMBER_NO = #{memberNo}
+           AND CONTENTID = #{contentId}      
       </delete>
       
    <!-- ************************************************************************************* -->

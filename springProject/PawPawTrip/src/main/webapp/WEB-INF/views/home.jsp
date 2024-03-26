@@ -9,45 +9,45 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
 <div class="content">
-	<div class="container">
-	    <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
-	        <ol class="carousel-indicators">
-	            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
-	            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
-	            <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
-	        </ol>
-	        
-	        <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
-	            <i class="fas fa-chevron-left"></i>
-	        </a>
-	        <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
-	            <i class="fas fa-chevron-right"></i>
-	        </a>
-	        <div class="carousel-inner">
-	            <div class="carousel-item active">
-	                <div class="max-container">
-	                    <div class="row">
-	                        <img class="img-fluid" src="${path}/img/common/main-carousel-img1.png" alt="">
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item">
-	                <div class="max-container">
-	                    <div class="row">
-	                        <img class="img-fluid" src="${path}/img/common/main-carousel-img2.png" alt="">
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="carousel-item">
-	                <div class="max-container">
-	                    <div class="row">
+    <div class="container">
+        <div id="template-mo-zay-hero-carousel" class="carousel slide" data-bs-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="1"></li>
+                <li data-bs-target="#template-mo-zay-hero-carousel" data-bs-slide-to="2"></li>
+            </ol>
+            
+            <a class="carousel-control-prev text-decoration-none w-auto ps-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="prev">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+            <a class="carousel-control-next text-decoration-none w-auto pe-3" href="#template-mo-zay-hero-carousel" role="button" data-bs-slide="next">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="max-container">
+                        <div class="row">
+                            <img class="img-fluid" src="${path}/img/common/main-carousel-img1.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="max-container">
+                        <div class="row">
+                            <img class="img-fluid" src="${path}/img/common/main-carousel-img2.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="max-container">
+                        <div class="row">
                             <img class="img-fluid" src="${path}/img/common/main-carousel-img3-1.jpg" alt="">
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- End Banner Hero -->
 
     <section class="container py-5 favoriteMenu">
@@ -89,7 +89,7 @@
                     <div class="card h-100">
                         <a href="${ path }/trip/${site.contenttype=='관광지'?'spot/spotDetail':'stay/stayDetail'}?id=${site.contentid}">
                             <c:if test="${site.image== null}">
-	                            <img src="${path}/img/common/replacedImage.png" class="card-img-top" alt="...">
+                                <img src="${path}/img/common/replacedImage.png" class="card-img-top" alt="...">
                             </c:if>
                             <c:if test="${site.image!= null}">
                                 <img src="${site.image}" class="card-img-top" alt="...">

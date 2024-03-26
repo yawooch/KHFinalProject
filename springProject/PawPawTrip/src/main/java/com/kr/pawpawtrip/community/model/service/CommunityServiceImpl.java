@@ -115,12 +115,12 @@ public class CommunityServiceImpl implements CommunityService {
     }
     
     // 조회수 업데이트
-	@Override
-	@Transactional
-	public int updateCommunityCount(int no, int viewsCount) {
-		
-		return communityMapper.updateCommunityCount(no, viewsCount);
-	}
+    @Override
+    @Transactional
+    public int updateCommunityCount(int no, int viewsCount) {
+        
+        return communityMapper.updateCommunityCount(no, viewsCount);
+    }
 
     // 게시글 삭제
     @Override
@@ -131,30 +131,30 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     // 내가 쓴 게시글 조회
-	@Override
-	public List<Community> getBoardByMember(PageInfo pageInfo, int memberNo) {
-		
-		int limit = pageInfo.getListLimit();
+    @Override
+    public List<Community> getBoardByMember(PageInfo pageInfo, int memberNo) {
+        
+        int limit = pageInfo.getListLimit();
         int offset = (pageInfo.getCurrentPage() - 1) * limit;
         
         RowBounds rowBounds = new RowBounds(offset, limit);
-		
-		return communityMapper.selectBoardByMember(rowBounds, memberNo);
-	}
+        
+        return communityMapper.selectBoardByMember(rowBounds, memberNo);
+    }
 
-	// 내가 쓴 게시글 수
-	@Override
-	public int getBoardByMemberCount(int memberNo) {
-		
-		return communityMapper.selectBoardByMemberCount(memberNo);
-	}
+    // 내가 쓴 게시글 수
+    @Override
+    public int getBoardByMemberCount(int memberNo) {
+        
+        return communityMapper.selectBoardByMemberCount(memberNo);
+    }
 
-	// 게시글 파일 삭제
-	@Override
-	@Transactional
-	public int updateFileName(int cNo) {
-		
-		return communityMapper.updateFileName(cNo);
-	}
+    // 게시글 파일 삭제
+    @Override
+    @Transactional
+    public int updateFileName(int cNo) {
+        
+        return communityMapper.updateFileName(cNo);
+    }
 
 }

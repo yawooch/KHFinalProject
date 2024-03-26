@@ -73,9 +73,7 @@ public class CommonApiClient
         urlBuilder.append("&addrinfoYN="  ).append("Y");          //주소, 상세주소조회여부( Y,N )
         urlBuilder.append("&mapinfoYN="   ).append("Y");          //좌표X, Y 조회여부( Y,N )
         urlBuilder.append("&overviewYN="  ).append("Y");          //콘텐츠개요조회여부( Y,N )
-//        urlBuilder.append("&contentTypeId="     ).append("");   // 12 또는 32   관광타입(12:관광지, 14:문화시설, 15:축제공연행사, 25:여행코스, 28:레포츠, 32:숙박, 38:쇼핑, 39:음식점) ID
-        
-        
+        //urlBuilder.append("&contentTypeId="     ).append("");   // 12 또는 32   관광타입(12:관광지, 14:문화시설, 15:축제공연행사, 25:여행코스, 28:레포츠, 32:숙박, 38:쇼핑, 39:음식점) ID
         
         log.info("Request URL : {}", urlBuilder.toString());
 
@@ -87,22 +85,22 @@ public class CommonApiClient
      *   - 사용페이지 : 여행/숙박 상세페이지 이미지 슬라이드
      */
     public DetailImageResponse apiDetailImageByContentId(int contentId, int numOfRows) throws RestClientException, URISyntaxException {
-    	
-    	// API 요청 URL
-    	StringBuilder urlBuilder = new StringBuilder(baseURL + "detailImage1");
-    	
-    	urlBuilder.append("?ServiceKey="  ).append(serviceKey);     // 인증키(서비스키)
-    	urlBuilder.append("&MobileOS="    ).append("ETC");			// OS 구분 : IOS (아이폰), AND (안드로이드), WIN (윈도우폰), ETC(기타)
-    	urlBuilder.append("&MobileApp="   ).append("pawpawtrip");	// 서비스명(어플명)
-    	urlBuilder.append("&contentId="   ).append(contentId);		// 콘텐츠ID
-    	urlBuilder.append("&pageNo="      ).append("1");			// 페이지번호
-    	urlBuilder.append("&numOfRows="   ).append(numOfRows);		// 한페이지결과수
-    	urlBuilder.append("&_type="       ).append("json");    		// 응답메세지 형식 : REST방식의 URL호출 시 json값 추가(디폴트 응답메세지 형식은XML)
-    	urlBuilder.append("&imageYN="     ).append("Y");			// 이미지조회1 : Y=콘텐츠이미지조회 N=”음식점”타입의음식메뉴이미지
-    	urlBuilder.append("&subImageYN="  ).append("Y");			// 이미지조회2 : Y=원본,썸네일이미지조회,공공누리 저작권유형정보조회 N=Null
-    	
-    	 // log.info("Response : {}", new URI(urlBuilder.toString()), String.class);
-    	
-    	return restTemplate.getForObject(new URI(urlBuilder.toString()), DetailImageResponse.class);
+        
+        // API 요청 URL
+        StringBuilder urlBuilder = new StringBuilder(baseURL + "detailImage1");
+        
+        urlBuilder.append("?ServiceKey="  ).append(serviceKey);     // 인증키(서비스키)
+        urlBuilder.append("&MobileOS="    ).append("ETC");          // OS 구분 : IOS (아이폰), AND (안드로이드), WIN (윈도우폰), ETC(기타)
+        urlBuilder.append("&MobileApp="   ).append("pawpawtrip");   // 서비스명(어플명)
+        urlBuilder.append("&contentId="   ).append(contentId);      // 콘텐츠ID
+        urlBuilder.append("&pageNo="      ).append("1");            // 페이지번호
+        urlBuilder.append("&numOfRows="   ).append(numOfRows);      // 한페이지결과수
+        urlBuilder.append("&_type="       ).append("json");         // 응답메세지 형식 : REST방식의 URL호출 시 json값 추가(디폴트 응답메세지 형식은XML)
+        urlBuilder.append("&imageYN="     ).append("Y");            // 이미지조회1 : Y=콘텐츠이미지조회 N=”음식점”타입의음식메뉴이미지
+        urlBuilder.append("&subImageYN="  ).append("Y");            // 이미지조회2 : Y=원본,썸네일이미지조회,공공누리 저작권유형정보조회 N=Null
+        
+         // log.info("Response : {}", new URI(urlBuilder.toString()), String.class);
+        
+        return restTemplate.getForObject(new URI(urlBuilder.toString()), DetailImageResponse.class);
     }
 }

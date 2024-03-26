@@ -30,7 +30,7 @@ public class DetailCommonItem
     private String mapy;              //GPS Y좌표
     private String mlevel;            //Map Level
     private String dist;              //거리
-    private String telname;           //
+    private String telname;           //전화번호 소유자
     private String homepage;          //연관 URL 정보(html태그)
     private String zipcode;           //우편번호
     private String overview;          //개요설명

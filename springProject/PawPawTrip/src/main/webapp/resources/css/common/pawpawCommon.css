@@ -5,65 +5,58 @@
         -webkit-filter: hue-rotate(0deg);
     }
     to {
-        filter: hue-rotate(-360deg);
+        filtear: hue-rotate(-360deg);
         -webkit-filter: hue-rotate(-360deg);
     }
 }
-/*     color:black; */
-/*     background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a); */
-/*     animation: hue 2s infinite linear; */
-/*     background-clip: text; */
-/*     -webkit-background-clip: text; */
-/*     -webkit-text-fill-color: transparent; */
-/*     -webkit-animation: hue 2s infinite linear;   */
 
 /* 모바일처럼 보이게 할때 */
 @media (min-width: 500px) 
 {
-	.common-list {
-		width:100%;
-	    padding:0px; 
-		float:right;
-		margin-top:35px;
-		text-align:center;
-	}
-	
-	.common-sideMenu {
-		width:100%;
-	    text-align: center;
-		float:left;
-		margin-top:35px;
-	}
+    .common-list {
+        width:100%;
+        padding:0px; 
+        float:right;
+        margin-top:35px;
+        text-align:center;
+    }
+    
+    .common-sideMenu {
+        width:100%;
+        text-align: center;
+        float:left;
+        margin-top:35px;
+    }
 }
 /* 데스크탑처럼 보이게 할때 */
 @media (min-width: 992px) 
 {
-	.common-list {
-		width:651px;
-	    padding:0px; 
-		float:right;
-		margin-top:35px;
-		text-align:center;
-	}
-	.common-sideMenu {
-		width:250px;
-	    text-align: center;
-		float:left;
-		margin-top:35px;
-	}
+    .common-list {
+        width:651px;
+        padding:0px; 
+        float:right;
+        margin-top:35px;
+        text-align:center;
+    }
+    .common-sideMenu {
+        width:250px;
+        text-align: center;
+        float:left;
+        margin-top:35px;
+    }
 }
 @media (min-width: 1200px)
 {
-	.common-list {
-		width:811px;
-	    padding:0px; 
-		float:right;
-		margin-top:35px;
-		text-align:center;
-	}
+    .common-list {
+        width:811px;
+        padding:0px; 
+        float:right;
+        margin-top:35px;
+        text-align:center;
+    }
 }
 .container{
-/* 	height:calc(100% - 91px - 134px); */
+/*  height:calc(100% - 91px - 134px); */
 }
 
 input::placeholder {
@@ -76,7 +69,7 @@ input:focus {
 
 /************************************ 타이틀 - 시작 ***********************************/
 .common-title {
-	position:relative;
+    position:relative;
     padding: 55px 0px 55px;
     border-bottom: 1px solid #e8e8e8;
     text-align: center;
@@ -113,12 +106,12 @@ input:focus {
 }
 .common-sideMenu>ul>li {
     padding: 10px 0 10px 0;
-	border-right: 1px solid #e8e8e8;
+    border-right: 1px solid #e8e8e8;
     border-left: 1px solid #e8e8e8;
 }
 .common-sideMenu>ul>li.on>a
 {
-	font-weight: bold;
+    font-weight: bold;
     color: #B29254;
 }
 .common-sideMenu a:hover
@@ -129,7 +122,7 @@ input:focus {
     color: black;
 }
 .common-sideMenu>ul>li:last-child {
-	border: 1px solid #e8e8e8;
+    border: 1px solid #e8e8e8;
     border-top-style: none;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -144,7 +137,7 @@ input:focus {
     border-top-left-radius: 5px;
 }
 .common-sideMenu>ul>li {
-	border-right: 1px solid #e8e8e8;
+    border-right: 1px solid #e8e8e8;
     border-left: 1px solid #e8e8e8;
 }
 .common-sideMenu>ul>li> a{
@@ -152,7 +145,7 @@ input:focus {
     text-decoration: none;
 }
 .common-sideMenu>ul>li:last-child {
-	border: 1px solid #e8e8e8;
+    border: 1px solid #e8e8e8;
     border-top-style: none;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -170,12 +163,12 @@ input:focus {
 }
 
 .notice-text {
-	border-right: 1px solid #e8e8e8;
+    border-right: 1px solid #e8e8e8;
     border-left: 1px solid #e8e8e8;
 }
 
 .board-text {
-	border: 1px solid #e8e8e8;
+    border: 1px solid #e8e8e8;
     border-top-style: none;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -236,7 +229,7 @@ input:focus {
 .common-search > div:nth-of-type(2) {
     font-size: 14px;
     float:right;
-	padding-top:5px;
+    padding-top:5px;
 }
 
 .common-search > div:nth-of-type(2)> div{
@@ -301,7 +294,7 @@ input:focus {
 
 /************************************ 테이블 - 시작 ***********************************/
  .common-table {
- 	table-layout: fixed;
+    table-layout: fixed;
  }
 
 .common-detail-list {
@@ -328,7 +321,7 @@ tr {
 .common-detail-list>table>thead>tr>th,
 .common-detail-list>table>tr>th
  {
-	text-align: center;
+    text-align: center;
     height: 62px;
     font-weight:bold;
     background-color: #FDFAEF;
@@ -338,7 +331,7 @@ tr {
 
 .common-detail-list > table>tbody>tr td,
 .common-detail-list > table>tr td {
-	text-align: center;
+    text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -369,11 +362,11 @@ tr {
 }
 
 .common-text-left {
-	text-align: left !important;
+    text-align: left !important;
 }
 
 .common-text-right {
-	text-align: right !important;
+    text-align: right !important;
 }
 
 /************************************ 테이블 - 종료 ***********************************/
@@ -418,10 +411,10 @@ tr {
     line-height:10px;
 }
 .no-padding-all{
-	padding:0px !important;
+    padding:0px !important;
 }
 .no-margin-top{
-	margin-top:0px !important;
+    margin-top:0px !important;
 }
 .btn-wrap {
     padding-top: 35px;
@@ -439,7 +432,7 @@ tr {
     border: 1px solid #B29254;
 }
 .common-btn:hover {
-	border: 2px solid #B29254;
+    border: 2px solid #B29254;
 }
 .common-btn.btn-filled{
     background-color: #B29254;
@@ -448,9 +441,9 @@ tr {
 }
 
 .disable {
-	pointer-events: none;
-	background-color: #B29254;
-	color: white;
+    pointer-events: none;
+    background-color: #B29254;
+    color: white;
 }
 
 /************************************ 페이징 - 종료 ***********************************/

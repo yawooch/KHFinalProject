@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService
 {
-    private final AdminMapper     adminMapper;
+    private final AdminMapper adminMapper;
     private final CommunityMapper communityMapper;
 
     // 대쉬보드에서 공지사항을 제외한 커뮤니티 조회수를 가장 많이 받은 TOP7을 가져온다.
@@ -98,13 +98,13 @@ public class AdminServiceImpl implements AdminService
     }
 
     // 중기 기온 지역 조회
-	@Override
-	public List<WeatherArea> getWeatherAreaList() {
-		
-		return adminMapper.selectWeatherAreaList();
-	}
-	
-	
+    @Override
+    public List<WeatherArea> getWeatherAreaList()
+    {
+
+        return adminMapper.selectWeatherAreaList();
+    }
+
     @Override
     public List<LogCount> getAccessMemberCount()
     {
@@ -114,18 +114,21 @@ public class AdminServiceImpl implements AdminService
     // 공지사항 작성, 수정
     @Override
     @Transactional
-    public int saveNotice(Community community) {
-        
+    public int saveNotice(Community community)
+    {
+
         int result = 0;
-        
-        if(community.getCommunityNo() > 0) {
+
+        if (community.getCommunityNo() > 0)
+        {
             // 업데이트
             result = communityMapper.updateBoard(community);
-        } else {
+        } else
+        {
             // 인서트
             result = communityMapper.insertNotice(community);
         }
-        
+
         return result;
     }
 }

@@ -81,11 +81,6 @@ public class AdminController
         // 대쉬보드 중 게시물 조회수 순위정보를 가져온다.
         List<CommunityRank> ranks = adminService.getCommunityRanks();
 
-//        //대쉬보드 중 마이펫 비율 정보를 가져온다.
-//        List<Pet> pets = adminService.getMyPetRatio();
-
-//        System.out.println("마이펫 비율 정보 : " + pets);
-
         modelAndView.addObject("ranks", ranks);
         modelAndView.setViewName("admin/dashboard");
         return modelAndView;
@@ -278,22 +273,20 @@ public class AdminController
     {
         Map<String, Object> resultMap = new HashMap<String, Object>();
 
-        /*
-         * 1. 파라미터로 가져온 contentId 를 가지고 공통 API 객체를 받아온다(petTour쪽은 List<> 타입으로 세션에 저장
-         * 해놓음)
-         */
+        /* 1. 파라미터로 가져온 contentId 를 가지고 공통 API 객체를 받아온다(petTour쪽은 List<> 타입으로 세션에 저장
+         * 해놓음) */
         /* 2. 가져온 트립 객체를 세션에 저장한다(DB에 insert 할때는 세션에서 객체만 가져오도록) */
         /* 3. List에서 contentId에 해당하는 객체만 세션에 저장한다. */
         DetailCommonResponse commonResponse = commonApiClient.apiDetailCommonToContentId(contentId);
-        PetTourResponse petTourResponse = commonApiClient.apiDetailPetTour("1", contentId, "10");// ApiClient로 API
-                                                                                                 // response 객체를 받아온다.
-        PetInfo dbPetInfo = tripService.getPetTourByContentId(contentId);
-        DetailCommonItem detailCommonItem = commonResponse.getDetailCommonItems().get(0);
-        PetTourItem petTourReponseItem = petTourResponse.getPetTourItems().get(0);
+        PetTourResponse petTourResponse     = commonApiClient.apiDetailPetTour("1", contentId, "10");// ApiClient로 API
+                                                                                                     // response 객체를 받아온다.
+        PetInfo dbPetInfo                   = tripService.getPetTourByContentId(contentId);
+        DetailCommonItem detailCommonItem   = commonResponse.getDetailCommonItems().get(0);
+        PetTourItem petTourReponseItem      = petTourResponse.getPetTourItems().get(0);
 
-        Category category = commonService.getAllCategory(detailCommonItem.getCat3());
+        Category category     = commonService.getAllCategory(detailCommonItem.getCat3());
         CommonArea commonArea = commonService.getFullAreaName(detailCommonItem.getAreacode(),
-                (detailCommonItem.getSigungucode().isEmpty() ? "0" : detailCommonItem.getSigungucode()));
+                                                               (detailCommonItem.getSigungucode().isEmpty() ? "0" : detailCommonItem.getSigungucode()));
 
         petTourReponseItem.setDbExistYn("미등록");
         petTourReponseItem.setDbAcmpyTypeCd(null);
@@ -304,12 +297,12 @@ public class AdminController
             petTourReponseItem.setDbAcmpyTypeCd(dbPetInfo.getAcmpyTypeCd());
         }
         session.setAttribute("detailCommonItem", detailCommonItem);
-        session.setAttribute("petTourDetail", petTourReponseItem);
+        session.setAttribute("petTourDetail"   , petTourReponseItem);
 
         resultMap.put("detailCommonItem", detailCommonItem);
         resultMap.put("petTourDetailMap", petTourReponseItem);
-        resultMap.put("category", category);
-        resultMap.put("commonArea", commonArea);
+        resultMap.put("category"        , category);
+        resultMap.put("commonArea"      , commonArea);
 
         return ResponseEntity.ok(resultMap);
     }
@@ -317,8 +310,9 @@ public class AdminController
     /** 컨텐츠 등록 처리 */
     @PostMapping("/admin/tripDetail")
     @ResponseBody
-    public ModelAndView tripSave(ModelAndView modelAndView, @RequestParam("contentId") int contentId,
-            HttpSession session) throws RestClientException, URISyntaxException
+    public ModelAndView tripSave(            ModelAndView modelAndView,
+                  @RequestParam("contentId") int          contentId,
+                                             HttpSession  session) throws RestClientException, URISyntaxException
     {
         DetailCommonResponse commonResponse = commonApiClient.apiDetailCommonToContentId(contentId);
         PetTourResponse petTourResponse = commonApiClient.apiDetailPetTour("1", contentId, "10");// ApiClient로 API
@@ -353,7 +347,8 @@ public class AdminController
             // 3. VO로 save처리를 한다.
             petTripResult = tripService.saveTrip(spot);
 
-        } else if (contentTypeId.equals("32")) // 숙소- Stay
+        } 
+        else if (contentTypeId.equals("32")) // 숙소- Stay
         {
             Stay stay = new Stay();
             // Stay와 DetailCommonItem객체를 매핑한다.
@@ -401,18 +396,16 @@ public class AdminController
 
     /** 공지사항 저장 처리 */
     @PostMapping("/admin/noticeWrite")
-    public ModelAndView noticeWrite(ModelAndView modelAndView, Community community,
-            @SessionAttribute("loginMember") Member loginMember,
-            @RequestParam("talkWriteFile") MultipartFile talkWriteFile)
+    public ModelAndView noticeWrite(     ModelAndView  modelAndView,
+                                         Community     community,
+        @SessionAttribute("loginMember") Member        loginMember,
+          @RequestParam("talkWriteFile") MultipartFile talkWriteFile)
     {
         int result = 0;
         // 1. 파일 업로드 확인 후 파일 저장
         // 파일을 업로드하지 않으면 로그에 true, 업로드하면 false
-        // log.info("isEmpty: {}", talkWriteFile.isEmpty());
 
         // 파일을 업로드하지 않으면 ""(빈문자), 업로드하면 "파일명"
-        // log.info("File Name : {}", talkWriteFile.getOriginalFilename());
-
         if (talkWriteFile != null && !talkWriteFile.isEmpty())
         {
             String location = null;
@@ -433,8 +426,6 @@ public class AdminController
                 e.printStackTrace();
             }
         }
-        log.info("community : {}", community);
-        
         community.setCommunityWriterNo(loginMember.getMemberNo());
         community.setCommunityCategory("[공지사항]");
 
@@ -565,15 +556,13 @@ public class AdminController
         map.put("search", search);
 
         listCount = adminService.getFavorSiteCount(select, search);
-        pageInfo = new PageInfo(page, 5, listCount, 20);
+        pageInfo  = new PageInfo(page, 5, listCount, 20);
 
         List<FavorSite> sites = adminService.getFavorSite(pageInfo, select, search);
 
-        log.info("sites.size() : {}", sites.size());
-
         modelAndView.addObject("searchInfoMap", map);
-        modelAndView.addObject("pageInfo", pageInfo);
-        modelAndView.addObject("sites", sites);
+        modelAndView.addObject("pageInfo"     , pageInfo);
+        modelAndView.addObject("sites"        , sites);
         modelAndView.setViewName("admin/favoritesite");
         return modelAndView;
     }
@@ -595,16 +584,11 @@ public class AdminController
     // 인추장 사이트 저장하는 Ajax
     @ResponseBody
     @PostMapping("/admin/addTopThreeAjax")
-    public ResponseEntity<Map<String, Object>> addTopThreeAjax(
-            @RequestParam(value = "contentIdsArr[]") List<String> contentIdsArr)
+    public ResponseEntity<Integer> addTopThreeAjax(@RequestParam(value = "contentIdsArr[]") List<String> contentIdsArr)
     {
-        Map<String, Object> map = new HashMap<String, Object>();
+        Integer result = adminService.saveFavoriteTopThree(contentIdsArr);
 
-        int result = adminService.saveFavoriteTopThree(contentIdsArr);
-
-        map.put("result", result);
-
-        return ResponseEntity.ok(map);
+        return ResponseEntity.ok(result);
     }
 
     // 개발예정 사이트로 이동하는
@@ -620,11 +604,8 @@ public class AdminController
         
         weatherAreas = adminService.getWeatherAreaList();
         
-        log.info("WeatherAreas - {}", weatherAreas);
-        
-        log.info("response : {}" ,response);
-        
         modelAndView.addObject("weatherAreas", weatherAreas);
+        modelAndView.addObject("response"    , response);
         modelAndView.setViewName("admin/plannedDevelop");
 
         return modelAndView;
@@ -639,14 +620,14 @@ public class AdminController
     private void mappingCommonItemVo(DetailCommonItem detailCommonItem, Spot spot)
     {
         spot.setTripContentId(Integer.parseInt(detailCommonItem.getContentid())); // 여행 콘텐츠 ID (기본키)
-        spot.setTripAddress(detailCommonItem.getAddr1()); // 여행지 주소
-        spot.setTripDetailAddress(detailCommonItem.getAddr2()); // 여행지 상세주소
-        spot.setTripTitle(detailCommonItem.getTitle()); // 여행지 이름
-        spot.setAreaCode(detailCommonItem.getAreacode()); // 지역 코드
-        spot.setTripCategory1(detailCommonItem.getCat1()); // 여행 카테고리 대분류
-        spot.setTripCategory2(detailCommonItem.getCat2()); // 여행 카테고리 중분류
-        spot.setTripCategory3(detailCommonItem.getCat3()); // 여행 카테고리 소분류
-        spot.setTripContentTypeId(detailCommonItem.getContenttypeid()); // 여행 콘텐츠 타입 ID
+        spot.setTripAddress(detailCommonItem.getAddr1());                         // 여행지 주소
+        spot.setTripDetailAddress(detailCommonItem.getAddr2());                   // 여행지 상세주소
+        spot.setTripTitle(detailCommonItem.getTitle());                           // 여행지 이름
+        spot.setAreaCode(detailCommonItem.getAreacode());                         // 지역 코드
+        spot.setTripCategory1(detailCommonItem.getCat1());                        // 여행 카테고리 대분류
+        spot.setTripCategory2(detailCommonItem.getCat2());                        // 여행 카테고리 중분류
+        spot.setTripCategory3(detailCommonItem.getCat3());                        // 여행 카테고리 소분류
+        spot.setTripContentTypeId(detailCommonItem.getContenttypeid());           // 여행 콘텐츠 타입 ID
         if (detailCommonItem.getCreatedtime().length() == 12)
         {
             detailCommonItem.setCreatedtime(detailCommonItem.getCreatedtime() + "00");
@@ -659,29 +640,29 @@ public class AdminController
                 .parse(detailCommonItem.getCreatedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
         LocalDate modifiedtime = LocalDateTime
                 .parse(detailCommonItem.getModifiedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
-        spot.setTripCreateTime(createdtime); // 등록일
-        spot.setTripModifyTime(modifiedtime); // 수정일
-        spot.setTripImage(detailCommonItem.getFirstimage()); // 여행 이미지
-        spot.setMapX(detailCommonItem.getMapx()); // x좌표
-        spot.setMapY(detailCommonItem.getMapy()); // y좌표
-        spot.setMapLevel(detailCommonItem.getMlevel()); // 축척
-        spot.setTripTel(detailCommonItem.getTel()); // 여행 전화번호
+        spot.setTripCreateTime(createdtime);                    // 등록일
+        spot.setTripModifyTime(modifiedtime);                   // 수정일
+        spot.setTripImage(detailCommonItem.getFirstimage());    // 여행 이미지
+        spot.setMapX(detailCommonItem.getMapx());               // x좌표
+        spot.setMapY(detailCommonItem.getMapy());               // y좌표
+        spot.setMapLevel(detailCommonItem.getMlevel());         // 축척
+        spot.setTripTel(detailCommonItem.getTel());             // 여행 전화번호
         spot.setSigunguCode(detailCommonItem.getSigungucode()); // 시군구 코드
-        spot.setHomepage(detailCommonItem.getHomepage()); // 홈페이지주소
-        spot.setOverview(detailCommonItem.getOverview()); // 소개설명
+        spot.setHomepage(detailCommonItem.getHomepage());       // 홈페이지주소
+        spot.setOverview(detailCommonItem.getOverview());       // 소개설명
     }
 
     private void mappingCommonItemVo(DetailCommonItem detailCommonItem, Stay stay)
     {
         stay.setStayContentId(Integer.parseInt(detailCommonItem.getContentid())); // 숙소 콘텐츠 ID (기본키)
-        stay.setStayAddress(detailCommonItem.getAddr1()); // 숙소 주소
-        stay.setStayDetailAddress(detailCommonItem.getAddr2()); // 숙소 상세주소
-        stay.setStayTitle(detailCommonItem.getTitle()); // 숙소 이름
-        stay.setAreaCode(detailCommonItem.getAreacode()); // 숙소 코드
-        stay.setStayCategory1(detailCommonItem.getCat1()); // 숙소 카테고리 대분류
-        stay.setStayCategory2(detailCommonItem.getCat2()); // 숙소 카테고리 중분류
-        stay.setStayCategory3(detailCommonItem.getCat3()); // 숙소 카테고리 소분류
-        stay.setStayContentTypeId(detailCommonItem.getContenttypeid()); // 숙소 콘텐츠 타입 ID
+        stay.setStayAddress(detailCommonItem.getAddr1());                         // 숙소 주소
+        stay.setStayDetailAddress(detailCommonItem.getAddr2());                   // 숙소 상세주소
+        stay.setStayTitle(detailCommonItem.getTitle());                           // 숙소 이름
+        stay.setAreaCode(detailCommonItem.getAreacode());                         // 숙소 코드
+        stay.setStayCategory1(detailCommonItem.getCat1());                        // 숙소 카테고리 대분류
+        stay.setStayCategory2(detailCommonItem.getCat2());                        // 숙소 카테고리 중분류
+        stay.setStayCategory3(detailCommonItem.getCat3());                        // 숙소 카테고리 소분류
+        stay.setStayContentTypeId(detailCommonItem.getContenttypeid());           // 숙소 콘텐츠 타입 ID
         if (detailCommonItem.getCreatedtime().length() == 12)
         {
             detailCommonItem.setCreatedtime(detailCommonItem.getCreatedtime() + "00");
@@ -694,81 +675,73 @@ public class AdminController
                 .parse(detailCommonItem.getCreatedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
         LocalDate modifiedtime = LocalDateTime
                 .parse(detailCommonItem.getModifiedtime(), DateTimeFormatter.ofPattern("yyyyMMddHHmmss")).toLocalDate();
-        stay.setStayCreateTime(createdtime); // 등록일
-        stay.setStayModifyTime(modifiedtime); // 수정일
-        stay.setStayImage(detailCommonItem.getFirstimage()); // 숙소 이미지
-        stay.setMapX(detailCommonItem.getMapx()); // x좌표
-        stay.setMapY(detailCommonItem.getMapy()); // y좌표
-        stay.setMapLevel(detailCommonItem.getMlevel()); // 축척
-        stay.setStayTel(detailCommonItem.getTel()); // 숙소 전화번호
+        stay.setStayCreateTime(createdtime);                    // 등록일
+        stay.setStayModifyTime(modifiedtime);                   // 수정일
+        stay.setStayImage(detailCommonItem.getFirstimage());    // 숙소 이미지
+        stay.setMapX(detailCommonItem.getMapx());               // x좌표
+        stay.setMapY(detailCommonItem.getMapy());               // y좌표
+        stay.setMapLevel(detailCommonItem.getMlevel());         // 축척
+        stay.setStayTel(detailCommonItem.getTel());             // 숙소 전화번호
         stay.setSigunguCode(detailCommonItem.getSigungucode()); // 시군구 코드
-        stay.setHomepage(detailCommonItem.getHomepage()); // 홈페이지주소
-        stay.setOverview(detailCommonItem.getOverview()); // 소개설명
+        stay.setHomepage(detailCommonItem.getHomepage());       // 홈페이지주소
+        stay.setOverview(detailCommonItem.getOverview());       // 소개설명
     }
 
     private void mappingCommonItemVo(DetailCommonItem detailCommonItem, Comm comm)
     {
         comm.setCommContentId(Integer.parseInt(detailCommonItem.getContentid())); // 공통 콘텐츠 ID (기본키)
-        comm.setCommAddress(detailCommonItem.getAddr1()); // 공통컨텐츠 주소
-        comm.setCommDetailAddress(detailCommonItem.getAddr2()); // 공통컨텐츠 상세주소
-        comm.setCommTitle(detailCommonItem.getTitle()); // 공통컨텐츠 이름
-        comm.setAreaCode(detailCommonItem.getAreacode()); // 지역 코드
-        comm.setCommCategory1(detailCommonItem.getCat1()); // 공통 카테고리 대분류
-        comm.setCommCategory2(detailCommonItem.getCat2()); // 공통 카테고리 중분류
-        comm.setCommCategory3(detailCommonItem.getCat3()); // 공통 카테고리 소분류
+        comm.setCommAddress(detailCommonItem.getAddr1());                         // 공통컨텐츠 주소
+        comm.setCommDetailAddress(detailCommonItem.getAddr2());                   // 공통컨텐츠 상세주소
+        comm.setCommTitle(detailCommonItem.getTitle());                           // 공통컨텐츠 이름
+        comm.setAreaCode(detailCommonItem.getAreacode());                         // 지역 코드
+        comm.setCommCategory1(detailCommonItem.getCat1());                        // 공통 카테고리 대분류
+        comm.setCommCategory2(detailCommonItem.getCat2());                        // 공통 카테고리 중분류
+        comm.setCommCategory3(detailCommonItem.getCat3());                        // 공통 카테고리 소분류
         comm.setCommContentTypeId(detailCommonItem.getContenttypeid());// 공통 콘텐츠 타입 ID
-        comm.setCommCreateTime(detailCommonItem.getCreatedtime()); // 등록일
-        comm.setCommModifyTime(detailCommonItem.getModifiedtime()); // 수정일
-        comm.setCommImage(detailCommonItem.getFirstimage()); // 공통 이미지
-        comm.setMapX(detailCommonItem.getMapx()); // x좌표
-        comm.setMapY(detailCommonItem.getMapy()); // y좌표
-        comm.setMapLevel(detailCommonItem.getMlevel()); // 축척
-        comm.setCommTel(detailCommonItem.getTel()); // 공통 전화번호
-        comm.setSigunguCode(detailCommonItem.getSigungucode()); // 시군구 코드
-        comm.setHomepage(detailCommonItem.getHomepage()); // 홈페이지주소
-        comm.setOverview(detailCommonItem.getOverview()); // 소개설명
+        comm.setCommCreateTime(detailCommonItem.getCreatedtime());     // 등록일
+        comm.setCommModifyTime(detailCommonItem.getModifiedtime());    // 수정일
+        comm.setCommImage(detailCommonItem.getFirstimage());           // 공통 이미지
+        comm.setMapX(detailCommonItem.getMapx());                      // x좌표
+        comm.setMapY(detailCommonItem.getMapy());                      // y좌표
+        comm.setMapLevel(detailCommonItem.getMlevel());                // 축척
+        comm.setCommTel(detailCommonItem.getTel());                    // 공통 전화번호
+        comm.setSigunguCode(detailCommonItem.getSigungucode());        // 시군구 코드
+        comm.setHomepage(detailCommonItem.getHomepage());              // 홈페이지주소
+        comm.setOverview(detailCommonItem.getOverview());              // 소개설명
     }
 
     /**
      * PetInfo와 PetTourItem객체를 매핑한다.
-     * 
-     * @param petTourItem
-     * @param petInfo
      */
     private void mappingPetTourItemVo(PetTourItem petTourItem, PetInfo petInfo)
     {
         petInfo.setPetinfoContentid(Integer.parseInt(petTourItem.getPetinfoContentid())); // 콘텐츠아이디
-        petInfo.setTourInfo(petTourItem.getTourInfo()); // 반려견관광정보
-        petInfo.setAcmpyTypeCd(petTourItem.getAcmpyTypeCd()); // 동반구분
-        petInfo.setRelaPosesFclty(petTourItem.getRelaPosesFclty()); // 관련구비시설
-        petInfo.setRelaFrnshPrdlst(petTourItem.getRelaFrnshPrdlst()); // 관련비치품목
-        petInfo.setRelaPurcPrdlst(petTourItem.getRelaPurcPrdlst()); // 관련구매품목
-        petInfo.setRelaRntlPrdlst(petTourItem.getRelaRntlPrdlst()); // 관련렌탈품목
-        petInfo.setAcmpyPsblCpam(petTourItem.getAcmpyPsblCpam()); // 동반가능동물
-        petInfo.setEtcAcmpyInfo(petTourItem.getEtcAcmpyInfo()); // 기타동반정보
-        petInfo.setAcmpyNeedMtr(petTourItem.getAcmpyNeedMtr()); // 동반시필요사항
+        petInfo.setTourInfo(petTourItem.getTourInfo());                // 반려견관광정보
+        petInfo.setAcmpyTypeCd(petTourItem.getAcmpyTypeCd());          // 동반구분
+        petInfo.setRelaPosesFclty(petTourItem.getRelaPosesFclty());    // 관련구비시설
+        petInfo.setRelaFrnshPrdlst(petTourItem.getRelaFrnshPrdlst());  // 관련비치품목
+        petInfo.setRelaPurcPrdlst(petTourItem.getRelaPurcPrdlst());    // 관련구매품목
+        petInfo.setRelaRntlPrdlst(petTourItem.getRelaRntlPrdlst());    // 관련렌탈품목
+        petInfo.setAcmpyPsblCpam(petTourItem.getAcmpyPsblCpam());      // 동반가능동물
+        petInfo.setEtcAcmpyInfo(petTourItem.getEtcAcmpyInfo());        // 기타동반정보
+        petInfo.setAcmpyNeedMtr(petTourItem.getAcmpyNeedMtr());        // 동반시필요사항
     }
     
     // 중기예보
     @GetMapping("/weather/midta")
     public ResponseEntity<Map<String, Object>> midTa(String regId, String regGrpId) throws RestClientException, URISyntaxException {
-    	
-    	Map<String, Object> map = new HashMap<String, Object>();
-    	
-    	GetMidTaResponse responseText = null;
-    	GetMidLandFcstResponse responseText2 = null;
-    	
-    	responseText = commonWeatherApiClient.apiGetMidTa(regId);
-    	responseText2 = commonWeatherApiClient.apiGetMidLandFcst(regGrpId);
-    	
-    	map.put("regId", responseText);
-    	map.put("regGrpId", responseText2);
-    	
-    	return ResponseEntity.ok(map);
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        
+        GetMidTaResponse responseText        = null;
+        GetMidLandFcstResponse responseText2 = null;
+        
+        responseText  = commonWeatherApiClient.apiGetMidTa(regId);
+        responseText2 = commonWeatherApiClient.apiGetMidLandFcst(regGrpId);
+        
+        map.put("regId"   , responseText);
+        map.put("regGrpId", responseText2);
+        
+        return ResponseEntity.ok(map);
     }
 }
-
-
-
-
-

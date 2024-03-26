@@ -20,13 +20,12 @@
         <result property="tel"           column="COMM_TEL"           />
         <result property="acmpyTypeCd"   column="ACMPY_TYPE_CD"      />
     </resultMap>
-	
-	<!-- ******************************************************************************** -->
-	
-	
-	<!-- 포포맵 전체 좌표 조회 -->
-	<select id="selectAllPositions" resultMap="positionsResultMap">
-		SELECT COM.COMM_CONTENTID
+    
+    <!-- ******************************************************************************** -->
+    
+    <!-- 포포맵 전체 좌표 조회 -->
+    <select id="selectAllPositions" resultMap="positionsResultMap">
+        SELECT COM.COMM_CONTENTID
              , COM.COMM_ADDRESS  || ' '|| COM.COMM_DETAIL_ADDRESS  AS COMM_ADDRESS
              , COM.COMM_TITLE
              , COM.COMM_CONTENTTYPEID
@@ -47,6 +46,6 @@
                COM.COMM_ADDRESS LIKE '%' || #{keyword} ||'%'
             OR COM.COMM_TITLE   LIKE '%' || #{keyword} ||'%'
                )
-	</select>
-	
+    </select>
+    
 </mapper>

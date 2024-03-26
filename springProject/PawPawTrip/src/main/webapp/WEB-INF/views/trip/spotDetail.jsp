@@ -254,103 +254,98 @@ color: #FDFAEF;
 </section>
 
 <script>
-    // 슬라이드 스크립트
-    var swiper = new Swiper(".Swiper", {
-        spaceBetween: 0,
-        centeredSlides: true,
-//         loop: true,
-//         autoplay: {
-//             delay: 2000,
-//             disableOnInteraction: false,
-//         },
-        pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-    });
-    
-    let memberRole  = `${loginMember.memberRole}`; 
-    let memberNo    = `${loginMember.memberNo}`; 
-    let contentId   = `${spot.tripContentId}`; 
-    
-    if(memberNo !='' && memberRole != 'ROLE_ADMIN')
+// 슬라이드 스크립트
+var swiper = new Swiper(".Swiper", {
+    spaceBetween: 0,
+    centeredSlides: true,
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+});
+
+let memberRole  = `${loginMember.memberRole}`; 
+let memberNo    = `${loginMember.memberNo}`; 
+let contentId   = `${spot.tripContentId}`; 
+
+if(memberNo !='' && memberRole != 'ROLE_ADMIN')
+{
+    $.getJSON('${path}/trip/isZZim', {memberNo, contentId}).done((data)=>
     {
-        $.getJSON('${path}/trip/isZZim', {memberNo, contentId}).done((data)=>
+        console.log(data);
+        if(data != null)
         {
-            console.log(data);
-            if(data != null)
-            {
-                $('#heart').prop('checked',true);
+            $('#heart').prop('checked',true);
+        }
+    });
+}
+
+// 찜하기(하트) 이벤트
+$('#heart').on('change', (event) => {
+   
+   //console.log(${loginMember});
+   
+   // 비로그인 상태
+   if (${loginMember == null}) {
+      if (confirm('로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?')) {
+         // 로그인 페이지 이동
+         location.href='${ path }/login';            
+     } else {
+        // 해당 페이지 새로 고침
+        location.reload();
+     }
+      
+   // 로그인 상태
+   // 찜하기 버튼을 누르면 해당 장소의 contentId와 memberNo를 가져온다.
+  } else {
+     let contentId = '${spot.tripContentId}';
+     let memberNo = '${loginMember.memberNo}';
+     
+     // console.log("contentId : " + contentId);
+     // console.log("memberNo : " + memberNo);
+     
+     if($(event.target).prop('checked')){
+        //찜 장소 추가   
+        $.ajax({
+            type: 'GET',
+            url: '${path}/member/mypage/my-trip/insert',
+            data: {contentId: contentId, memberNo: memberNo},   
+            // 찜 성공 시
+            success: function(data){
+                        if (confirm('내가 찜한 장소에 추가되었습니다. 해당 페이지로 이동하시겠습니까?')) {
+                            location.href='${ path }/member/mypage/my-trip';
+                            console.log('관심 목록에 추가되었습니다.');
+                        }
+            },
+            // 찜 실패 시
+            error: function(){
+                    alert('실패했습니다. 다시 시도해주세요');
             }
         });
-    }
-    
-    // 찜하기(하트) 이벤트
-    $('#heart').on('change', (event) => {
-       
-       //console.log(${loginMember});
-       
-       // 비로그인 상태
-       if (${loginMember == null}) {
-          if (confirm('로그인 후 이용 가능합니다. 로그인 페이지로 이동하시겠습니까?')) {
-             // 로그인 페이지 이동
-             location.href='${ path }/login';            
-         } else {
-            // 해당 페이지 새로 고침
-            location.reload();
-         }
-          
-       // 로그인 상태
-       // 찜하기 버튼을 누르면 해당 장소의 contentId와 memberNo를 가져온다.
-      } else {
-         let contentId = '${spot.tripContentId}';
-         let memberNo = '${loginMember.memberNo}';
-         
-         // console.log("contentId : " + contentId);
-         // console.log("memberNo : " + memberNo);
-         
-         if($(event.target).prop('checked')){
-            //찜 장소 추가   
-            $.ajax({
-                type: 'GET',
-                url: '${path}/member/mypage/my-trip/insert',
-                data: {contentId: contentId, memberNo: memberNo},   
-                // 찜 성공 시
-                success: function(data){
-                            if (confirm('내가 찜한 장소에 추가되었습니다. 해당 페이지로 이동하시겠습니까?')) {
-                                location.href='${ path }/member/mypage/my-trip';
-                                console.log('관심 목록에 추가되었습니다.');
-                            }
-                },
-                // 찜 실패 시
-                error: function(){
-                        alert('실패했습니다. 다시 시도해주세요');
-                }
-            });
 
-         } else {
-            //찜 장소 제거   
-            $.ajax({
-                type: 'GET',
-                url: '${path}/member/mypage/my-trip/delete',
-                data: { contentId: contentId, memberNo: memberNo },
-                success: function(data){
-                    alert('<마이페이지 - 내가 찜한 장소> 에서 삭제되었습니다.');
-                    console.log('관심 목록에서 삭제되었습니다.');
-                },
-                error: function(){
-                    alert('실패했습니다. 다시 시도해주세요');
-                }
-            });
-         }
-         
-      }
-      
-    });
+     } else {
+        //찜 장소 제거   
+        $.ajax({
+            type: 'GET',
+            url: '${path}/member/mypage/my-trip/delete',
+            data: { contentId: contentId, memberNo: memberNo },
+            success: function(data){
+                alert('<마이페이지 - 내가 찜한 장소> 에서 삭제되었습니다.');
+                console.log('관심 목록에서 삭제되었습니다.');
+            },
+            error: function(){
+                alert('실패했습니다. 다시 시도해주세요');
+            }
+        });
+     }
+     
+  }
+  
+});
 </script>
 
 <!-- 푸터 -->

@@ -78,7 +78,6 @@ public class TripServiceImpl implements TripService {
    @Override
    @Transactional
    public int saveStayImage(int id, String apiImageURL) {
-      // TODO Auto-generated method stub
       return tripMapper.updateStayApiImage(id, apiImageURL);
    }
    
@@ -141,17 +140,10 @@ public class TripServiceImpl implements TripService {
     {
         int result = 0;
         
-//        if (!petInfo.getPetinfoContentid().isEmpty()) {
-//            // update
-//            result = petInfo.updateBoard(petInfo);
-//        } else {
-//            // insert
-//        }
         result = tripMapper.insertPetInfo(petInfo);
         
         return result;
     }
-    
     
     @Override
     @Transactional

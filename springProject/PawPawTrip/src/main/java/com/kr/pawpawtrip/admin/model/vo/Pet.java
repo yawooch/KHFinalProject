@@ -7,9 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pet {
-
-	private String petType;
-	
-	private int petCount;
+public class Pet
+{
+    private String petType;
+    private int petCount;
 }

@@ -19,10 +19,10 @@
     <!-- 지역 정보테이블 ResultMap -->
      <resultMap id="commonAreaResultMap" type="CommonArea">
         <!-- 기본키 -->
-        <result property="cityCode"     column="CITY_CODE"/>
-        <result property="cityName"     column="CITY_NAME"/>
-        <result property="sigunguCode"  column="SIGUNGU_CODE"/>
-        <result property="areaName"     column="AREA_NAME"/>
+        <result property="cityCode"      column="CITY_CODE"    />
+        <result property="cityName"      column="CITY_NAME"    />
+        <result property="sigunguCode"   column="SIGUNGU_CODE" />
+        <result property="areaName"      column="AREA_NAME"    />
     </resultMap>
 
     <!-- 카테고리 전체 조회 -->

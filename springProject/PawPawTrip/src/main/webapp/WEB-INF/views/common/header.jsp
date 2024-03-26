@@ -7,16 +7,16 @@
 <c:set var="path" value="${pageContext.request.contextPath}"/>
 <html>
 <head>
-	<title>PawPawTrip</title>
+    <title>PawPawTrip</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="icon" type="image/png" href="${path}/img/common/favicon.png">
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="${path}/css/common/bootstrap.css" >
     <link rel="stylesheet" href="${path}/css/common/templatemo.css"> 
     <link rel="stylesheet" href="${path}/css/common/pawpawHeader.css">
-	<link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
+    <link rel="stylesheet" href="${path}/css/common/pawpawCommon.css">
 
     <script src="https://kit.fontawesome.com/36aedea311.js" crossorigin="anonymous"></script>
 
@@ -25,12 +25,9 @@
     <script src="${path}/js/common/bootstrap.bundle.min.js"></script>
     <script src="${path}/js/common/templatemo.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="${path}/js/common/pawpawHeader.js"></script>
-	<script src="${path}/js/common/pawpawCommon.js"></script>
- 	 	  
-	<!-- summernote cdn -->
-<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet"> -->
-<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script> -->
+    <script src="${path}/js/common/pawpawHeader.js"></script>
+    <script src="${path}/js/common/pawpawCommon.js"></script>
+          
 </head>
 <body>
     <div class="afterWeather"><a href="${path}/common/todayWeather"><img src="${path}/img/common/todayWeather.png"></a></div>
@@ -75,20 +72,18 @@
                 
                     <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
                     </div>
-					<c:if test="${empty loginMember}">
- 	                    <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/login">로그인</a> 
- 	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/enroll">회원가입</a>
-<%-- 	                    <a class="nav-icon d-lg-inline text-decoration-none common"       href="${path}/logout">로그아웃</a>--%>
-<%--	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/admin/dashboard">관리자</a>--%>
-					</c:if>
-					<c:if test="${not empty loginMember and loginMember.memberRole == 'ROLE_USER'}">
-	                    <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/logout">로그아웃</a>
-	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/member/mypage/my-info">마이페이지</a>
-					</c:if>
-					<c:if test="${not empty loginMember and loginMember.memberRole == 'ROLE_ADMIN'}">
-	                    <a class="nav-icon d-lg-inline text-decoration-none common"       href="${path}/logout">로그아웃</a>
-	                    <a class="nav-icon position-relative text-decoration-none common" href="${path}/admin/dashboard">관리자</a>
-					</c:if>
+                    <c:if test="${empty loginMember}">
+                        <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/login">로그인</a> 
+                        <a class="nav-icon position-relative text-decoration-none common" href="${path}/enroll">회원가입</a>
+                    </c:if>
+                    <c:if test="${not empty loginMember and loginMember.memberRole == 'ROLE_USER'}">
+                        <a class="nav-icon d-lg-inline text-decoration-none common" href="${path}/logout">로그아웃</a>
+                        <a class="nav-icon position-relative text-decoration-none common" href="${path}/member/mypage/my-info">마이페이지</a>
+                    </c:if>
+                    <c:if test="${not empty loginMember and loginMember.memberRole == 'ROLE_ADMIN'}">
+                        <a class="nav-icon d-lg-inline text-decoration-none common"       href="${path}/logout">로그아웃</a>
+                        <a class="nav-icon position-relative text-decoration-none common" href="${path}/admin/dashboard">관리자</a>
+                    </c:if>
                 </div>
             </div>
         </div>

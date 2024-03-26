@@ -5,25 +5,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.kr.pawpawtrip.admin.model.mapper.AdminMapper">
 
-<!--     <sql id="selectMemberSql"> -->
-<!--         SELECT MEMBER_NO, -->
-<!--                MEMBER_ID, -->
-<!--                MEMBER_NAME, -->
-<!--                MEMBER_PW, -->
-<!--                MEMBER_ROLE, -->
-<!--                MEMBER_PHONE, -->
-<!--                MEMBER_EMAIL, -->
-<!--                MEMBER_BIRTH, -->
-<!--                MEMBER_PET_NAME, -->
-<!--                MEMBER_PET_TYPE, -->
-<!--                MEMBER_STATUS, -->
-<!--                MEMBER_ED, -->
-<!--                MEMBER_MD, -->
-<!--                MRKT_AGREE_YN, -->
-<!--                RECV_AGREE_YN, -->
-<!--                LOCA_AGREE_YN -->
-<!--         FROM MEMBER -->
-<!--     </sql> -->
     
     <resultMap  id="communityRankResultMap"   type="CommunityRank"        >
         <id     property="communityNo"       column="COMMUNITY_NO"       />
@@ -63,13 +44,13 @@
     </resultMap>
     
     <resultMap id="weatherAreaListMap" type="WeatherArea">
-    	<result property="areaGrpCode" column="AREA_GRP_CODE" />
-    	<result property="areaGrpName" column="AREA_GRP_NAME" />
-    	<result property="areaCode" column="AREA_CODE" />
-    	<result property="areaName" column="AREA_NAME" />
+        <result property="areaGrpCode" column="AREA_GRP_CODE" />
+        <result property="areaGrpName" column="AREA_GRP_NAME" />
+        <result property="areaCode"    column="AREA_CODE"     />
+        <result property="areaName"    column="AREA_NAME"     />
     </resultMap>
     
-    <select    id="selectCommunityRanks" resultMap="communityRankResultMap">
+       <select id="selectCommunityRanks" resultMap="communityRankResultMap">
         SELECT ROWNUM 
              , COMMUNITY_TITLE
              , COMMUNITY_COUNT
@@ -93,14 +74,16 @@
                       C.COMMUNITY_COUNT DESC NULLS LAST
                 ) 
           WHERE ROWNUM &lt;= 7
-    </select>
-    <select id="selectMypetRatio" resultMap="mypetRatioResultMap">
+     </select>
+     
+       <select id="selectMypetRatio" resultMap="mypetRatioResultMap">
         SELECT NVL(MEMBER_PET_TYPE, 'N/A') AS MEMBER_PET_TYPE
              , COUNT(*) AS PET_COUNT
           FROM MEMBER
          GROUP BY 
                MEMBER_PET_TYPE
      </select>
+     
        <select id="selectAllFavorSite" resultMap="favorSiteResultMap">
         SELECT CONTENTID
              , ADDRESS || NVL(DETAIL_ADDRESS, '') AS ADDRESS
@@ -141,6 +124,7 @@
            </if>
          ORDER BY MODIFYTIME DESC
     </select>
+    
     <select id="selectFavorSiteCount" parameterType="map">
         SELECT COUNT(*) AS COUNT
           FROM (
@@ -175,6 +159,7 @@
            </if>
          ORDER BY MODIFYTIME DESC
     </select>
+    
     <select id="selectFavoriteTopThree" parameterType="map" resultMap="favorSiteResultMap">
         SELECT CONTENTID
              , ADDRESS || NVL(DETAIL_ADDRESS, '') AS ADDRESS
@@ -209,23 +194,26 @@
          WHERE FAVOR_RCMD_YN = 'Y'
          ORDER BY MODIFYTIME DESC
     </select>
+    
     <select id="selectWeatherAreaList" resultMap="weatherAreaListMap">
-    	SELECT AREA_GRP_CODE,
-    	       AREA_GRP_NAME,
-    	       AREA_CODE,
-    	       AREA_NAME
-    	  FROM WEATHER_AREA
-    	  ORDER BY AREA_NAME ASC
+        SELECT AREA_GRP_CODE,
+               AREA_GRP_NAME,
+               AREA_CODE,
+               AREA_NAME
+          FROM WEATHER_AREA
+          ORDER BY AREA_NAME ASC
     </select>
     
     <update id="updateFavoriteTripInit" parameterType="map">
         UPDATE TRIP
            SET FAVOR_RCMD_YN = 'N'
     </update>
+    
     <update id="updateFavoriteStayInit" parameterType="map">
         UPDATE STAY
            SET FAVOR_RCMD_YN = 'N'
     </update>
+    
     <update id="updateFavoriteTrip" parameterType="list">
         UPDATE TRIP
            SET FAVOR_RCMD_YN = 'Y'
@@ -234,6 +222,7 @@
               #{contentId}
          </foreach> 
     </update>
+    
     <update id="updateFavoriteStay" parameterType="list">
         UPDATE STAY
            SET FAVOR_RCMD_YN = 'Y'

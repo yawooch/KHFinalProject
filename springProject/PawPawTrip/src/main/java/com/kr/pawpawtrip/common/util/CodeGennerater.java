@@ -1,33 +1,12 @@
 package com.kr.pawpawtrip.common.util;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
+/**
+ * 코드를 생성하는 메소드를 모아놓은 클래스
+ */
 public class CodeGennerater
 {
-    public static void main(String[] args)
-    {
-        CodeGennerater dg = new CodeGennerater();
-//        dg.gennerateSsn();
-//        dg.gennerateName();
-//        dg.genneratePhone();
-//        dg.gennerateEmail();
-        LocalDate now = LocalDate.now();
-//        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        String date = sdf1.format(now);
-        //INSERT INTO MEMBER VALUES(1, 'USER1', '1234', '홍길동', '2023-11-09');
-        for(int i = 0; i < 100; i++)
-        {
-            System.out.print("INSERT INTO MEMBER VALUES(");
-            System.out.print((i+1) + ", ");
-            System.out.print("'" + dg.gennerateEmail().split("@")[0] + "', ");
-            System.out.print("'1234', ");
-            System.out.print("'" + dg.gennerateName("korean") + "', ");
-            System.out.println("'" + now.format(formatter) + "');");
-        }
-        
-    }
     /**
      *  특수문자는 _ 만 포함하는 메일의 형식을 만든다.
      */

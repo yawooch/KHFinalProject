@@ -16,10 +16,8 @@ import com.kr.pawpawtrip.map.model.service.MapService;
 import com.kr.pawpawtrip.map.model.vo.PositionInfo;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
-@Slf4j
 @RequiredArgsConstructor
 public class MapController
 {
@@ -29,10 +27,8 @@ public class MapController
     @GetMapping("/map")
     public ModelAndView map(ModelAndView modelAndView)
     {
-
         List<CommonArea> searchAreaOptions = commonService.getAreaByCode("00");
 
-        log.info("searchAreaOptions : {}", searchAreaOptions);
 
         modelAndView.addObject("searchAreaOptions", searchAreaOptions);
         modelAndView.setViewName("/map/map");
@@ -45,8 +41,6 @@ public class MapController
                                                            @RequestParam("searchContentType") String searchContentType
                                                           )
     { 
-        System.out.println("searchContentType : " + searchContentType + "\nsearchKeyword : " + searchKeyword);
-        
         Map<String, Object> map = new HashMap<String, Object>();
 
         List<PositionInfo> positions = mapService.getPoisitions(searchContentType, searchKeyword);

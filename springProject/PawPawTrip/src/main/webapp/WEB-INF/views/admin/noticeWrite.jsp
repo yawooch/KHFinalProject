@@ -26,11 +26,11 @@
         <div class="common-sideMenu">
             <ul>
                 <li>관리자</li>
-                <li class="">  <a href="${path}/admin/dashboard"     >대시보드     </a></li>
-                <li class="">  <a href="${path}/admin/tripList"      >포포트립 매핑</a></li>
+                <li class=""  ><a href="${path}/admin/dashboard"     >대시보드     </a></li>
+                <li class=""  ><a href="${path}/admin/tripList"      >포포트립 매핑</a></li>
                 <li class="on"><a href="${path}/admin/noticeWrite"   >공지사항 입력</a></li>
-                <li class="">  <a href="${path}/admin/favoritesite"  >인추장 선정  </a></li>
-                <li class="">  <a href="${path}/admin/plannedDevelop">개발예정 기능</a></li>
+                <li class=""  ><a href="${path}/admin/favoritesite"  >인추장 선정  </a></li>
+                <li class=""  ><a href="${path}/admin/plannedDevelop">개발예정 기능</a></li>
             </ul>
         </div>
         <div class="common-list">
@@ -84,10 +84,10 @@
 $(document).ready(function() 
 {
     $('#submitCheck').on('submit', (event) => {
-        let category = $('#comunityCate').val();
-        let title = $('#communityTitle').val();
-        let content = $('#summernote').val();
-        let file = $('#talkWriteFile').val().split('.').pop();
+        let category          = $('#comunityCate').val();
+        let title             = $('#communityTitle').val();
+        let content           = $('#summernote').val();
+        let file              = $('#talkWriteFile').val().split('.').pop();
         let noticeImportantYN = $('#noticeImportantYN option:selected').val();
         
         

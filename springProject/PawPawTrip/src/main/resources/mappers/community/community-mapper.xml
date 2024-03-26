@@ -5,25 +5,25 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
     
 <mapper namespace="com.kr.pawpawtrip.community.model.mapper.CommunityMapper">
-	<sql id="communitySelectNo">
-			SELECT C.COMMUNITY_NO
-			     , C.COMMUNITY_CATEGORY
-			     , C.COMMUNITY_TITLE
-			     , C.COMMUNITY_CONTENT
-			     , C.COMMUNITY_ED
-			     , C.COMMUNITY_STATUS
-			     , C.COMMUNITY_COUNT
-			     , C.COMMUNITY_O_FILENAME
-			     , C.COMMUNITY_R_FILENAME
-			     , C.NOTICE_IMPORTANT_YN
-			     , C.COMMUNITY_WRITER_NO
-			     , M.MEMBER_ID
-			  FROM COMMUNITY                  C
-			 INNER JOIN
-			       MEMBER                     M
-			    ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
-			   WHERE C.COMMUNITY_STATUS     = 'Y'
-	</sql>
+    <sql id="communitySelectNo">
+            SELECT C.COMMUNITY_NO
+                 , C.COMMUNITY_CATEGORY
+                 , C.COMMUNITY_TITLE
+                 , C.COMMUNITY_CONTENT
+                 , C.COMMUNITY_ED
+                 , C.COMMUNITY_STATUS
+                 , C.COMMUNITY_COUNT
+                 , C.COMMUNITY_O_FILENAME
+                 , C.COMMUNITY_R_FILENAME
+                 , C.NOTICE_IMPORTANT_YN
+                 , C.COMMUNITY_WRITER_NO
+                 , M.MEMBER_ID
+              FROM COMMUNITY                  C
+             INNER JOIN
+                   MEMBER                     M
+                ON C.COMMUNITY_WRITER_NO  = M.MEMBER_NO
+               WHERE C.COMMUNITY_STATUS     = 'Y'
+    </sql>
 
     <sql id="noticeListSql">
         SELECT COMMUNITY_NO
@@ -337,36 +337,38 @@
      </select>
     
      <select id="selectBoardByNo" resultMap="communityListResultMap" parameterType="_int">
-      <include refid="communitySelectNo" />
+         <include refid="communitySelectNo" />
          AND COMMUNITY_NO = #{no}
     </select>
     
      <!-- 내가 쓴 게시글 조회 -->
      <select id="selectBoardByMember" resultMap="communityListResultMap" parameterType="_int">
       SELECT ROWNUM AS RNUM,
-	         COMMUNITY_NO,
-	         COMMUNITY_CATEGORY,
-	         COMMUNITY_TITLE,
-	         COMMUNITY_CONTENT,
-	         COMMUNITY_ED,
-	         COMMUNITY_COUNT,
-	         COMMUNITY_WRITER_NO,
-	         MEMBER_ID
-	  FROM (
-	      SELECT C.COMMUNITY_NO,
-	             C.COMMUNITY_CATEGORY,
-	             C.COMMUNITY_TITLE,
-	             C.COMMUNITY_CONTENT,
-	             C.COMMUNITY_ED,
-	             C.COMMUNITY_COUNT,
-	             C.COMMUNITY_WRITER_NO,
-	             M.MEMBER_ID
-	        FROM COMMUNITY C
-	        LEFT OUTER JOIN MEMBER M ON (C.COMMUNITY_WRITER_NO = M.MEMBER_NO)
-	       WHERE C.COMMUNITY_STATUS = 'Y'
-	    ORDER BY C.COMMUNITY_ED DESC
-	  )
-	  WHERE COMMUNITY_WRITER_NO = #{memberNo}
+             COMMUNITY_NO,
+             COMMUNITY_CATEGORY,
+             COMMUNITY_TITLE,
+             COMMUNITY_CONTENT,
+             COMMUNITY_ED,
+             COMMUNITY_COUNT,
+             COMMUNITY_WRITER_NO,
+             MEMBER_ID
+        FROM (
+             SELECT C.COMMUNITY_NO,
+                    C.COMMUNITY_CATEGORY,
+                    C.COMMUNITY_TITLE,
+                    C.COMMUNITY_CONTENT,
+                    C.COMMUNITY_ED,
+                    C.COMMUNITY_COUNT,
+                    C.COMMUNITY_WRITER_NO,
+                    M.MEMBER_ID
+               FROM COMMUNITY C
+               LEFT OUTER JOIN 
+                    MEMBER M 
+                 ON C.COMMUNITY_WRITER_NO = M.MEMBER_NO
+              WHERE C.COMMUNITY_STATUS    = 'Y'
+              ORDER BY C.COMMUNITY_ED DESC
+             )
+      WHERE COMMUNITY_WRITER_NO = #{memberNo}
     </select>
     
     <!-- 내가 쓴 게시글 수 -->
@@ -400,7 +402,8 @@
              , #{communityRfileName}
              , #{communityWriterNo}
              )
-     </insert>     <!-- 추가 -->
+     </insert>     
+       <!-- 추가 -->
        <insert id="insertNotice" parameterType="Community" useGeneratedKeys="true" keyProperty="communityNo" keyColumn="COMMUNITY_NO">
         INSERT
           INTO COMMUNITY
@@ -456,8 +459,8 @@
      <!-- 조회수 업데이트 -->
      <update id="updateCommunityCount" parameterType="map">
       UPDATE COMMUNITY
-      SET COMMUNITY_COUNT = #{viewsCount}
-      WHERE COMMUNITY_NO = #{no}
+         SET COMMUNITY_COUNT = #{viewsCount}
+       WHERE COMMUNITY_NO   = #{no}
      </update>
      
      <!-- 삭제 -->
@@ -470,9 +473,9 @@
      <!-- 게시글 파일 삭제 -->
      <update id="updateFileName" parameterType="_int">
       UPDATE COMMUNITY
-      SET COMMUNITY_O_FILENAME = null
-        , COMMUNITY_R_FILENAME = null
-      WHERE COMMUNITY_NO = #{cNo}
+         SET COMMUNITY_O_FILENAME = null
+           , COMMUNITY_R_FILENAME = null
+       WHERE COMMUNITY_NO         = #{cNo}
      </update>
     
 </mapper>

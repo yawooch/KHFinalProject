@@ -29,95 +29,111 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-public class HomeController 
+public class HomeController
 {
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	private final AdminService adminService;
-	private final CommonWeatherApiClient commonWeatherApiClient;
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, ModelAndView modelAndView) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-		
-		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-		
-		String formattedDate = dateFormat.format(date);
+    private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+    private final AdminService adminService;
+    private final CommonWeatherApiClient commonWeatherApiClient;
+
+    /**
+     * Simply selects the home view to render by returning its name.
+     */
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ModelAndView home(Locale locale, ModelAndView modelAndView)
+    {
+        logger.info("Welcome home! The client locale is {}.", locale);
+
+        Date date = new Date();
+        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+
+        String formattedDate = dateFormat.format(date);
 
         List<FavorSite> sites = adminService.getFavoriteTopThree();
-        
+
         log.info("sites : {}", sites);
-        
-		modelAndView.addObject("sites", sites );
-		modelAndView.addObject("serverTime", formattedDate );
-		modelAndView.setViewName("home");
-		
-		return modelAndView;
-	}
 
-	@GetMapping("/template/main")
-	public String main() {
-		return "template/main" ;
-	}
-	@GetMapping("/template/about")
-	public String about() {
-		return "template/about" ;
-	}
-	@GetMapping("/template/contact")
-	public String contact() {
-		return "template/contact" ;
-	}
-	@GetMapping("/template/shop")
-	public String shop() {
-		return "template/shop" ;
-	}
-	@GetMapping("/template/shopSingle")
-	public String shopSingle() {
-		return "template/shopSingle" ;
-	}
+        modelAndView.addObject("sites", sites);
+        modelAndView.addObject("serverTime", formattedDate);
+        modelAndView.setViewName("home");
 
-    @GetMapping("/common/msg")
-    public ModelAndView commonMsg(ModelAndView modelAndView, String msg, String location) {
-        
-        modelAndView.addObject("location", location);
-        modelAndView.addObject("msg", msg);
-        modelAndView.setViewName("common/msg" );
         return modelAndView;
     }
-    @GetMapping("/common/template")
-    public String template() {
-        return "common/template" ;
+
+    @GetMapping("/template/main")
+    public String main()
+    {
+        return "template/main";
     }
-	@GetMapping("/common/error")
-	public ModelAndView error(ModelAndView modelAndView) {
-		modelAndView.setViewName("common/error") ;
-		return modelAndView;
-	}
-	
-	@GetMapping("/common/todayWeather")
-	public ModelAndView weather(ModelAndView modelAndView) throws RestClientException, URISyntaxException {
-		
-		//지점번호 : "11B00000" 발표 시각 : yyyyMMddHHmm - 일 2회(06:00,18:00)회 생성
-        String response = commonWeatherApiClient.apiGetMidFcst("11B00000","202403150600");
-        
+
+    @GetMapping("/template/about")
+    public String about()
+    {
+        return "template/about";
+    }
+
+    @GetMapping("/template/contact")
+    public String contact()
+    {
+        return "template/contact";
+    }
+
+    @GetMapping("/template/shop")
+    public String shop()
+    {
+        return "template/shop";
+    }
+
+    @GetMapping("/template/shopSingle")
+    public String shopSingle()
+    {
+        return "template/shopSingle";
+    }
+
+    @GetMapping("/common/msg")
+    public ModelAndView commonMsg(ModelAndView modelAndView, String msg, String location)
+    {
+
+        modelAndView.addObject("location", location);
+        modelAndView.addObject("msg", msg);
+        modelAndView.setViewName("common/msg");
+        return modelAndView;
+    }
+
+    @GetMapping("/common/template")
+    public String template()
+    {
+        return "common/template";
+    }
+
+    @GetMapping("/common/error")
+    public ModelAndView error(ModelAndView modelAndView)
+    {
+        modelAndView.setViewName("common/error");
+        return modelAndView;
+    }
+
+    @GetMapping("/common/todayWeather")
+    public ModelAndView weather(ModelAndView modelAndView) throws RestClientException, URISyntaxException
+    {
+
+        // 지점번호 : "11B00000" 발표 시각 : yyyyMMddHHmm - 일 2회(06:00,18:00)회 생성
+        String response = commonWeatherApiClient.apiGetMidFcst("11B00000", "202403150600");
+
         // 중기 기운 지역별 날씨정보 조회
         List<WeatherArea> weatherAreas = null;
-        
+
         weatherAreas = adminService.getWeatherAreaList();
-        
+
         log.info("WeatherAreas - {}", weatherAreas);
-        
-        log.info("response : {}" ,response);
-        
+
+        log.info("response : {}", response);
+
         modelAndView.addObject("weatherAreas", weatherAreas);
         modelAndView.setViewName("common/todayWeather");
 
         return modelAndView;
-		
-	}
-	
+
+    }
+
 }

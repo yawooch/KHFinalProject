@@ -17,41 +17,6 @@ public class StringFunc
      * @param replaceExp : 채울 문자
      * @return
      */
-//    public static String rpad(String target, int strLength, String replaceExp)
-//    {
-//        String rstStr = target;
-//        if(target.length() >= strLength)
-//        {
-//            return target;
-//        }
-//        
-//        int hangeulInt = 0;
-//        for(int i = 0; i < strLength; i ++)
-//        {
-//            int charInt;
-//
-//            if(i < target.length())
-//            {
-//                charInt = (int)target.charAt(i);
-//                //12593 ~ 12643 : ㄱ ~ ㅣ 까지 char형의 int
-//                //44032 ~ 55203 : 가 ~ 힣 까지 char형의 int
-//                if(((charInt >= 12593 && charInt <= 12643)|| (charInt >= 44032 && charInt <= 55203)) && replaceExp.equals(" "))
-//                {
-//                    //한글은 공백을 2개로 처리한다.
-//                    hangeulInt++;
-//                }
-//            }
-//                else if(i >= target.length()+hangeulInt)
-//            {
-//                    rstStr += replaceExp;
-//            }
-//        }
-////        System.out.println("target.length : " + target.length());
-////        System.out.println("rstStr.length : " + rstStr.length());
-//        return rstStr;
-//        
-//    }
-
     public static final String rpad(String value, int length, String padValue)
     {
         return rpad(value, padValue, length);
@@ -105,9 +70,7 @@ public class StringFunc
     }
 
     /**
-     * <PRE>
      *  2Byte문자를 감안한 문자열을 길이를 반환한다
-     * </PRE>
      */
     public static final int getLength(String input)
     {
@@ -145,9 +108,7 @@ public class StringFunc
     /** 파일 읽어들여서 메서드, 필드만 추출하는 메소드 만들기 */
     public void bufferedReaderFileRead()
     {
-//        File file = new File("input_file/hashMap1.txt");
         File file = new File("input_file/hashMap2.txt");
-//        File file = new File("input_file/FileStreamTestCopy.txt");
         long milliSeconds = System.currentTimeMillis();
         StringBuilder sb = new StringBuilder();
         

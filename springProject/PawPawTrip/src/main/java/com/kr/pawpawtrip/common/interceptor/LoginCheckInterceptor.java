@@ -49,7 +49,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
             ModelAndView modelAndView) throws Exception
     {
-
         log.info("postHandle() 호출");
 
         HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
@@ -60,7 +59,6 @@ public class LoginCheckInterceptor implements HandlerInterceptor
             throws Exception
     {
         // 화면 처리까지 모두 끝나면 실행되는 메소드
-
         log.info("afterCompletion");
 
         HandlerInterceptor.super.afterCompletion(request, response, handler, ex);

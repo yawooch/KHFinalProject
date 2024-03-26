@@ -47,7 +47,7 @@ public class MemberUrlCheckInterceptor implements HandlerInterceptor
          * request.getRemoteUser()    null                                                                                           
          * request.getRequestURI()    /pawpawtrip/admin/tripList                                                                     
          ********************************************************/
-        List<String> excpExts = Arrays.asList("css" ,"bundle" ,"js" ,"png" ,"jpg" ,"woff2");
+        List<String> excpExts   = Arrays.asList("css" ,"bundle" ,"js" ,"png" ,"jpg" ,"woff2");
         String   servletPath    = request.getServletPath();
         String[] servletPathExt = servletPath.split(".");//확장자를 추출하기위한 처리
         

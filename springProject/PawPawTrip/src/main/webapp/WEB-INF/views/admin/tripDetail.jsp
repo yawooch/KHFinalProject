@@ -30,7 +30,6 @@ function showDetail(contentId)
             let contenttypeid = {'12':'관광지', '14':'문화시설', '15':'축제공연행사', '25':'여행코스', '28':'레포츠', '32':'숙박', '38':'쇼핑', '39':'음식점'};
             let cpyrhtDivCd   = {'Type1':'제1유형(출처표시-권장)', 'Type3':'제3유형(제1유형+변경금지)'};
             
-            console.log(data);
             $('#spinnerLoading').fadeOut();
             
             result += '<tr><td>콘텐츠ID</td>';
@@ -187,11 +186,11 @@ $(document).ready(() => {
         <div class="common-sideMenu">
             <ul>
                 <li>관리자</li>
-                <li class=""><a href="${path}/admin/dashboard">대시보드</a></li>
+                <li class=""  ><a href="${path}/admin/dashboard">대시보드</a></li>
                 <li class="on"><a href="${path}/admin/tripList">포포트립 매핑      </a></li>
-                <li class=""><a href="${path}/admin/noticeWrite">공지사항 입력   </a></li>
-                <li class=""><a href="${path}/admin/favoritesite">인추장 선정    </a></li>
-                <li class=""><a href="${path}/admin/plannedDevelop">개발예정 기능</a></li>
+                <li class=""  ><a href="${path}/admin/noticeWrite">공지사항 입력   </a></li>
+                <li class=""  ><a href="${path}/admin/favoritesite">인추장 선정    </a></li>
+                <li class=""  ><a href="${path}/admin/plannedDevelop">개발예정 기능</a></li>
             </ul>
         </div>
         <div class="common-list">

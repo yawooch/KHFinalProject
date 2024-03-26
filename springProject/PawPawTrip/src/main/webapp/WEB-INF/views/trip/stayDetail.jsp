@@ -1,14 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib uri="http://www.springframework.org/security/tags"
-	prefix="security"%>
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"              prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"               prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"         prefix="fn"%>
+<%@ taglib uri="http://www.springframework.org/security/tags"   prefix="security"%>
+    
 <% 
-	pageContext.setAttribute("LF", "\n");
-	pageContext.setAttribute("NL1", ".\\n");
+    pageContext.setAttribute("LF", "\n");
+    pageContext.setAttribute("NL1", ".\\n");
 %>
 
 <c:set var="path" value="${pageContext.request.contextPath}" />
@@ -35,112 +33,112 @@
     font-family: 'Noto Sans KR'; 
 }
 @media (min-width: 1200px) {
-	.tripDetail-mainInfo-wrap{
-		height: 350px;
-	}
-	.tripDetail-mainInfo{
-		width: 44%;
-		height: 100%
-	}
-	.swiper {
-		width: 55%;
-		height: 100%;
-	}
+    .tripDetail-mainInfo-wrap{
+        height: 350px;
+    }
+    .tripDetail-mainInfo{
+        width: 44%;
+        height: 100%
+    }
+    .swiper {
+        width: 55%;
+        height: 100%;
+    }
 }
 
 @media (max-width: 1200px) {
-	.tripDetail-mainInfo-wrap{
-		height: 350px;
-	}
-	.tripDetail-mainInfo{
-		width: 44%;
-		height: 100%
-	}
-	.swiper {
-		width: 55%;
-		height: 100%;
-	}
+    .tripDetail-mainInfo-wrap{
+        height: 350px;
+    }
+    .tripDetail-mainInfo{
+        width: 44%;
+        height: 100%
+    }
+    .swiper {
+        width: 55%;
+        height: 100%;
+    }
 }
 
 @media (max-width: 992px) {
-	.tripDetail-mainInfo-wrap{
-		height: 350px;
-	}
-	.tripDetail-mainInfo{
-		display: block;
-		width: 44%;
-		top: 0;
-		height: inherit;
-	}
-	
+    .tripDetail-mainInfo-wrap{
+        height: 350px;
+    }
+    .tripDetail-mainInfo{
+        display: block;
+        width: 44%;
+        top: 0;
+        height: inherit;
+    }
+    
 }
 
 @media (max-width: 768px) {
-	.tripDetail-mainInfo-wrap{
-		height: 660px;
-	}
-	.tripDetail-mainInfo{
-		display: block;
-		width: 100%;
-		height: 48%;
-		padding-left: 20px !important;
-		top: 340px;
-	}
-	.mainInfo{
-		padding-left: 20px !important;
-	}
-	.swiper {
-		display: block ;
-		width: 100%;
-		height: 50%;
-		top: 0;
-	}	
+    .tripDetail-mainInfo-wrap{
+        height: 660px;
+    }
+    .tripDetail-mainInfo{
+        display: block;
+        width: 100%;
+        height: 48%;
+        padding-left: 20px !important;
+        top: 340px;
+    }
+    .mainInfo{
+        padding-left: 20px !important;
+    }
+    .swiper {
+        display: block ;
+        width: 100%;
+        height: 50%;
+        top: 0;
+    }   
 }
 /* ------------------------------ */
 .swiper {
-	display: inline-block;
-	position: absolute;    
-	/* margin: 15px 0px; */
-	flex-direction: row;
-	/* width: 55%; */
-	/* height: 330px; */
-	z-index: 5;
-	left: 0; 
-	border-radius: 10px;
+    display: inline-block;
+    position: absolute;    
+    /* margin: 15px 0px; */
+    flex-direction: row;
+    /* width: 55%; */
+    /* height: 330px; */
+    z-index: 5;
+    left: 0; 
+    border-radius: 10px;
 }
 
 .swiper-slide {
-	text-align: center;
-	font-size: 18px;
-	background: #fff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .swiper-slide img {
-	display: block;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .swiper-button-next {
-	color: #FDFAEF;
+    color: #FDFAEF;
 }
 
 :root {
-	--swiper-theme-color: #FDFAEF;
+    --swiper-theme-color: #FDFAEF;
 }
 </style>
 
 <!-- 바디 -->
 <section class="content">
-	<div class="container">
-		
-	    <!-- 페이지 타이틀 -->
-	    <div class="common-title"><p>숙소</p></div>
-	
+    <div class="container">
+        
+        <!-- 페이지 타이틀 -->
+        <div class="common-title"><p>숙소</p></div>
+    
         <!-- 사이드 메뉴 -->
         <div class="common-sideMenu">
             <ul>
@@ -149,7 +147,7 @@
                 <li class="board-text"><a href="${ path }/trip/stay">숙소</a>
             </ul>
         </div>
-	        
+            
         <!-- 내부 콘텐츠 -->
         <div class="common-list">
             <!-- 메인 정보 -->
@@ -157,11 +155,11 @@
                 <!-- 장소 이미지(슬라이드) -->
                 <div class="swiper Swiper">
                     <div class="swiper-wrapper">
-                    	<c:forEach var="detailImageItem" items="${ detailImageItems }">
-	                        <div class="swiper-slide">
-	                            <img src="${ detailImageItem.originimgurl }" alt="숙소 이미지">
-	                        </div>
-                    	</c:forEach>
+                        <c:forEach var="detailImageItem" items="${ detailImageItems }">
+                            <div class="swiper-slide">
+                                <img src="${ detailImageItem.originimgurl }" alt="숙소 이미지">
+                            </div>
+                        </c:forEach>
                     </div>
                     <div class="swiper-pagination"></div>
                     <div class="swiper-button-prev"></div>
@@ -188,20 +186,20 @@
                         <img class="infoIcon" src="${ path }/img/trip/tel_icon.png" alt="문의처 아이콘">
                         <span>문의처</span>
                         <c:if test="${ stay.stayTel == '-' || empty stay.stayTel }">
-                        	<p>- 별도 문의</p>
+                            <p>- 별도 문의</p>
                         </c:if>
                         <c:if test="${ stay.stayTel != '-' }">
-	                        <p>${ stay.stayTel }</p>
+                            <p>${ stay.stayTel }</p>
                         </c:if>
 
                         <!-- 새 창으로 해당 홈페이지 열기! -->
                         <img class="infoIcon" src="${ path }/img/trip/homepage_icon.png" alt="홈페이지 아이콘">
                         <span>홈페이지</span>
                         <c:if test="${ empty stay.homepage }">
-                        	<p>- 별도 문의</p>
+                            <p>- 별도 문의</p>
                         </c:if>
                         <c:if test="${ not empty stay.homepage }">
-	                        <p>${ stay.homepage }</p>
+                            <p>${ stay.homepage }</p>
                         </c:if>
                     </div>
                 </div>
@@ -250,7 +248,7 @@
                         <span>필수</span>
                     </div>
                     <p style="color: red; font-size: 16px;">
-                    	${ fn:replace(stay.petInfo.acmpyNeedMtr, LF, "<br>") }
+                        ${ fn:replace(stay.petInfo.acmpyNeedMtr, LF, "<br>") }
                     </p>
                 </div>
 
@@ -258,7 +256,7 @@
 
             <!-- 목록으로 가는 버튼 -->
             <div class="btn-wrap">
-            	<button onclick="location.href='${path}/trip/stay'" class="btnList">목록으로</button>
+                <button onclick="location.href='${path}/trip/stay'" class="btnList">목록으로</button>
             </div>
         </div>
     </div>

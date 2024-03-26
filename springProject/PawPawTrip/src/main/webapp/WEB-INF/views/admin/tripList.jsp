@@ -43,23 +43,20 @@ function showList(pageNo, contentId, numOfRows)
         data : data,
         success:function(data)
         {
-//             console.log(data);
             let result = '';
             let startRowNo = 0;
             let {pageNo, numOfRows, totalCount, petTourItems} = data;
 
-            startRowNo = totalCount - ((pageNo-1)*numOfRows);//DESC 용
-//          startRowNo = ((pageNo-1)*numOfRows) + 1;         //ASC  용
+            startRowNo = totalCount - ((pageNo-1)*numOfRows);//DESC 용 //startRowNo = ((pageNo-1)*numOfRows) + 1;         //ASC  용
             
             if(petTourItems.length==0){
                 result += '<tr><td colspan="5">조회된 게시글이 없습니다.</td></tr>';
             }
             else{
                 petTourItems.forEach((element, idx) => {
-                	contentIdsArr.push(element.contentid);
+                    contentIdsArr.push(element.contentid);
                     result += '<tr>';
-                    result += '     <td>' + (startRowNo - idx) + '</td>';//DESC 용
-//                  result += '     <td>' + (startRowNo + idx) + '</td>';//ASC  용
+                    result += '     <td>' + (startRowNo - idx) + '</td>';//DESC 용 //result += '     <td>' + (startRowNo + idx) + '</td>';//ASC  용
                     result += '     <td><a href="${path}/admin/tripDetail?contentId=' + element.contentid + '&pageNo='+ pageNo +'">'+ element.contentid + '</a></td>';
                     result += '     <td ' + (element.dbExistYn=='등록'?'class="text-info"':'class="text-danger"') +'>' +   element.dbExistYn   + '</td>';
                     result += '     <td>' + (element.acmpyTypeCd==null?'':element.acmpyTypeCd) + '</td>';
@@ -89,10 +86,10 @@ function showList(pageNo, contentId, numOfRows)
  //보여준 리스트에서 일괄등록 버튼 클릭했을때
 function saveList()
 {
-	if(!confirm('해당 페이지를 일괄 등록 하시겠습니까?'))
-	{
-		return false;
-	}
+    if(!confirm('해당 페이지를 일괄 등록 하시겠습니까?'))
+    {
+        return false;
+    }
     $('#spinnerLoading').fadeIn();
     $('#spinnerLoading>div.spinner-border').css('top' , '50%');
     $('#spinnerLoading>div.spinner-border').css('left', '50%');
@@ -157,10 +154,10 @@ $(document).ready(() =>
             <ul>
                 <li>관리자</li>
                 <li class=""  ><a href="${path}/admin/dashboard"     >대시보드     </a></li>
-                <li class=""  ><a href="${path}/admin/tripList"      >포포트립 매핑</a></li>
+                <li class="on"><a href="${path}/admin/tripList"      >포포트립 매핑</a></li>
                 <li class=""  ><a href="${path}/admin/noticeWrite"   >공지사항 입력</a></li>
                 <li class=""  ><a href="${path}/admin/favoritesite"  >인추장 선정  </a></li>
-                <li class="on"><a href="${path}/admin/plannedDevelop">개발예정 기능</a></li>
+                <li class=""  ><a href="${path}/admin/plannedDevelop">개발예정 기능</a></li>
             </ul>
         </div>
         <div class="common-list">
@@ -219,13 +216,13 @@ $(document).ready(() =>
             
             <div class="common-page-number">
                 <ul>
-                    <li pageNo="1"><a href="#">&lt;</a></li>
-                    <li pageNo="1"><a href="#">1</a></li>
-                    <li pageNo="2"><a href="#">2</a></li>
-                    <li pageNo="3"><a href="#">3</a></li>
-                    <li pageNo="4"><a href="#">4</a></li>
-                    <li pageNo="5"><a href="#">5</a></li>
-                    <li pageNo="5"><a href="#">&gt;</a></li>
+                    <li ><a href="#">&lt;</a></li>
+                    <li ><a href="#">1</a></li>
+                    <li ><a href="#">2</a></li>
+                    <li ><a href="#">3</a></li>
+                    <li ><a href="#">4</a></li>
+                    <li ><a href="#">5</a></li>
+                    <li ><a href="#">&gt;</a></li>
                 </ul>
             </div>
         </div>

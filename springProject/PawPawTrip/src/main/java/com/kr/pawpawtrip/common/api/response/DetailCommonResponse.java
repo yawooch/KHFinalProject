@@ -35,10 +35,8 @@ public class DetailCommonResponse
         
         this.resultCode = header.get("resultCode");
         this.resultMsg  = header.get("resultMsg");
-        
         this.pageNo     = (Integer)body.get("pageNo");
         this.numOfRows  = (Integer)body.get("numOfRows");
-//        this.dataType   = (String)body.get("dataType");
         this.totalCount = (Integer)body.get("totalCount");
         
         for (Map<String, Object> map : item)

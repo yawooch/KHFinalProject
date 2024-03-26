@@ -89,39 +89,38 @@
 
 <script>
 
-    $(document).ready(() => {
-        // console.log('${community.communityRfileName}');
-        // 파일 다운로드
-        $('#fileDown').on('click', () => {
-            let oname = encodeURIComponent('${ community.communityOfileName }');
-            let rname = encodeURIComponent('${ community.communityRfileName }');
-            
-            console.log(oname);
-            console.log(rname);
-            
-            location.assign(`${ path }/community/board/fileDown?oname=\${oname}&rname=\${rname}`);
-            
-        });
+$(document).ready(() => {
+    // 파일 다운로드
+    $('#fileDown').on('click', () => {
+        let oname = encodeURIComponent('${ community.communityOfileName }');
+        let rname = encodeURIComponent('${ community.communityRfileName }');
         
-        // 수정
-        $('#updateBtn').on('click', () => {
-            if(confirm('게시글을 수정하시겠습니까?')) {
-                location.href=`${path}/admin/noticeUpdate?no=${community.communityNo}`;
-            } else {
-                location.reload();
-            }
-        });
+        console.log(oname);
+        console.log(rname);
         
-        // 삭제
-        $('#deleteBtn').on('click', () => {
-            if(confirm('게시글을 삭제하시겠습니까?')) {
-                location.href=`${path}/admin/noticeDelete?no=${community.communityNo}`;
-            } else {
-                location.reload();
-            }
-        });
+        location.assign(`${ path }/community/board/fileDown?oname=\${oname}&rname=\${rname}`);
         
     });
+    
+    // 수정
+    $('#updateBtn').on('click', () => {
+        if(confirm('게시글을 수정하시겠습니까?')) {
+            location.href=`${path}/admin/noticeUpdate?no=${community.communityNo}`;
+        } else {
+            location.reload();
+        }
+    });
+    
+    // 삭제
+    $('#deleteBtn').on('click', () => {
+        if(confirm('게시글을 삭제하시겠습니까?')) {
+            location.href=`${path}/admin/noticeDelete?no=${community.communityNo}`;
+        } else {
+            location.reload();
+        }
+    });
+    
+});
     
 </script>
 

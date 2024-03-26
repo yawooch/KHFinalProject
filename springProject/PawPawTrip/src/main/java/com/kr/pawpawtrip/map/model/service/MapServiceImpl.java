@@ -19,5 +19,4 @@ public class MapServiceImpl implements MapService
     {
         return mapMapper.selectAllPositions(contentType, keyword);
     }
-
 }

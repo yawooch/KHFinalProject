@@ -26,11 +26,11 @@
         <div class="common-sideMenu">
             <ul>
                 <li>관리자</li>
-                <li class=""><a href="${path}/admin/dashboard">대시보드</a></li>
-                <li class=""><a href="${path}/admin/tripList">포포트립 매핑      </a></li>
-                <li class=""><a href="${path}/admin/noticeWrite">공지사항 입력   </a></li>
+                <li class=""  ><a href="${path}/admin/dashboard">대시보드</a></li>
+                <li class=""  ><a href="${path}/admin/tripList">포포트립 매핑      </a></li>
+                <li class=""  ><a href="${path}/admin/noticeWrite">공지사항 입력   </a></li>
                 <li class="on"><a href="${path}/admin/favoritesite">인추장 선정    </a></li>
-                <li class=""><a href="${path}/admin/plannedDevelop">개발예정 기능</a></li>
+                <li class=""  ><a href="${path}/admin/plannedDevelop">개발예정 기능</a></li>
             </ul>
         </div>
         <div class="common-list">
@@ -59,43 +59,42 @@
                 </div>
             </div>
             <div class="common-detail-list no-row">
-                <div class="row" id="topThreeSites">
-                </div>
+                <div class="row" id="topThreeSites"></div>
             </div>
                 
-              <div class="common-detail-list ">
-            <table border="1">
-                <thead>
-                <tr style="background-color: #FDFAEF;">
-                    <td></td>
-                    <td>컨텐츠ID</td>
-                    <td>구분</td>
-                    <td style="text-align:left; cursor: default;">장소명</td>
-                    <td style="text-align: center;">주소</td>
-                </tr>
-                </thead>
-                <tbody>
-                <c:if test="${ empty sites }">
-                    <tr>
-                        <td colspan="5">조회된 데이터가 없습니다.</td>
+            <div class="common-detail-list ">
+                <table border="1">
+                    <thead>
+                    <tr style="background-color: #FDFAEF;">
+                        <td></td>
+                        <td>컨텐츠ID</td>
+                        <td>구분</td>
+                        <td style="text-align:left; cursor: default;">장소명</td>
+                        <td style="text-align: center;">주소</td>
                     </tr>
-                </c:if>
-                <c:if test="${ not empty sites }">
-                    <c:forEach var="site" items="${ sites }">
+                    </thead>
+                    <tbody>
+                    <c:if test="${ empty sites }">
                         <tr>
-                           <td><input type="checkbox" name="favorSiteCheck" value="${ site.contentid }" <c:if test="${site.favorRcmdYn == 'Y'}">checked</c:if>/></td>
-                           <td>${ site.contentid }</td>
-                           <td>${ site.contenttype }</td>
-                           <td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;width: 190px;">
-                               <a href="${ path }/trip/${site.contenttype=='관광지'?'spot/spotDetail':'stay/stayDetail'}?id=${site.contentid}" style="font-size: 16px;">${ site.title }</a>
-                           </td>
-                           <td class="common-text-left" style="border: 1px solid #E8E8E8; padding-left: 5px; width: 200px;" >${ site.address }</td>
+                            <td colspan="5">조회된 데이터가 없습니다.</td>
                         </tr>
-                    </c:forEach>
-                </c:if>
-                </tbody>
-            </table>
-              </div>
+                    </c:if>
+                    <c:if test="${ not empty sites }">
+                        <c:forEach var="site" items="${ sites }">
+                            <tr>
+                               <td><input type="checkbox" name="favorSiteCheck" value="${ site.contentid }" <c:if test="${site.favorRcmdYn == 'Y'}">checked</c:if>/></td>
+                               <td>${ site.contentid }</td>
+                               <td>${ site.contenttype }</td>
+                               <td class="common-text-left" style="display: block; padding-top: 20px; padding-left: 5px; border-style: none;width: 190px;">
+                                   <a href="${ path }/trip/${site.contenttype=='관광지'?'spot/spotDetail':'stay/stayDetail'}?id=${site.contentid}" style="font-size: 16px;">${ site.title }</a>
+                               </td>
+                               <td class="common-text-left" style="border: 1px solid #E8E8E8; padding-left: 5px; width: 200px;" >${ site.address }</td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
+                    </tbody>
+                </table>
+            </div>
             <div class="common-page-number">
                 <ul>
                     <!-- 페이징 처리 -->
@@ -333,8 +332,7 @@ function showFavorites()
 function search() {
     var selectValue = document.getElementById('searchContentType').value;
     var searchValue = document.getElementById('searchKeyword').value;
-
-    let data              = {searchKeyword , searchContentType};
+    let data        = {searchKeyword , searchContentType};
 
     if(searchValue.trim() != '' || selectValue.trim() != '') {
         var url = "${path}/admin/favoritesite?select=" + selectValue + "&search=" + encodeURIComponent(searchValue);

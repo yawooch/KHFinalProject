@@ -26,14 +26,15 @@ public interface AdminMapper
 
     List<FavorSite> selectFavoriteTopThree();
 
-
     //TRIP 테이블 FAVOR_RCMD_YN 전부 N
     int updateFavoriteTripInit();
+    
     //STAY 테이블 FAVOR_RCMD_YN 전부 N
     int updateFavoriteStayInit();
 
     //TRIP 테이블 FAVOR_RCMD_YN = Y
     int updateFavoriteTrip(@Param("contentIds") List<String> contentIds);
+    
     //STAY 테이블 FAVOR_RCMD_YN = Y
     int updateFavoriteStay(@Param("contentIds")List<String> contentIds);
 

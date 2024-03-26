@@ -14,7 +14,7 @@ import com.kr.pawpawtrip.community.model.vo.Community;
 public interface AdminService
 {
     List<CommunityRank> getCommunityRanks();
-    
+
     List<Pet> getMyPetRatio();
 
     List<FavorSite> getFavorSite(PageInfo pageInfo, String select, String search);
@@ -29,9 +29,9 @@ public interface AdminService
 
     List<MemberAccsLog> getVisitorLog(MemberAccsLog memberAccsLog);
 
-	List<WeatherArea> getWeatherAreaList();
-	
+    List<WeatherArea> getWeatherAreaList();
+
     List<LogCount> getAccessMemberCount();
-    
+
     public int saveNotice(Community community);
 }

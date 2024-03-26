@@ -1,5 +1,8 @@
 package com.kr.pawpawtrip.common.util;
 
+/**
+ * CodeGennerater를 사용해 쿼리를 만들어준다.
+ */
 public class QueryGennerater
 {
     public static void main(String[] args)
@@ -33,8 +36,5 @@ public class QueryGennerater
             sb.append("'" + dg.gennerateName("animal")                           + "', ");             //MEMBER_PET_NAME
             sb.append("'" + petTypes[dg.randomIntZeroTo(9)]                         + "');").append("\n");//MEMBER_PET_TYPE
         }
-        
-        
-        System.out.println(sb.toString());
     }
 }

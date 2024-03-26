@@ -8,5 +8,4 @@ public interface MapService
 {
 
     List<PositionInfo> getPoisitions(String contentType, String keyword);
-
 }
