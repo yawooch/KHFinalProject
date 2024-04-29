@@ -37,10 +37,10 @@ Front : \
   <img width="12" />
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="40" alt="javascript logo"  />
   <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" height="40" alt="jquery logo"  />\
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg" height="40" alt="jquery logo"  />
+![jsp](https://img.shields.io/badge/jsp-41644A?style=for-the-badge&logo=jsp&labelColor=000000)\
 Back  :\
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="40" alt="java logo"  />
-![jsp](https://img.shields.io/badge/jsp-41644A?style=for-the-badge&logo=jsp&labelColor=000000)
 
 
 ### Tool & Library
