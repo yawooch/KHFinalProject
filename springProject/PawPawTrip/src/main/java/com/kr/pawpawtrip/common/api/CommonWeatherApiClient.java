@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CommonWeatherApiClient
 {
     private String baseURL    = "http://apis.data.go.kr/1360000/MidFcstInfoService/";
-    private String serviceKey = "ZvQj%2BdF7Qii%2FQOORAN4qLXkSnfUuR%2Bcf8Wg00ku7ZWwfnLmNlS%2F%2Bpi2YaWjmGJIXxLWSI5uHZp%2FIwqDDFO5VFA%3D%3D";
+    private String serviceKey = "";//api key 숨김
 
     @Qualifier("restTemplate")
     private final RestTemplate restTemplate;

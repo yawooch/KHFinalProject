@@ -24,7 +24,8 @@ public class CommonSmsController {
 
     public CommonSmsController() {
         // 반드시 계정 내 등록된 유효한 API 키, API Secret Key를 입력해주셔야 합니다!
-        this.messageService = NurigoApp.INSTANCE.initialize("NCSUTKR0D0IXAJYJ", "OGKHX84E3BV4VX5T11WQHSJNYWGBR09G", "https://api.coolsms.co.kr");
+    	//API Secret Key 보호를위해 키는 임의키로 표시
+        this.messageService = NurigoApp.INSTANCE.initialize("ABCDEFGHIJKLMNOP", "12345678901234567890123456789012", "https://api.coolsms.co.kr");
     }
     /**
      * 단일 메시지 발송 예제
@@ -35,7 +36,7 @@ public class CommonSmsController {
         Message message = new Message();
         
         // 발신번호 및 수신번호는 반드시 01012345678 형태로 입력되어야 합니다.
-        message.setFrom("01033954663");//From 발신번호는 SMS 신청시 대표번호를 입력한다.
+        message.setFrom("01012345678");//From 발신번호는 SMS 신청시 대표번호를 입력한다.
         message.setTo(memberPhone);
         message.setText("[포포트립] 아래의 인증번호를 입력해주세요.\n" + generatedCode);
 

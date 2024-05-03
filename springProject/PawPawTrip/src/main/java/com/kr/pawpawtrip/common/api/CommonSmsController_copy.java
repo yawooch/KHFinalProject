@@ -31,7 +31,8 @@ public class CommonSmsController_copy {
 
     public CommonSmsController_copy() {
         // 반드시 계정 내 등록된 유효한 API 키, API Secret Key를 입력해주셔야 합니다!
-        this.messageService = NurigoApp.INSTANCE.initialize("NCSUTKR0D0IXAJYJ", "OGKHX84E3BV4VX5T11WQHSJNYWGBR09G", "https://api.coolsms.co.kr");
+    	//API Secret Key 보호를위해 키는 임의키로 표시
+        this.messageService = NurigoApp.INSTANCE.initialize("ABCDEFGHIJKLMNOP", "12345678901234567890123456789012", "https://api.coolsms.co.kr");
     }
 
     /**

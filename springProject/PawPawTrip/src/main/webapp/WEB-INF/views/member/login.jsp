@@ -58,9 +58,9 @@
             <br>
             <!--간편 로그인-->
             <div class="hr-sect">간편 로그인</div>
-            <br> <a class="kakao_btn"
-                href="https://kauth.kakao.com/oauth/authorize?client_id=5e374f58b3157eda0c7846d4ebda25f1&redirect_uri= 
-    http://localhost:8080/pawpawtrip/kakaoLogin&response_type=code">
+<!--             <br> <a class="kakao_btn" -->
+<!--                 href="https://kauth.kakao.com/oauth/authorize?client_id=&redirect_uri=  -->
+<!--     http://localhost:8080/pawpawtrip/kakaoLogin&response_type=code"> -->
                 <img
                 src="https://madangs.com/re_public/images/social/kakao_symbol.svg"
                 alt="" width="20px"> <span>카카오 로그인</span>

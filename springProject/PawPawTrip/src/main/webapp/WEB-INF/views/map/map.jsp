@@ -10,8 +10,7 @@
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
 <link rel="stylesheet" href="${path}/css/map/map.css"></link>
-<script type="text/javascript"
-    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d3729bf88f29d9ac1dd719a6bcd5fd14&libraries=services,clusterer,drawing"></script>
+<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=&libraries=services,clusterer,drawing"></script>API KEY 숨기기 -->
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript" src="${path}/js/map/map.js"></script>
