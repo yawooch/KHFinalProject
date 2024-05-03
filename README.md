@@ -56,4 +56,4 @@ Back  :\
   <img src="https://skillicons.dev/icons?i=bootstrap" height="40" alt="bootstrap logo"  />
 
 ### 사용 외부 API
-카카오 로그인, 카카오맵, 공공데이터 API 
+카카오 로그인, 카카오맵, 공공데이터 API(반려동물동반여행정보, 중기날씨예보), SMS API(CoolSMS)
